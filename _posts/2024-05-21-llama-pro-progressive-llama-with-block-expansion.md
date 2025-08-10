@@ -1,11 +1,21 @@
 ---
-categories: paper-reviews
+categories:
+- paper-reviews
 date: '2024-05-21 00:00:00'
-description: ' 논문 리뷰 - LLAMA PRO: Progressive LLaMA with Block Expansion'
+description: 논문 리뷰 - LLM, Continual Learning 관련 연구
 giscus_comments: true
 layout: post
 related_posts: false
-tags: paper-review nlp
+tags:
+- alignment
+- attention
+- continual learning
+- language-model
+- llm
+- paper-review
+- reasoning
+- transformer
+thumbnail: assets/img/posts/2024-05-21-llama-pro-progressive-llama-with-block-expansion/thumbnail.jpg
 title: 'LLAMA PRO: Progressive LLaMA with Block Expansion'
 ---
 
@@ -13,6 +23,8 @@ title: 'LLAMA PRO: Progressive LLaMA with Block Expansion'
 - **Date**: 2024-05-21
 - **Reviewer**: hyowon Cho
 - **Property**: LLM, Continual Learning
+
+# SOLAR 10.7B: Scaling Large Language Models with Simple yet Effective Depth Up-Scaling
 
 ## Introduction
 
@@ -31,55 +43,31 @@ llama2 architecture에 Mistral 7b weight를 가져와서 사용.
 
 - notation
 
-	- n: base_model의 layer 수
-
-	- s: target layer count
-
 - process
 
-	당연히 단순한 Merging만으로 성능이 오르는 것이 아니라, continual pretraining을 수행함. 하지만 요점은, 아주 빠른 성능의 복구가 일어났다는 것.
+당연히 단순한 Merging만으로 성능이 오르는 것이 아니라, continual pretraining을 수행함. 하지만 요점은, 아주 빠른 성능의 복구가 일어났다는 것.
 
-논문 상에 얼마나 continual pretraining을 했는지는 나와있지 않음.
-
-<br/>
+논문 상에 얼마나 continual pretraining을 했는지는 나와있지 않음. 
 
 이렇게 초반부를 잘라서 merging하는 방식 외에도, 사실 단순히 레이어를 다시 얹어서 반복하는 방식으로 크기를 키울 수 있을 것이다. 하지만, 이러한 방식은 layer간의 discrepency가 강해지기에 성능 복구하는데 더 오랜 시간이 걸린다고 한다. 중간 단을 merging하는 방식으로 heterogeneity를 낮췄기 때문에 모델 입장에서 성능 복구가 가능하다는 주장!
 
 > iDUS
 
-	[https://github.com/gauss5930/iDUS](https://github.com/gauss5930/iDUS)
-
-		## Results
+## Results
 
 ### Experimental Details
 
 - 2 stage
 
-	1. instruction tuning: QA format
-
-	1. alignment tuning: sDPO
-
 - dataset
-
-	- 일부분만 sample하여 사용한 경우도 있음.
-
-	- alpaca-styled chat template
-
-	- 6 evaluation tasks
-
-		<br/>
 
 - model merging
 
-	- avergage
-
-	- slerp
-
 ### Experiments
 
-<br/>
-
 뒷 부분은 alignment/instruction/merging의 ablation이므로 생략함
+
+# LLAMA PRO: Progressive LLaMA with Block Expansion
 
 LLM은 여전히 programming, mathematics, biomedical, finance과 같은 특정 도메인에서 부족한 점이 있다. 이에 따라 선행 연구들은 tailored data recipe를 이용해서 LLM의 능력을 향상시키려 했지만, 이는 많은 자원과 데이터를 필요로 하므로, 현실적으로 모든 연구자들이 사용할 수 있는 해결 방안은 아니다. 이에 따라, another line of research로 domain-adaptive pretraining(DAPT)를 이용해 이러한 문제를 개선하려 하지만, catastrophic forgetting 문제가 발생한다.
 
@@ -111,8 +99,6 @@ model with blocks (ϕ0, ϕ1, ..., ϕL)이 있을 때, block expansion은 identit
 
 1. partition the original L blocks into N groups.
 
-	- 각 group은 L/N의 block을 가짐
-
 1. 각 group 당, top P blocks에 대해 identity copies를 만든다.
 
 1. stack them on top of each group.
@@ -129,33 +115,7 @@ model with blocks (ϕ0, ϕ1, ..., ϕL)이 있을 때, block expansion은 identit
 
 - pretrain detail
 
-	- dataset
-
-		- code: Stack-dedup dataset
-
-		- math: Proof-pile-2
-
-	- base model
-
-		- llama2-7b
-
-	- config
-
-		- P top block: 1
-
-		- N 그룹 수: 8
-
-	- gpu time
-
-		- (16 NVIDIA H800 GPUs for about 7 days)
-
 - SFT details.
-
-	- instruction fine-tuning dataset
-
-		- ShareGPT1, WizardLM, CodeAlpaca, MetaMath, SlimOrca
-
-	- fully fine-tuning of all the blocks
 
 ### Results
 
@@ -172,11 +132,3 @@ eight datasets covering reasoning, code generation, and decision-making.
 - LoRA vs SeqFT vs BE
 
 TRACE is designed to assess continual learning in LLMs and comprises eight distinct datasets that span challenging tasks such as domain-specific tasks, multilingual capabilities, code generation, and mathematical reasoning.
-
----
-
-<br/>
-
-<br/>
-
-[//]: # (child_page is not supported)
