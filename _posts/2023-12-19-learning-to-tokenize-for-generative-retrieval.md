@@ -7,6 +7,7 @@ giscus_comments: true
 layout: post
 related_posts: false
 tags:
+- bert
 - embedding
 - generative
 - paper-review
@@ -41,9 +42,29 @@ docid를 할당하는 것은 document가 semantic space에 어떻게 분포되�
 
 - **GENRET**: a document tokenization learning framework that learns to tokenize a document into semantic docids in a discrete auto-encoding scheme
 
+  - shared seq2seq-based document tokenization model
+
+  - generative retrieval model
+
+  - reconstruction model
+
 - auto-encoding을 이용하여 generative retrieval model을 optimize하는데 아래와 같은 issue 존재
 
+  - docids with an autoregressive nature
+
+    - 이 문제를 해결하기 위해 progressive training scheme 제안
+
+  - docids with diversity
+
+    - 이 문제를 해결하기 위해 parameter initialization strategy와 docid의 re-assignment 제안
+
 - **Contributions**
+
+  - 처음으로 tokenization learning method를 document retrieval에 적용한 GENRET 제안
+
+  - 학습의 안정화를 위해 progressive training scheme 적용
+
+  - SOTA 달성 및 unseen documents에서도 잘 함 (dense retrieval baseline은 가볍게 부숨)
 
 # Preliminaries
 
@@ -77,7 +98,15 @@ docid인 z는 아래 두가지 조건을 만족해야함.
 
 document tokenization은 주로 fixed pre-processing step으로 사용됨
 
+- e.g.) document의 title이나 BERT로 얻은 hierarchical clustering results
+
 → 이런 ad-hoc한 방법은 document의 semantic을 잘 잡아내지 못한다는 단점이 존재함.
+
+- web page의 title이 없는 경우 
+
+- web page title의 의미가 page contetn랑 관련이 적은 경우
+
+- clustering-based docids가 document를 discrete space에서 정의하는 경우
 
 **GENRET**: Semantic docid를 학습하는 discrete auto-encoding 기반의 tokenization leraning method
 
@@ -101,11 +130,17 @@ document tokenization은 주로 fixed pre-processing step으로 사용됨
 
 - enc-dec Transformer: input text d가 있을 때, T5-based tokenization model이 d와 a prefix of docid z_{<t}를 인코딩하여 hidden latent vector d_t 생성.
 
+  - D: hidden size of model
+
 {% include figure.liquid loading="eager" path="assets/img/posts/2023-12-19-learning-to-tokenize-for-generative-retrieval/image_003.png" class="img-fluid rounded z-depth-1" %}
 
 - tokenization model은 d_t를 기반으로 각 document에 대한 token을 생성
 
 - 각 timestep t 마다, codebook을 정의해줌
+
+  - E_t^{K*D}: E는 external embedding matrix (codebook)을 의미하고 K는 discrete latent space의 size를 의미함 
+
+  - e_{t,j} \isin R^D, j \isin [K]: K개의 embedding vectors
 
 - codebook embedding matrix E_t와 latent vector d_t를 dot-prodcut softmax 취하여 j \isin [K]에 대한 t 시점에서의 확률값 계산, 
 
@@ -115,7 +150,15 @@ document tokenization은 주로 fixed pre-processing step으로 사용됨
 
 - tokenization model Q가 생성한 docid는 semantic 정보를 담아야하기에, auto-encoding training scheme 사용
 
+  - R: z \to d는 Q: d \to z 로 하여금 original document로 reconstruct할 수 있는 z를 만들게 함
+
 - Input: docid z
+
+  - embed z into representation matrix z={(z_1,...z_M) \isin R^{M*D}} (tokenization model에서 사용한 codebook)
+
+→ 아래와 같이 표현 
+
+{% include figure.liquid loading="eager" path="assets/img/posts/2023-12-19-learning-to-tokenize-for-generative-retrieval/image_005.png" class="img-fluid rounded z-depth-1" %}
 
 - output: document d
 
@@ -123,21 +166,81 @@ document tokenization은 주로 fixed pre-processing step으로 사용됨
 
 - docid z와 target document d 간의 relevance score는 다음과 같이 정의함
 
+{% include figure.liquid loading="eager" path="assets/img/posts/2023-12-19-learning-to-tokenize-for-generative-retrieval/image_006.png" class="img-fluid rounded z-depth-1" %}
+
+  - S(z_{<t}): z_{<t}와 동일한 docid prefix를 갖는 sub-collection of D
+
+  - d^* \isin S(z_{<t}): sub-collection S(z_{<t})에 있는 document
+
+  - d_t,d_t^{t}: representation vectors
+
+{% include figure.liquid loading="eager" path="assets/img/posts/2023-12-19-learning-to-tokenize-for-generative-retrieval/image_007.png" class="img-fluid rounded z-depth-1" %}
+
+  -  sg(*): stop gradient operator (gradient back propagation 방지)
+
+→ R(d|z)는 S(z_{<t})에서 각 timestep t 마다 특정 document를 retrieve함. 이 score를 활용한 loss function은, model로 하여금 previous docid z_{<t}에서 잡지 못한 residual semnatics을 학습할 수 있게 해줌.
+
 ## Optimization
 
 Document tokenization model, generative retrieval model, reconstruction model을 한 번에 auto-encoding을 활용하여 학습시키기에는 다음과 같은 이유로 어렵다.
 
 1. **Learning docids in an autoregressive fashion**
 
+  1. t 시점의  z_t를 생성할 때는 previously predicted docids z_{<t}를 이용해야하는데, 학습 초반에는 under-optimizaed 되어 있어 학습이 어려움
+
+  1. z를 simultaneously optmize시키면 unique docid를 할당하는 것에 있어 어려울 수 있음
+
+→ GENRET 학습을 안정화 시키기 위해 *progressive training scheme* 제안
+
 1. **Generating docids with diversity**
+
+  1. auto-encdoing으로 학습하면 unbalanced docid assignment가 될 수 있음 → model distinguishability에 영향을 줌 (잘못되면 docids의 길이가 너무 길어지는 문제가 생김)
+
+→ docid diversity를 위해 2가지 *diverse clustering techniques* 제안
 
 ### Progressive training scheme
 
 - M번의 learning steps을 갖는 전체 learning scheme에서 docid z_T은 T \isin [M] 시점에 학습이 됨. 이후 시점에서는 이전 시점의 docid z_T와 parameters들은 fixed됨. 
 
-{% include figure.liquid loading="eager" path="assets/img/posts/2023-12-19-learning-to-tokenize-for-generative-retrieval/image_005.png" class="img-fluid rounded z-depth-1" %}
+{% include figure.liquid loading="eager" path="assets/img/posts/2023-12-19-learning-to-tokenize-for-generative-retrieval/image_008.png" class="img-fluid rounded z-depth-1" %}
 
 - 아래 3가지 loss function을 통해 학습이 이루어짐
+
+  - **Reconstruction Loss: **Reconstruction model R을 활용
+
+→ main goal: docid를 생성할때 semantic 정보를 최대한 많이 담기위해 auxiliary model로 사용
+
+{% include figure.liquid loading="eager" path="assets/img/posts/2023-12-19-learning-to-tokenize-for-generative-retrieval/image_009.png" class="img-fluid rounded z-depth-1" %}
+
+    - 위 수식에서 non-differentiable operation (argmax)가 존재하여 straight-through gradient estimation을 사용
+
+{% include figure.liquid loading="eager" path="assets/img/posts/2023-12-19-learning-to-tokenize-for-generative-retrieval/image_010.png" class="img-fluid rounded z-depth-1" %}
+
+  - **Commitment Loss: **Tokenization model Q 사용
+
+→ main goal: predicted docid가 embedding에 대응되고, previous docid를 까먹지 않기 위해 
+
+ (말은 이렇게 해도 걍 docid 생성하도록 학습하는 Cross Entropy Loss)
+
+{% include figure.liquid loading="eager" path="assets/img/posts/2023-12-19-learning-to-tokenize-for-generative-retrieval/image_011.png" class="img-fluid rounded z-depth-1" %}
+
+  - **Retrieval Loss: **Generative retrieval model P 사용 + Q를 함께 사용
+
+→ main goal: P가 query q가 들어올때 관련 documents d의 docids를 생성하는 것을 학습
+
+    - (q,d) pair 주어지고 아래와 같이 loss 정의
+
+    - q_T, d_T,d_T^*: query, document, in-batch document의 latent vector
+
+{% include figure.liquid loading="eager" path="assets/img/posts/2023-12-19-learning-to-tokenize-for-generative-retrieval/image_012.png" class="img-fluid rounded z-depth-1" %}
+
+    - first term: ranking-oriented loss
+
+    - second term: CE loss, generating docid z based on q
+
+→ step-T에서 final loss는 아래와 정리됨
+
+{% include figure.liquid loading="eager" path="assets/img/posts/2023-12-19-learning-to-tokenize-for-generative-retrieval/image_013.png" class="img-fluid rounded z-depth-1" %}
 
 ### Diverse clustering techniques
 
@@ -145,7 +248,35 @@ docids의 diversity를 보장하기 위해 아래 두가지 clustering technique
 
 1. **Codebook Initialization**
 
+→ main goal: increase the balance of semantic space segmentation
+
+(MEMTO와 거의 판박이로 비슷함ㅋㅋ)
+
+  1. warm-up: docid representation z_T을 사용하지 않고 d_T를 바로 reconstruction model에 사용
+
+    1. L(Rec) + L(Com)만 사용함
+
+  1. documents에 대한 continuous vectors d_T 수집후 → K groups으로 clustering (Constrained K-Means)
+
+  1. cluster의 각 centroid는 codebook E_T를 initialize하는데 사용
+
 1. **Docid re-assignment**
+
+→ main goal: increase the balacne of docid assignments
+
+아래 dot-product results를 modify하여 different doc에 대응하는 docid가 distinct하는 것을 보장
+
+  - D: continuous vectors of batch of documents
+
+{% include figure.liquid loading="eager" path="assets/img/posts/2023-12-19-learning-to-tokenize-for-generative-retrieval/image_014.png" class="img-fluid rounded z-depth-1" %}
+
+  - re-normalization vectors (u and v) 사용
+
+    - Sinkhorn-Knopp algorithm을 통해 u and v vecotrs가 계산됨
+
+{% include figure.liquid loading="eager" path="assets/img/posts/2023-12-19-learning-to-tokenize-for-generative-retrieval/image_015.png" class="img-fluid rounded z-depth-1" %}
+
+  - calculated H*는 Softmax에 들어가 확률 생성
 
 # Experimental Setup
 
@@ -161,19 +292,31 @@ docids의 diversity를 보장하기 위해 아래 두가지 clustering technique
 
 ### NQ320K results
 
-{% include figure.liquid loading="eager" path="assets/img/posts/2023-12-19-learning-to-tokenize-for-generative-retrieval/image_006.png" class="img-fluid rounded z-depth-1" %}
+{% include figure.liquid loading="eager" path="assets/img/posts/2023-12-19-learning-to-tokenize-for-generative-retrieval/image_016.png" class="img-fluid rounded z-depth-1" %}
 
 - strong pretrained retrieval GTR + previous SOTA in generative retrieval보다 우수한 성능 보임
 
 - Seen + Unseen dataset에서 우수한 성능 보임 
 
+→ 실험 결과는 GENRET이 dense + generative retrieval의 장점을 결합한 방법임을 강조함
+
 ### MS MARCO + BEIR results
 
-{% include figure.liquid loading="eager" path="assets/img/posts/2023-12-19-learning-to-tokenize-for-generative-retrieval/image_007.png" class="img-fluid rounded z-depth-1" %}
+{% include figure.liquid loading="eager" path="assets/img/posts/2023-12-19-learning-to-tokenize-for-generative-retrieval/image_017.png" class="img-fluid rounded z-depth-1" %}
 
 - **MS MARCO**
 
+  - URL이나 title같은 meta data를 사용하는 generative retrieval model인 GENRE, Ultron은 MS MARCO에서 NQ320K 대비 성능이 크게 하락함.
+
+    - NQ320K는 wikipedia를 retrieve해서 meta data가 content와 밀접하지만, MS MARCO는 web search dataset이기 때문
+
+  - 그치만 semantic docids를 생성하도록 학습한 GENRE는 roboust한 성능을 보여줌
+
 - **BEIR**
+
+  - 특히 BM25가 잘하는 dataset인데, 보다 높은 성능을 보여줌
+
+  - title을 docid로 사용하는 generative retrieval model인 GENRE는 BEIR-Covid, BEIR-SciDocs에서 성능이 낮은데, 이는 documents의 titles이 content의 semantic을 담지 못함.
 
 ### Qualitative analysis
 
@@ -181,9 +324,13 @@ NQ320K dataset에서 GENRET이 생성한 docid에 대한 시각화
 
 - left: similar docids는 비슷한 content로 구성
 
+  - 338-173 branch는 email과 관련된 내용
+
 - right: same group에 들어가는 docid는 semantically하게 비슷함
 
-{% include figure.liquid loading="eager" path="assets/img/posts/2023-12-19-learning-to-tokenize-for-generative-retrieval/image_008.png" class="img-fluid rounded z-depth-1" %}
+  - 338에서 173이 추가되면, 더욱 email과 관련된 내용 포함
+
+{% include figure.liquid loading="eager" path="assets/img/posts/2023-12-19-learning-to-tokenize-for-generative-retrieval/image_018.png" class="img-fluid rounded z-depth-1" %}
 
 # Conclusion
 
@@ -195,8 +342,16 @@ Dense retrieval method 보다 안정적으로 높은 성능을 보이며, 특히
 
 이 아니고 appendix에 꼭 숨겨놨었네요
 
-{% include figure.liquid loading="eager" path="assets/img/posts/2023-12-19-learning-to-tokenize-for-generative-retrieval/image_009.png" class="img-fluid rounded z-depth-1" %}
+{% include figure.liquid loading="eager" path="assets/img/posts/2023-12-19-learning-to-tokenize-for-generative-retrieval/image_019.png" class="img-fluid rounded z-depth-1" %}
 
 학습 속도는 느리긴 하지만, infer 속도는 가장 빠르다는 결론!
 
-{% include figure.liquid loading="eager" path="assets/img/posts/2023-12-19-learning-to-tokenize-for-generative-retrieval/image_010.jpg" class="img-fluid rounded z-depth-1" %}
+{% include figure.liquid loading="eager" path="assets/img/posts/2023-12-19-learning-to-tokenize-for-generative-retrieval/image_020.jpg" class="img-fluid rounded z-depth-1" %}
+
+{% include figure.liquid loading="eager" path="assets/img/posts/2023-12-19-learning-to-tokenize-for-generative-retrieval/image_021.jpg" class="img-fluid rounded z-depth-1" %}
+
+{% include figure.liquid loading="eager" path="assets/img/posts/2023-12-19-learning-to-tokenize-for-generative-retrieval/image_022.jpg" class="img-fluid rounded z-depth-1" %}
+
+{% include figure.liquid loading="eager" path="assets/img/posts/2023-12-19-learning-to-tokenize-for-generative-retrieval/image_023.jpg" class="img-fluid rounded z-depth-1" %}
+
++MEMTO!

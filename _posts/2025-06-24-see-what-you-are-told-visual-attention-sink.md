@@ -35,6 +35,10 @@ title: 'See What You Are Told: Visual Attention Sink in Large Multimodal Models'
 
 -  해당 연구의 발견
 
+  -  이러한 attention 맵의 오류는 몇몇 tokens 들이 massive activation of specific dimensions in the hidden states에서 일어남을 찾음. 이것은 LLM에서 특정 limited semantic meaning(e.g. “BOS”, “.”, “\n”)에 large attention이 부여되는 “attention sink”의 개념과 유사해보임.
+
+  - 추가로 실험을 해보니 이러한 visual sink token 들은 없애도 모델 답변의 quality에 영향을 주지 않음.
+
 - 최근에 vlm에서 attention이 text에 비해 이미지에 부족하게 할당된다는 사전 연구도 있었음. 그래서 우리는 attention budget의 개념으로 visual sink token들에 가는 attention을 아껴서 다른 visual token들에 redistribute를 하고자 함(Visual Attention Redistribuion (VAR))
 
 ## Related Work
@@ -42,17 +46,25 @@ title: 'See What You Are Told: Visual Attention Sink in Large Multimodal Models'
 - Visual attention in large multimodal models.
 
 
+{% include figure.liquid loading="eager" path="assets/img/posts/2025-06-24-see-what-you-are-told-visual-attention-sink/image_001.png" class="img-fluid rounded z-depth-1" %}
+
+  - LMM이 특정 몇개의 토큰에 과도하게 attention을 부여한다는 연구가 있었고, 이를 활용해 contrastive decoding으로 해결하려는 시도가 있었음(빈 이미지와 질문을 넣었을 때 모델의 답변 logit을 빼서 bias를 없애는 방식, 위 이미지 참고 (https://arxiv.org/pdf/2405.17820)). 혹은 강제적으로 text에 가던 attention을 visual에 가게끔 만드는 시도.
+
 -  Attention sink in language models
+
+  -  기존 LLM에서도 attention sink는 2024 년도 부터 제기되던 문제. 특히 BOS 같은 토큰은 AR 특성상 뒤에 모든 token들의 attention이 쏠리게 되어 의미는 적지만 attention이 높음 (c.f. StreamingLLM이란 연구에서는 attention sink가 걸린 토큰의 KV를 고정시켜 efficiency를 갖기도 함)
+
+  - 이러한 attention sink가 특히 특정 dimenstion의 hidden state에서 발생! 여기의 attention을 다른곳에 재분배해 정교한 답변을 얻으려는 llm연구도 있었음. This work는 이 개념을 VLM에 적용한 느낌
 
 ## Preliminaries
 
 트랜스포머 공식
 
-{% include figure.liquid loading="eager" path="assets/img/posts/2025-06-24-see-what-you-are-told-visual-attention-sink/image_001.png" class="img-fluid rounded z-depth-1" %}
-
 {% include figure.liquid loading="eager" path="assets/img/posts/2025-06-24-see-what-you-are-told-visual-attention-sink/image_002.png" class="img-fluid rounded z-depth-1" %}
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2025-06-24-see-what-you-are-told-visual-attention-sink/image_003.png" class="img-fluid rounded z-depth-1" %}
+
+{% include figure.liquid loading="eager" path="assets/img/posts/2025-06-24-see-what-you-are-told-visual-attention-sink/image_004.png" class="img-fluid rounded z-depth-1" %}
 
 ## Visual Attention Sink
 
@@ -60,7 +72,7 @@ Figure1보면 attention이 우리의 직관대로 잘 따라가긴 하지만 **�
 
 ### How to distinguish irrelevant visual tokens?
 
-{% include figure.liquid loading="eager" path="assets/img/posts/2025-06-24-see-what-you-are-told-visual-attention-sink/image_004.png" class="img-fluid rounded z-depth-1" %}
+{% include figure.liquid loading="eager" path="assets/img/posts/2025-06-24-see-what-you-are-told-visual-attention-sink/image_005.png" class="img-fluid rounded z-depth-1" %}
 
 irrelevant visual token에서 두 가지 특성이 나타남. (1) figure 1에서 보듯 이미지에 same irrelevant visual token에 고정적으로 등장. (2) BOS 토큰이랑 유사하게 같은 dimension에서 등장 (Fig 2)
 
@@ -70,15 +82,18 @@ irrelevant visual token에서 두 가지 특성이 나타남. (1) figure 1에서
 
 - 특정 토큰이 갖는 sink dimension value **Φ(x)**를 아래와 같이 정의
 
-{% include figure.liquid loading="eager" path="assets/img/posts/2025-06-24-see-what-you-are-told-visual-attention-sink/image_005.png" class="img-fluid rounded z-depth-1" %}
+{% include figure.liquid loading="eager" path="assets/img/posts/2025-06-24-see-what-you-are-told-visual-attention-sink/image_006.png" class="img-fluid rounded z-depth-1" %}
 
 쉽게 말해서 1415, 2333 등과 같은 sink dimension에서 토큰이 갖게 되는 튀는 값을 나타냄. (Fig 2 참고)
 
 - visual sink token을 구분하기 위해 20보다 **Φ(x)**가 큰 토큰들은 다 visual sink token으로 분류. 이를 통해 irrelevant visual token(sink dimension에서 attention 값이 튀는 애들)과 relevant visual token(튀지 않는 애들)을 구분함.**  **
 
-{% include figure.liquid loading="eager" path="assets/img/posts/2025-06-24-see-what-you-are-told-visual-attention-sink/image_006.png" class="img-fluid rounded z-depth-1" %}
+{% include figure.liquid loading="eager" path="assets/img/posts/2025-06-24-see-what-you-are-told-visual-attention-sink/image_007.png" class="img-fluid rounded z-depth-1" %}
 
 - Fig3 (a)를 통해 본인들이 정의한 high sink dimension value 들이 높은 attention 값을 가지는 애들이였으며, (b) 실제로 visual sink 들을 mask하고 하니 안할때보다 성능이 높았음. (c) attention contribution도 측정했을 때 (실제로 text 답변 만드는 logit에 기여하는 정도) 는 작았음. (d) 를 봐도 w/o sinks 가 noise를 잡아내며 대부분의 sink 들은 background에 존재
+
+
+---
 
 ## Surplus attentions in visual attention sink : can we recycle them?
 
@@ -86,13 +101,33 @@ irrelevant visual token에서 두 가지 특성이 나타남. (1) figure 1에서
 
 - Image centric-head
 
-{% include figure.liquid loading="eager" path="assets/img/posts/2025-06-24-see-what-you-are-told-visual-attention-sink/image_007.png" class="img-fluid rounded z-depth-1" %}
+  - 먼저 visual token에 대한 attention weight의 sum 이 0.2 보다 작은 head는 다 버림
+
+  - visual non-sink ratio 정의 (전체 이미지에 대한 attention 분의 non visual sink token 에 대한 attention). 즉, 이미지를 해석하는데 실제로 필요한 애들의 비율
+
+{% include figure.liquid loading="eager" path="assets/img/posts/2025-06-24-see-what-you-are-told-visual-attention-sink/image_008.png" class="img-fluid rounded z-depth-1" %}
+
+{% include figure.liquid loading="eager" path="assets/img/posts/2025-06-24-see-what-you-are-told-visual-attention-sink/image_009.png" class="img-fluid rounded z-depth-1" %}
 
 - Redistributing attention weights
 
+  - sink 토큰들에 대해 decrease 시키고
+
+{% include figure.liquid loading="eager" path="assets/img/posts/2025-06-24-see-what-you-are-told-visual-attention-sink/image_010.png" class="img-fluid rounded z-depth-1" %}
+
+  - 이것들을 모아서 attention budget에 넣어줌 (오메가)
+
+{% include figure.liquid loading="eager" path="assets/img/posts/2025-06-24-see-what-you-are-told-visual-attention-sink/image_011.png" class="img-fluid rounded z-depth-1" %}
+
+  - 그리고 아래 식을 통해 attention sink에 attention 을 빼앗겼던 부분에 더 높은 가중치를 주어 redistribution
+
+{% include figure.liquid loading="eager" path="assets/img/posts/2025-06-24-see-what-you-are-told-visual-attention-sink/image_012.png" class="img-fluid rounded z-depth-1" %}
+
+{% include figure.liquid loading="eager" path="assets/img/posts/2025-06-24-see-what-you-are-told-visual-attention-sink/image_013.png" class="img-fluid rounded z-depth-1" %}
+
 ### Experiments
 
-{% include figure.liquid loading="eager" path="assets/img/posts/2025-06-24-see-what-you-are-told-visual-attention-sink/image_008.png" class="img-fluid rounded z-depth-1" %}
+{% include figure.liquid loading="eager" path="assets/img/posts/2025-06-24-see-what-you-are-told-visual-attention-sink/image_014.png" class="img-fluid rounded z-depth-1" %}
 
 (1) VL-task
 
@@ -102,7 +137,7 @@ irrelevant visual token에서 두 가지 특성이 나타남. (1) figure 1에서
 
 ### Ablation studies
 
-{% include figure.liquid loading="eager" path="assets/img/posts/2025-06-24-see-what-you-are-told-visual-attention-sink/image_009.png" class="img-fluid rounded z-depth-1" %}
+{% include figure.liquid loading="eager" path="assets/img/posts/2025-06-24-see-what-you-are-told-visual-attention-sink/image_015.png" class="img-fluid rounded z-depth-1" %}
 
 - (Table 4) visual non sink ratio 를 정의해서 로 보다 큰 애들의 head 만 살렸었는데 이 과정이 필수적이였음. 
 
@@ -110,9 +145,9 @@ irrelevant visual token에서 두 가지 특성이 나타남. (1) figure 1에서
 
 ### Appendix
 
-{% include figure.liquid loading="eager" path="assets/img/posts/2025-06-24-see-what-you-are-told-visual-attention-sink/image_010.png" class="img-fluid rounded z-depth-1" %}
+{% include figure.liquid loading="eager" path="assets/img/posts/2025-06-24-see-what-you-are-told-visual-attention-sink/image_016.png" class="img-fluid rounded z-depth-1" %}
 
-{% include figure.liquid loading="eager" path="assets/img/posts/2025-06-24-see-what-you-are-told-visual-attention-sink/image_011.png" class="img-fluid rounded z-depth-1" %}
+{% include figure.liquid loading="eager" path="assets/img/posts/2025-06-24-see-what-you-are-told-visual-attention-sink/image_017.png" class="img-fluid rounded z-depth-1" %}
 
 ### Discussion
 

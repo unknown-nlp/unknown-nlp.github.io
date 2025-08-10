@@ -54,6 +54,25 @@ class NotionDatabaseProcessor:
         self.token = token
         self.downloaded_images = {}  # URL -> 로컬 파일명 매핑
     
+    def get_all_block_children(self, block_id):
+        """
+        특정 블록의 모든 자식 블록을 페이지네이션을 통해 가져옵니다.
+        """
+        results = []
+        start_cursor = None
+        while True:
+            response = self.notion.blocks.children.list(
+                block_id=block_id,
+                start_cursor=start_cursor,
+                page_size=100
+            )
+            results.extend(response.get("results", []))
+            if not response.get("has_more"):
+                break
+            start_cursor = response.get("next_cursor")
+            time.sleep(0.1)  # API 제한 방지
+        return results
+    
     def extract_database_id_from_url(self, url):
         """
         노션 URL에서 데이터베이스 ID 추출
@@ -205,25 +224,30 @@ class NotionDatabaseProcessor:
             str: 마크다운 내용
         """
         try:
-            blocks = self.notion.blocks.children.list(block_id=page_id)
-            return self.blocks_to_markdown(blocks["results"], slug)
+            # 페이지별 이미지 인덱스 초기화 (재귀 전체에 걸쳐 일관 유지)
+            self._image_index = 0
+            blocks = self.get_all_block_children(page_id)
+            return self.blocks_to_markdown(blocks, slug)
         except Exception as e:
             print(f"   ❌ 페이지 내용 가져오기 실패: {e}")
             return ""
     
-    def blocks_to_markdown(self, blocks, slug=None):
+    def blocks_to_markdown(self, blocks, slug=None, depth=0):
         """
         노션 블록을 마크다운으로 변환 (기본적인 변환)
         
         Args:
             blocks (list): 노션 블록 리스트
             slug (str): 포스트 슬러그 (이미지 다운로드용)
+            depth (int): 중첩 깊이 (리스트 등의 자식 처리)
             
         Returns:
             str: 마크다운 텍스트
         """
         markdown_content = []
-        image_counter = 0
+        if not hasattr(self, '_image_index'):
+            self._image_index = 0
+        indent = "  " * depth
         
         for block in blocks:
             block_type = block["type"]
@@ -231,7 +255,7 @@ class NotionDatabaseProcessor:
             if block_type == "paragraph":
                 text = self.extract_text_from_rich_text(block["paragraph"]["rich_text"])
                 if text.strip():
-                    markdown_content.append(text + "\n")
+                    markdown_content.append(f"{text}\n")
             
             elif block_type == "heading_1":
                 text = self.extract_text_from_rich_text(block["heading_1"]["rich_text"])
@@ -247,11 +271,11 @@ class NotionDatabaseProcessor:
             
             elif block_type == "bulleted_list_item":
                 text = self.extract_text_from_rich_text(block["bulleted_list_item"]["rich_text"])
-                markdown_content.append(f"- {text}\n")
+                markdown_content.append(f"{indent}- {text}\n")
             
             elif block_type == "numbered_list_item":
                 text = self.extract_text_from_rich_text(block["numbered_list_item"]["rich_text"])
-                markdown_content.append(f"1. {text}\n")
+                markdown_content.append(f"{indent}1. {text}\n")
             
             elif block_type == "code":
                 text = self.extract_text_from_rich_text(block["code"]["rich_text"])
@@ -263,10 +287,15 @@ class NotionDatabaseProcessor:
                 markdown_content.append(f"> {text}\n")
             
             elif block_type == "image":
-                image_url = block["image"].get("file", {}).get("url", "")
+                image_data = block["image"]
+                image_url = ""
+                if image_data.get("file"):
+                    image_url = image_data["file"].get("url", "")
+                elif image_data.get("external"):
+                    image_url = image_data["external"].get("url", "")
                 if image_url and slug:
                     # 이미지 다운로드 및 경로 변환
-                    filename = self.download_image(image_url, slug, image_counter)
+                    filename = self.download_image(image_url, slug, self._image_index)
                     if filename:
                         if filename.startswith("external:"):
                             # 외부 URL인 경우 원본 URL 사용
@@ -277,7 +306,7 @@ class NotionDatabaseProcessor:
                             # 로컬 파일인 경우 al-folio 형식으로 변환
                             al_folio_tag = f'{{% include figure.liquid loading="eager" path="assets/img/posts/{slug}/{filename}" class="img-fluid rounded z-depth-1" %}}'
                             markdown_content.append(f"{al_folio_tag}\n")
-                        image_counter += 1
+                        self._image_index += 1
                     else:
                         # 다운로드 실패시 원본 URL 유지
                         print(f"   ⚠️  이미지 다운로드 실패, 원본 URL 사용")
@@ -286,7 +315,36 @@ class NotionDatabaseProcessor:
                     # slug가 없는 경우 원본 URL 사용
                     markdown_content.append(f"![Image]({image_url})\n")
             
+            elif block_type == "to_do":
+                text = self.extract_text_from_rich_text(block["to_do"].get("rich_text", []))
+                checked = block["to_do"].get("checked", False)
+                checkbox = "[x]" if checked else "[ ]"
+                markdown_content.append(f"{indent}- {checkbox} {text}\n")
+            
+            elif block_type == "toggle":
+                text = self.extract_text_from_rich_text(block["toggle"].get("rich_text", []))
+                markdown_content.append(f"{indent}- **{text}**\n")
+            
+            elif block_type == "callout":
+                text = self.extract_text_from_rich_text(block["callout"].get("rich_text", []))
+                markdown_content.append(f"> {text}\n")
+            
+            elif block_type == "divider":
+                markdown_content.append("\n---\n")
+            
             # 다른 블록 타입들은 필요에 따라 추가
+
+            # 자식 블록 재귀 처리 (예: 리스트 항목 내부의 문단 등)
+            if block.get("has_children"):
+                try:
+                    children = self.get_all_block_children(block["id"])
+                    # 리스트 항목 내부는 한 단계 더 들여쓰기
+                    next_depth = depth + 1 if block_type in ["bulleted_list_item", "numbered_list_item", "toggle"] else depth
+                    child_md = self.blocks_to_markdown(children, slug, depth=next_depth)
+                    if child_md.strip():
+                        markdown_content.append(child_md)
+                except Exception as e:
+                    print(f"   ⚠️  자식 블록 처리 실패: {e}")
         
         return "\n".join(markdown_content)
     

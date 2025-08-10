@@ -14,6 +14,7 @@ tags:
 - language-model
 - llm
 - paper-review
+- transformer
 thumbnail: assets/img/posts/2025-08-05-impact-of-fine-tuning-methods-on-memorization-in/thumbnail.jpg
 title: Impact of Fine-Tuning Methods on Memorization in Large Language Models
 ---
@@ -46,23 +47,97 @@ title: Impact of Fine-Tuning Methods on Memorization in Large Language Models
 
 - Parameter-based fine-tuning 
 
+  - Model Head Tuning (FT head): fine-tunes only the final output layer
+
+  - Low-Rank Adaptation (LoRA) (Hu et al., 2021)
+
 - Prompt-based fine-tuning:  task-specific prompts only
+
+  - **Prefix Tuning**
+
+    - 각 attention layer의 key/value에 학습 가능한 prefix 벡터 추가.
+
+  - **Prompt Tuning**
+
+    - 모델 입력 임베딩 앞에 학습 가능한 연속형 프롬프트 임베딩 추가.
+
+  - **P-tuning**
+
+    - 별도의 신경망으로 학습한 연속형 프롬프트를 입력에 삽입.
 
 # Memorization and MIAs
 
 - 사용된 MIA 기법과 점수 계산 방식:
 
+  1. **LOSS** (Yeom et al., 2018)
+
+    - Membership Score = 모델의 손실
+
+\text{Score} = L(x, M_t)
+
+(손실이 낮을수록 멤버일 가능성 ↑)
+
+  1. **Reference-based (Ref)** (Mireshghallah et al., 2022a)
+
+    - 기준 모델 MrM_rMr와 비교하여 손실 차이 계산
+
+\text{Score} = L(x, M_t) - L(x, M_r)
+
+  1. **Zlib Entropy (Zlib)** (Carlini et al., 2021)
+
+    - 손실을 zlib 엔트로피로 나눈 비율
+
+\text{Score} = \frac{L(x, M_t)}{\text{zlib}(x)}
+
+  1. **Min-K%** (Shi et al., 2024)
+
+    - 토큰 확률이 낮은 하위 k% 토큰들의 평균 로그 likelihood
+
+\text{Score} = \frac{1}{E} \sum_{x_i \in \text{Min-}K\%(x)} \log p(x_i | x_{<i})
+
 #  Experimental Setup
 
 - 데이터
 
+  - Wikitext-2-raw-1 
+
+  - WebNLG
+
+    - triple로 이루어짐  (Subject-Predicate-Object)
+
+  - Xsum: 요약
+
+    - finetuning에 5000개만 사용
+
 - 평가
+
+  - training and test sets에서 샘플링
+
+{% include figure.liquid loading="eager" path="assets/img/posts/2025-08-05-impact-of-fine-tuning-methods-on-memorization-in/image_000.png" class="img-fluid rounded z-depth-1" %}
 
 - 모델
 
+  - LLaMA 2-7B (Touvron et al., 2023)
+
+  - GPT2-series (Radford et al., 2019)
+
+  - LLaMA 3-1B 
+
+→ 2025의 논문이라고 믿기지 않는군여!
+
 - Evaluation Metrics
 
+  - PERF: validation PPL as the primary metric
+
+  - MIA: AUC-ROC
+
 - Implementation Details
+
+  - 15 epoch
+
+  - 모든 세팅은 논문에 나온거 그대로 따라함
+
+  - 4090이랑 H100 한대 사용
 
 # Results and Observations
 
@@ -72,7 +147,9 @@ title: Impact of Fine-Tuning Methods on Memorization in Large Language Models
 
 > Observation ♯1: (당연)
 
-{% include figure.liquid loading="eager" path="assets/img/posts/2025-08-05-impact-of-fine-tuning-methods-on-memorization-in/image_000.png" class="img-fluid rounded z-depth-1" %}
+Parameter-based fine-tuning demonstrates a higher tendency to explicitly memorize training data.
+
+{% include figure.liquid loading="eager" path="assets/img/posts/2025-08-05-impact-of-fine-tuning-methods-on-memorization-in/image_001.png" class="img-fluid rounded z-depth-1" %}
 
 모든 방법론은 validation PPL기준으로 성능 좋았음.
 
@@ -80,7 +157,10 @@ title: Impact of Fine-Tuning Methods on Memorization in Large Language Models
 
 > Observation ♯2: 
 
-{% include figure.liquid loading="eager" path="assets/img/posts/2025-08-05-impact-of-fine-tuning-methods-on-memorization-in/image_001.png" class="img-fluid rounded z-depth-1" %}
+Parameter-based fine-tuning exhibits increasing memorization over training epochs, while prompt-based fine-tuning maintains consistently low memorization throughout
+training.
+
+{% include figure.liquid loading="eager" path="assets/img/posts/2025-08-05-impact-of-fine-tuning-methods-on-memorization-in/image_002.png" class="img-fluid rounded z-depth-1" %}
 
 ## Why Prompt-Based Fine-Tuning Exhibits Low Memorization
 
@@ -89,7 +169,15 @@ the soft prompt or prefix, rather than altering the attention mechanism itself.
 
 - **Prefix Tuning 수식 (Petrov et al., 2024)**
 
+  t^{pt}_i = A^{pt}_{i0} W_V S_1 + (1 - A^{pt}_{i0})\; t_i
+
+  - soft-prefix가 어텐션 가중치 A^{pt}를 ‘어디를 볼지’만 재조정, **본래 토큰 간 상대 분포는 그대로**.
+
+  - 즉 **새로운 attention 패턴을 학습**하기보다는 **기존 능력을 재활용**.
+
 - 결과적으로 **표현 공간의 이동(shift) < 적음** → 학습, 비학습 샘플 분포 차이가 작아 MIA가 어렵다.
+
+  - Petrov et al. (2024) prove that the presence of a prefix does not alter the relative distribution of the input but only shifts the attention to different content.
 
 이 가설을 확인하기 위해:
 
@@ -101,13 +189,13 @@ distributions of non-membership and membership examples on the LLaMA2-7B를 세 
 
 1. fine-tuned with prefix tuning
 
-{% include figure.liquid loading="eager" path="assets/img/posts/2025-08-05-impact-of-fine-tuning-methods-on-memorization-in/image_002.png" class="img-fluid rounded z-depth-1" %}
+{% include figure.liquid loading="eager" path="assets/img/posts/2025-08-05-impact-of-fine-tuning-methods-on-memorization-in/image_003.png" class="img-fluid rounded z-depth-1" %}
 
 LoRA는 membership and non-membership samples 사이 분포 차이가 큰데, prefix tuning은 미미하다는 것을 알 수 있음
 
 ## Performance in Different Tuning Paradigms
 
-{% include figure.liquid loading="eager" path="assets/img/posts/2025-08-05-impact-of-fine-tuning-methods-on-memorization-in/image_003.png" class="img-fluid rounded z-depth-1" %}
+{% include figure.liquid loading="eager" path="assets/img/posts/2025-08-05-impact-of-fine-tuning-methods-on-memorization-in/image_004.png" class="img-fluid rounded z-depth-1" %}
 
 두 방법론이 최종적으로는 비슷한 PPL을 가졌음에도 불구하고, Learning trajactories는 꽤나 달랐음
 
@@ -136,6 +224,8 @@ prompt-based fine-tuning:
 
 > Observation ♯3
 
+Model size significantly enhances memorization in parameter-based fine-tuning methods, while prompt-based methods show minimal sensitivity and maintain consistently low memorization.
+
 four variants of the GPT-2 architecture:
 
 - GPT-2 (124M),
@@ -148,7 +238,7 @@ four variants of the GPT-2 architecture:
 
 LLaMA2-7B vs LLaMA3-1B
 
-{% include figure.liquid loading="eager" path="assets/img/posts/2025-08-05-impact-of-fine-tuning-methods-on-memorization-in/image_004.png" class="img-fluid rounded z-depth-1" %}
+{% include figure.liquid loading="eager" path="assets/img/posts/2025-08-05-impact-of-fine-tuning-methods-on-memorization-in/image_005.png" class="img-fluid rounded z-depth-1" %}
 
 요약: 파라미터 바꾸는 애들은 모델 크기 커질수록 더 잘 외웠는데 반대는 미미하더라 (low sensitivity of prompt tuning to model scale)
 
@@ -161,8 +251,44 @@ Prompt-based tuning leads to stronger memorization in structured tasks than in o
 
 다운스트림 태스크의 종류에 따라서도 다를 수 있음. 이를 위 LLaMA2-7B를 다양한 방법을 통해 학습시키고 LOSS attack against에 대해서 각각을 평가해봄
 
-{% include figure.liquid loading="eager" path="assets/img/posts/2025-08-05-impact-of-fine-tuning-methods-on-memorization-in/image_005.png" class="img-fluid rounded z-depth-1" %}
+{% include figure.liquid loading="eager" path="assets/img/posts/2025-08-05-impact-of-fine-tuning-methods-on-memorization-in/image_006.png" class="img-fluid rounded z-depth-1" %}
 
 Prompt-based 만 봤을 때, WebNLG가 다른 것들에 비해서 성능이 높다
 
 아마도 구조화된 pattern학습에는 유리한 것 같다
+
+## Impact of LoRA Placement on Memorization
+
+{% include figure.liquid loading="eager" path="assets/img/posts/2025-08-05-impact-of-fine-tuning-methods-on-memorization-in/image_007.png" class="img-fluid rounded z-depth-1" %}
+
+AUC↑ ⇒ 기억(privacy risk)↑
+
+1. **Projection > Attention**
+
+  -  LoRA를 **projection layer**에만 적용할 때, 두 데이터셋 모두 네 가지 MIA 지표에서 **AUC가 일관되게 상승** → 기억이 더 강해짐.
+
+1. **Both layers = 기억 제일 강함**
+
+  - Attention + Projection 동시 적용 시 **가장 높은 AUC** → 최대 수준의 memorization.
+
+1. **메커니즘 해석**
+
+  - Projection layer는 **특징 변환, 정보 압축**을 담당 → 학습 데이터의 구체적 패턴을 더 잘 ‘붙잡아 두는’ 위치.
+
+  - 결과는 Meng et al. (ROME)의 Transformer 기억은 주로 projection 층에 집중한다는 가설을 재확인.
+
+Practical한 관점에서…
+
+- 프라이버시에 민감한 애플리케이션에서는 LoRA를 attention 층에만 삽입하거나 rank를 낮추어 위험을 완화.
+
+- 성능과의 트레이드오프가 필요할 때, 삽입 위치(attn vs proj)와 범위(단일 vs 복합 층)를 주요 조절 변수로 활용하면 효과적일 수 있겠다!
+
+# Limitation
+
+너무 많죠..하지만 저자가 이야기한 것만 말해보겠습니다. 
+
+1. larger model
+
+1. MoE 같은 다른 구조
+
+1. 데이터 적음

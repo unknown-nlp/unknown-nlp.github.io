@@ -29,6 +29,8 @@ title: Break the Sequential Dependency of LLM Inference Using Lookahead Decoding
 
 오늘 발표에서는 Vicuna와 Arena를 발표한 LMSYS의 블로그에서, 현재 자신들이 사용하는 decoding이라며 소개한 Lookahead Decoding을 다룬다. 다음의 GIF에서 확인할 수 있듯, 아주 빠른 속도로 문장을 생성해낼 수 있다.
 
+{% include figure.liquid loading="eager" path="assets/img/posts/2023-12-19-break-the-sequential-dependency-of-llm-inference-using/image_000.gif" class="img-fluid rounded z-depth-1" %}
+
 Lookahead Decoding은 `huggingface/transformers`와 호환가능하며, `generate` 함수를 조금 수정하는 정도로 구현 가능하다. Code Repository는 다음과 같다.
 
 Lookahead Decoding을 다루기 전에, 2023년 여러 가지 decoding technique들이 등장하면서 lookahead decoding에 기여했는데, 이들을 먼저 소개한다.
@@ -49,7 +51,11 @@ Lookahead Decoding을 다루기 전에, 2023년 여러 가지 decoding technique
 
 1. draft model이 얼마나 토큰을 잘 만드느냐에 따라서 maximum speedup에 한계가 있음.
 
+  - guess들이 다 거절 당하는 경우
+
 1. creating an accurate draft model is non-trivial
+
+  - 이 draft model을 만드는 데는 extra training + tuning이 필요함.
 
 => Draft model을 없애보자!
 
@@ -71,15 +77,23 @@ Jacobi는 Ax=b 형태의 선형 연립 방정식을 구하는 방법 중 하나�
 
 Greedy Search의 경우, 다음과 같이 y_i를 선택한다.
 
+{% include figure.liquid loading="eager" path="assets/img/posts/2023-12-19-break-the-sequential-dependency-of-llm-inference-using/image_001.png" class="img-fluid rounded z-depth-1" %}
+
 이 경우, m element를 만들기 위해, m inference steps을 sequentially 밟아야한다.
 
 이를 해결하기 위해, 저자들은 다음과 같은 관점의 변화를 가진다.
 Equation (2)에 따르면, 전체 토큰에 대한 생성 절차는 다음과 같이 표현된다.
 
+{% include figure.liquid loading="eager" path="assets/img/posts/2023-12-19-break-the-sequential-dependency-of-llm-inference-using/image_002.png" class="img-fluid rounded z-depth-1" %}
+
 이 때, f(y_i
 , y_{1:i−1}, x) = y_i − argmax p_θ(y_i|y_{1:i−1}, x) 라고 정의하면 우리는 Equation (3)을 이렇게 다시 쓸 수 있다.
 
+{% include figure.liquid loading="eager" path="assets/img/posts/2023-12-19-break-the-sequential-dependency-of-llm-inference-using/image_003.png" class="img-fluid rounded z-depth-1" %}
+
 즉, 이 과정을 통해, sequential한 토큰의 생성은, 여러 개의 non-linear equations를 해결하는 시스템으로 개념화 가능하다.
+
+{% include figure.liquid loading="eager" path="assets/img/posts/2023-12-19-break-the-sequential-dependency-of-llm-inference-using/image_004.png" class="img-fluid rounded z-depth-1" %}
 
 구체적인 과정은 다음과 같다:
 
@@ -92,6 +106,8 @@ Equation (2)에 따르면, 전체 토큰에 대한 생성 절차는 다음과 �
 1. Repeat this process until a certain stopping condition is achieved (e.g. y'=y).
 
 제공된 그림을 보면서 이야기해보자.
+
+{% include figure.liquid loading="eager" path="assets/img/posts/2023-12-19-break-the-sequential-dependency-of-llm-inference-using/image_005.gif" class="img-fluid rounded z-depth-1" %}
 
 이러한 Jacobi decoding은 FLOPs의 관점에서 하나의 스텝에 더 많은 비용을 요구하지만, parallel processing을 사용할 수 있기 때문에, 속도면에서는 빨라진다.
 
@@ -106,6 +122,8 @@ Jacobi decoding을 보면, 이전 iteration에서 다양한 n-gram historical va
 Lookahead Decoding은 이렇게 생성된 n-gram을 재활용하는 모델이다. 즉, Jacobi iteration을 활용한 parallel decoding은 동일하나, future token들 뿐만이 아닌, cache에 저장된 n-gram까지 verify를 진행한다.
 
 그림을 통해 살펴보자.
+
+{% include figure.liquid loading="eager" path="assets/img/posts/2023-12-19-break-the-sequential-dependency-of-llm-inference-using/image_006.gif" class="img-fluid rounded z-depth-1" %}
 
 이 과정의 효율성을 높이기 위해, 하나의 lookahead decoding step은 두개의 branch로 나눠지게 된다: the lookahead branch and the verification branch.
 
@@ -131,6 +149,8 @@ Simultaneous with lookahead branch, the verification branch selects and verifies
 
 1. Each token only sees its preceding tokens and itself as in a casual mask.
 
+{% include figure.liquid loading="eager" path="assets/img/posts/2023-12-19-break-the-sequential-dependency-of-llm-inference-using/image_007.png" class="img-fluid rounded z-depth-1" %}
+
 [Figure 5: Attention mask for lookahead decoding with 3-grams and window size 5. In this mask, two 3-gram candidates (bottom right) are verified concurrently with parallel decoding.]
 
 - blue token labeled 0 == the current input
@@ -149,6 +169,8 @@ W와 N의 크기가 커질수록 비용도 커짐. 하지만 이들이 커질수
 
 이를 실험하기 위해, 특정 개수의 토큰들을 만들어내기 위해, 얼마만큼의 decoding stpe가 필요한지 확인해봄.
 
+{% include figure.liquid loading="eager" path="assets/img/posts/2023-12-19-break-the-sequential-dependency-of-llm-inference-using/image_008.png" class="img-fluid rounded z-depth-1" %}
+
 when N is large enough, an exponential increase in the W  can result in a linear reduction of decoding steps.
 
 ## Cost, Usage, and Limitations
@@ -156,6 +178,8 @@ when N is large enough, an exponential increase in the W  can result in a linear
 For powerful GPUs (e.g., A100), lookahead decoding은 좋은 성능으로 이어질 수 있다. 하지만 여전히, W와 N이 너무 크다면, 하나의 step은 너무 느려질 것이다.
 
 저자들을 A100에서 사용했을 때, 경험적으로 가장 좋았던 config를 공유한다.
+
+{% include figure.liquid loading="eager" path="assets/img/posts/2023-12-19-break-the-sequential-dependency-of-llm-inference-using/image_009.png" class="img-fluid rounded z-depth-1" %}
 
 The 7B, 13B, and 33B models require 120x, 80x, and 56x extra FLOPs per step, respectively.
 
@@ -165,7 +189,19 @@ The 7B, 13B, and 33B models require 120x, 80x, and 56x extra FLOPs per step, res
 
 - 모델
 
+  - LLaMA-2-Chat
+
+  - CodeLLaMA
+
 - 데이터셋
+
+  - MT-bench
+
+  - HumanEval
+
+  - GSM8K
+
+{% include figure.liquid loading="eager" path="assets/img/posts/2023-12-19-break-the-sequential-dependency-of-llm-inference-using/image_010.png" class="img-fluid rounded z-depth-1" %}
 
 - LLaMA-Chat on MT-Bench => 1.5x speedup
 

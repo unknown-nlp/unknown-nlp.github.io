@@ -169,3 +169,20 @@ LLM의 다양한 역량을 측정하기 위해 BIG-Bench, Big-Bench의 어려운
 ### 9. Application
 
 demonstration이 명시적으로 추론에 대한 근거를 제시하기 때문에 ICL은 복잡한 추론과 복잡한 문제를 generalization하는 영역에서 좋은 성능을 보인다고 알려져 있다. 저자들이 제시하는 ICL의 application 방향은 크게 2가지이다.
+
+**→ Model Editing**
+
+*scale and a mixture of all types of demonstration examples strengthen the knowledge editing success rate of ICL. *(demonstration을 활용해 LLM 안에 있는 knowledge를 수정할 수 있다)
+
+**→ Data Annotation**
+
+GPT-3 사용해서 50%-96% 비용 절감이 있었다는 논문이 존재..
+
+### 10. **Challenges and Future Directions**
+
+**
+**→ New Pretraining Strategies (bridge the gap between pretraining objectives and ICL)
+
+→ Distill the ICL Ability to Smaller Models
+
+

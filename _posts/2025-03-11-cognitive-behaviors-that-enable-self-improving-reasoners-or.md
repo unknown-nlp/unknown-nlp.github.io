@@ -11,6 +11,7 @@ tags:
 - paper-review
 - pre-training
 - reasoning
+- reinforcement-learning
 - rl
 - vision
 thumbnail: assets/img/posts/2025-03-11-cognitive-behaviors-that-enable-self-improving-reasoners-or/thumbnail.jpg
@@ -27,11 +28,49 @@ title: Cognitive Behaviors that Enable Self-Improving Reasoners, or, Four Habits
 
 - Motivation
 
+  - 기존의 RL 방법론들은 몇번의 iteration 이후에 reasoning 성능 향상이 saturation된다.
+
+    - 왜 Qwen2.5-3B랑 Llama-3.2-3B에 같은 RL training을 했는데 전자에만 test-time scaling 효과가 적용될까?
+
+→ 논문에서는 ‘change in self-improvement’가 base-llm의 ‘key cognitive behaviors’유무에 따라 다르게 발현된다고 함
+
+  - 문제를 풀기 위해서 4개의 cognitive behaviors가 있다고 정의
+
+    1. **verification** (systematic error-checking)
+
+    1. **backtracking** (abandoning failing approaches)
+
+    1. **subgoal setting** (decomposing problems into manageable steps)
+
+    1. **backward chaining** (reasoning from desired outcomes to initial inputs).
+
 - **Findings of work**
+
+  1. Llama에 synthetic reasoning traces을 priming (인공지능 모델에 특정 형태의 입력이나 예시를 미리 제공)하면 RL후 성능증가
+
+  1. 1.에서 Incorrect solution이 주어져도 무방
+
+  1. targeted modification of the pretraining distribution으로 cognitive behavior induce 가능
 
 ## 2. Related Works
 
 - Improving Reasoning Capabilities
+
+  1. **External Search for Reasoning.**
+
+    1. incorporate search process itself to improve the underlying reasoning model
+
+(operate without awareness of previously explored solutions)
+
+  1. **In-Context Search and Self-Improvement.**
+
+    1. enabling models to search sequentially in language. (enable llm to think in rationale)
+
+(in-context examples, finetuning on linearized search traces, training on self-correction examples)
+
+  1. **Reinforcement Learning for Reasoning.**
+
+    1. RL (e.g., GRPO) → emergence of in-context search behaviors.
 
 ## 3. Identifying and Engineering Self-Improving Behavior
 
@@ -39,11 +78,31 @@ title: Cognitive Behaviors that Enable Self-Improving Reasoners, or, Four Habits
 
 - Pilot Test: Countdown
 
+  - Input: 25, 30, 3, 4, Target:32, Arithmetic operations (+, −, ×, ÷)
+
+  - Solution: 32: (30 − 25 + 3) × 4
+
 - Why Countdown? (아래를 반영할 수 있는 task)
+
+  - mathematical reasoning
+
+  - planning
+
+  - search strategies (general problem solving)
+
+  - 분석가능한 restricted search space이 있는 task
 
 - BaseLLM
 
+  - Qwen-2.5-3B
+
+  - Llama-3.2-3B
+
 - RL-Training
+
+  - PPO (superior stability across hyperparameter)
+
+  - 250 steps training, 4 trajectory sampling
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2025-03-11-cognitive-behaviors-that-enable-self-improving-reasoners-or/image_000.png" class="img-fluid rounded z-depth-1" %}
 
@@ -65,6 +124,8 @@ title: Cognitive Behaviors that Enable Self-Improving Reasoners, or, Four Habits
 
 1. **Backward Chaining**: 역방향 연쇄, 목표 지향적 추론 문제에서 원하는 결과에서부터 역으로 해결책을 찾아가는 것(예: '75라는 목표에 도달하기 위해, 우리는 다음으로 나눌 수 있는 숫자가 필요합니다...')”
 
+→ Countdown때문에 설정한 behavior
+
 ⇒ gpo-4o-mini를 활용해 각 training step에서 model output이 위의 behaviors를 포함하는지 분류
 
 ### The Role of Initial Behaviors in Self-Improvement
@@ -81,6 +142,14 @@ title: Cognitive Behaviors that Enable Self-Improving Reasoners, or, Four Habits
 
 - **Takeway**
 
+  1.  initial policy가 test-time scaling의 실현시키는데 중요한 사전조건으로 작용한다.
+
+(그림 오른쪽 참고)
+
+  1.  increased model scale로 behavior의 contextual activation이 가능하다.
+
+(논문에 구체적으로 적어놓진 않았지만, successful trajectories에 나타나는 behavior만 증폭이 가능하다고 하다. 그리고 장표를 보면 Backward Chaining의 경우 llama는 scaling up해도 전혀 개선이 안되는 것을 확인할 수 있음)
+
 ### Intervening on initial behaviors
 
 **RQ: targeted intervention을 통해 인위적으로 ‘cognitive behavior’를 발현시킬 수 있을까?**
@@ -89,11 +158,62 @@ title: Cognitive Behaviors that Enable Self-Improving Reasoners, or, Four Habits
 
 - 이때, 각 reasoning path는 특정 ‘cognitive behavior’를 가지도록 controlled setting (system message)
 
+(To create datasets rich in only the targeted behaviors and determine causal efficacy, we instructed Claude** to use exclusively the specified cognitive behavior while prohibiting all others.**)
+
 - Controlled reasoning path [Correct Answer]
+
+  1. all strategies combined
+
+  1. backtracking only
+
+  1. backtracking with verification
+
+  1. backtracking with subgoal setting
+
+  1. backtracking with backward chaining
+
+    - **Claude 3.5 Sonnet도 Correct Answer의 비율이 높지는 않음**
+
+{% include figure.liquid loading="eager" path="assets/img/posts/2025-03-11-cognitive-behaviors-that-enable-self-improving-reasoners-or/image_003.png" class="img-fluid rounded z-depth-1" %}
+
+  1. Empty-CoT
+
+  1. length-matched (all strategies combined 길이 맞춰서 placeholder tokens 채우는 setting → 길이만 길어진다고 test-time computing이 발현될까?)
+
+
+---
+
+  1. In-Correct Answer
 
 - Experimental Setting
 
+  1. **Correct Answer만 가지고 SFT - EXP1**
+
+  1. **InCorrect Answer만 가지고 SFT - [ EXP2 ]**
+
 - Result
+
+** [ EXP1 ]**
+
+{% include figure.liquid loading="eager" path="assets/img/posts/2025-03-11-cognitive-behaviors-that-enable-self-improving-reasoners-or/image_004.png" class="img-fluid rounded z-depth-1" %}
+
+→ Llama와 QWEN 모두 priming (SFT)의 효과를 보아 RL때 성능이 증가한다.
+
+{% include figure.liquid loading="eager" path="assets/img/posts/2025-03-11-cognitive-behaviors-that-enable-self-improving-reasoners-or/image_005.png" class="img-fluid rounded z-depth-1" %}
+
+→ priming (SFT)된 LM의 model output을 분석해보면 (primed llama), all strat에서는 verification과 backtracking이 선택적으로 사용되지만 subgoal이나 backward chaining은 사용되지 않도록 RL이 진행되는 것을 실험적으로 확인, 그러나 또 각각은 backtracking이랑 paired되면 RL에서 발현
+
+{% include figure.liquid loading="eager" path="assets/img/posts/2025-03-11-cognitive-behaviors-that-enable-self-improving-reasoners-or/image_006.png" class="img-fluid rounded z-depth-1" %}
+
+→ Empty CoT priming은 당연히 어떠한 ‘cognitive behavior’도 실현시키도록 학습시키지 못하고, 의미없는 긴 토큰으로 학습하는것은 test time scaling에 전혀 도움이 안되는 것을 score상으로 확인
+
+** [ EXP2 ]**
+
+{% include figure.liquid loading="eager" path="assets/img/posts/2025-03-11-cognitive-behaviors-that-enable-self-improving-reasoners-or/image_007.png" class="img-fluid rounded z-depth-1" %}
+
+→ incorrect answer 해당여부는 ‘cognitive behavior’를 발현시키는데 전혀 상관이 없음
+
+→ RL에서 LM의 self-improvement를 이끌어내는데 중요한것은 정답보다는 풀이과정에서의 정확한 사고방식 방법이다. 
 
 ### Behavioral Augmentation of the Pretraining Data.
 
@@ -103,11 +223,11 @@ title: Cognitive Behaviors that Enable Self-Improving Reasoners, or, Four Habits
 
 **(Generalization)**
 
-{% include figure.liquid loading="eager" path="assets/img/posts/2025-03-11-cognitive-behaviors-that-enable-self-improving-reasoners-or/image_003.png" class="img-fluid rounded z-depth-1" %}
+{% include figure.liquid loading="eager" path="assets/img/posts/2025-03-11-cognitive-behaviors-that-enable-self-improving-reasoners-or/image_008.png" class="img-fluid rounded z-depth-1" %}
 
 - 바로 OpenWebMath나 FineMath에 Qwen-2.5-32B를 classifier로 두고 ‘cognitive behavior’가 있는지 검수해봤는데 비율이 많지는 않더라 (200K)
 
-{% include figure.liquid loading="eager" path="assets/img/posts/2025-03-11-cognitive-behaviors-that-enable-self-improving-reasoners-or/image_004.png" class="img-fluid rounded z-depth-1" %}
+{% include figure.liquid loading="eager" path="assets/img/posts/2025-03-11-cognitive-behaviors-that-enable-self-improving-reasoners-or/image_009.png" class="img-fluid rounded z-depth-1" %}
 
 1. OpenWebMath에서 'cognitive behaviors'가 있는 부분을 추출해서
 
@@ -130,3 +250,5 @@ title: Cognitive Behaviors that Enable Self-Improving Reasoners, or, Four Habits
 1. 'cognitive behaviors'가 rich한 pre-training data를 curation해 CL하면 RL후 test-time scaling을 달성할 수 있음
 
 1. 논문에서 검증한 'cognitive behaviors'가 task-dependent하다. 
+
+('cognitive behaviors'라는게 problem space에 따라 sequential, deliberate하게 정해질 수 밖에 없음. e.g., code, create writing에서 어떻게 적용될진 미지수)

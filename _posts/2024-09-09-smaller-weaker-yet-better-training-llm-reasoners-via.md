@@ -26,6 +26,8 @@ title: 'Smaller, Weaker, Yet Better: Training LLM Reasoners via Compute-Optimal 
 
 # Introduction
 
+{% include figure.liquid loading="eager" path="assets/img/posts/2024-09-09-smaller-weaker-yet-better-training-llm-reasoners-via/image_000.png" class="img-fluid rounded z-depth-1" %}
+
 많은 연구들이 이미 언어모델을 학습시키는 데 synthetic 데이터를 사용하고 있다. 이들 중, reasoning task에서 가장 일반적인 방법은 하나의 질문에 대해서 여러 가지 후보 답변들을 생성하게 하고, 이를 gold answer와 비교해, 맞는 정답을 가진 것들만 남기고 나머지는 버리는 것이다.
 
 하지만, 이렇게 여러 개의 데이터를 strong LMs로 부터 생성해 사용하는 것은 비싸고, resource-intensive하다. 또한 현실적으로 우리가 사용할 수 있는 예산은 정해져있기 때문에 만들 수 있는 solution도 그리 많지는 못하다.
@@ -74,9 +76,15 @@ title: 'Smaller, Weaker, Yet Better: Training LLM Reasoners via Compute-Optimal 
 
 - 𝑐𝑜𝑣𝑒𝑟𝑎𝑔𝑒@𝑘 (aka 𝑝𝑎𝑠𝑠@𝑘)
 
+  - k개의 솔루션을 생성했을 때, 최소 하나 이상이 정답을 맞춤
+
 - 𝑑𝑖𝑣𝑒𝑟𝑠𝑖𝑡𝑦@𝑘
 
+  - k개의 답변을 생성했을 때, k개중 정답을 맞춘 solution 개수의 평균
+
 - false positive rate
+
+  - 답은 맞았는데, reasoning이 잘못된 비율
 
 # Compute-Matched Sampling and Training
 
@@ -94,25 +102,63 @@ WC model가 𝑃_𝑊𝐶 parameters를 가지고, SE가 𝑃_𝑆𝐸 parameter
 
 - total cost
 
+  - 𝐶𝑜𝑠𝑡𝑊𝐶 = 𝑛×𝑆_𝑊𝐶 ×𝑊 × (2𝑃_𝑊𝐶)
+
+  - 𝐶𝑜𝑠𝑡𝑆𝐸 = 𝑛×𝑆_𝑆𝐸 ×𝑊 × (2𝑃_𝑆𝐸)
+
+  - 𝑆_𝑊𝐶 =(𝑃_𝑆𝐸/𝑃_𝑊𝐶)* 𝑆_𝑆𝐸
+
 즉, 고정 예산에서 𝑃_𝑆𝐸/𝑃_WC 만큼 WC에서 더 데이터를 만들어낼 수 있다는 말. 이렇게 둘 중 하나로 데이터를 만든 이후, 고정된 스텝으로 모델들을 학습시켜보고 비교하여 데이터들의 유용성을 판단할 수 있다.
 
 언급했듯 학습 방법은 3가지:
 
 1. knowledge distillation(Student-LM finetuning)
 
+  - 일반적으로, student 모델의 학습용으로 만들어지는 데이터는 더 똑똑하고 강한 모델에서 만들어지는 데이터를 사용한다. 높은 퀄리티를 보장하기 위해서.
+
 1. self-improvement
 
+  - Prior work (Singh et al., 2023)는 finetuning a WC model through self-generated data는 1의 방식보다 훨씬 별로라고 증명해냈다. 하지만, 해당 연구의 비교 방식은 같은 예산을 사용하지 않았기 때문에 정당하지 않다고 언급한다. 따라서, 다시 정당하게 동일한 세팅으로 다시 하여 실험을 재개한다.
+
 1. 그리고 이들이 제안하는 novel weak-to-strong improvement paradigm
+
+  - weak-to-strong improvement (W2S-I)은 일반적인 방법과 달리, 강한 모델은 약한 모델의 데이터로 학습하는 방식이다.
+
+  - 즉, 약한 모델도 강한 모델을 발전시킬 수 있다
 
 # Experimental Setup
 
 - Datasets
 
+  - MATH
+
+  - GSM-8K
+
 - Data Generation
+
+  - Gemma2 models for synthetic data generation
+
+  - Gemma2-9B : Gemma2-27B = WC : SE models
+
+  - MATH using a 4-shot prompt
+
+  - GSM-8K using an 8-shot prompt
+
+  - 9B model가 27B와 3배 정도 크기 차이가 나므로, 데이터를 3배 정도 더 만들 수 있다.
+
+  - 실험에서는 둘 나 낮은 예산의 경우: a low budget, where we generate 1 and 3 candidate solutions per problem from Gemma2-27B and Gemma2-9B
+
+  - 높은 예산의 경우: high budget, where we generate 10 and 30 candidate solutions per problem
 
 - Synthetic Data Evaluation
 
+  - 같은 비용을 가지는 개수끼리 coverge/diversity@k 계산
+
+  - FRP는 50개 for each model에 대한 human eval & 500개에 대한 LLM eval
+
 - Evaluating Finetuned Models:
+
+  - pass@1 accuracy
 
 # Experiments and Results
 
@@ -124,6 +170,8 @@ WC model가 𝑃_𝑊𝐶 parameters를 가지고, SE가 𝑃_𝑆𝐸 parameter
 strategy, and the role of quality dimensions in the model performance.
 
 ## 1. Synthetic Data Analysis
+
+{% include figure.liquid loading="eager" path="assets/img/posts/2024-09-09-smaller-weaker-yet-better-training-llm-reasoners-via/image_001.png" class="img-fluid rounded z-depth-1" %}
 
 ### 1) Coverage
 
@@ -137,9 +185,15 @@ strategy, and the role of quality dimensions in the model performance.
 
 즉, 더 많이 만드는 것이 퀄리티가 더 낮더라도 더 많이 문제를 푸는데 도움이 되었다. converge trend는 다양.
 
+{% include figure.liquid loading="eager" path="assets/img/posts/2024-09-09-smaller-weaker-yet-better-training-llm-reasoners-via/image_002.png" class="img-fluid rounded z-depth-1" %}
+
 추가적으로, 더 많이 데이터를 만드는 것은 비단 낮은 난이도의 문제 뿐만 아니라 높은 난이도에서도 공통적이었다.
 
+{% include figure.liquid loading="eager" path="assets/img/posts/2024-09-09-smaller-weaker-yet-better-training-llm-reasoners-via/image_003.png" class="img-fluid rounded z-depth-1" %}
+
 오히려 반대로, 더 큰 모델로 10개 만들 때는 풀지 못했던 어려운 문제도 더 약한 모델로 30번 만드는 경우에 자주 풀렸다고.
+
+{% include figure.liquid loading="eager" path="assets/img/posts/2024-09-09-smaller-weaker-yet-better-training-llm-reasoners-via/image_004.png" class="img-fluid rounded z-depth-1" %}
 
 ### 2) Diversity
 
@@ -153,6 +207,8 @@ human 평가에 따르면 WC 모델이 생성한 해결책의 FPR이 MATH에서�
 ## 2. Compute-Optimality Results for Training
 
 그렇다면 이들은 다양하게 학습해봤을 때는 어떨까.
+
+{% include figure.liquid loading="eager" path="assets/img/posts/2024-09-09-smaller-weaker-yet-better-training-llm-reasoners-via/image_005.png" class="img-fluid rounded z-depth-1" %}
 
 1. Student-LM Finetuning
 Gemma-7B를 WC와 SC로 학습한 결과.
@@ -170,17 +226,49 @@ Gemma2-27B를 양 데이터로 학습. 더 작은 모델로 만든 데이터가 
 
 ### Impact of Dataset Size
 
+{% include figure.liquid loading="eager" path="assets/img/posts/2024-09-09-smaller-weaker-yet-better-training-llm-reasoners-via/image_006.png" class="img-fluid rounded z-depth-1" %}
+
 ### Default vs Compute-Optimal Sampling from Cheap LMs
 
 그렇다면, 기존에 SE를 사용하던 일반적인 방법처럼 데이터 개수를 통일하면?
+
+{% include figure.liquid loading="eager" path="assets/img/posts/2024-09-09-smaller-weaker-yet-better-training-llm-reasoners-via/image_007.png" class="img-fluid rounded z-depth-1" %}
 
 볼 수 있는 것처럼, 더 퀄리티 좋은 것을 사용하는게 더 좋은 것은 확실하다.
 
 ### Coverage and Diversity:
 
+데이터의 정답률과 다양성의 측면에서 얼마나 영향력이 큰가를 small scale로 실험한 결과물. 30개의 질문으로 구성.
+
+1. high coverage, high diversity
+
+1. high coverage, low diversity
+
+  - 하나의 질문 당 맞는거 하나만
+
+  - reduces the diversity of the original WC dataset from 11 to 1, while maintaining the coverage.
+
+1. low coverage, low diversity
+
+  - one solution per problem from the WC model + 낮은 정답률 가지도록 일부러 필터
+
+{% include figure.liquid loading="eager" path="assets/img/posts/2024-09-09-smaller-weaker-yet-better-training-llm-reasoners-via/image_008.png" class="img-fluid rounded z-depth-1" %}
+
 # Scaling to state-of-the-art language models
+
+위의 부분에서는 open LM들에 대해서 실험한 결과. 이 섹션에서는 Gemini-1.5-Pro and Gemini-1.5-Flash를 사용해본다.
+
+모델 사이즈가 공식적으로 공개되지 않았기에, compute-matched sampling에는 pricing per output token을 Proxy로 사용한다고..
+
+- synthetic data from the Pro (SE) - $10.5
+
+- Flash (WC) models. - $0.3
+
+{% include figure.liquid loading="eager" path="assets/img/posts/2024-09-09-smaller-weaker-yet-better-training-llm-reasoners-via/image_009.png" class="img-fluid rounded z-depth-1" %}
 
 > Takeaway: We demonstrate that price-matched sampling from weaker SoTA LMs produces
 superior reasoners compared to finetuning with data from stronger SoTA models.
 
 # Conclusion
+
+{% include figure.liquid loading="eager" path="assets/img/posts/2024-09-09-smaller-weaker-yet-better-training-llm-reasoners-via/image_010.png" class="img-fluid rounded z-depth-1" %}

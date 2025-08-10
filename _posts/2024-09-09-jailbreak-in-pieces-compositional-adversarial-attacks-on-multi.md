@@ -16,6 +16,7 @@ tags:
 - llm
 - paper-review
 - safety
+- vision
 - vlm
 thumbnail: assets/img/posts/2024-09-09-jailbreak-in-pieces-compositional-adversarial-attacks-on-multi/thumbnail.jpg
 title: 'Jailbreak in pieces: Compositional Adversarial Attacks on Multi-Modal Language
@@ -47,11 +48,27 @@ Adversarial attacks on LLMs은 input perturbations을 통해 model output을 조
 
 (A) Harmful prompt (text instruction + adversarial image)
 
+- adversarial image는 아래 네가지 malicious trigger의 embedding space에 따라 optimized 됨
+
+  1. textual trigger (only text)
+
+  1. OCR textual trigger
+
+  1. visual trigger
+
+  1. OCR textual + visual trigger
+
+→ image가 연관된 triggers (joint embedding space)가 jailbreak에 효과적임
+
 (B) End-to-end gradient-based attack: image의 embedding이 malicious trigger의 embedding과 같아지도록 image update
 
 (C) 본 연구에서 adversarial attack은 embedding-space를 기반으로 malicious trigger를 benign-looking images (평범해 보이는 이미지)에 숨기는 것을 목표로 함. 
 
+- 이 방식은 AI safety에 있어 critical challenge가 될 수 있음 (vision encoder에 (e.g. CLIP) 접근할 수만 있으면, 그 module과 closed-source LLM이 합쳐진 VLM을 악용할 수 있음) → jail-breaking하는데 있어 쉬워짐
+
 (D) Text prompt와 malicious triggers를 조합하여 다양한 형태의 adversarial attack 가능
+
+- 일반적인 text와 OCR / OCR+Img를 결합하여 위험한 답변 유도 가능
 
 ### Contributions
 
@@ -94,6 +111,10 @@ GPT-4, Bard, LLaVA, MiniGPT-4도 visual inputs에 대해 end-to-end differentiab
 Existing methods는 harmful content를 생성하는 것에 대한 gradient를 textual input이 아닌 image input에만 흘려보냄 
 
 → VLM 전체의 full white-box access가 필요함 
+
+- LM의 output logits
+
+- Input image의 pixel
 
 x_{adv}^i: adversarial image input
 
@@ -145,6 +166,8 @@ Harmful prompt를 embedding space에서 two distinct parts로 decompose
 
 *연구진들의 추측: x_{g}^t와 adversarial image x_{adv}^i에서 얻어진 malicious trigger인 H_{harm}과 합쳐지면, forbidden subject를 표현하는 target embedding과의 mapping이 가능함. 
 
+→  model은 해당 embedding을 generic question의 subject로 이해하고, textual-only safety alignment를 우회하며 jailbreaking을 시도할 수 있음
+
 본 연구에서는 adversarial input image(x_{adv}^i)를 생성하기 위해 4가지 malicious trigger settings을 설정함
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-09-09-jailbreak-in-pieces-compositional-adversarial-attacks-on-multi/image_005.png" class="img-fluid rounded z-depth-1" %}
@@ -159,9 +182,11 @@ Harmful prompt를 embedding space에서 two distinct parts로 decompose
 
 → harmful triggers와 비슷한 embedding space에 있는 adversarial images를 찾는 방법 제안함
 
+{% include figure.liquid loading="eager" path="assets/img/posts/2024-09-09-jailbreak-in-pieces-compositional-adversarial-attacks-on-multi/image_006.png" class="img-fluid rounded z-depth-1" %}
+
 - target trigger x_{harm}가 주어질 때, embedding vector가 joint embedding space와 비슷한 위치에 있는 adversarial image x_{adv}^i를 생성하는 것이 objective (adversarial image는 겉으로 평범해 보이지만, embedding space에서는 H_{harm}와 동일한 의미를 갖음)
 
-{% include figure.liquid loading="eager" path="assets/img/posts/2024-09-09-jailbreak-in-pieces-compositional-adversarial-attacks-on-multi/image_006.png" class="img-fluid rounded z-depth-1" %}
+{% include figure.liquid loading="eager" path="assets/img/posts/2024-09-09-jailbreak-in-pieces-compositional-adversarial-attacks-on-multi/image_007.png" class="img-fluid rounded z-depth-1" %}
 
 - initial adversarial image는 random noise, random image로 설정 가능
 
@@ -173,9 +198,9 @@ Harmful prompt를 embedding space에서 two distinct parts로 decompose
 
 아래 예시를 보면, LLaVA는 adversarial image가 들어와도 target image의 semantic features를 잘 파악함
 
-{% include figure.liquid loading="eager" path="assets/img/posts/2024-09-09-jailbreak-in-pieces-compositional-adversarial-attacks-on-multi/image_007.png" class="img-fluid rounded z-depth-1" %}
-
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-09-09-jailbreak-in-pieces-compositional-adversarial-attacks-on-multi/image_008.png" class="img-fluid rounded z-depth-1" %}
+
+{% include figure.liquid loading="eager" path="assets/img/posts/2024-09-09-jailbreak-in-pieces-compositional-adversarial-attacks-on-multi/image_009.png" class="img-fluid rounded z-depth-1" %}
 
 # Experiment
 
@@ -188,6 +213,8 @@ Harmful prompt를 embedding space에서 two distinct parts로 decompose
 - 각 category마다 malicious triggers(4개) 사용하여 8개의 adversarial images 생성 (=algorithm1)
 
 - scenario별로 2개의 generic prompt를 구축하여 adversarial image와 함께 테스트
+
+= 6400 queries (2 models × 8 scenarios × 8 images × 2 prompts × 25 rounds)
 
 ### Evaluation
 
@@ -205,16 +232,64 @@ Target-based adversarial attacks에서는 보통 isToxic과 같은 automatic eva
 
 - Human evaluation
 
+{% include figure.liquid loading="eager" path="assets/img/posts/2024-09-09-jailbreak-in-pieces-compositional-adversarial-attacks-on-multi/image_010.png" class="img-fluid rounded z-depth-1" %}
+
+  - Textual trigger가 아닌 image 기반의 triggers로 optimized된 adversarial attack은 모든 category에서 jailbreaking에 있어 높은 success rate을 보임
+
+  - Textual trigger가 낮은 이유는 CLIP의 vision-language joint embedding space에서 image와 text의 embedding vector가 뚜렷이 구분되는 ‘Modality Gap’ 때문이라고 언급됨.
+
+→ adversarial image를 textual target과 match하도록 최적화를 시킬 때, resulting image가 real image가 위치하는 region에서 상당히 멀리 위치해지기 때문에, 멀리 떨어진 영역에서 발생한 image는 model의 OOD sample처럼 인식이 되어 attack이 실패함
+
+  - LLaMA-Adapter V2는 LLaVA보다 adversarial attack에 더 robust한 결과가 나옴
+
+→ LLaMA-Adapter V2는 training dataset size와 alignment tuning stage가 없었기 때문에, LLaVA에 비해 image understanding capability가 낮아 위 결과만 보고 해당 모델이 더 안전하다는 이유는 안됨. 
+
 - Automatic evaluation
+
+{% include figure.liquid loading="eager" path="assets/img/posts/2024-09-09-jailbreak-in-pieces-compositional-adversarial-attacks-on-multi/image_011.png" class="img-fluid rounded z-depth-1" %}
+
+  - Textual trigger가 VLM의 safety guard를 우회하지 못하며, low toxicity score가 나옴
+
+  - Visual triggers가 결합된 malicious trigger는 safety guard를 뚫는 데 강력하고, VLM이 toxic한 content를 생성하는데 있어 유용함
 
 # Discussions
 
 ### Context contamination
 
-{% include figure.liquid loading="eager" path="assets/img/posts/2024-09-09-jailbreak-in-pieces-compositional-adversarial-attacks-on-multi/image_009.png" class="img-fluid rounded z-depth-1" %}
+{% include figure.liquid loading="eager" path="assets/img/posts/2024-09-09-jailbreak-in-pieces-compositional-adversarial-attacks-on-multi/image_012.png" class="img-fluid rounded z-depth-1" %}
 
 - 모델의 initial 답변이 contaminated되면 subsequent text prompt에서도 alignment를 우회하는 답변을 게속 유도함
 
-{% include figure.liquid loading="eager" path="assets/img/posts/2024-09-09-jailbreak-in-pieces-compositional-adversarial-attacks-on-multi/image_010.png" class="img-fluid rounded z-depth-1" %}
+{% include figure.liquid loading="eager" path="assets/img/posts/2024-09-09-jailbreak-in-pieces-compositional-adversarial-attacks-on-multi/image_013.png" class="img-fluid rounded z-depth-1" %}
 
 - forbidden question/prompt에만 응답하는 것이 아니라 extreme bias case에서도 반응함
+
+### Hidden Prompt Injection
+
+{% include figure.liquid loading="eager" path="assets/img/posts/2024-09-09-jailbreak-in-pieces-compositional-adversarial-attacks-on-multi/image_014.png" class="img-fluid rounded z-depth-1" %}
+
+새로운 Prompt Injection 방법을 탐색함.
+
+- OCR이 가능한 instruction을 포함한 target image를 사용하여 target embeddings을 구축 (=image 내의 text가 prompt로 작용하게 됨)
+
+- adversarial image는 target embedding과 동일한 의미는 갖지만, 시각적으로는 평범하게 보임
+
+→ 해당 image를 사용하는 것이 Prompt Injection이 발생하는 것인데, model이 image 내의 text를 읽어 그것을 instruction으로 이해하며 수행함)
+
+- 위와 같은 Hidden prompt injection은 아직까지 attack의 success rate이 낮지만, Google Bard와 같은 시스템이 이미지를 읽고 instruction을 수행할 수 있게하여 ‘jailbreak’의 가능성을 보여줌
+
+  - Microsoft Bing은 동일한 instruction을 집어 넣으면 대화를 종료하는 등 vulnerabilities를 해결하고자 하는데, image를 통해 숨겨진 instruction이 전달되면 이를 제대로 탐지하지 못하는 케이스 발생
+
+{% include figure.liquid loading="eager" path="assets/img/posts/2024-09-09-jailbreak-in-pieces-compositional-adversarial-attacks-on-multi/image_015.png" class="img-fluid rounded z-depth-1" %}
+
+{% include figure.liquid loading="eager" path="assets/img/posts/2024-09-09-jailbreak-in-pieces-compositional-adversarial-attacks-on-multi/image_016.png" class="img-fluid rounded z-depth-1" %}
+
+{% include figure.liquid loading="eager" path="assets/img/posts/2024-09-09-jailbreak-in-pieces-compositional-adversarial-attacks-on-multi/image_017.png" class="img-fluid rounded z-depth-1" %}
+
+# Conclusion
+
+본 논문에서는 LLM이 유해한 content를 생성하지 못하게 하는 alignment techniques들이 cross-modality attack이 text-only alignment를 break할 수 있음을 보여줌.
+
+이 attack은 embedding space 기반으로 benign-appearing adversarially modified images들을 만드는 방법을 사용함.
+
+→ 가장 위험한 부분은, 이 방법은 LLM에 대해 white-box access가 필요없고 open-source vision encoder만 있으면 활용할 수 있음.

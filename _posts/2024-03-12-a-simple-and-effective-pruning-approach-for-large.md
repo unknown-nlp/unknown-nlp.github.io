@@ -7,6 +7,8 @@ giscus_comments: true
 layout: post
 related_posts: false
 tags:
+- classification
+- embedding
 - fine-tuning
 - gpt
 - language-model
@@ -42,7 +44,11 @@ title: A Simple and Effective Pruning Approach for Large Language Models
 
 - Magnitude Pruning
 
+  - magnitude를 기준으로 (abs value) 모델의 weight를 삭제하는 방법론. globally하게도 할 수 있지만 each layer에 대해 locally하게 적용하는 것이 일반적이다.
+
 - Emergent Large Magnitude Features
+
+  - Dettmers et al. (2022)에 따르면 LLM이 6B 이상의 크기를 가질 때, 아주 적은 hidden state feature들이 다른 것들보다 magnitude가 '훨씬' 커진다는 것을 관측했다. (100배 이상). 이들을 zeroing하면 성능에 아주 큰 결함이 생긴다.
 
 # WANDA: PRUNING BY WEIGHTS AND ACTIVATIONS
 
@@ -55,6 +61,8 @@ Consider a neuron with two inputs and corresponding weights: y = w_1x_1 + w_2x_2
 - a linear layer with weight W of shape `(C_out, C_in)`
 
 - input activations X with a shape of `(N × L, C_in)`
+
+{% include figure.liquid loading="eager" path="assets/img/posts/2024-03-12-a-simple-and-effective-pruning-approach-for-large/image_000.png" class="img-fluid rounded z-depth-1" %}
 
 X는 소수의 calibrated input을 통해 만들어내고, 각 layer에 X의 l2 norm을 곱해준다. (다른 norm들보다 좋은 성능)
 
@@ -84,6 +92,8 @@ Structured N:M Sparsity란 N개의 contiguous weights 중 M개가 non-zero인 �
 
 ### Remarks
 
+{% include figure.liquid loading="eager" path="assets/img/posts/2024-03-12-a-simple-and-effective-pruning-approach-for-large/image_001.png" class="img-fluid rounded z-depth-1" %}
+
 이때, 각 layer의 hessian (X^TX + λI)에서 hessian dampening factor가 사라질 때, wanda의 input activation과 거의 유사하다고 주장한다.
 
 지금까지의 정리를 하자면 다음과 같다:
@@ -99,25 +109,61 @@ that ***LLMs have effective sparse sub-networks that are exact***, instead of th
 
 - model
 
+  - LLaMA 7B/13B/30B/65B
+
+  - LLaMA-2 7B/13B/70B
+
+  - OPT-13B/BLOOM family/Pythia-12B
+
 - Eval:
+
+  - ppl
+
+    - WikiText
+
+  - zero-shot
+
+    - seven tasks from EleutherAI LM Harness
 
 - Baselines
 
+  - Magnitude pruning
+
+  - SparseGPT
+
+    - 엄밀한 비교를 위해 calibration data는 여기서 사용했던 128개의 text data from C4
+
 - Sparsity
 
+  - skip the first embedding layer and the final classification head
+
 ## ZERO-SHOT TASKS
+
+{% include figure.liquid loading="eager" path="assets/img/posts/2024-03-12-a-simple-and-effective-pruning-approach-for-large/image_002.png" class="img-fluid rounded z-depth-1" %}
 
 모델 크기가 작을 때는, pruned LLM과 original dense LLM의 gap 차이가 크지만, model size가 카질수록 이 acc gap이 줄어들었다. 실제로, unstructured 50% sparse LLaMA-65B and LLaMA-2-70B의 성능은 Pruining 전과 거의 유사하다.
 
 - Large Sparse vs. Small Dense.
 
+  - sparsity 타입에 따라 다른 양상
+
+  1. unstructured sparsity: large sparse LLMs > small dense LLMs
+
+  1. reverse
+
 ## LANGUAGE MODELING
+
+{% include figure.liquid loading="eager" path="assets/img/posts/2024-03-12-a-simple-and-effective-pruning-approach-for-large/image_003.png" class="img-fluid rounded z-depth-1" %}
 
 For unstructured 50% sparsity, Wanda의 성능은 SparseGPT과 유사하다.
 
 그러나, appendix에 실은 것도 확인하면 sparsegpt의 성능에는 따라가지 못하는 듯하다.
 
+{% include figure.liquid loading="eager" path="assets/img/posts/2024-03-12-a-simple-and-effective-pruning-approach-for-large/image_004.png" class="img-fluid rounded z-depth-1" %}
+
 ## SPEEDUP
+
+{% include figure.liquid loading="eager" path="assets/img/posts/2024-03-12-a-simple-and-effective-pruning-approach-for-large/image_005.png" class="img-fluid rounded z-depth-1" %}
 
 성능에는 따라가지 못하더라도 너무나도 확실한 pruning 속도 개선!
 
@@ -136,9 +182,13 @@ inference speedup은 각 레이어의 Multiplication latency를 측정했다.
 Lora의 경우, additional param이 있지만, 0.06% 밖에.
 Full fietuning의 경우, mask를 계속 적용함.
 
+{% include figure.liquid loading="eager" path="assets/img/posts/2024-03-12-a-simple-and-effective-pruning-approach-for-large/image_006.png" class="img-fluid rounded z-depth-1" %}
+
 ### 2. Robustness to Calibration Samples
 
 calibration sample을 1~256개로 다양하게 주어보았다.
+
+{% include figure.liquid loading="eager" path="assets/img/posts/2024-03-12-a-simple-and-effective-pruning-approach-for-large/image_007.png" class="img-fluid rounded z-depth-1" %}
 
 sparseGPT에 비해, wanda는 굉장히 강건한 것을 확인할 수 있는데, 이는 아마 input norm이 full inevrse hessian보다 훨씬 측정하기 쉽기 때문일 것으로 추정된다.
 
@@ -150,9 +200,15 @@ weight update의 선택지는 다음과 같다
 
 1. sequential
 
+  - 각 레이어에 대해 prune mask가 먼저 연산이 되고, 그 이후 남아있는 weigth들에 대해 update가 일어난다.
+
 1. iterative
 
+  - pruning과 weight update가 한 레이어에 대해 반복적으로 일어난다.
+
 sparesGPT의 경우, 128개의 input channel에 대해 iterative하게 update을 진행한다.
+
+{% include figure.liquid loading="eager" path="assets/img/posts/2024-03-12-a-simple-and-effective-pruning-approach-for-large/image_008.png" class="img-fluid rounded z-depth-1" %}
 
 1. weight update는 magnitude pruning의 성능을 크게 증가시킨다.
 

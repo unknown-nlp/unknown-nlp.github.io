@@ -16,6 +16,7 @@ tags:
 - nlp
 - paper-review
 - prompt tuning
+- reasoning
 thumbnail: assets/img/posts/2023-06-15-do-prompt-based-models-really-understand-the-meaning/thumbnail.jpg
 title: Do Prompt-Based Models Really Understand the Meaning of Their Prompts?
 ---
@@ -49,6 +50,8 @@ title: Do Prompt-Based Models Really Understand the Meaning of Their Prompts?
 
 - **Discrete Prompts: ***{sent} In summary, the restaurant is [prediction]*
 
+→ 위 prompt로 tunining
+
 - **Priming: ICL**
 
 - **Continuous Prompts(prompt tuning, p-tuning)**: In addition to discrete prompts, some models use continuous prompts that are generated using a separate language model. These continuous prompts are designed to be more flexible and can be tailored to specific tasks or domains. However, it is unclear whether these continuous prompts are better at conveying task-specific information than discrete prompts.
@@ -67,13 +70,35 @@ title: Do Prompt-Based Models Really Understand the Meaning of Their Prompts?
 
 - **Weak Baseline**
 
+  - Small PLM Prompt-based Tune, Fine Tune 후 RTE valid에 대해서 few shot 평가
+
+{% include figure.liquid loading="eager" path="assets/img/posts/2023-06-15-do-prompt-based-models-really-understand-the-meaning/image_000.png" class="img-fluid rounded z-depth-1" %}
+
+    - ALBERT > BERT. DISTILBERT. T5. RoBERTa
+
+    - 전체 dataset을 shot으로 주었을 경우 prompt-based tuning이나 fine-tuning이나 성능 차이 바슷함
+
+    - 4-256 shot 기반 prompt-based model ALBERT 당첨!
+
 - **Instruction-Tuned Model**
 
+  - T0 3B / 11B
+
+  - T5-LM Adapted
+
 - **ICL**
+
+  - GPT3 175B
 
 **Data**
 
 - NLI (T0가 instruct tuning때 안봐서)
+
+  - RTE
+
+  - WINOGRAD
+
+  - ANLI
 
 - Label Space는 Yes/No로 통일하고 실험 진행
 
@@ -85,7 +110,13 @@ title: Do Prompt-Based Models Really Understand the Meaning of Their Prompts?
 
 - Instructive: how we would describe the NLI task to a human who has never seen this task before. (처음 NLI 문제를 보는 인간에게 설명하듯이 기술하기)
 
+
+---
+
 **→ Prompt(Instruction) Tuning를 통해 모델이 인간이 Instruction을 보고 unseen task를 풀때와 같은 동작을 하기를 기대한다면  Instructive Prompt를 보았을때랑 아래 Prompt를 보았을 때 성능 차이가 뚜렸해야함**
+
+
+---
 
 - Misleading-Moderate (적당히 속이기): instruct the models to perform a task related or tangential to NLI such that, if the model were to perform the task as explicitly instructed, it would perform poorly on NLI in general. (NLI랑 비슷한 Task를 수행하도록 기술함. 기술한 그대로 수행하면 NLI 성능은 좋지 않을 수 있음)
 
@@ -95,21 +126,41 @@ title: Do Prompt-Based Models Really Understand the Meaning of Their Prompts?
 
 - Null: concatenate the premise and the hypothesis without any additional text. (아무 정보도 넣지 않기)
 
-{% include figure.liquid loading="eager" path="assets/img/posts/2023-06-15-do-prompt-based-models-really-understand-the-meaning/image_000.png" class="img-fluid rounded z-depth-1" %}
+{% include figure.liquid loading="eager" path="assets/img/posts/2023-06-15-do-prompt-based-models-really-understand-the-meaning/image_001.png" class="img-fluid rounded z-depth-1" %}
 
 ### Results
 
 - **T0: Instructive Vs Irrelevant Template **
 
+{% include figure.liquid loading="eager" path="assets/img/posts/2023-06-15-do-prompt-based-models-really-understand-the-meaning/image_002.png" class="img-fluid rounded z-depth-1" %}
+
+→ T0는 Instructive나 Irrelevant Prompt에 상관없이 Fast Training이 가능함 
+
+→ Instruction의 semantic을 학습하지는 않아보임
+
 - **Misleading Template**
+
+{% include figure.liquid loading="eager" path="assets/img/posts/2023-06-15-do-prompt-based-models-really-understand-the-meaning/image_003.png" class="img-fluid rounded z-depth-1" %}
+
+→ ALBERT: Misleading-Extreme>Moderate시에 학습을 더 잘함
+
+{% include figure.liquid loading="eager" path="assets/img/posts/2023-06-15-do-prompt-based-models-really-understand-the-meaning/image_004.png" class="img-fluid rounded z-depth-1" %}
+
+→ T5-3B: Misleading-Extreme>Moderate시에 학습을 더 잘함
+
+{% include figure.liquid loading="eager" path="assets/img/posts/2023-06-15-do-prompt-based-models-really-understand-the-meaning/image_005.png" class="img-fluid rounded z-depth-1" %}
+
+→ T5 11B나 GPT-3는 합리적인 결과 (Instructive>Misleading>Extreme)
 
 - **Null Template**
 
-{% include figure.liquid loading="eager" path="assets/img/posts/2023-06-15-do-prompt-based-models-really-understand-the-meaning/image_001.png" class="img-fluid rounded z-depth-1" %}
+{% include figure.liquid loading="eager" path="assets/img/posts/2023-06-15-do-prompt-based-models-really-understand-the-meaning/image_006.png" class="img-fluid rounded z-depth-1" %}
 
 → 일반적으로 제일 성능이 안좋으나 특정 order template의 경우 32 SHOT에서 성능 좋은 경우 있음 (뭐.. 이럴 수도 있지..)
 
 - **Zero shot**
+
+{% include figure.liquid loading="eager" path="assets/img/posts/2023-06-15-do-prompt-based-models-really-understand-the-meaning/image_007.png" class="img-fluid rounded z-depth-1" %}
 
 → Zero-shot에서 random보다 marginal하게 성능을 보인 model은 T0밖에 없어서 T0로 실험을 진행
 
@@ -133,7 +184,7 @@ title: Do Prompt-Based Models Really Understand the Meaning of Their Prompts?
 
 **Results**
 
-{% include figure.liquid loading="eager" path="assets/img/posts/2023-06-15-do-prompt-based-models-really-understand-the-meaning/image_002.png" class="img-fluid rounded z-depth-1" %}
+{% include figure.liquid loading="eager" path="assets/img/posts/2023-06-15-do-prompt-based-models-really-understand-the-meaning/image_008.png" class="img-fluid rounded z-depth-1" %}
 
 → ALBERT, T0 둘다 Best Illustrastive template로 실험했을때 Yes-No > Arbitrary.Reversed
 
@@ -143,7 +194,7 @@ title: Do Prompt-Based Models Really Understand the Meaning of Their Prompts?
 
 1. **An instructive template + arbitrary targets**, e.g., {premise} Based on the previous passage, is it true that "{hypothesis}"? [cat/dog]
 
-{% include figure.liquid loading="eager" path="assets/img/posts/2023-06-15-do-prompt-based-models-really-understand-the-meaning/image_003.png" class="img-fluid rounded z-depth-1" %}
+{% include figure.liquid loading="eager" path="assets/img/posts/2023-06-15-do-prompt-based-models-really-understand-the-meaning/image_009.png" class="img-fluid rounded z-depth-1" %}
 
 → **An irrelevant or misleading template + yes-no targets의 성능이 더 높음. 인간이라면 몇개 shot만으로 Cat → Entatlilment / Dog → Not-Entailmenet라는 것을 빨리 Mapping할텐데 모델은 그렇지 못하고 있음. 오히려 잘못된 instruction을 전혀 해석하지 못하고 있음을 보여주고 있음.**
 
@@ -157,4 +208,12 @@ title: Do Prompt-Based Models Really Understand the Meaning of Their Prompts?
 
 - **Lack of Competence (너무 어려운 Task)**
 
+  - Non-instruction Tuning model들이 zero-shot에서 random한 성능을 보이는게 Instruction을 해석하는 것을 못배워서인지 애초에 해석할 역량이 없어서인지 몰라서 Few-shot으로 진행했던거..
+
+  - 모델이 애초에 Instruction을 무시하고 Spurious Feature를 꺼내와서 entailment relation에 대한 reasoning을 진행할 수도 있다..
+
 - **Lack of Compliance (Instruction 무시)**
+
+  - instructive and irrelevant templates make models learn significantly faster than misleading and null templates do (중간에 이상한 문장 끼워넣는게 misleading한 지시를 넣는거보다 빨리 배우기 시작함..)
+
+  - complex syntactic or semantic features한 것을 활용하는 것보다 spurious or heuristic features for predictions(irrelevant한 문장을 하나 끼워넣는게)을 사용하는게 모델 입장에서 instruction을 해석하는데 적은 노력이 필요하다. [의미적으로 확확 바뀌는게 모델 입장에서 더 구별하기 편하다는 것 같음]

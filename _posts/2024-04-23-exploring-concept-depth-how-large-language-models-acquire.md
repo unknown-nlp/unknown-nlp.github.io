@@ -29,6 +29,8 @@ title: 'Exploring Concept Depth: How Large Language Models Acquire Knowledge at 
 
 1. analyzing model weights and architectures
 
+  - pruning을 통해 어떤 layer 혹은 param을 제거해도 성능에 변화가 없는지 확인
+
 1. probing representations
 
 이 연구에서는 각기 다른 모델이 각기 다른 데이터셋에서 어떻게 지식을 이해하는지 측정하기 위해 "Concept Depth"라는 개념을 제안한다. 방법은 아주 간단하다.
@@ -36,6 +38,8 @@ title: 'Exploring Concept Depth: How Large Language Models Acquire Knowledge at 
 1. capture the feature responses of different layers of the LLMs for different datasets
 
 1. use independent linear probes to indicate the best performance that the current layer can achieve
+
+{% include figure.liquid loading="eager" path="assets/img/posts/2024-04-23-exploring-concept-depth-how-large-language-models-acquire/image_000.png" class="img-fluid rounded z-depth-1" %}
 
 간단한 방법론이지만, 그럼에도 불구하고 1) 다양한 크기의 LLM들이 어디서 학습을 진행했는가에 대한 비교 및 일반적인 양상 포착 2) robustness 적인 측면에서 기여가 있다고 할 수 있겠다!
 
@@ -69,6 +73,8 @@ LLM에 관한 가장 뜨거운 논쟁은 LLM이 정말 개념 자체를 이해�
 
 각 레이어의 representation들을 뽑아, 시각화를 위해 PCA를 진행한다. 예를 들어, 다음의 그림을 보자
 
+{% include figure.liquid loading="eager" path="assets/img/posts/2024-04-23-exploring-concept-depth-how-large-language-models-acquire/image_001.png" class="img-fluid rounded z-depth-1" %}
+
 위의 그림은 Counterfact 데이터셋에서 fact인 데이터와 counterfact인 데이터에 대해서 80% 깊이의 Gemma-7b 모델에 넣어 representation을 구해 시각화한 결과이다 즉, 이 깊이에서 두 개념 자체를 잘 분리해내고 있음을 확인할 수 있다.
 
 ### Linear Classifier Probing
@@ -85,6 +91,8 @@ LLM에 관한 가장 뜨거운 논쟁은 LLM이 정말 개념 자체를 이해�
 
 - binary 레이블 y(i)는 0 또는 1로 설정된다.
 
+{% include figure.liquid loading="eager" path="assets/img/posts/2024-04-23-exploring-concept-depth-how-large-language-models-acquire/image_002.png" class="img-fluid rounded z-depth-1" %}
+
 즉, binary logistic regression classifier with L2 regularization이다! 그리고, 각 layer 별로 다 학습을 진행하는 것을 볼 수 있다.
 
 # Experimental Setting
@@ -99,9 +107,17 @@ LLM에 관한 가장 뜨거운 논쟁은 LLM이 정말 개념 자체를 이해�
 
 linear classifier를 만들 때는, each layer의 마지막 feature representation을 사용.
 
+{% include figure.liquid loading="eager" path="assets/img/posts/2024-04-23-exploring-concept-depth-how-large-language-models-acquire/image_003.png" class="img-fluid rounded z-depth-1" %}
+
 ### Dataset
 
 - nine datasets
+
+  - fact/factual analysis (Cities[22], CommonClaim[7], Counterfact[24])
+
+  - emotion (STSA[17], IMDb[20], Sarcasm[25], HateEval [21])
+
+  - inference/logical reasoning (StrategyQA[11], Coinflip[34])
 
 ```latex
 Cities [22]: consists of statements about the location of cities and
@@ -133,7 +149,13 @@ it is either flipped or left unflipped by individuals.
 
 ```
 
+{% include figure.liquid loading="eager" path="assets/img/posts/2024-04-23-exploring-concept-depth-how-large-language-models-acquire/image_004.png" class="img-fluid rounded z-depth-1" %}
+
 - LLM의 성능에 따라 easy ~ complex로 구분
+
+  - initial or middle depth of the LLMs에서 좋은 성능을 보이는 데이터는 easy
+
+  - large fluctuations and stable classification accuracy occurring at the deep depth of the LLMs을 보이는 데이터는 complex
 
 ### The Robustness of Internal Representations
 
@@ -149,6 +171,10 @@ quantization을 했을 때는 어떻게 달라질까?
 ### Metrics for Accuracy Variation
 
 - Variation Rate
+
+  - i-th layer의 acc = a_i
+
+  - vartiation rate β_i = a_i/a_{i-1}
 
 2가지 acc metric을 소개한다:  (1) jump point (2) coveraging point
 
@@ -174,6 +200,8 @@ We denote C(M, D) = max{\frac{i}{d}} s.t. |β_i − 1| < 0.03, i ∈ {1, 2, ...,
 ## Comparison Among the Datasets
 
 > RQ1: Do different LLMs’ concept depths behave consistently in the same dataset? (Section 5.1)
+
+{% include figure.liquid loading="eager" path="assets/img/posts/2024-04-23-exploring-concept-depth-how-large-language-models-acquire/image_005.png" class="img-fluid rounded z-depth-1" %}
 
 1. LLMs은 다루는 개념에 따라, layer에서 다른 양상을 보였다.
 하지만, 같은 개념은 다양한 LLM들에서 일관된 양상을 보였다.
@@ -215,6 +243,8 @@ classification tasks의 성능은 세 가지 타입으로 묶을 수 잇다.
 
 - RQ2: Do different size LLMs but the same series (e.g., Gemma series) have consistent Concept Depth? (Section 5.2)
 
+{% include figure.liquid loading="eager" path="assets/img/posts/2024-04-23-exploring-concept-depth-how-large-language-models-acquire/image_006.png" class="img-fluid rounded z-depth-1" %}
+
 figure는 두가지의 반복되는 패턴을 보인다.
 
 1. 큰 모델이 earlier layer에서 converging point가 나타난다
@@ -224,3 +254,40 @@ figure는 두가지의 반복되는 패턴을 보인다.
 → 개인적으로는 더 큰 모델일수록 earlier layer라고는 하지만, 결국 개수가 더 많으니까 본 layer의 수는 비슷/동일하지 않을까싶네요! 혹은 당연한 이야기지 않나.. — 결국 개수!
 
 → 그렇지만 데이터셋별로 그래프가 비슷한건 신기!
+
+
+---
+
+### Remark
+
+By comparing different sizes of models from the same LLM family, we have two observations.
+
+1. As the number of parameters increases, peak accuracy gradually increases, and the converging point gradually advances.
+
+1. Larger models grasp the concepts earlier and better.
+
+## Comparison Among the LLM Families
+
+- RQ3: Do LLMs’ Concept Depth of the same size behave consistently? (Section 5.3)
+
+결론부터 이야기하자면, peak는 비슷할 수 있으나, converging point는 다 다르다! 즉, 모델별로 어떤 문제가 더 어렵고 쉽고가 다를 수 있다. → 그러나 그래프보면 사실 비슷
+
+{% include figure.liquid loading="eager" path="assets/img/posts/2024-04-23-exploring-concept-depth-how-large-language-models-acquire/image_007.png" class="img-fluid rounded z-depth-1" %}
+
+{% include figure.liquid loading="eager" path="assets/img/posts/2024-04-23-exploring-concept-depth-how-large-language-models-acquire/image_008.png" class="img-fluid rounded z-depth-1" %}
+
+## Ablation Study
+
+이번 섹션에서는 noise와 precision reduction의 영향력에 대한 실험 결과를 보인다.
+
+string noise의 경우 랜덤하게 두 개의 짧은 string을 question앞에 붙였고, quantization은 8,16,32 bit precision을 사용한다.
+
+{% include figure.liquid loading="eager" path="assets/img/posts/2024-04-23-exploring-concept-depth-how-large-language-models-acquire/image_009.png" class="img-fluid rounded z-depth-1" %}
+
+- [noise] learning curve가 좀 더 오른쪽으로 shift, 즉, convergence speed가 좀 느려짐.
+
+  - noise가 학습에 부정적인 역할!
+
+- [quantization] 32와 16의 경우 별로 달라지지 않고, 8의 경우에는 slower. 즉, 16이 더 좋은 선택이다!
+
+결론 → 신기한건 없었다! 그럼에도 불구하고 내가 하기 귀찮은 연구를 누군가가 대신해줘서 인용할 때 써먹기 좋은 느낌

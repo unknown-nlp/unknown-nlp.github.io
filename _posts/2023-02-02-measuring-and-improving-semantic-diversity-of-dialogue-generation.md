@@ -9,6 +9,7 @@ related_posts: false
 tags:
 - "\bdialogue"
 - evaluation metric
+- fine-tuning
 - gpt
 - paper-review
 thumbnail: assets/img/posts/2023-02-02-measuring-and-improving-semantic-diversity-of-dialogue-generation/thumbnail.jpg
@@ -123,7 +124,15 @@ Dull하고 uninformative generic한 대답은 왜 문제가 되는가? → engag
 
 - Lexical-Level Semantics
 
+  - Dist-n
+
+  - Ent-n
+
+  - LF
+
 - Semantic-Level Semantics
+
+  - MAUVE (divergence of generated responses from human responses이지 generated responses 자체의 diversity를 측정하지는 X)
 
 **Results**
 
@@ -136,6 +145,8 @@ Dull하고 uninformative generic한 대답은 왜 문제가 되는가? → engag
 **→ DialoGPT의 Latent Space의 reliability를 증명해 줄 실험이 전혀 X**
 
 **→ Dialogue Generation Model 선택이 별로였다.**
+
+**EX) Expert Model, Amateur Model 별로 나누어서 fine-tuning을 해서 실험을 한다던가 했으면 조금 더 믿을만한 결과가 아니었을까? **
 
 **→ DailyDialog dataset과 DialoGPT의 관계가 없는 것도 아쉽… (DialoGPT는 reddit으로 tuning한 모델인데,,,??)**
 
@@ -160,3 +171,37 @@ Dull하고 uninformative generic한 대답은 왜 문제가 되는가? → engag
 다음과 같이 특정 responses들마다 가중치를 주어서 보정하는 방식이다.
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2023-02-02-measuring-and-improving-semantic-diversity-of-dialogue-generation/image_008.png" class="img-fluid rounded z-depth-1" %}
+
+key idea는 frequent한 response보다는 infrequent한 responses들에 loss를 크게 주어서 responses semantic distribution을 uniform하게 만들자는 것이다. 
+
+{% include figure.liquid loading="eager" path="assets/img/posts/2023-02-02-measuring-and-improving-semantic-diversity-of-dialogue-generation/image_009.png" class="img-fluid rounded z-depth-1" %}
+
+그리고 여기서 trick을 하나 더 추가하는데, frequent semantic clusters 에 대해서는 강하게 penalize주는 것이다. 매 epoch마다 head cluster에 속하는 response들을 생성할 경우 loss를 오히려 반대로 주는 것이다. (i.e., Negative Training)
+
+{% include figure.liquid loading="eager" path="assets/img/posts/2023-02-02-measuring-and-improving-semantic-diversity-of-dialogue-generation/image_010.png" class="img-fluid rounded z-depth-1" %}
+
+**Experimental Setup**
+
+- dataset : DailyDialog, OpenSubtitles
+
+- automated criteria: diversity & coherency
+
+- human eval: *Appropriateness (coherency) & Informativeness (given response has meaningful information relevant to its given context)*
+
+(→ 일반적으로 human eval은 pairwise로 측정하는데 diversity는 pairwise 자체로는 평가하기 어렵다고 한다. … 한 모델이 비슷한 context에 대해서 여러 답변을 생성하는 것을 봐야하기 때문이지 않을까?)
+
+**Results**
+
+{% include figure.liquid loading="eager" path="assets/img/posts/2023-02-02-measuring-and-improving-semantic-diversity-of-dialogue-generation/image_011.png" class="img-fluid rounded z-depth-1" %}
+
+→ DRESS가 lexical-sematic한 지표들에서 성능이 잘 나온 것은 좋은 성과인듯 하다. (Sem-ENT에서 잘나오는 것은 당연,,, 목적함수 설계가 이 지표가 잘나오도록 설계)
+
+→ (-NT) 역시 대부분 좋은 성능을 보였는데 DRESS에 대한 contribution을 강조하기 위해서 설계한 실험으로 보임
+
+{% include figure.liquid loading="eager" path="assets/img/posts/2023-02-02-measuring-and-improving-semantic-diversity-of-dialogue-generation/image_012.png" class="img-fluid rounded z-depth-1" %}
+
+→ Human Eval 결과는 설득력 있어보이지 않음
+
+→ DRESS를 활용했을때 Semantic Distribution이 uniform해지는 것을 보이는 것은 설득력이 있어보는 실험으로 보임
+
+{% include figure.liquid loading="eager" path="assets/img/posts/2023-02-02-measuring-and-improving-semantic-diversity-of-dialogue-generation/image_013.png" class="img-fluid rounded z-depth-1" %}

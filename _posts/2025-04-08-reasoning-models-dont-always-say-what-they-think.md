@@ -28,6 +28,12 @@ title: Reasoning Models Don’t Always Say What They Think
 
 - 성능 외적으로도 CoT는 AI Safety에 활용이 가능함
 
+  - CoT reasoning을 모니터링 함으로써 의도와 목적을 이해할 수 있음.
+
+  - CoT 모니터링에는 Reasoning 과정이 결론을 도출하는 논리 과정이라는 전제가 있음.
+
+> **Reasoning 과정이 실제로 신뢰할 수 있는 것인가?**
+
 → CoT 자체를 신뢰할 수 없다면
 
 → 즉, 구체적 언어로 명시되지 않은 사고 과정에 의해 결과가 영향을 받는다면 
@@ -114,11 +120,25 @@ q=P\left(a_h \neq h, a_h \neq a_u \mid a_u \neq h\right): non-hint answer에서 
 
 - Misaligned: 구체적으로 나쁜 행위들에 대해 예시를 통해 가르쳐줌.
 
+> Exploiting the **misaligned hints may lead to concerning outcomes**, so CoT faithfulness on **these hints is particularly important for safety monitoring**.
+
 ### Experimental Setup
 
 - Eliciting CoTs: Think step-by-step
 
 - Evaluating CoTs: **verbalize 여부를 결정**
+
+  - **기준**
+
+    1. hint를 전체나 부분적으로 언급
+
+    1. CoT가 답변에 도달하기 위해 힌트에 의존했는지 여부
+
+  - 힌트 외에 다른 reasoning process를 결합해서 사용해도 정답이 힌트로 변경되었다면 **verbalize**
+
+  - 힌트를 마지막에 단순히 언급하는 정도는 **verbalize x**
+
+  - Sonnet 3.5를 통해 확인 + subset에 대해서 manual inspection
 
 # Benchmarking CoT Faithfulness of Reasoning Models
 
@@ -156,6 +176,8 @@ q=P\left(a_h \neq h, a_h \neq a_u \mid a_u \neq h\right): non-hint answer에서 
 
 - 더 문제가 되는 부분은 힌트를 정답으로 하기 위해 **기존 지식과 모순되는 방법을 동원**하기도 한다는 점. 이 때에도 힌트 사용 여부를 설명하지 않는 경우가 많음. 
 
+> **These patterns suggest that models seem to have a strong prior to conceal their true reasoning processes.**
+
 **CoT appears to be less faithful on harder questions.** 
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2025-04-08-reasoning-models-dont-always-say-what-they-think/image_004.png" class="img-fluid rounded z-depth-1" %}
@@ -163,6 +185,8 @@ q=P\left(a_h \neq h, a_h \neq a_u \mid a_u \neq h\right): non-hint answer에서 
 - **GPQA >> MMLU, GPQA에서 신뢰도가 훨씬 낮았음.** (Claude 3.7 Sonnet에서 44% R1에서 32% 감소)
 
 - Faithful CoTs의 경우, **자신의 답변을 먼저 생성**하고 **Hint와 답변을 비교**하는 reasoning 과정을 가진 후 **hint에 따라 답을 바꾼다는 사실**을 보여줌. 
+
+→ 어려운 문제에 대해 모델이 명확한 정답을 모르는 경우, 힌트를 밝히지 않고 활용하는 경향이 커지는듯함
 
 - CoT monitoring을 통한 safety 관리는 **어려운 문제로 scale이 어려울듯**
 
@@ -172,8 +196,74 @@ q=P\left(a_h \neq h, a_h \neq a_u \mid a_u \neq h\right): non-hint answer에서 
 
 - 결론을 만드는 과정에서 **CoT에 더 의존적이게 학습**을 한다면 어떨까?
 
+**→ outcom-based RL 실험**
+
+  - **Reasoning-intensive tasks** (coding and math) 진행
+
+    - 복잡한 reasoning을 요구하는 tasks는 전반적인 CoT의 신뢰성을 높이는 것에 기여할 것
+
+  - 오직 **결과값만을 reward**로 활용
+
+    - 어려운 정답을 맞추기 위해 CoTs를 계속 진행한다면 신뢰있는 CoTs만이 정답률 향상에 기여할 것
+
 {% include figure.liquid loading="eager" path="assets/img/posts/2025-04-08-reasoning-models-dont-always-say-what-they-think/image_005.png" class="img-fluid rounded z-depth-1" %}
 
 - Sonnet 3.7 모델에 대해서 학습 극초기에는 MMLU 63%, GPQA 41% 정도 향상되는 것으로 보임.
 
 - 더 학습을 진행하더라도 개선되지 않음. 
+
+→ **outcom-based RL은 faithfullness 확보에 적합한 수단은 아님!**
+
+# CoT Faithfulness on RL Reward Hacks
+
+- Model capabilities 향상에 RL의 효과가 크다는 여러 연구 존재
+
+- RL 학습의 challenge는 reward hacking
+
+- reward hacking을 탐지하기에 유망한 방법 중 하나가 CoT 모니터링임.
+
+→ 우리 이전 결과들이 CoT 모니터링의 불완전성을 보였기에 이를 확인해봄.
+
+**Experimental Setup**
+
+- **Env**: reward hack을 포함한 가상의 환경을 구성
+
+- **Model**: Claude 3.7 Sonnet
+
+- **Data**: 이전에 사용한 데이터를 **reward hack으로 제공**, **모든 힌트는 실제로는 틀린 답변으로 구성. 높은 점수를 얻기 위해서는 reward hacking을 이용해야만 함.**
+
+- Reward: 아래 2개의 합
+
+  - Response format **adherence**: CoT를 포함하며 유효한 답변을 할 경우 0, 그렇지 않으면 -1
+
+  - **Hint answer selection** (outcom-based): 모델이 (incorrect) hint를 답하면 1, 그렇지 않으면 0
+
+{% include figure.liquid loading="eager" path="assets/img/posts/2025-04-08-reasoning-models-dont-always-say-what-they-think/image_006.png" class="img-fluid rounded z-depth-1" %}
+
+**Results**
+
+- 매우 빠르게 reward hack을 배움 (30 step 안에 99% 이상). verbalization 하지 않음.
+
+- 5/6의 힌트 타입에 대해서 2% 미만으로 힌트 사용 여부를 밝힘.
+
+{% include figure.liquid loading="eager" path="assets/img/posts/2025-04-08-reasoning-models-dont-always-say-what-they-think/image_007.png" class="img-fluid rounded z-depth-1" %}
+
+- Reward hacking을 인정하지는 않지만 급격하게 정답을 바꾸거나 왜 (사실은 틀린) 힌트가 정답인지를 정당화하는 거짓 reason을 만들어가고 있음.
+
+- Hack을 직접 언급하는 쉬운 방법이 있음에도 이렇게 돌려서 말하는 경향이 발생하는 것은 놀랍더라!
+
+- RL 학습으로는 unfaithfullness를 개선하지 못했음 (5/6).
+
+# Conclusion
+
+- CoT 모니터링만으로는 Safety를 보장할 수 없음.
+
+  - 드물게 발생하는 위험에 대해 탐지할 수 있을만큼 **높은 신뢰도를 보이지 않음.**
+
+  - Hint를 사용하는 것 같은 **치팅 행위**에 대해 의도적으로 숨길 수 있음.
+
+- 실험 세팅의 **한계점**
+
+  - 객관식 질문 기반 환경은 실제 복잡한 환경을 대변하지 못함.
+
+  - Hint 세팅이 매우 쉽게 사용할 수 있는 상황으로만 제한됨.

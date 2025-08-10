@@ -11,6 +11,7 @@ tags:
 - gpt
 - language-model
 - llm
+- nlp
 - paper-review
 - pre-training
 thumbnail: assets/img/posts/2024-04-16-understanding-emergent-abilities-of-language-models-from-the/thumbnail.jpg
@@ -25,6 +26,8 @@ title: Understanding Emergent Abilities of Language Models from the Loss Perspec
 ### 1. Introduction
 
 - **Emergent Abilities**
+
+  - 작은 Model에서는 못하지만 큰 Model에서는 발현되는 LM의 능력들 (e.g., few-shot, KG-intensive task, ..)
 
 -  Emergent Abilities의 실체에 대한 의문이 제기되는 이유
 
@@ -46,9 +49,29 @@ title: Understanding Emergent Abilities of Language Models from the Loss Perspec
 
 - Pre-training LMs
 
-- Downstream Tasks
+  - different model sizes (300M, 540M, 1B, 1.5B, 3B, 6B, and 32B)을 fixed data corpus, tokenization, architecture setting에서 from the scratch부터 pre-training 
+
+  - English Corpus: Chines Corpus = 4:1
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-04-16-understanding-emergent-abilities-of-language-models-from-the/image_000.png" class="img-fluid rounded z-depth-1" %}
+
+  - Default Training Setting
+
+{% include figure.liquid loading="eager" path="assets/img/posts/2024-04-16-understanding-emergent-abilities-of-language-models-from-the/image_001.png" class="img-fluid rounded z-depth-1" %}
+
+  - Small Scale Models
+
+    - 각 열에 보이는 number of tokens과 Max LR에 대응되는 학습 step까지 학습한 models
+
+{% include figure.liquid loading="eager" path="assets/img/posts/2024-04-16-understanding-emergent-abilities-of-language-models-from-the/image_002.png" class="img-fluid rounded z-depth-1" %}
+
+- Downstream Tasks
+
+{% include figure.liquid loading="eager" path="assets/img/posts/2024-04-16-understanding-emergent-abilities-of-language-models-from-the/image_003.png" class="img-fluid rounded z-depth-1" %}
+
+→ EM은 single token match 환경만 상정
+
+{% include figure.liquid loading="eager" path="assets/img/posts/2024-04-16-understanding-emergent-abilities-of-language-models-from-the/image_004.png" class="img-fluid rounded z-depth-1" %}
 
 → 매 43B PT token마다 plotting
 
@@ -56,17 +79,21 @@ title: Understanding Emergent Abilities of Language Models from the Loss Perspec
 
 → Model 크기에 따라서 절대적인 성능 차이는 분명히 존재하나, pre-training loss와 downstream task 사이의 correlation은 model 크기와는 무관하게 경향성으로 보이고 있음
 
-{% include figure.liquid loading="eager" path="assets/img/posts/2024-04-16-understanding-emergent-abilities-of-language-models-from-the/image_001.png" class="img-fluid rounded z-depth-1" %}
+{% include figure.liquid loading="eager" path="assets/img/posts/2024-04-16-understanding-emergent-abilities-of-language-models-from-the/image_005.png" class="img-fluid rounded z-depth-1" %}
 
 → scaling laws에 따라 조금 더 작은 scale의 model(300M, 540M, 1B, 1.5B, 3B, 6B)을 더 적은 pre-training corpus를 가지고 실험. 
 
 → 각 model을 상기표에 표기된 configuration까지 pre-training을 완료한 다음 last checkpoint의 pre-training loss & downstream performance를 plotting 함
 
+- **학습 중간과정에서 저장한 checkpoint plotting한 performance는 아래와 같음 (same trend, but larger variance)**
+
+{% include figure.liquid loading="eager" path="assets/img/posts/2024-04-16-understanding-emergent-abilities-of-language-models-from-the/image_006.png" class="img-fluid rounded z-depth-1" %}
+
 → Model 크기, 학습 Token수가 다르더라도 pre-training loss가 유사한 구간에 있으면 downstream task도 유사한 performance를 보임
 
 → MMLU, C-Eval, GSM8K, GSM8K-Chinese의 경우 ~500B로는 loss를 수렴시키기 불충분하지 않았을까라는 나의 추측
 
-{% include figure.liquid loading="eager" path="assets/img/posts/2024-04-16-understanding-emergent-abilities-of-language-models-from-the/image_002.png" class="img-fluid rounded z-depth-1" %}
+{% include figure.liquid loading="eager" path="assets/img/posts/2024-04-16-understanding-emergent-abilities-of-language-models-from-the/image_007.png" class="img-fluid rounded z-depth-1" %}
 
 → LLAMA1 original paper에서 Token Step별 Training Loss와 6개 Downstream Task Performance 결과를 재구성해 가져와보면 동일한 경향성을 보였음을 알 수 있음
 
@@ -80,13 +107,25 @@ title: Understanding Emergent Abilities of Language Models from the Loss Perspec
 
 - 2개의 GROUP으로 나누어서 분석을 시작함
 
+  - G1: TriviaQA, HellaSwag, RACE, WinoGrande, NLPCC-KBQA, ClozeT, CLUEWSC, C3
+
+  - G2: MMLU, C-Eval, GSM8K, GSM8K-Chinese
+
 - G1는 pre-training loss랑 performance score랑 linear한 관계를 보이나, G2는 어느순간 (e.g., 2.2) performance score가 random이상의 성능을 보이기 시작, 저자들은 이에 대한 분석을 제시
 
 1. 당연하게도, G2가 G1보다 task difficulty가 높다
 
+  1. G1(Hellaswag.RACE)은 commonsense, 단순 qa수준의 문제. 반면 GSM8K는 tuning안한 PLM이 Chain-of-Thought prompting안하고 풀기 어렵다고 알려져있음. 
+
 1. Model이 Training dataset에 Overfitting된 한참 후에 전체 data distribution에 generalization 되는 Grokking현상
 
+  1. Pre-training corpus는 mixture of corpus이기 때문에 model이 어떤 corpus(e.g., code)는 fitting되더라도 다른 corpus에는 underfitting되어 있는게 당연하기 때문
+
 1. 기존 Emergent Abilities 정의와의 연관성
+
+  1. pre-training loss가 줄어들면서 G2 performance가 향상하는 지점과 model size가 scaling하는 지점이 유사
+
+  1. training tokens이 고정되었다면, pre-training loss는 model 크기의 power law를 따라 감소하는 경향이 있음
 
 **#### 3.2. Influence of Different Metrics**
 
@@ -94,7 +133,15 @@ title: Understanding Emergent Abilities of Language Models from the Loss Perspec
 
 - ACC
 
-{% include figure.liquid loading="eager" path="assets/img/posts/2024-04-16-understanding-emergent-abilities-of-language-models-from-the/image_003.png" class="img-fluid rounded z-depth-1" %}
+  - CorrectChoiceProb
+
+  - BrierScore
+
+{% include figure.liquid loading="eager" path="assets/img/posts/2024-04-16-understanding-emergent-abilities-of-language-models-from-the/image_008.png" class="img-fluid rounded z-depth-1" %}
+
+(where ˆ yij is the predicted probability of sample i for class j and yij is the ground probability)
+
+{% include figure.liquid loading="eager" path="assets/img/posts/2024-04-16-understanding-emergent-abilities-of-language-models-from-the/image_009.png" class="img-fluid rounded z-depth-1" %}
 
 → BrierScore 역시 random guess (0.25^2*3+0.75^2=0.75) 이상 성능을 보이려면 pre-training loss가 일정 성능 이하로 떨어져야 한다. 
 
@@ -105,6 +152,10 @@ title: Understanding Emergent Abilities of Language Models from the Loss Perspec
 ### 4. Defining Emergent Abilities from the Loss Perspective
 
 - 위의 실험들로부터
+
+  1. pre-training loss는 downstream task의 성능을 예측하는 지표가 될 수 있으며
+
+  1. 일부 downstream task는 model 크기, 학습 token 수 (이건 살짝 무리수), metric의 continuous 유무와 관계 없이 pre-training loss가 특정 임계값 아래로 randombess 수준에서 성능이 향상된다는 것을 입증
 
 ### Emergent Abilities의 재정의
 

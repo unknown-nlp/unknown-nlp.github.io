@@ -10,8 +10,10 @@ tags:
 - gpt
 - language-model
 - llm
+- machine-learning
 - nlp
 - paper-review
+- reasoning
 thumbnail: assets/img/posts/2025-06-03-textgrad-automatic-differentiation-via-text/thumbnail.jpg
 title: 'Textgrad:  Automatic “Differentiation” via Text'
 ---
@@ -139,10 +141,22 @@ TEXTGRAD는 forward와 backward 양방향 연산이 정의된 여러 종류의 �
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2025-06-03-textgrad-automatic-differentiation-via-text/image_004.png" class="img-fluid rounded z-depth-1" %}
 
+- **prompt**
+
+{% include figure.liquid loading="eager" path="assets/img/posts/2025-06-03-textgrad-automatic-differentiation-via-text/image_005.png" class="img-fluid rounded z-depth-1" %}
+
+{% include figure.liquid loading="eager" path="assets/img/posts/2025-06-03-textgrad-automatic-differentiation-via-text/image_006.png" class="img-fluid rounded z-depth-1" %}
+
 ### Appendix A.4: Textual Gradient Descent Implementation
 
 
 역전파와 마찬가지로, TEXTGRAD의 최적화 단계도 일반성을 유지하도록 구현되어 있습니다. optimizer에 glossary를 포함하여, 각 변수의 역할, 목표, 현재 값 등을 포함한 정보를 시스템 프롬프트에 넣고, 피드백을 바탕으로 값을 업데이트합니다.
+
+- **The current system prompt to the optimizer call is the following:**
+
+{% include figure.liquid loading="eager" path="assets/img/posts/2025-06-03-textgrad-automatic-differentiation-via-text/image_007.png" class="img-fluid rounded z-depth-1" %}
+
+{% include figure.liquid loading="eager" path="assets/img/posts/2025-06-03-textgrad-automatic-differentiation-via-text/image_008.png" class="img-fluid rounded z-depth-1" %}
 
 ## Objective functions
 
@@ -177,9 +191,9 @@ TEXTGRAD에 구현된 최적화 기법들의 더 자세한 내용은 부록 B에
 
 ## Appendix B
 
-{% include figure.liquid loading="eager" path="assets/img/posts/2025-06-03-textgrad-automatic-differentiation-via-text/image_005.png" class="img-fluid rounded z-depth-1" %}
+{% include figure.liquid loading="eager" path="assets/img/posts/2025-06-03-textgrad-automatic-differentiation-via-text/image_009.png" class="img-fluid rounded z-depth-1" %}
 
-{% include figure.liquid loading="eager" path="assets/img/posts/2025-06-03-textgrad-automatic-differentiation-via-text/image_006.png" class="img-fluid rounded z-depth-1" %}
+{% include figure.liquid loading="eager" path="assets/img/posts/2025-06-03-textgrad-automatic-differentiation-via-text/image_010.png" class="img-fluid rounded z-depth-1" %}
 
 # 3. Results
 
@@ -203,6 +217,204 @@ GPT-4o가 생성한 첫 번째 해답은 테스트를 통과하지 못했고, TE
 
 - **Baseline:** 
 
+  - Reflexion,  GPT-4o , one-shot
+
+  - zero-shot GPT-4o
+
 - **결과:** 
 
-{% include figure.liquid loading="eager" path="assets/img/posts/2025-06-03-textgrad-automatic-differentiation-via-text/image_007.png" class="img-fluid rounded z-depth-1" %}
+  - 기존 결과에서는 GPT-4 zero-shot이 7%, Reflexion이 15%였던 반면,
+
+  - 이번에는 GPT-4o zero-shot이 26%, Reflexion이 31%, TEXTGRAD가 36%의 성공률을 달성
+
+{% include figure.liquid loading="eager" path="assets/img/posts/2025-06-03-textgrad-automatic-differentiation-via-text/image_011.png" class="img-fluid rounded z-depth-1" %}
+
+## 3.2 Solution optimization by test-time training to improve problem solving
+
+solution optimization의 목표는 quantum mechanics이나 organic chemistry과 같은 복잡한 문제에 대한 답을 만들어내는 것입니다. 계산 그래프는 다음과 같습니다:
+
+```plain text
+Solution Refinement Objective = LLM(Question + ***Solution ***+ Test-time Instruction)
+```
+
+매 iteration 마다, LLM은 question, current solution, test-time instruction asking to critique or investigate the current iteration을 입력으로 받습니다. 최적화 과정동안 solution은 이 test-time self-evaluation을 통해 개선됩니다. 이는 일반적으로 test-time training이라고 불리어 왔던 개념과 동일합니다. 
+
+
+{% include figure.liquid loading="eager" path="assets/img/posts/2025-06-03-textgrad-automatic-differentiation-via-text/image_012.png" class="img-fluid rounded z-depth-1" %}
+
+{% include figure.liquid loading="eager" path="assets/img/posts/2025-06-03-textgrad-automatic-differentiation-via-text/image_013.png" class="img-fluid rounded z-depth-1" %}
+
+- **Task:** GPQA (Google-Proof QA)는 물리, 생물, 화학 등에서 전문가가 만든 어려운 문제들을 포함 전문가와 비전문가의 성능 차이가 큼(81% and 22% accuracy respectively).  또한 MMLU의 하위셋인 Machine Learning, College Physics도 포함 (expert human accuracy on average is around 90%).
+
+- **Method:** GPT-4o에 대해 3번의 TEXTGRAD 기반 test-time 업데이트를 수행하고, 각 업데이트에 대해 다수결 투표로 최종 답을 정함.
+
+- **결과:** GPQA에서 GPT-4o는 53.6%였지만 TEXTGRAD로 55%까지 향상(sota). MMLU의 Machine Learning에서는 85.7% → 88.4%, College Physics는 91.2% → 95.1%로 상승했습니다.
+
+{% include figure.liquid loading="eager" path="assets/img/posts/2025-06-03-textgrad-automatic-differentiation-via-text/image_014.png" class="img-fluid rounded z-depth-1" %}
+
+## 3.3 Prompt optimization for reasoning
+
+
+LLM은 프롬프트에 민감하며, 적절한 프롬프트는 성능 향상에 큰 도움이 됩니다. 
+
+```javascript
+Answer = LLM(***Prompt***, Question)
+Evaluation Metric = Evaluator(Answer, Ground Truth)
+```
+
+이 실험에서는 GPT-3.5-turbo의 프롬프트를 개선하여 GPT-4 수준에 가까운 성능을 도달하는 것이 목표.  
+
+TEXTGRAD tries to optimize each individual solution였던 instance optimization과 달리, 여기서의 목표는 전체 질문들에 대해서 잘 동작하나는 하나의 프롬프트를 만드는 것이 목적입니다.  
+
+
+- **Task:** BigBench Hard (Object Counting, Word Sorting), GSM8k
+
+- **Method:** a minibatch stochastic gradient descent setting . GPT-3.5가 forward pass를 담당하고, GPT-4o가 feedback을 제공 batch size는 3이며 총 12번 iteration을 돌며 학습. 36 training examples in total, sampled randomly with replacement
+
+- **Baseline:**
+
+  1. Zero-shot CoT
+
+  1. DSPy (Bootstrapped FewShot RandomSearch)
+
+    1. optimizer with 10 candidate programs and 8 few-shot example
+
+    1. This optimizer identifies demonstrations to include in the prompt as few-shot examples. This is done through generating traces of LLM inputs and outputs that individually pass the metric (in this case, accuracy) and includes CoT reasoning. It then applies random search over subsets of up to size eight shots with these demonstrations.
+
+- **결과:** TEXTGRAD는 모든 task에서 zero-shot CoT 대비 성능이 크게 향상되었고, DSPy와 비슷하거나 더 좋은 결과. Object Counting에서는 7%p 우위. 또한 TEXTGRAD와 DSPy를 조합하면 더 높은 성능(예: GSM8k에서 81.1%)을 달성.
+
+{% include figure.liquid loading="eager" path="assets/img/posts/2025-06-03-textgrad-automatic-differentiation-via-text/image_015.png" class="img-fluid rounded z-depth-1" %}
+
+## 3.4 Molecule optimization
+
+TEXTGRAD는 multi-objective optimization tasks에도 적용됩니다. 예를 들어,  drug discovery에서 synthesizability, efficacy, safety를 동시에 보장해야 합니다. 이번 실험에서는 binding affinity and druglikeness를 동시에 높이는 작업을 수행합니다. 
+
+- **Task:** 
+
+  - binding affinity, 
+
+    -  약물 분자의 결합 친화도는 해당 분자가 표적 단백질에 얼마나 강하게 결합하는지를 나타내며, Vina score를 사용해 측정합니다. Vina 점수는 낮을수록 (더 음수일수록) 결합 친화도가 높다는 것을 의미
+
+  - druglikeness
+
+    - Druglikeness는 분자의 체내 흡수, 대사 안정성, 용해도 등과 관련된 특성으로, QED 점수를 통해 측정합니다. QED는 0~1 범위의 값으로, 1에 가까울수록 이상적인 약물 특성을 가진 것으로 간주
+
+  - 즉, 이 실험에서는 Vina 점수(결합력)와 QED 점수(약물 적합도)를 기반으로 loss를 구성
+
+    - 보통, 둘은 trade off 관계여서 최적화가 어려움
+
+    - docking scores: prefer larger molecules with many functional groups
+druglikeness: encourages lighter, simpler molecules
+
+- **Method:**  
+
+  - SMILES 문자열로 표현된 분자를 TEXTGRAD의 인스턴스 최적화 대상으로 설정. 
+
+```plain text
+Evaluation = LLM((Affinity(***SMILES_i***, target), Druglikeness(***SMILES_i***)))
+***SMILES_{i+1}*** = TGD.step(***SMILES_i***, ∂Evaluation/∂***SMILES_i***)
+```
+
+  - 각 분자에 대해 Vina 점수와 QED 점수를 조합한 multi-objective loss를 정의하고, 그에 대한 텍스트 기반 그래디언트를 생성해 분자를 업데이트. 
+
+  - 초기 분자는 작은 기능성 화합물 조각에서 시작하며, DOCKSTRING 벤치마크에 포함된 58개 표적 단백질에 대해 각각 10회 최적화를 수행. .
+
+- **결과:** 모든 58개 표적에 대해 결합력과 druglikeness가 향상된 분자를 생성
+
+  - 실제 임상 승인 약물을 포함하는 29개 표적의 경우, TEXTGRAD가 생성한 분자들은 유사한 in silico 점수를 보였고 (appendix 자세히), 기존 약물과는 구조적으로 다른 새로운 형태를 가짐. 
+
+  - 또한 생성된 분자들은 기존 약물들과 비교해도 독성이나 약리학적 특성에서 유사한 안전성을 보임
+
+{% include figure.liquid loading="eager" path="assets/img/posts/2025-06-03-textgrad-automatic-differentiation-via-text/image_016.png" class="img-fluid rounded z-depth-1" %}
+
+- The textual gradients for the first three iterations are shown in (a)
+
+- TextGrad successfully designs molecules with similar vina scores and greater QED scores than clinically approved molecules (b)
+
+- the performance of all ten iterations compared to clinically approved molecules targetting PPARA in (c). 
+
+- The molecule at the final iteration has low structural similarity with its most similar clinically approved counterpart, and better QED and Vina scores (d) 
+
+- with a highly plausible pose geometry shown in (e). 
+
+## 3.5 Radiotherapy treatment plan optimization
+
+방사선 치료(Radiotherapy)는 고강도 에너지를 이용해 종양 세포를 제거하는 의료 행위입니다 (such as X-rays, to kill cancer cells). 이를 위한 계획은 방사선량을 필요한 부위에 집중시키는 동시에 주변 정상 조직에는 최대한 적은 양이 도달하도록 구성됩니다.
+
+- **문제 정의:** 전형적인 방사선 치료 계획 최적화는 다음과 같은 2중 루프 구조로 되어 있습니다.
+
+  - **내부 루프 (inverse planning):**  
+
+    - 수치 최적화기→ 여러 상충하는 목표를 균형 있게 반영한 가중합 비용 함수를 최소화하는 것을 목표로 합니다. 
+
+    - 이때의 목표는 종양과 주변의 여유 마진을 포함한 PTV(planning target volume)에 처방된 선량을 충분히 전달하고, 위험 장기(OARs)에 과도한 선량이 도달하지 않도록 보호하는 것입니다.
+
+  - **외부 루프:** 임상 목표를 달성하도록 하이퍼파라미터(조직별 가중치)를 반복적으로 수정
+
+    - 위의 내부 루르 임상적으로 수용 가능해질 때까지 반복. 
+
+    - 실제 임상에서는 사람 계획자가 시행착오 방식으로 하이퍼파라미터를 조정해가며 원하는 계획이 나올 때까지 반복합니다. 
+
+    - 이 하이퍼파라미터는 PTV, 장기, 기타 조직에 대한 가중치 등으로 구성되며, 경험, 시간 등에 따라 주관적인 판단이 많이 개입되고 계산 비용이 큰 최적화를 반복적으로 수행하게 됩니다. 
+
+    - 따라서 이 과정은 비효율적이고 시간이 오래 걸리며 비용도 큽니다.
+
+- **Method:** 
+
+우리는 TEXTGRAD를 외부 루프 최적화에 적용하여, 내부 수치 최적화기(예: matRad)를 위한 하이퍼파라미터 최적화를 수행합니다. 하이퍼파라미터는 다음과 같이 문자열로 표현됩니다:
+
+```plain text
+θ = "weight for PTV: [PTV WEIGHT], weight for bladder: [BLADDER WEIGHT], weight for rectum: [RECTUM WEIGHT], weight for femoral heads: [FH WEIGHT], weight for body: [BODY WEIGHT]"
+```
+
+하이퍼파라미터가 주어지면, 우리는 다음의 수식과 같이 matRad를 사용해 해당 치료 계획을 생성하고,
+
+```plain text
+P(θ) = matRad(θ)
+```
+
+임상 목표 g와 현재 계획 P(θ) 간의 차이를 이용해 LLM으로부터 loss를 평가받습니다:
+
+```plain text
+L = LLM(P(θ), g)
+```
+
+그 후, TEXTGRAD는 다음의 업데이트 규칙에 따라 하이퍼파라미터를 갱신합니다:
+
+```plain text
+θ_new = TGD.step(θ, ∂L/∂θ)
+```
+
+LLM이 하이퍼파라미터 θ와 matRad로부터 얻은 치료 계획 P 간의 관계를 더 잘 이해하도록 하기 위해, 이전에 생성된 치료 계획과 해당 하이퍼파라미터 쌍 {(Pᵢ, θᵢ)}를 컨텍스트로 함께 제공합니다. 따라서 전체적으로는 다음과 같은 형태로 업데이트됩니다:
+
+```plain text
+θ_new = TGD.step(θ, ∂L/∂θ, {(Pᵢ, θᵢ)}_i=1^N)
+```
+
+**평가 지표:** 치료 계획의 성능은 단일 지표로 평가할 수 없으므로 여러 표준 선량 지표를 함께 사용. 예를 들어, 특정 조직 또는 표적 부위에 전달된 평균 선량(mean dose), 그리고 해당 부위의 q% 이상이 받는 최소 선량 Dq 등을 사용합니다.
+
+{% include figure.liquid loading="eager" path="assets/img/posts/2025-06-03-textgrad-automatic-differentiation-via-text/image_017.png" class="img-fluid rounded z-depth-1" %}
+
+- **결과:** 
+
+  - Figure 3에서 PTV 외부로 선량이 넘치는 경우, TEXTGRAD는 PTV 가중치를 높이라고 제안합니다. 이에 따라 PTV 영역에 선량이 더 균일하게 집중됩니다. 그러나 이 조정은 상대적으로 방광이나 직장 보호가 약해질 수 있으므로, 다음 단계에서 이들에 대한 가중치를 소폭 증가시키도록 피드백을 줍니다. 
+
+  - TEXTGRAD로 최적화된 방사선 치료 계획을 실제 전립선암 환자 5명의 임상 계획과 비교했습니다.
+
+    - In Figure 3 (c), we assess TextGrad’s capabilities in*** achieving clinical goals*** for the PTV region. TextGrad outperforms the clinical plans across all metrics, achieving a higher mean dose, and a D95 that exactly matches the prescribed dose. 
+
+    - In Figure 3 (d), we focus on the sparing of healthy organs. TextGradoptimized plans achieve lower mean doses for these healthy organs, suggesting better organ sparing than the human-optimized plans. We report the averages across five plans and with standard deviation included in the bracket.
+
+# 5. Discussion
+
+TEXTGRAD는 세 가지 핵심 원칙 위에 구축되었음: 
+
+1. 특정 응용 도메인에 맞춰 설계되지 않고 일반적이며 성능이 우수한 프레임워크일 것, 
+
+1. PyTorch 스타일의 추상화를 차용하여 사용하기 쉬울 것, 
+
+1. 오픈소스로 제공되어 누구나 활용할 수 있을 것.
+
+본 논문에서 텍스트 피드백의 역전파 가능성을 보여주긴 했지만, TEXTGRAD를 확장할 수 있는 다양한 응용 분야가 여전히 존재. 예를 들어, 도구 사용(tool use)이나 검색 기반 생성(RAG: Retrieval-Augmented Generation) 시스템 등 실제 LLM 활용에서 자주 사용되는 구성 요소들을 계산 그래프의 연산 노드로 포함시키는 것이 필요.
+
+둘째, 자동 미분이라는 은유를 바탕으로 다양한 기법들 적용 가능. 예를 들어, 최적화의 안정성을 높이기 위해 분산 감소 기법(variance reduction), 적응형 그래디언트(adaptive gradients), LLM을 통한 self-verification 등의 방향성과 TEXTGRAD를 연결 지을 수 있음. 더 나아가, TEXTGRAD 자체를 TEXTGRAD로 최적화하는 meta-learning 기반 방법도 가능할 것

@@ -22,6 +22,12 @@ title: 'What Makes a Reward Model a Good Teacher? An Optimization Perspective / 
 - **Reviewer**: 준원 장
 - **Property**: Reinforcement Learning
 
+
+---
+
+
+---
+
 ## 1. Intro
 
 ## 2. Method

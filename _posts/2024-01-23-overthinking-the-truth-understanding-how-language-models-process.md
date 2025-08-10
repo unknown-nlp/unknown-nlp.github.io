@@ -34,6 +34,8 @@ title: 'OVERTHINKING THE TRUTH: UNDERSTANDING HOW LANGUAGE MODELS PROCESS FALSE 
 
 전체 결과를 요약하면 다음과 같다:
 
+{% include figure.liquid loading="eager" path="assets/img/posts/2024-01-23-overthinking-the-truth-understanding-how-language-models-process/image_000.png" class="img-fluid rounded z-depth-1" %}
+
 1. 언어모델은 분명 context를 imitate하고
 
 1. demonstration을 처리하는 critical layer가 존재하며, 이는 일반적으로 후반부 layer에 위치
@@ -46,15 +48,63 @@ title: 'OVERTHINKING THE TRUTH: UNDERSTANDING HOW LANGUAGE MODELS PROCESS FALSE 
 
 - Datasets
 
+  - SST-2
+
+  - Poem Sentiment
+
+  - Financial Phrasebank
+
+  - Ethos
+
+  - TweetEval-Hate, -Atheism, and -Feminist
+
+  - Medical Question Pairs
+
+  - MRPC
+
+  - SICK
+
+  - RTE
+
+  - AGNews
+
+  - TREC
+
+  - DBpedia
+
+  - Unnatural: demonstrations are of the form“[object]: [label]” and the labels are “plant/vegetable”, “sport”, and “animal”.
+
 - Models
 
+  - GPT-J-6B
+
+  - GPT2-XL-1.5B
+
+  - GPT-NeoX-20B
+
+  - GPT-J-6B (intruction tuned)
+
+  - GPT2-XL-1.5B (intructoin tuned)
+
+  - GPT-NeoX-20B (intructoin tuned)
+
+  - Pythia - 410M, 2.8B, 6.9B, and 12B
+
+  - Llama2-7B
+
 - Evaluation metrics.
+
+  - calibrated classification accuracy
+
+    - we measure how often the correct label has a higher probability than its median probability over the dataset
 
 ## FALSE DEMONSTRATION LABELS DECREASE ACCURACY
 
 첫 번째로 보장한 것은, demonstratoin label이 모두 맞을 경우와, 모두 틀린 경우의 성능 차이이다. 잘못된 레이블을 매핑할 때, 같은 클래스의 데이터는 모두 같은 레이블을 가지도록 한다. 즉, 레이블만 permute됨으로, 저자들은 이 세팅을  permuted labels setting이라고 부른다.
 
 결과는 다음과 같다:
+
+{% include figure.liquid loading="eager" path="assets/img/posts/2024-01-23-overthinking-the-truth-understanding-how-language-models-process/image_001.png" class="img-fluid rounded z-depth-1" %}
 
 왼쪽의 figure를 통해 알 수 있듯, 성능 차이가 커진다. 하지만 이는 모델이 random label을 선택함으로써 이루어졌을 가능성도 존재함으로, 어떤 레이블을 선택했는가를 확인한다 (오른쪽). 보다시피, demonstration을 점차 잘 따라가고 있음을 확인할 수 있다.
 
@@ -97,6 +147,8 @@ model’s predictive distribution p(tn+1 | t1, ..., tn) are given by:
 
 average accuracy of 3 of our 11 models over the fourteen non-toy datasets
 
+{% include figure.liquid loading="eager" path="assets/img/posts/2024-01-23-overthinking-the-truth-understanding-how-language-models-process/image_002.png" class="img-fluid rounded z-depth-1" %}
+
 ## Accurate and incorrect demonstrations sharply diverge at “critical layers”
 
 올바른 demonstration을 주었을 때, 정확도는 layer가 깊어질수록 높아졌다.
@@ -106,6 +158,8 @@ average accuracy of 3 of our 11 models over the fourteen non-toy datasets
 즉, 모든 실험에서 올바른 그리고 올바르지 않은 프롬프트에 대한 정확도는 모두 동일한 레이어 구간에서 나타났다. 저자들은 이를 critical layer라고 부른다.
 
 예를 들어, GPT-J에서는 13-14, pythia는 7-8, llama는 15-17가 해당 레이어이다.
+
+{% include figure.liquid loading="eager" path="assets/img/posts/2024-01-23-overthinking-the-truth-understanding-how-language-models-process/image_003.png" class="img-fluid rounded z-depth-1" %}
 
 ## Early-exiting improves classification performance given incorrect demonstrations.
 
@@ -120,6 +174,8 @@ average accuracy of 3 of our 11 models over the fourteen non-toy datasets
 올바른 정보와 잘못된 정보를 보여주는 demonstration이 critical layer에서부터 차이가 나기 시작한다는 것은, 해당 레이어 이후에서야 demonstration에 대한 정보가 제대로 인코딩된다고도 해석할 수 있다. 즉,  late attention layers가 overthinking을 유발한다는 것이다.
 
 이를 확인하기 위해, 뒤의 Layer에서 attention head들을 zero-out 해본다 (MLP는 건들지 않는다).
+
+{% include figure.liquid loading="eager" path="assets/img/posts/2024-01-23-overthinking-the-truth-understanding-how-language-models-process/image_004.png" class="img-fluid rounded z-depth-1" %}
 
 표에서 확인할 수 있듯,
 
@@ -138,9 +194,19 @@ there are false induction heads that attend to false labels in similar past demo
 
 1. label-attending
 
+  - concentrate its attention on labels in the previous demonstrations
+
 1. class-sensitive
 
+  - meaning it attends specifically to labels that follow inputs from the same class
+
+  - (e.g “tomato”, “garlic” and “kale” in Figure 5).
+
 1. label-promoting
+
+  - meaning it increases the probability of the labels it attends to.
+
+{% include figure.liquid loading="eager" path="assets/img/posts/2024-01-23-overthinking-the-truth-understanding-how-language-models-process/image_005.png" class="img-fluid rounded z-depth-1" %}
 
 false induction head를 판별하는 공식  prefix-matching score는 다음과 같다:
 
@@ -152,11 +218,15 @@ PM^h = \sum
 
 첫번째 텀에서 head가 class x의 label에 잘 attend하는가를 포착하고, 그렇지 않으면 작아지도록 뒤의 텀에서 값을 줄인다.
 
+{% include figure.liquid loading="eager" path="assets/img/posts/2024-01-23-overthinking-the-truth-understanding-how-language-models-process/image_006.png" class="img-fluid rounded z-depth-1" %}
+
 보다시피, early layer에서는 점수가 낮게 유지되다가 critical layer를 지나면 증가하기 시작한다.
 
 ## Ablating false induction heads
 
 가장 높은 점수를 가지는 attention head를 zeroing했을 때, 성능을 크게 증가하는 것을 알 수 있었다. 랜덤한 head를 ablate했을 때는 오히려 성능이 낮아지는 양상을 보였다.
+
+{% include figure.liquid loading="eager" path="assets/img/posts/2024-01-23-overthinking-the-truth-understanding-how-language-models-process/image_007.png" class="img-fluid rounded z-depth-1" %}
 
 ## Verifying that our heads are label-promoting.
 

@@ -10,6 +10,8 @@ tags:
 - alignment
 - attention
 - continual learning
+- fine-tuning
+- gpt
 - language-model
 - llm
 - paper-review
@@ -43,7 +45,13 @@ llama2 architecture에 Mistral 7b weight를 가져와서 사용.
 
 - notation
 
+  - n: base_model의 layer 수
+
+  - s: target layer count
+
 - process
+
+{% include figure.liquid loading="eager" path="assets/img/posts/2024-05-21-llama-pro-progressive-llama-with-block-expansion/image_000.png" class="img-fluid rounded z-depth-1" %}
 
 당연히 단순한 Merging만으로 성능이 오르는 것이 아니라, continual pretraining을 수행함. 하지만 요점은, 아주 빠른 성능의 복구가 일어났다는 것.
 
@@ -53,17 +61,41 @@ llama2 architecture에 Mistral 7b weight를 가져와서 사용.
 
 > iDUS
 
+https://github.com/gauss5930/iDUS
+
+{% include figure.liquid loading="eager" path="assets/img/posts/2024-05-21-llama-pro-progressive-llama-with-block-expansion/image_001.png" class="img-fluid rounded z-depth-1" %}
+
+{% include figure.liquid loading="eager" path="assets/img/posts/2024-05-21-llama-pro-progressive-llama-with-block-expansion/image_002.png" class="img-fluid rounded z-depth-1" %}
+
 ## Results
 
 ### Experimental Details
 
 - 2 stage
 
+  1. instruction tuning: QA format
+
+  1. alignment tuning: sDPO
+
 - dataset
+
+  - 일부분만 sample하여 사용한 경우도 있음.
+
+  - alpaca-styled chat template
+
+  - 6 evaluation tasks
+
+{% include figure.liquid loading="eager" path="assets/img/posts/2024-05-21-llama-pro-progressive-llama-with-block-expansion/image_003.png" class="img-fluid rounded z-depth-1" %}
 
 - model merging
 
+  - avergage
+
+  - slerp
+
 ### Experiments
+
+{% include figure.liquid loading="eager" path="assets/img/posts/2024-05-21-llama-pro-progressive-llama-with-block-expansion/image_004.png" class="img-fluid rounded z-depth-1" %}
 
 뒷 부분은 alignment/instruction/merging의 ablation이므로 생략함
 
@@ -95,9 +127,13 @@ model with blocks (ϕ0, ϕ1, ..., ϕL)이 있을 때, block expansion은 identit
 
 > identity block is defined as ϕid(x) = x, where the input and output are identical.
 
+{% include figure.liquid loading="eager" path="assets/img/posts/2024-05-21-llama-pro-progressive-llama-with-block-expansion/image_005.png" class="img-fluid rounded z-depth-1" %}
+
 이때, 모델이 L개의 block을 가진다고 할 때, 다음의 절차를 거친다.
 
 1. partition the original L blocks into N groups.
+
+  - 각 group은 L/N의 block을 가짐
 
 1. 각 group 당, top P blocks에 대해 identity copies를 만든다.
 
@@ -109,19 +145,53 @@ model with blocks (ϕ0, ϕ1, ..., ϕL)이 있을 때, block expansion은 identit
 
 이후, domain-specific knowledge를 학습할 때는 추가된 블락에 대해서만 학습 진행.
 
+{% include figure.liquid loading="eager" path="assets/img/posts/2024-05-21-llama-pro-progressive-llama-with-block-expansion/image_006.png" class="img-fluid rounded z-depth-1" %}
+
 ## Experiments
 
 ### Experimental Settings
 
+{% include figure.liquid loading="eager" path="assets/img/posts/2024-05-21-llama-pro-progressive-llama-with-block-expansion/image_007.png" class="img-fluid rounded z-depth-1" %}
+
 - pretrain detail
 
+  - dataset
+
+    - code: Stack-dedup dataset
+
+    - math: Proof-pile-2
+
+  - base model
+
+    - llama2-7b
+
+  - config
+
+    - P top block: 1
+
+    - N 그룹 수: 8
+
+  - gpu time
+
+    - (16 NVIDIA H800 GPUs for about 7 days)
+
 - SFT details.
+
+  - instruction fine-tuning dataset
+
+    - ShareGPT1, WizardLM, CodeAlpaca, MetaMath, SlimOrca
+
+  - fully fine-tuning of all the blocks
 
 ### Results
 
 ### Pretrain Results
 
+{% include figure.liquid loading="eager" path="assets/img/posts/2024-05-21-llama-pro-progressive-llama-with-block-expansion/image_008.png" class="img-fluid rounded z-depth-1" %}
+
 ### SFT Results
+
+{% include figure.liquid loading="eager" path="assets/img/posts/2024-05-21-llama-pro-progressive-llama-with-block-expansion/image_009.png" class="img-fluid rounded z-depth-1" %}
 
 MINT-Bench tests LLMs’ ability to use tools by generating and executing Python code,
 focusing on tool-augmented task-solving and leveraging natural language feedback. MINT includes
@@ -131,4 +201,17 @@ eight datasets covering reasoning, code generation, and decision-making.
 
 - LoRA vs SeqFT vs BE
 
+{% include figure.liquid loading="eager" path="assets/img/posts/2024-05-21-llama-pro-progressive-llama-with-block-expansion/image_010.png" class="img-fluid rounded z-depth-1" %}
+
 TRACE is designed to assess continual learning in LLMs and comprises eight distinct datasets that span challenging tasks such as domain-specific tasks, multilingual capabilities, code generation, and mathematical reasoning.
+
+{% include figure.liquid loading="eager" path="assets/img/posts/2024-05-21-llama-pro-progressive-llama-with-block-expansion/image_011.png" class="img-fluid rounded z-depth-1" %}
+
+{% include figure.liquid loading="eager" path="assets/img/posts/2024-05-21-llama-pro-progressive-llama-with-block-expansion/image_012.png" class="img-fluid rounded z-depth-1" %}
+
+
+---
+
+- stacking 및 lora weight 사용 방식
+
+  - 

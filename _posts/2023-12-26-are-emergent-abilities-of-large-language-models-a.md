@@ -11,6 +11,7 @@ tags:
 - gpt
 - language-model
 - llm
+- neural
 - paper-review
 - vision
 thumbnail: assets/img/posts/2023-12-26-are-emergent-abilities-of-large-language-models-a/thumbnail.jpg
@@ -32,9 +33,31 @@ title: Are Emergent Abilities of Large Language Models a Mirage?
 
 - “More Is Different”
 
+  - System이 복잡해질수록, 그 system의 정교한 detail한 이해를 기반으로도 예측불가능한 (설명이 불가능한) 새로운 성질이 형성되는데, 이를 “Emergent Properties라고 한다.
+
 - Emergent Abilities of LLMs
 
+  - smaller scale model에는 없지만, larger-scale model에서는 보이는 어떤 능력.
+
+(단순히 smaller scale model을 extrapolating하는 것은 불가능함) 
+
+  - GPT-3 family를 필두로 보이는 이 ‘Emergent Abilities’는 2가지 하위 속성이 있음
+
+  1. ***Sharpness:***** **transitioning seemingly instantaneously from not present to present
+
+(어느 순간 갑자기 선명하게 능력치가 활성화됨)
+
+  1. ***Unpredictability*****:** transitioning at seemingly unforeseeable model scales
+
+(모델 사이즈가 커지면서 예측 불가능하게 갑자기 활성화됨)
+
+{% include figure.liquid loading="eager" path="assets/img/posts/2023-12-26-are-emergent-abilities-of-large-language-models-a/image_000.png" class="img-fluid rounded z-depth-1" %}
+
+- 이러한 abilities를 **무엇**이 **언제 어떻게 control**하는가?가 이 논문이 해결하고자하는 가장 큰 Reseach Question.
+
 - 논문에서는 특정 task에서 model size(=논문에서는 model family의 scale변화 등등 다양한 표현 사용)의 변화에 따라서 sharp하고 unpredictable한 model output (=performance)를 보여서 LLMs이 emergent abilities을 가지는것처럼 보이는 이유가 ‘***Metric***’ 때문이라고 주장함.
+
+  - model의 per-token error-rate이 nonlinearly & discontinuously하게 scale한다. 
 
 - 또한, test set이 smaller model의 performance를 안정적으로 측정하기에는 충분하지 않아서 emergent abilities가 더 선명하게 들어난다고 주장함.
 
@@ -46,21 +69,29 @@ title: Are Emergent Abilities of Large Language Models a Mirage?
 
 → 1개의 Model Familiy내에서 Model Scale이 커짐에 따라 Test Loss는 smoothly, continuously, and predictably하게 감소함 
 
+- 이런 가정이 맞다고 할 수 있는 이유는 다음과 같은 선행연구들의 배경 때문 (neural scaling laws: empirical observations that deep networks exhibit power law scaling in the test loss as a function of training dataset size, number of parameters or compute)
+
 → 위의 논의를 조금 더 명확하게 하기 위해 mathematical model을 고안하는데, model parameter가 N>0, constant c> 0,  a < 0일때 다음과 같은식들을 전개해볼 수 있다. 
 
 ### 2A. Model’s per-token cross entropy loss
 
 - 각 model의 per-token cross entropy는 parameter size N에 따라서 다음과 같이 power law를 따른다.
 
+{% include figure.liquid loading="eager" path="assets/img/posts/2023-12-26-are-emergent-abilities-of-large-language-models-a/image_001.png" class="img-fluid rounded z-depth-1" %}
+
 - V가 vocab set, p^_N이 parameter 크기가 N인 model의 예측분포일때 다음과 같이 써지는데 이게 특정 token을 예측한다는 관점에서 ground truth p(v)를 모르기 때문에,
+
+{% include figure.liquid loading="eager" path="assets/img/posts/2023-12-26-are-emergent-abilities-of-large-language-models-a/image_002.png" class="img-fluid rounded z-depth-1" %}
 
 - observed token v∗를 넣어서 (one-hot distribution) 대안적인 cross entropy값을 찍는다. 
 
-{% include figure.liquid loading="eager" path="assets/img/posts/2023-12-26-are-emergent-abilities-of-large-language-models-a/image_000.png" class="img-fluid rounded z-depth-1" %}
+{% include figure.liquid loading="eager" path="assets/img/posts/2023-12-26-are-emergent-abilities-of-large-language-models-a/image_003.png" class="img-fluid rounded z-depth-1" %}
 
 ### 2B. per-token probability of selecting the correct token
 
 - 위에서 구한게 결국 1개의 token에 대한 log-probability나 다름 없으니까, 이걸 확률의 영역으로 re-scaling로 해주면 다음과 같다.
+
+{% include figure.liquid loading="eager" path="assets/img/posts/2023-12-26-are-emergent-abilities-of-large-language-models-a/image_004.png" class="img-fluid rounded z-depth-1" %}
 
 ### 2C. per-token probability of selecting the correct L token
 
@@ -68,7 +99,17 @@ title: Are Emergent Abilities of Large Language Models a Mirage?
 
 - 2B의 관점에서 (parameter가 N인 모델에서) 각 token이 정답일 확률이 독립적(가정이 사실이 아닌건 저자들이 인정하지만 LLM emergent abilities를 보여주는데 있어서 질적으로 유사함0)일때, L개가 다 맞아서 scoring할 확률은 다음과 같이 근사할 수 있다. 
 
+{% include figure.liquid loading="eager" path="assets/img/posts/2023-12-26-are-emergent-abilities-of-large-language-models-a/image_005.png" class="img-fluid rounded z-depth-1" %}
+
 ** → Accuracy는 per-token error rate에 따라 scale하는데 (non-linear), approximately linear metric like Token Edit Distance로 바꾸면 LLM의 emergent abilities가 실은 없는거 아닐까?**
+
+- ****Accuracy (2C)****
+
+{% include figure.liquid loading="eager" path="assets/img/posts/2023-12-26-are-emergent-abilities-of-large-language-models-a/image_006.png" class="img-fluid rounded z-depth-1" %}
+
+- ****Token Edit Dist=ance (2E)****
+
+{% include figure.liquid loading="eager" path="assets/img/posts/2023-12-26-are-emergent-abilities-of-large-language-models-a/image_007.png" class="img-fluid rounded z-depth-1" %}
 
 ### 2D. discontinuous metric like Multiple Choice Grade
 
@@ -78,7 +119,7 @@ title: Are Emergent Abilities of Large Language Models a Mirage?
 
 - continuous metric으로 바꾸면 그 현상을 사라지게 한다.
 
-{% include figure.liquid loading="eager" path="assets/img/posts/2023-12-26-are-emergent-abilities-of-large-language-models-a/image_001.png" class="img-fluid rounded z-depth-1" %}
+{% include figure.liquid loading="eager" path="assets/img/posts/2023-12-26-are-emergent-abilities-of-large-language-models-a/image_008.png" class="img-fluid rounded z-depth-1" %}
 
 결론적으로 LLM의 emergent abilties는 다음과 같은 현상 때문에 발생한다고 주장.
 
@@ -106,7 +147,7 @@ title: Are Emergent Abilities of Large Language Models a Mirage?
 
 ### Prediction: Emergent Abilities Disappear With Different Metrics
 
-{% include figure.liquid loading="eager" path="assets/img/posts/2023-12-26-are-emergent-abilities-of-large-language-models-a/image_002.png" class="img-fluid rounded z-depth-1" %}
+{% include figure.liquid loading="eager" path="assets/img/posts/2023-12-26-are-emergent-abilities-of-large-language-models-a/image_009.png" class="img-fluid rounded z-depth-1" %}
 
 - Metric 변경하면 emergent abitilies는 사라지며 (L=5)
 
@@ -114,7 +155,7 @@ title: Are Emergent Abilities of Large Language Models a Mirage?
 
 ### Prediction: Emergent Abilities Disappear With Better Statistics
 
-{% include figure.liquid loading="eager" path="assets/img/posts/2023-12-26-are-emergent-abilities-of-large-language-models-a/image_003.png" class="img-fluid rounded z-depth-1" %}
+{% include figure.liquid loading="eager" path="assets/img/posts/2023-12-26-are-emergent-abilities-of-large-language-models-a/image_010.png" class="img-fluid rounded z-depth-1" %}
 
 - Test set를 추가하니 Accuracy를 사용했음에도 가장 작은 모델이 어느정도 성능은 보임을 확인할 수 있다.
 
@@ -138,25 +179,43 @@ title: Are Emergent Abilities of Large Language Models a Mirage?
 
 (x_i: model scale, y_i: x_i에서의 performance, N: model familiy의 전체 scale 개수)
 
-{% include figure.liquid loading="eager" path="assets/img/posts/2023-12-26-are-emergent-abilities-of-large-language-models-a/image_004.png" class="img-fluid rounded z-depth-1" %}
+{% include figure.liquid loading="eager" path="assets/img/posts/2023-12-26-are-emergent-abilities-of-large-language-models-a/image_011.png" class="img-fluid rounded z-depth-1" %}
 
 - Meta-analysis결과 5/39개가 emergence score가 높고, hand-annotated-task-abilities기반(선행연구)으로 분석한 결과 4/39개가 높음
 
-{% include figure.liquid loading="eager" path="assets/img/posts/2023-12-26-are-emergent-abilities-of-large-language-models-a/image_005.png" class="img-fluid rounded z-depth-1" %}
+**→ Multiple Choice Grade is discontinuous, and Exact String Match is nonlinear.**
+
+(2개가 LLM의 emergent abilities을 선명하게 들어내는데 가장 주효한 metric)
+
+{% include figure.liquid loading="eager" path="assets/img/posts/2023-12-26-are-emergent-abilities-of-large-language-models-a/image_012.png" class="img-fluid rounded z-depth-1" %}
 
 ### Prediction: Changing Metric Removes Emergent Abilities
 
 - LaMDA Output이 BigBENCH에서 available해서 Multiple Choice Grade(discontinuous)를 사용하는 task를 식별한 후 metric을 continuous한 Brier Score로 갈아끼움.
 
+  - ** Brier Score**
+
+{% include figure.liquid loading="eager" path="assets/img/posts/2023-12-26-are-emergent-abilities-of-large-language-models-a/image_013.png" class="img-fluid rounded z-depth-1" %}
+
 - LaMDA’s emergent abilities가 metric을 바꿨을 뿐인데 사라짐 (Top→Bottom)
+
+{% include figure.liquid loading="eager" path="assets/img/posts/2023-12-26-are-emergent-abilities-of-large-language-models-a/image_014.png" class="img-fluid rounded z-depth-1" %}
 
 ## 5. Inducing Emergent Abilities in Networks on Vision Tasks
 
 - 다양성을 위해서 Vision Domain에서 추가적인 실험을 진행 (저자들 주장으로는 Vision Domain에서는 처음 한다고 함)
 
-{% include figure.liquid loading="eager" path="assets/img/posts/2023-12-26-are-emergent-abilities-of-large-language-models-a/image_006.png" class="img-fluid rounded z-depth-1" %}
+  - shallow (i.e., single hidden layer) nonlinear autoencoders trained on CIFAR100 natural images을 가지고 recontruction error을 측정.
+
+  - 위의 metric에서 sharpness를 보이기 위해서 metric을 아래와 같이 수정함.
+
+    - 특정 error cutoff(=c) 이하가 되어야 count가 되는 recontruction metric.
+
+{% include figure.liquid loading="eager" path="assets/img/posts/2023-12-26-are-emergent-abilities-of-large-language-models-a/image_015.png" class="img-fluid rounded z-depth-1" %}
 
 - 새롭게 정의된 metric하에서는 shallow autoencoder도 emergent abilities를 보임 (right)
+
+{% include figure.liquid loading="eager" path="assets/img/posts/2023-12-26-are-emergent-abilities-of-large-language-models-a/image_016.png" class="img-fluid rounded z-depth-1" %}
 
 ## 6. Limitations
 

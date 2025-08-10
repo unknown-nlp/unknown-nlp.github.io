@@ -46,9 +46,15 @@ weighted averaging은 일정 수준 좋은 성능을 내고 있다는 사실을 
 
 In this paper, we first demonstrate that interference can stem from two major causes:
 
+{% include figure.liquid loading="eager" path="assets/img/posts/2023-10-17-resolving-interference-when-merging-models/image_000.png" class="img-fluid rounded z-depth-1" %}
+
 1. INTERFERENCE FROM REDUNDANT PARAMETERS:
 
+  - model pruning과 관련된 기존 연구에서는 finetuning 과정에서 여러 모델 파라미터가 변경되지만 성능에는 미미한 영향을 끼칠 수 있다는 사실이 발견되었다. 하지만 한 모델에게 영향력을 미치는 파라미터가 다른 모델에게는 필요없어 불필요한 파라미터로 취급을 받을 시, 영향력있는 값이 가려져 전체 모델의 성능이 감소할 수 있다.
+
 1. INTERFERENCE FROM SIGN DISAGREEMENT
+
+  - 특정 파라미터는 어떤 모델에서는 양의 값을 가질 수 있고 다른 모델에서는 음의 값을 가질 수 있다. 따라서 간단한 평균을 취하는 것은 두 작업 모두에서 성능을 저해할 수 있다. 단순 평균은 Merged model에서 파라미터 값을 축소시키는 interference가 발생할 수 있기 때문이다. 영향력 있는 파라미터 간의 이러한 간섭이, 모델 merging과 멀티태스크 훈련 모델 간의 성능 차이가 모델 수가 증가함에 따라 증가하는 이유일 수 있다.
 
 이러한 문제들을 해결하기 위해 저자들은 다음의 방법론을 제안한다: TIES-MERGING (TRIM, ELECT SIGN & MERGE). 이는 세 가지 스텝을 통해 만들어진 task vector를 이용하여 모델을 merging하는 방법론이다. 적혀 있듯이, 각 task vector에서 어떤 값을 trim할 지 정함으로써 redundant parameter 문제를 해결하고, 부호를 elect하여 sign conflict 문제를 해결하고, 마지막으로 merging을 시도한다.
 
@@ -76,6 +82,8 @@ Task vector = \theta_{ft} - \theta_{init}
 
 다음의 그림은 11개의 task-specific task vector를 top-k의 largest magnitude value만 남기도록 trimming을 한 후, 그들의 평균 정확도를 보여준다.
 
+{% include figure.liquid loading="eager" path="assets/img/posts/2023-10-17-resolving-interference-when-merging-models/image_001.png" class="img-fluid rounded z-depth-1" %}
+
 그림을 통해서 알 수 있듯, 전체 task vector의 20%만 남기는 것만으로도 전체 파라미터를 유지하는 것과 유사한 성능을 가지는 것을 확인할 수 있다. 즉, 이는 finetuning 과정에서 일어나는 대부분의 parameter change가 사실 상 redundant하다는 것을 의미한다.
 
 
@@ -87,13 +95,23 @@ Task vector = \theta_{ft} - \theta_{init}
 
 다음의 그림은 다양한 모델을들 merging할 시 일어나는 sign conflict의 빈도/퍼센트를 나타낸다. 해당 그림은 top-20%로 trimming을 시킨 후를 기준으로 한다.
 
+{% include figure.liquid loading="eager" path="assets/img/posts/2023-10-17-resolving-interference-when-merging-models/image_002.png" class="img-fluid rounded z-depth-1" %}
+
 그림에서 볼 수 있듯, 단순히 두 개의 모델을 merging할 때도 sing conflict가 일어나며, 모델의 수가 늘어날수록 sign conflict가 일어날 가능성이 높아진다.
 
 # TIES-MERGING: TRIM, ELECT SIGN & MERGE
 
 - Notations:
 
+  - \tau = task vector, == \gamma \odot \mu
+
+  - \gamma  = sign vector
+
+  - \mu = magnitude vector
+
 ## Steps in TIES-MERGING
+
+{% include figure.liquid loading="eager" path="assets/img/posts/2023-10-17-resolving-interference-when-merging-models/image_003.png" class="img-fluid rounded z-depth-1" %}
 
 1. Trim: keeping the top-k% values, reset others to 0
 
@@ -107,11 +125,25 @@ Task vector = \theta_{ft} - \theta_{init}
 
 - Basslines
 
+  - Simple Averaging: 전체 모델 파라미터 mean
+
+  - Fisher Merging: 특정 task에 중요한 parameter를 찾기 위해 diagonal approximation of the Fisher Information Matrix Fˆt를 사용하는 방법론
+
+  - RegMean: merged model과 individual model의 거리를 최소화시키면서 merging하는 방식
+
+  - Task Artithmetic
+
+  - individual fine-tuned models
+
+  - multi-task model
+
 # Main Result
 
 ## Merging PEFT Models
 
 peft의 base model로는 t0-3b 사용함.
+
+{% include figure.liquid loading="eager" path="assets/img/posts/2023-10-17-resolving-interference-when-merging-models/image_004.png" class="img-fluid rounded z-depth-1" %}
 
 그림에서 볼 수 있듯, ties-merging을 할 시, 다른 거의 모든 merging 기법보다 좋은 성능을 보이는 것을 알 수 있다.
 
@@ -119,9 +151,13 @@ peft의 base model로는 t0-3b 사용함.
 
 대부분의 경우, multitask 모델은 학습에 사용되지 않은 다른 task에 더 빨리 domain shift가 일어나도록 하는 데 사용된다. 따라서, 이 실험에서는 7개의 task vector로 학습된 T5 모델을 6개의 다른 태스크에 적용해본다.
 
+{% include figure.liquid loading="eager" path="assets/img/posts/2023-10-17-resolving-interference-when-merging-models/image_005.png" class="img-fluid rounded z-depth-1" %}
+
 ## Merging Different Number of Tasks.
 
 이번 실험에서는 task 개수가 늘어날 때의 영향력에 대해서 평가한다.
+
+{% include figure.liquid loading="eager" path="assets/img/posts/2023-10-17-resolving-interference-when-merging-models/image_006.png" class="img-fluid rounded z-depth-1" %}
 
 1. 태스크 개수가 늘어나면 모든 method의 performance 감소
 
@@ -132,6 +168,8 @@ peft의 base model로는 t0-3b 사용함.
 # Additional Results and Analysis
 
 ## Types of Interference and Their Effect on Merging
+
+{% include figure.liquid loading="eager" path="assets/img/posts/2023-10-17-resolving-interference-when-merging-models/image_007.png" class="img-fluid rounded z-depth-1" %}
 
 ### (a) Importance of Removing Redundant Parameters.
 
@@ -157,12 +195,18 @@ Sign Interference의 영향력을 확인하기 위해, 파라미터를 그들의
 
 해당 실험에서는 IA3에서 top-k parameter와 그들의 direction이 task performance에 어떠한 영향을 끼치는지 정량화한다. 각 task vector에서 top-k parameter를 뽑아내고 그들의 sign을 반대로 적용한다. 그리고 이 task vector를 이용해 모델을 만들어 실험을 진행한다. Baseline으로 (100-k)% parameter를 뒤집어 만든 task vector model도 함께 report 한다.
 
+{% include figure.liquid loading="eager" path="assets/img/posts/2023-10-17-resolving-interference-when-merging-models/image_008.png" class="img-fluid rounded z-depth-1" %}
+
 ## Ablation of TIES-MERGING Components
 
 각 프로세스애 따른 성능 변화. 모든 과정이 중요했음을 강조한다
 
+{% include figure.liquid loading="eager" path="assets/img/posts/2023-10-17-resolving-interference-when-merging-models/image_009.png" class="img-fluid rounded z-depth-1" %}
+
 ## Importance of Estimating Correct Signs When Merging Models
 
 부호의 중요성을 더 확인해보기 위해, 저자들은 multitask model을 만들어 task vector를 만들고, 이의 sign을 추출한다. 그 뒤, trim 과정을 통해 만들어진 vector에 해당 sign을 이용하여 elect&mean 을 수행한다.
+
+{% include figure.liquid loading="eager" path="assets/img/posts/2023-10-17-resolving-interference-when-merging-models/image_010.png" class="img-fluid rounded z-depth-1" %}
 
 결과는 놀랍다. 거의 multittask model에 준하는 결과를 얻을 수 있었다. 이것은 모델의 수정 방향만 얻을 수만 있다면 더 좋은 결과로 이어질 수 있다는 것이다.

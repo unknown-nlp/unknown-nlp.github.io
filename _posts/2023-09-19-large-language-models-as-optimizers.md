@@ -23,6 +23,8 @@ title: LARGE LANGUAGE MODELS AS OPTIMIZERS
 
 > Google Deepmind
 
+{% include figure.liquid loading="eager" path="assets/img/posts/2023-09-19-large-language-models-as-optimizers/image_000.png" class="img-fluid rounded z-depth-1" %}
+
 이 연구에서는 "Optimization by PROmpting" (OPRO)이라는 방법을 제안한다. 이는 대규모 언어 모델 (LLMs)을 최적화 도구로 활용하는 방법인데, 각 최적화 단계에서 LLM은 값과 함께 이전에 생성된 해결책을 포함하는 프롬프트에서 새로운 해결책을 생성한 다음, 새로운 해결책을 평가하고 다음 최적화 단계를 위한 프롬프트에 추가한다.
 
 LLMs를 사용하여 최적화의 잠재력을 확인하기 위해, 먼저 선형 회귀와 외판원 문제라는 두 가지 클래식한 최적화 문제에 대한 실험을 진행한다. 또한, LLMs을 통해서 프롬프트를 최적화하는 방법과 그 과정을 보인다.
@@ -30,6 +32,8 @@ LLMs를 사용하여 최적화의 잠재력을 확인하기 위해, 먼저 선�
 기존 연구들은 하나의 프롬프트를 만든다음, 이를 수정하는 방식을 택했는데 해당 연구는 생성에 초점을 맞춘다는 점에서 다르다고 주장한다.
 
 # OPRO: LLM AS THE OPTIMIZER
+
+{% include figure.liquid loading="eager" path="assets/img/posts/2023-09-19-large-language-models-as-optimizers/image_001.png" class="img-fluid rounded z-depth-1" %}
 
 각 최적화 단계에서 LLM은 문제 설명과 이전에 평가된 솔루션을 기반으로 최적화 작업에 대한 후보 솔루션을 생성한다.
 
@@ -41,15 +45,27 @@ LLMs를 사용하여 최적화의 잠재력을 확인하기 위해, 먼저 선�
 
 1. Making use of natural language descriptions.
 
+  - allows people to describe their optimization tasks without formal specifications
+
 1. Trading off exploration and exploitation.
 
+  - LLM은 이미 좋은 솔루션이 발견된 search space를 활용할 수 있어야 하며, 동시에 더 나은 솔루션을 놓치지 않도록 새로운 영역을 탐색해야 한다.
+
 ## META-PROMPT DESIGN
+
+{% include figure.liquid loading="eager" path="assets/img/posts/2023-09-19-large-language-models-as-optimizers/image_002.png" class="img-fluid rounded z-depth-1" %}
 
 메타 프롬프트는 다음 두 가지로 이루어진다.
 
 1. Optimization problem description (meta-instructions)
 
+  - text description of the optimization problem
+
+  - “generate a new instruction that achieves a higher accuracy”
+
 1. Optimization trajectory
+
+  - the optimization trajectory에는 이전 솔루션과 그 솔루션의 점수가 오름차순으로 정렬되어 포함된다. optimization trajectory를 메타 프롬프트에 포함하는 이유는 LLM이 좋은 점수의 솔루션의 유사성을 인식하도록하며, 솔루션이 어떻게 업데이트되어야 하는지 명시적으로 정의하지 않고도 기존의 좋은 솔루션을 기반으로 잠재적으로 더 나은 솔루션을 구성하도록 하기 위함이다.
 
 ## SOLUTION GENERATION
 
@@ -59,7 +75,11 @@ LLM은 메타 프롬프트를 입력으로 사용하여 새로운 솔루션을 �
 
 1. Optimization stability.
 
+  - 안정성을 향상시키기 위해 각 최적화 단계에서 여러 솔루션을 생성
+
 1. Exploration-exploitation trade-off.
+
+  - exploration and exploitation의 균형을 위해 temperature 사용
 
 # MOTIVATING EXAMPLE: MATHEMATICAL OPTIMIZATION
 
@@ -71,6 +91,8 @@ LLM은 메타 프롬프트를 입력으로 사용하여 새로운 솔루션을 �
 
 각 단계에서 과거에 얻은 최고의 20개의 (w, b) 쌍과 그들의 정렬된 결과 값이 포함된 메타 프롬프트로 조정된 LLM에게 instruction을 제공. 그런 다음 메타 프롬프트에서는 목적 함수 값을 더 줄이는 새로운 (w, b) 쌍을 요청->평가->과거 기록에 추가.
 
+{% include figure.liquid loading="eager" path="assets/img/posts/2023-09-19-large-language-models-as-optimizers/image_003.png" class="img-fluid rounded z-depth-1" %}
+
 text-bison 및 GPT-4 모델은 수렴 속도에서 GPT-3.5-turbo 모델을 능가한다.
 
 최적화 궤적을 더 자세히 살펴보면, GPT-4가 과거로부터 합리적인 다음 단계를 제안하는 데 가장 뛰어나다는 것을 알 수 있다. 예를 들어, 과거에서 (w, b) = (8, 7), (w, b) = (8, 6) 및 (w, b) = (8, 5)의 목적 값이 감소하는 것을 보여줄 때, GPT-4는 (w, b) = (8, 4)를 평가할 확률이 가장 높다.
@@ -78,6 +100,8 @@ text-bison 및 GPT-4 모델은 수렴 속도에서 GPT-3.5-turbo 모델을 능�
 ## TRAVELING SALESMAN PROBLEM (TSP)
 
 TSP (Traveling Salesman Problem) 작업은 시작 노드에서 출발하여 모든 노드를 지나 다시 시작 노드로 돌아오는 가장 짧은 경로를 찾는 것.
+
+{% include figure.liquid loading="eager" path="assets/img/posts/2023-09-19-large-language-models-as-optimizers/image_004.png" class="img-fluid rounded z-depth-1" %}
 
 optimality gap은 평가된 방법에 의해 구성된 솔루션의 거리와 오라클 솔루션에서 달성한 거리의 차이를 오라클 솔루션의 거리로 나눈 것으로 정의.
 
@@ -117,6 +141,8 @@ optimizer LLM의 출력은 instruction으로, 모든 예시의 질문 부분에 
 
 ## META-PROMPT DESIGN
 
+{% include figure.liquid loading="eager" path="assets/img/posts/2023-09-19-large-language-models-as-optimizers/image_005.png" class="img-fluid rounded z-depth-1" %}
+
 - Optimization problem examples.
 
 - Optimization trajectory.
@@ -127,13 +153,32 @@ optimizer LLM의 출력은 instruction으로, 모든 예시의 질문 부분에 
 
 - Models.
 
+  - Optimizer LLM: Pre-trained PaLM 2-L, instruction-tuned PaLM 2-L
+(denoted PaLM 2-L-IT), text-bison, gpt-3.5-turbo, and gpt-4.
+
+  - Scorer LLM: Pre-trained PaLM 2-L and text-bison.
+
 - Benchmarks
+
+  - GSM8K
+
+  - Big-Bench Hard (BBH)
 
 ## GSM8K
 
 For prompt optimization, we randomly sample 3.5% examples from the GSM8K training set.
 
+{% include figure.liquid loading="eager" path="assets/img/posts/2023-09-19-large-language-models-as-optimizers/image_006.png" class="img-fluid rounded z-depth-1" %}
+
+{% include figure.liquid loading="eager" path="assets/img/posts/2023-09-19-large-language-models-as-optimizers/image_007.png" class="img-fluid rounded z-depth-1" %}
+
 ## BBH
+
+{% include figure.liquid loading="eager" path="assets/img/posts/2023-09-19-large-language-models-as-optimizers/image_008.png" class="img-fluid rounded z-depth-1" %}
+
+{% include figure.liquid loading="eager" path="assets/img/posts/2023-09-19-large-language-models-as-optimizers/image_009.png" class="img-fluid rounded z-depth-1" %}
+
+{% include figure.liquid loading="eager" path="assets/img/posts/2023-09-19-large-language-models-as-optimizers/image_010.png" class="img-fluid rounded z-depth-1" %}
 
 ## SEMANTICALLY SIMILAR INSTRUCTIONS MAY ACHIEVE DRASTICALLY DIFFERENT ACCURACIES
 
@@ -144,12 +189,30 @@ notable accuracy improvement
 
 ## ABLATION STUDIES
 
+{% include figure.liquid loading="eager" path="assets/img/posts/2023-09-19-large-language-models-as-optimizers/image_011.png" class="img-fluid rounded z-depth-1" %}
+
 - The order of the previous instructions.
+
+  - Figures 7(a) and 7(b)는 기본 설정이 더 나은 최종 정확도를 달성하고 더 빨리 수렴한다는 것을 보여줌. 이에 대한 가설은 LLM 출력이 메타 프롬프트 끝에 가까운 past instruction에 더 영향을 받기 때문이 아닐까.
 
 - The effect of instruction scores
 
+  - 정확도 점수를 어떻게 제시할지에 대해 세 가지 옵션: (1) 정확도를 정수로 반올림 == bucketizing the accuracy scores to 100 buckets (our default setting); (2) bucketizing the accuracies to 20 buckets; (3) 정확도를 표시하지 않고 only showing the instructions
+
+  - Figures 7(c)와 7(d)는 accuracy scores optimizer LLM이 이전 instructions 간의 품질 차이를 더 잘 이해하는 데 도움이 됨을 보여줌
+
 - The effect of exemplars
+
+  - Figures 7(e) and 7(f) show that presenting exemplars in the meta-prompt is critical
+
+  - 더 많은 예시가 성능을 향상시키지는 않으며, 일부 예시만으로도 작업을 설명하는 데 충분함
 
 - The number of generated instructions per step
 
+{% include figure.liquid loading="eager" path="assets/img/posts/2023-09-19-large-language-models-as-optimizers/image_012.png" class="img-fluid rounded z-depth-1" %}
+
+  - Figure 8은 각 단계마다 1 / 2 / 4 / 8 (기본 설정) / 16 instructions을 샘플링하는 최적화 성능을 비교하며, 각 단계에서 8 instructions을 샘플링하는 것이 전반적으로 최상의 성능을 달성한다는 것을 보여준다.
+
 - Starting point.
+
+{% include figure.liquid loading="eager" path="assets/img/posts/2023-09-19-large-language-models-as-optimizers/image_013.png" class="img-fluid rounded z-depth-1" %}

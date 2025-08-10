@@ -8,8 +8,11 @@ layout: post
 related_posts: false
 tags:
 - attention
+- classification
+- detection
 - gpt
 - llm
+- nlp
 - paper-review
 - pre-training
 - reasoning
@@ -33,9 +36,17 @@ title: Mistral 7B & Mixtral (Mixtral of Experts)
 
 - 이를 동시에 달성하는 Mistral 7B를 Apache 2.0 license로 베포함
 
+  - **Apache 2.0 license - open-weight model**
+
+{% include figure.liquid loading="eager" path="assets/img/posts/2024-01-16-mistral-7b-mixtral-mixtral-of-experts/image_000.png" class="img-fluid rounded z-depth-1" %}
+
 - Mistral  7B는 Llama2 13B model을 측정한 모든 benchmark에서 이겼으며 mathematics와 code generation에서는 Llama1 34B보다도 좋은 성능을 보임.
 
 - Mistral 7B는 기본적으로 Transformer Decoder Architecture를 채택하며 아래 2가지 techniques을 채택하여 efficiency를 달성
+
+  - Grouped-query attention - accelerated the inference speed.
+
+  - Sliding window attention - handle longer sequences more effectively at a reduced computational cost.
 
 (+ vLLM inference server와 SkyPilot을 활용해서 cloud에서 쉽게 쓸 수 있도록 베포했다고 함…)
 
@@ -43,11 +54,11 @@ title: Mistral 7B & Mixtral (Mixtral of Experts)
 
 **#### Overall Model Architecture**
 
-{% include figure.liquid loading="eager" path="assets/img/posts/2024-01-16-mistral-7b-mixtral-mixtral-of-experts/image_000.png" class="img-fluid rounded z-depth-1" %}
+{% include figure.liquid loading="eager" path="assets/img/posts/2024-01-16-mistral-7b-mixtral-mixtral-of-experts/image_001.png" class="img-fluid rounded z-depth-1" %}
 
 **#### Sliding Window Attention**
 
-{% include figure.liquid loading="eager" path="assets/img/posts/2024-01-16-mistral-7b-mixtral-mixtral-of-experts/image_001.png" class="img-fluid rounded z-depth-1" %}
+{% include figure.liquid loading="eager" path="assets/img/posts/2024-01-16-mistral-7b-mixtral-mixtral-of-experts/image_002.png" class="img-fluid rounded z-depth-1" %}
 
 → Attention
 
@@ -63,7 +74,7 @@ title: Mistral 7B & Mixtral (Mixtral of Experts)
 
 → Rolling Buffer Cache
 
-{% include figure.liquid loading="eager" path="assets/img/posts/2024-01-16-mistral-7b-mixtral-mixtral-of-experts/image_002.png" class="img-fluid rounded z-depth-1" %}
+{% include figure.liquid loading="eager" path="assets/img/posts/2024-01-16-mistral-7b-mixtral-mixtral-of-experts/image_003.png" class="img-fluid rounded z-depth-1" %}
 
 - attention span이 고정되어 있다 = rolling buffer (데이터를 담는 공간) cache를 limit할 수 있다.
 
@@ -75,13 +86,17 @@ title: Mistral 7B & Mixtral (Mixtral of Experts)
 
 **#### Pre-fill and Chunking (GQA)**
 
-{% include figure.liquid loading="eager" path="assets/img/posts/2024-01-16-mistral-7b-mixtral-mixtral-of-experts/image_003.png" class="img-fluid rounded z-depth-1" %}
+{% include figure.liquid loading="eager" path="assets/img/posts/2024-01-16-mistral-7b-mixtral-mixtral-of-experts/image_004.png" class="img-fluid rounded z-depth-1" %}
 
 - generation시에 token을 one-by-one으로 generation하는데 (as each token is conditioned on the previous ones) 
 
 - 주어진 prompt는 미리 알기 때문에 cache에 prompt의 k,v값을 pre-fill해서 inference 속도를 향상시킬 수 있음.
 
 - prompt가 크다면, chunk-size = window-size로 자르고 k,v를 계산하고 해당 chunck 내에서의 attention (third chunk in figure) 과 sliding window attention과 caching 사용한 attention(center block)을 동시에 사용해서 2W구간에 빠르게 연산처리.
+
+  - “The cat sat on”, “the mat and saw”, “the dog go to”으로 chunk 나눔
+
+  - 현재 “the dog go to”에 대해서 casual mask를 씌우면서 generation을 할때 pre-fill (cache) 된 window-size 만큼의 “the mat and saw”에 대해서도 sliding attention이 적용.
 
 ### Results
 
@@ -101,25 +116,31 @@ OpenbookQA [19], ARC-Easy, ARC-Challenge [9], CommonsenseQA [24]
 - **Popular aggregated results: **MMLU [12] (5-shot), BBH [23] (3-shot), and AGI Eval [29]
 (3-5-shot, English multiple-choice questions only)
 
-{% include figure.liquid loading="eager" path="assets/img/posts/2024-01-16-mistral-7b-mixtral-mixtral-of-experts/image_004.png" class="img-fluid rounded z-depth-1" %}
+{% include figure.liquid loading="eager" path="assets/img/posts/2024-01-16-mistral-7b-mixtral-mixtral-of-experts/image_005.png" class="img-fluid rounded z-depth-1" %}
 
 → (Evaluation Pipeline이 Llama 원문과는 다르지만) Llama 7, 13B보다 성능 훨씬 좋음
 
-{% include figure.liquid loading="eager" path="assets/img/posts/2024-01-16-mistral-7b-mixtral-mixtral-of-experts/image_005.png" class="img-fluid rounded z-depth-1" %}
+{% include figure.liquid loading="eager" path="assets/img/posts/2024-01-16-mistral-7b-mixtral-mixtral-of-experts/image_006.png" class="img-fluid rounded z-depth-1" %}
 
 → Code-Llama와 달리 MBPP(Code generation task)에서의 성능을 위해 나머지 task의 성능을 해치지 않음.
 
 - Llama2 family군과 비교했을 때 동일한 size대비 Mistral은 어느정도의 성능을 보이는가?
 
+{% include figure.liquid loading="eager" path="assets/img/posts/2024-01-16-mistral-7b-mixtral-mixtral-of-experts/image_007.png" class="img-fluid rounded z-depth-1" %}
+
+→ reasoning, comprehension, STEM reasoning (specifically MMLU)에서 3배나 큰 모델이 달성했을 법한 성능을 달성한다.
+
 **#### Instruction Finetuning**
 
 - Hugging Face repository에 public하게 풀려있는 instruction sft dataset으로 sft를 진행. 
+
+{% include figure.liquid loading="eager" path="assets/img/posts/2024-01-16-mistral-7b-mixtral-mixtral-of-experts/image_008.png" class="img-fluid rounded z-depth-1" %}
 
 → Llama2-13B보다 성능이 좋다.
 
 ## 2. Routing
 
-{% include figure.liquid loading="eager" path="assets/img/posts/2024-01-16-mistral-7b-mixtral-mixtral-of-experts/image_006.png" class="img-fluid rounded z-depth-1" %}
+{% include figure.liquid loading="eager" path="assets/img/posts/2024-01-16-mistral-7b-mixtral-mixtral-of-experts/image_009.png" class="img-fluid rounded z-depth-1" %}
 
 - Routing이란, 컴퓨터 네트워크에서 정보나 데이터 패킷이 출발지부터 목적지까지 최적의 경로를 따라 전송되는 과정. 
 
@@ -145,11 +166,11 @@ OpenbookQA [19], ARC-Easy, ARC-Challenge [9], CommonsenseQA [24]
 
 ### **Architectural details**
 
-{% include figure.liquid loading="eager" path="assets/img/posts/2024-01-16-mistral-7b-mixtral-mixtral-of-experts/image_007.png" class="img-fluid rounded z-depth-1" %}
+{% include figure.liquid loading="eager" path="assets/img/posts/2024-01-16-mistral-7b-mixtral-mixtral-of-experts/image_010.png" class="img-fluid rounded z-depth-1" %}
 
 **#### Overall Model Architecture**
 
-{% include figure.liquid loading="eager" path="assets/img/posts/2024-01-16-mistral-7b-mixtral-mixtral-of-experts/image_008.png" class="img-fluid rounded z-depth-1" %}
+{% include figure.liquid loading="eager" path="assets/img/posts/2024-01-16-mistral-7b-mixtral-mixtral-of-experts/image_011.png" class="img-fluid rounded z-depth-1" %}
 
 → Mistral과 다른점은 
 
@@ -165,11 +186,37 @@ OpenbookQA [19], ARC-Easy, ARC-Challenge [9], CommonsenseQA [24]
 
 - Gating Vector를 Sparse하게 만들면 → router가 sparse한 value를 갖는 Expert로 x를 forwarding 시킬 필요가 없음 → Experts에 대한 computation cost save
 
+: **직관적으로 각 token x를 가지고 expert classification을 한다고 생각하자.**
+
 → Total parameter count = n이 증가하더라도, K를 고정하면 individual token을 처리하는 active parameter count는 k는 증가하지 않음 (물론 network latency는 증가 당연히..)
 
 - MoE Layer를 Efficient하게 처리하는 방법 
 
+  - Megablocks
+
+    - MoE Layer내부에 있는 feed-forward network (FFN) 연산을 sparse matrix multiplications로 치환해서 연산량을 줄이고, 다양한 expert들에게 할당되는 token 연산을 처리할 수 있도록 한다.
+
+  - Expert Parallelism (sharded)
+
+    - Expert를 각 GPU에 allocation
+
+    - EX. Expert 4개라면 id-0,1,2,3 rank에 expert를 allocation, attention을 통과한 각 token들의 hidden representation들을 0,1,2,3중 선택된 expert가 allocation된 gpu에 allocate되어서 연산. Expert forwarding이 끝나면 기존 위치로 복귀 (load balancing 때문에 GPU에 고르게 분산하는 테크닉이 필요하다고 함)
+
 - Mixtral 8X7B는 MLP 대신 SwiGLU를 expert function E(x)로 활용함
+
+  - **SwiGLU                                                                                                                                                                                                                                           **
+
+{% include figure.liquid loading="eager" path="assets/img/posts/2024-01-16-mistral-7b-mixtral-mixtral-of-experts/image_012.png" class="img-fluid rounded z-depth-1" %}
+
+→ **Unbounded above, Bounded below, and Self-gated Function.**
+
+{% include figure.liquid loading="eager" path="assets/img/posts/2024-01-16-mistral-7b-mixtral-mixtral-of-experts/image_013.png" class="img-fluid rounded z-depth-1" %}
+
+→ Motivated by gating Function in the NLP area.
+
+{% include figure.liquid loading="eager" path="assets/img/posts/2024-01-16-mistral-7b-mixtral-mixtral-of-experts/image_014.png" class="img-fluid rounded z-depth-1" %}
+
+→ Llama1,2등 Foundation Backbone의 non-linear function으로 많이 활용되는중
 
 ### Results
 
@@ -189,8 +236,42 @@ OpenbookQA [22], ARC-Easy, ARC-Challenge [8], CommonsenseQA [30]
 - **Popular aggregated results: **MMLU [16] (5-shot), BBH [29] (3-shot), and AGI Eval [34]
 (3-5-shot, English multiple-choice questions only)
 
-{% include figure.liquid loading="eager" path="assets/img/posts/2024-01-16-mistral-7b-mixtral-mixtral-of-experts/image_009.png" class="img-fluid rounded z-depth-1" %}
+{% include figure.liquid loading="eager" path="assets/img/posts/2024-01-16-mistral-7b-mixtral-mixtral-of-experts/image_015.png" class="img-fluid rounded z-depth-1" %}
 
-{% include figure.liquid loading="eager" path="assets/img/posts/2024-01-16-mistral-7b-mixtral-mixtral-of-experts/image_010.png" class="img-fluid rounded z-depth-1" %}
+{% include figure.liquid loading="eager" path="assets/img/posts/2024-01-16-mistral-7b-mixtral-mixtral-of-experts/image_016.png" class="img-fluid rounded z-depth-1" %}
 
 → Code generation & Math에서 특히 성능이 좋다.
+
+{% include figure.liquid loading="eager" path="assets/img/posts/2024-01-16-mistral-7b-mixtral-mixtral-of-experts/image_017.png" class="img-fluid rounded z-depth-1" %}
+
+→ 특히 Llama2 70B 대비 Mixtral은 Token당 활용하는 active parameter가 13B임을 강조하면서 SMoE의 cost-efficiency를 또 한번 강조함.
+
+- Inference compute cost가 낮은거지, memory & hardware utilization cost가 적지 않음을 이야기함
+
+- sparse parameter count는 47B
+
+- routing mechanism에 의한 utilization overhead, device당 2개 이상의 expert를 실행하려고 하는 경우의 메모리 문제 등등 언급
+
+{% include figure.liquid loading="eager" path="assets/img/posts/2024-01-16-mistral-7b-mixtral-mixtral-of-experts/image_018.png" class="img-fluid rounded z-depth-1" %}
+
+→ GPT3.5와 비교해도 밀리지 않는 성능, 특히 instruct following model은 MT-Bench에서 정말 크게 안밀림.
+
+→ Pretrain data를 전혀 open하지 않았지만, Mistral 7B 대비 multi-lingual도 upsample해서 English Benchmark 성능을 해치지 않고 좋은 성능 달성.
+
+{% include figure.liquid loading="eager" path="assets/img/posts/2024-01-16-mistral-7b-mixtral-mixtral-of-experts/image_019.png" class="img-fluid rounded z-depth-1" %}
+
+**: 뭐로 학습한거냐…**
+
+**#### Long Range**
+
+→ 임의의 길이를 갖는 long prompt내에서 passkey를 retrieve하는 task에서 context 길이 상관 없이 100% 성능 달성 (좌)
+
+→ Proof-pile dataset에서의 context 증가에 따른 PPL의 단조 감소 경향세 (우)
+
+{% include figure.liquid loading="eager" path="assets/img/posts/2024-01-16-mistral-7b-mixtral-mixtral-of-experts/image_020.png" class="img-fluid rounded z-depth-1" %}
+
+## 4. Conclusion
+
+- 유튜브에서 paper 리뷰하는 사람이 ‘요즘 같이 학습데이터로 저작권 소송이 판치는 시대에 오히려 학습데이터 오픈하지 않은게 현명한 것 같다’라고 했는데 맞는말 같다..
+
+- 이럴 수록 저번에 발표한 pre-training detection 방법의 효용성이 빛을 발하는 것 같기도?!

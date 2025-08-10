@@ -65,6 +65,8 @@ title: GPT Understands, Too
 
 - Bi-LSTM기반의 prompt encoder를 활용하여 이산적인 token의 특징과 각 token과의 connectiveness를 함께 활용할 수 있도록  embedding을 생성하게 됨
 
+{% include figure.liquid loading="eager" path="assets/img/posts/2023-03-30-gpt-understands-too/image_004.png" class="img-fluid rounded z-depth-1" %}
+
 - Pseudo prompt라는 Random init된 값을 활용하여 prompt를 학습함
 
 - Original token을 그대로 사용하는 경우는 anchor token으로 지칭하며 정답 Input을 제공함
@@ -81,7 +83,7 @@ title: GPT Understands, Too
 
 ***Knowledge probling task***
 
-{% include figure.liquid loading="eager" path="assets/img/posts/2023-03-30-gpt-understands-too/image_004.png" class="img-fluid rounded z-depth-1" %}
+{% include figure.liquid loading="eager" path="assets/img/posts/2023-03-30-gpt-understands-too/image_005.png" class="img-fluid rounded z-depth-1" %}
 
 - Manual, Discrete prompt보다 높은 성능을 보임
 
@@ -91,7 +93,7 @@ title: GPT Understands, Too
 
 ***SuperGLUE(Full finetuning)***
 
-{% include figure.liquid loading="eager" path="assets/img/posts/2023-03-30-gpt-understands-too/image_005.png" class="img-fluid rounded z-depth-1" %}
+{% include figure.liquid loading="eager" path="assets/img/posts/2023-03-30-gpt-understands-too/image_006.png" class="img-fluid rounded z-depth-1" %}
 
 - base-scale LM에서 finetuning보다 P-tuning이 높음
 
@@ -101,7 +103,7 @@ title: GPT Understands, Too
 
 ***SuperGLUE(Fewshot)***
 
-{% include figure.liquid loading="eager" path="assets/img/posts/2023-03-30-gpt-understands-too/image_006.png" class="img-fluid rounded z-depth-1" %}
+{% include figure.liquid loading="eager" path="assets/img/posts/2023-03-30-gpt-understands-too/image_007.png" class="img-fluid rounded z-depth-1" %}
 
 - Few shot setting에서의 실험
 

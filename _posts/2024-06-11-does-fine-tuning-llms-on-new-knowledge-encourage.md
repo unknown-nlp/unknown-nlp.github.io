@@ -14,6 +14,7 @@ tags:
 - llm
 - paper-review
 - pre-training
+- rlhf
 thumbnail: assets/img/posts/2024-06-11-does-fine-tuning-llms-on-new-knowledge-encourage/thumbnail.jpg
 title: Does Fine-Tuning LLMs on New Knowledge Encourage Hallucinations?
 ---
@@ -26,6 +27,12 @@ title: Does Fine-Tuning LLMs on New Knowledge Encourage Hallucinations?
 ## 1. Introduction
 
 - Large Language Model Pretraining
+
+  - pre-training: parameter에 factual knowledge를 넣기
+
+  - supervised fine-tuning: instruction following task에 sft해서 model에 alignment behavior 부여
+
+  - rlhf: model에 preference behavior 부여
 
 - SFT stage에서 human annotator에 의해서 model이 alignment를 배우기도 하는데, pre-training때 학습하지 않는 지식을 대답하도록 annotating이 될 수 있다.
 
@@ -53,11 +60,27 @@ title: Does Fine-Tuning LLMs on New Knowledge Encourage Hallucinations?
 
 - Fine-tuning dataset : D
 
+  - ENTITYQUESTION (subject, relation, object)
+
+  - q: Where is Paris located?
+
+  - a: France
+
+→ 12 relations를 LM에 태워서 UNK, KN sample (i.e., train sample)로 분리
+
+→ (OOD) 7 relations를 LM에 태워서 UNK, KN sample (i.e., test sample)로 분리
+
 - Training Pipeline
+
+  - M \rightarrow D=\{(q_{i},a_{i})\}_{i=1}^{N} \rightarrow M_{D}
 
 - Model
 
+  - PALM2-M
+
 - Metric
+
+  - EM
 
 ## 3. Quantifying Knowledge in LLMs
 
@@ -72,6 +95,20 @@ title: Does Fine-Tuning LLMs on New Knowledge Encourage Hallucinations?
 1. temperature T 설정.
 
 1. 모델이 a를 제대로 맞출 확률 P_{correct}(q,a;M;T) estimate
+
+  1. 각 example에 대해서 N_{ex}=10번씩 estimate.
+
+  1.  P_{correct}(q,a;M;T=0) 
+
+    1. greedy answer
+
+  1.  P_{correct}(q,a;M;T=0.5) 
+
+    1. highly logit에 더 높은 확률 주게 resampling
+
+    1. Top 40에서 N_{sample}=16개를 sampling
+
+    1. M \rightarrow D=\{(q_{i},a_{i})\}_{i=1}^{N} \rightarrow M_{D}
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-06-11-does-fine-tuning-llms-on-new-knowledge-encourage/image_000.png" class="img-fluid rounded z-depth-1" %}
 
@@ -91,7 +128,15 @@ title: Does Fine-Tuning LLMs on New Knowledge Encourage Hallucinations?
 
 - Known Example은 일단 collectively하게 측정.
 
+  - 이후에 ablation으로 fine-grained하게 측정.
+
 ⇒ Disjoint Test를 hallucination 척도로 활용
+
+- Disjoint setting이기 때문에 Test set에는 2개 type question이 존재
+
+1. UNK Question → 어떤 trainset으로 학습해도 모델이 맞추질 못함
+
+1. KNOWN Question → Training set 이후 모델이 맞추는지 확인이 가능함
 
 ⇒ Dev에서 수렴하면 Early Stopping
 
@@ -143,6 +188,14 @@ title: Does Fine-Tuning LLMs on New Knowledge Encourage Hallucinations?
 
 - Test samples가 OOD(이 setting에서는 relation이 다름)이라도 경향성은 같음
 
+- **In-Distribution**
+
+{% include figure.liquid loading="eager" path="assets/img/posts/2024-06-11-does-fine-tuning-llms-on-new-knowledge-encourage/image_009.png" class="img-fluid rounded z-depth-1" %}
+
+- **Out-of-Distribution**
+
+{% include figure.liquid loading="eager" path="assets/img/posts/2024-06-11-does-fine-tuning-llms-on-new-knowledge-encourage/image_010.png" class="img-fluid rounded z-depth-1" %}
+
 - "Where is [E1] located?”라는 데이터로 convergence 시키면 "Who founded [E2]?”라는 질문에 hallucination을 일으킬 수 있음.
 
 ## 5. Understanding Knowledge Types: Their Value and Impact
@@ -151,9 +204,15 @@ title: Does Fine-Tuning LLMs on New Knowledge Encourage Hallucinations?
 
 1. 각 training sample의 knowledge 카테고리가 test performance에 어떻게 영향을 미치는가?
 
+  1. 2.에서 구축한 카테고리 별로 나눠서 gap이 D_{CAT}
+
+  1. ENTITYQUESTION의 natural distribution 따르는 D_{natural}
+
 1. 각 test examples 카테고리별로 다를까?
 
-{% include figure.liquid loading="eager" path="assets/img/posts/2024-06-11-does-fine-tuning-llms-on-new-knowledge-encourage/image_009.png" class="img-fluid rounded z-depth-1" %}
+  1. test example도 2.처럼 분류함
+
+{% include figure.liquid loading="eager" path="assets/img/posts/2024-06-11-does-fine-tuning-llms-on-new-knowledge-encourage/image_011.png" class="img-fluid rounded z-depth-1" %}
 
 - Highlyknown으로만 학습하는게 가장 좋을것 같지만, Highlyknown한 disjoint test에서만 가장 성능이 좋다. 
 

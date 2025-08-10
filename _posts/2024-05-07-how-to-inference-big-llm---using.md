@@ -74,6 +74,8 @@ with init_empty_weights():
 
 - Instantiate한 Model이 ‘Parameterless’하기 때문에  load_checkpoint_and_dispatch()라는 함수를 통해서 checkpoint를 empty model에 load하고, 모든 device(GPU/MPS 및 CPU RAM)에 걸쳐 weight를 보낸다.
 
+[`device_map="auto"` 로 설정하면 GPU → CPU → RAM → DISK 순서로 자동적으로 weight를 보냄]
+
 ```python
 from accelerate import load_checkpoint_and_dispatch
 
