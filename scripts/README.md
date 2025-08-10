@@ -5,7 +5,7 @@
 ## 🎯 특징
 
 - ✅ **단순함**: 복잡한 설정 없이 바로 사용
-- ✅ **안정성**: 검증된 방법으로 확실한 변환  
+- ✅ **안정성**: 검증된 방법으로 확실한 변환
 - ✅ **완전 자동**: 이미지, 태그, front matter 모두 자동 처리
 - ✅ **ai-folio 최적화**: Jekyll과 완벽 호환
 - 🆕 **DB 자동화**: 노션 URL만으로 완전 자동 변환
@@ -17,7 +17,7 @@ scripts/
 ├── 📄 notion_db_auto.py     # 🌟 노션 DB URL 자동 변환 (NEW!)
 ├── 📄 notion_to_blog.py     # 📄 Export 파일 변환
 ├── 📄 markdown_utils.py     # 마크다운 처리 함수들
-├── 📄 markdown_improver.py  # 기존 마크다운 개선 도구  
+├── 📄 markdown_improver.py  # 기존 마크다운 개선 도구
 ├── 📄 setup_guide.md        # 빠른 시작 가이드
 └── 📄 README.md             # 이 파일
 ```
@@ -36,6 +36,7 @@ python3 scripts/notion_db_auto.py \
 ```
 
 **장점:**
+
 - 🎯 **URL만 있으면 끝**: 수동 작업 없음
 - ⚡ **실시간 동기화**: 노션 업데이트 시 재실행만 하면 됨
 - 🔄 **배치 처리**: 모든 논문을 한 번에 처리
@@ -53,6 +54,7 @@ python3 scripts/notion_to_blog.py --notion-dir "notion_exports/" --batch
 ```
 
 **장점:**
+
 - 🔒 **API 토큰 불필요**: 간단한 설정
 - 📷 **이미지 확실**: Export된 이미지 직접 복사
 - 🎨 **커스터마이즈**: 세부 조정 가능
@@ -60,6 +62,7 @@ python3 scripts/notion_to_blog.py --notion-dir "notion_exports/" --batch
 ## 📊 변환 과정
 
 ### 방법 1: DB 자동화
+
 ```mermaid
 graph LR
     A[노션 DB URL] --> B[API 호출]
@@ -69,6 +72,7 @@ graph LR
 ```
 
 ### 방법 2: Export 변환
+
 ```mermaid
 graph LR
     A[노션 Export] --> B[스크립트 실행]
@@ -126,14 +130,14 @@ python3 scripts/notion_to_blog.py \
 
 ## 📈 성능 비교
 
-| 특징 | DB 자동화 | Export 변환 |
-|------|-----------|-------------|
-| **설정 복잡도** | 보통 (토큰 필요) | 간단 |
-| **속도** | 빠름 | 매우 빠름 |
-| **자동화** | 완전 자동 ⭐ | 수동 export |
-| **이미지 처리** | API 다운로드 | 직접 복사 ⭐ |
-| **실시간 동기화** | 가능 ⭐ | 불가능 |
-| **안정성** | 높음 | 매우 높음 ⭐ |
+| 특징              | DB 자동화        | Export 변환  |
+| ----------------- | ---------------- | ------------ |
+| **설정 복잡도**   | 보통 (토큰 필요) | 간단         |
+| **속도**          | 빠름             | 매우 빠름    |
+| **자동화**        | 완전 자동 ⭐     | 수동 export  |
+| **이미지 처리**   | API 다운로드     | 직접 복사 ⭐ |
+| **실시간 동기화** | 가능 ⭐          | 불가능       |
+| **안정성**        | 높음             | 매우 높음 ⭐ |
 
 ## 🛠️ 고급 기능
 
@@ -174,20 +178,24 @@ python3 scripts/markdown_improver.py --input "기존파일.md"
 ### DB 자동화 관련
 
 **Q: "Unauthorized" 오류**
+
 - 노션 API 토큰 확인
 - Integration이 데이터베이스에 연결되어 있는지 확인
 
 **Q: 이미지가 다운로드되지 않음**
+
 - 현재 버전에서는 이미지 URL만 참조 (향후 업데이트 예정)
 - Export 방식 사용 권장
 
 **Q: 변환 속도가 느림**
+
 - API 제한으로 인한 지연 (정상)
 - 대량 변환 시 시간 소요 예상
 
 ### Export 변환 관련
 
 **Q: 이미지가 표시되지 않음**
+
 ```bash
 # 이미지 파일 확인
 ls -la assets/img/posts/2025-01-02-제목/
@@ -197,17 +205,20 @@ bundle exec jekyll serve
 ```
 
 **Q: 한글 인코딩 문제**
+
 - 노션 export 시 UTF-8 확인
 - 파일명에 특수문자 피하기
 
 ## 📦 필요한 패키지
 
 ### DB 자동화용
+
 ```bash
 pip install notion-client PyYAML
 ```
 
 ### Export 변환용
+
 ```bash
 pip install PyYAML  # 기본 라이브러리만
 ```
@@ -231,6 +242,7 @@ pip install PyYAML  # 기본 라이브러리만
 ## 🙋‍♂️ 지원
 
 문제가 발생하면:
+
 1. `setup_guide.md` 확인
 2. 적절한 방법 선택 (DB 자동화 vs Export)
 3. 에러 로그와 함께 문의
@@ -238,4 +250,4 @@ pip install PyYAML  # 기본 라이브러리만
 
 ---
 
-**Made with ❤️ for efficient academic blogging** 
+**Made with ❤️ for efficient academic blogging**
