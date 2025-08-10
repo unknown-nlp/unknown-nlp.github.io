@@ -6,7 +6,7 @@ ai-folio 블로그를 위한 마크다운 처리 도구
 
 import re
 import yaml
-from datetime import datetime
+from datetime import datetime, timedelta
 from pathlib import Path
 
 def improve_markdown_readability(content):
@@ -41,9 +41,6 @@ def improve_markdown_readability(content):
     
     # 7. 특수 섹션 강화
     content = enhance_special_sections(content)
-    
-    # 8. 이미지 참조를 ai-folio 형식으로 변환
-    content = convert_image_references(content)
     
     return content.strip()
 
@@ -85,27 +82,28 @@ def enhance_special_sections(content):
     
     return content
 
-def convert_image_references(content):
+def convert_image_references_with_slug(content, slug):
     """
-    이미지 참조를 ai-folio 형식으로 변환
+    이미지 참조를 al-folio 형식으로 변환 (실제 슬러그 사용)
     
     Args:
         content (str): 마크다운 내용
+        slug (str): 실제 포스트 슬러그
         
     Returns:
         str: 변환된 마크다운 내용
     """
-    # 노션 스타일의 이미지 참조를 ai-folio 형식으로 변환
     def replace_image_ref(match):
         filename = match.group(1) if match.group(1) else match.group(2)
-        # 파일명에서 공백을 제거하거나 변환할 수 있음
+        # 파일명에서 공백과 특수문자 정리
         clean_filename = filename.strip()
-        return f'{{% include figure.liquid loading="eager" path="assets/img/posts/{{{{ page.slug }}}}/{clean_filename}" class="img-fluid rounded z-depth-1" %}}'
+        clean_filename = re.sub(r'[^\w\-_\.]', '_', clean_filename)
+        return f'{{% include figure.liquid loading="eager" path="assets/img/posts/{slug}/{clean_filename}" class="img-fluid rounded z-depth-1" %}}'
     
     # 다양한 이미지 참조 패턴 처리
     patterns = [
-        r'!\[.*?\]\(([^)]+\.(?:png|jpg|jpeg|gif|webp))\)',  # ![alt](image.png)
-        r'!\[\]\(([^)]+\.(?:png|jpg|jpeg|gif|webp))\)',     # ![](image.png)
+        r'!\[.*?\]\(([^)]+\.(?:png|jpg|jpeg|gif|webp|svg))\)',  # ![alt](image.png)
+        r'!\[\]\(([^)]+\.(?:png|jpg|jpeg|gif|webp|svg))\)',     # ![](image.png)
     ]
     
     for pattern in patterns:
@@ -177,7 +175,8 @@ def generate_tags_from_content(title, content, metadata):
         "transformer", "attention", "bert", "gpt", "llm", "language model",
         "neural", "deep learning", "machine learning", "nlp", "multimodal",
         "reinforcement learning", "diffusion", "embedding", "reasoning",
-        "fine-tuning", "pre-training", "alignment", "rlhf"
+        "fine-tuning", "pre-training", "alignment", "rlhf", "vision",
+        "computer vision", "generative", "classification", "detection"
     ]
     
     for keyword in ai_keywords:
@@ -223,7 +222,7 @@ def create_front_matter(title, date, tags, metadata, slug):
         "categories": ["paper-reviews"],
         "giscus_comments": True,
         "related_posts": False,
-        "slug": slug
+        "thumbnail": f"assets/img/posts/{slug}/thumbnail.jpg"  # 썸네일 이미지 추가
     }
     
     return front_matter
@@ -274,6 +273,25 @@ def generate_slug_from_title(title, date):
         slug = '-'.join(words[:8])  # 처음 8개 단어만
     
     return f"{date}-{slug}"
+
+def calculate_future_date(start_date, days_offset):
+    """
+    시작 날짜에서 지정된 일수만큼 더한 날짜 계산 (안전한 방법)
+    
+    Args:
+        start_date (str): 시작 날짜 (YYYY-MM-DD)
+        days_offset (int): 추가할 일수
+        
+    Returns:
+        str: 계산된 날짜 (YYYY-MM-DD)
+    """
+    try:
+        start = datetime.strptime(start_date, "%Y-%m-%d")
+        result = start + timedelta(days=days_offset)
+        return result.strftime("%Y-%m-%d")
+    except ValueError as e:
+        print(f"❌ 날짜 계산 오류: {e}")
+        return start_date
 
 if __name__ == "__main__":
     # 테스트용

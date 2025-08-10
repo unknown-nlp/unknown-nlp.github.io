@@ -1,0 +1,177 @@
+---
+categories:
+- paper-reviews
+date: '2025-08-14 00:00:00'
+description: 논문 리뷰 - DiffusionLM, SFT, Reinforcement Learning, Reasoning 관련 연구
+giscus_comments: true
+layout: post
+related_posts: false
+slug: 2025-08-14-d1-scaling-reasoning-in-diffusion-large-language-models
+tags:
+- diffusion
+- diffusionlm
+- language-model
+- llm
+- paper-review
+- reasoning
+- reinforcement learning
+- reinforcement-learning
+- sft
+title: 'd1: Scaling Reasoning in Diffusion Large Language Models via Reinforcement
+  Learning'
+---
+
+**논문 정보**
+- **Date**: 2025-01-02
+- **Reviewer**: 김재희
+- **Property**: DiffusionLM, SFT, Reinforcement Learning, Reasoning
+
+## 1. Intro
+
+### 1.1 결론
+
+![Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/3acbc979-3f43-48f4-8683-229c6104ec76/82c116d2-b7e5-47b7-9fe5-0cbeb60f28dc/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=ASIAZI2LB46677QE53EK%2F20250810%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20250810T105953Z&X-Amz-Expires=3600&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEJr%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJGMEQCID7hl3y0S6Vt566OIHoZW0k3tUDyMtHtkQL30wNNqgk0AiBMu3VZ%2FOWeY7a2CLlXD56KyGj5U93w0exdYK08Zv3d7yqIBAjT%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAAaDDYzNzQyMzE4MzgwNSIMI5l7lhwy5MQHL73sKtwDcRn87YGJInpO4y1X5IhiSLuNZY8A%2FN4pH3EI3Dbujvn35Bm7eYLlwUu%2Byp7HxP0YvG%2Bmm0WS%2F70gAN3pBKyVtbgbLtQVub8g6%2BeoPJZjGCWJLNA6QE53X%2BZv6Zo3tWbPwpiWl%2FhiJTEP2e9zFP22Enzb5jOMquGo667I4kf4lnSXey3lDUOSsdnTz1JzRQth6LGOE%2BaYZQi%2BzaxEBg%2F0y9p5WVVMInz6PyHkXpOFSJssfgXcAb4z0HR4aCbAMW9aRTD83f4nujXwYPCjhEdD%2BARn9Rbw8hR0dmbNHbAUUGWFNjJ3zj7WI9%2Bs4V0Uu5yTShufuPXVOSSRxkgXTrSZr%2FdoPsN0LpQqcTqLepOEEA7o4QJ42R5hFN3mdJjeYdVr9TL9FNH9l1Or%2BptkVfkqYbuxbQB58X0tGQYjtZLxPN5QTajECvA6zsWZbRCQsZaXWZy9zqInIrGCDeZqJnfbNkQn980052tii3h%2FuCPODBQz0D2pOgvNPjqi1NQfM1LpJ6nMb5tQo651uvEUIzL41fwoK%2Bw%2BEHD8L%2Bz1FsNv01ePj5h2g6sujHDcqwr5l4Tc9VzkjhOHj%2BLpAVP3LdgnBVqfoGO0HVLJ5tuozgXhy51n94l1%2F1yh%2BEdn%2BNQwrNPhxAY6pgHsFS5qHE8p2bEqzeL%2Fwd%2BCjLUxIpRinsVkeYbb0rV01SyRIExJss7S4nzt2xDJJQckDLrT%2BRS5nY2ifGSWUBPjQSXTNW8SB23xWpYH4uPRNp8RYMbCeWjNT0GTXRD2MWnBzFKCqy%2B%2BqI6InUDu2Qakm4cEdscBzqD4RoMeWKxPM6pxw5V7%2B0C1UWhOGEPR1UCP%2FhT2Adr8ptZxDSingYTETX4P6GXn&X-Amz-Signature=1f8f6021124972fbee2b317c8f5f63326d0cb89ee2b7a2a8453cda74e246a6bf&X-Amz-SignedHeaders=host&x-amz-checksum-mode=ENABLED&x-id=GetObject)
+
+### 1.2 RL(GRPO)
+
+![Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/3acbc979-3f43-48f4-8683-229c6104ec76/b57264ac-9dbd-48eb-a2a1-ddaeb55f45a5/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=ASIAZI2LB46677QE53EK%2F20250810%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20250810T105953Z&X-Amz-Expires=3600&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEJr%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJGMEQCID7hl3y0S6Vt566OIHoZW0k3tUDyMtHtkQL30wNNqgk0AiBMu3VZ%2FOWeY7a2CLlXD56KyGj5U93w0exdYK08Zv3d7yqIBAjT%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAAaDDYzNzQyMzE4MzgwNSIMI5l7lhwy5MQHL73sKtwDcRn87YGJInpO4y1X5IhiSLuNZY8A%2FN4pH3EI3Dbujvn35Bm7eYLlwUu%2Byp7HxP0YvG%2Bmm0WS%2F70gAN3pBKyVtbgbLtQVub8g6%2BeoPJZjGCWJLNA6QE53X%2BZv6Zo3tWbPwpiWl%2FhiJTEP2e9zFP22Enzb5jOMquGo667I4kf4lnSXey3lDUOSsdnTz1JzRQth6LGOE%2BaYZQi%2BzaxEBg%2F0y9p5WVVMInz6PyHkXpOFSJssfgXcAb4z0HR4aCbAMW9aRTD83f4nujXwYPCjhEdD%2BARn9Rbw8hR0dmbNHbAUUGWFNjJ3zj7WI9%2Bs4V0Uu5yTShufuPXVOSSRxkgXTrSZr%2FdoPsN0LpQqcTqLepOEEA7o4QJ42R5hFN3mdJjeYdVr9TL9FNH9l1Or%2BptkVfkqYbuxbQB58X0tGQYjtZLxPN5QTajECvA6zsWZbRCQsZaXWZy9zqInIrGCDeZqJnfbNkQn980052tii3h%2FuCPODBQz0D2pOgvNPjqi1NQfM1LpJ6nMb5tQo651uvEUIzL41fwoK%2Bw%2BEHD8L%2Bz1FsNv01ePj5h2g6sujHDcqwr5l4Tc9VzkjhOHj%2BLpAVP3LdgnBVqfoGO0HVLJ5tuozgXhy51n94l1%2F1yh%2BEdn%2BNQwrNPhxAY6pgHsFS5qHE8p2bEqzeL%2Fwd%2BCjLUxIpRinsVkeYbb0rV01SyRIExJss7S4nzt2xDJJQckDLrT%2BRS5nY2ifGSWUBPjQSXTNW8SB23xWpYH4uPRNp8RYMbCeWjNT0GTXRD2MWnBzFKCqy%2B%2BqI6InUDu2Qakm4cEdscBzqD4RoMeWKxPM6pxw5V7%2B0C1UWhOGEPR1UCP%2FhT2Adr8ptZxDSingYTETX4P6GXn&X-Amz-Signature=ce46ba9db7fa6e8f1a454d577238a53a9e650a08dbff84474cfa2be164e1be71&X-Amz-SignedHeaders=host&x-amz-checksum-mode=ENABLED&x-id=GetObject)
+
+**특징: **
+
+![Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/3acbc979-3f43-48f4-8683-229c6104ec76/aa260d46-7dd2-4081-ab22-39865434b362/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=ASIAZI2LB46677QE53EK%2F20250810%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20250810T105953Z&X-Amz-Expires=3600&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEJr%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJGMEQCID7hl3y0S6Vt566OIHoZW0k3tUDyMtHtkQL30wNNqgk0AiBMu3VZ%2FOWeY7a2CLlXD56KyGj5U93w0exdYK08Zv3d7yqIBAjT%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAAaDDYzNzQyMzE4MzgwNSIMI5l7lhwy5MQHL73sKtwDcRn87YGJInpO4y1X5IhiSLuNZY8A%2FN4pH3EI3Dbujvn35Bm7eYLlwUu%2Byp7HxP0YvG%2Bmm0WS%2F70gAN3pBKyVtbgbLtQVub8g6%2BeoPJZjGCWJLNA6QE53X%2BZv6Zo3tWbPwpiWl%2FhiJTEP2e9zFP22Enzb5jOMquGo667I4kf4lnSXey3lDUOSsdnTz1JzRQth6LGOE%2BaYZQi%2BzaxEBg%2F0y9p5WVVMInz6PyHkXpOFSJssfgXcAb4z0HR4aCbAMW9aRTD83f4nujXwYPCjhEdD%2BARn9Rbw8hR0dmbNHbAUUGWFNjJ3zj7WI9%2Bs4V0Uu5yTShufuPXVOSSRxkgXTrSZr%2FdoPsN0LpQqcTqLepOEEA7o4QJ42R5hFN3mdJjeYdVr9TL9FNH9l1Or%2BptkVfkqYbuxbQB58X0tGQYjtZLxPN5QTajECvA6zsWZbRCQsZaXWZy9zqInIrGCDeZqJnfbNkQn980052tii3h%2FuCPODBQz0D2pOgvNPjqi1NQfM1LpJ6nMb5tQo651uvEUIzL41fwoK%2Bw%2BEHD8L%2Bz1FsNv01ePj5h2g6sujHDcqwr5l4Tc9VzkjhOHj%2BLpAVP3LdgnBVqfoGO0HVLJ5tuozgXhy51n94l1%2F1yh%2BEdn%2BNQwrNPhxAY6pgHsFS5qHE8p2bEqzeL%2Fwd%2BCjLUxIpRinsVkeYbb0rV01SyRIExJss7S4nzt2xDJJQckDLrT%2BRS5nY2ifGSWUBPjQSXTNW8SB23xWpYH4uPRNp8RYMbCeWjNT0GTXRD2MWnBzFKCqy%2B%2BqI6InUDu2Qakm4cEdscBzqD4RoMeWKxPM6pxw5V7%2B0C1UWhOGEPR1UCP%2FhT2Adr8ptZxDSingYTETX4P6GXn&X-Amz-Signature=5c38cb543fd10700d47b30c2b141ac112e76e33783016509dd1f9c3dc551bcc6&X-Amz-SignedHeaders=host&x-amz-checksum-mode=ENABLED&x-id=GetObject)
+
+- GRPO를 DDLM에 적용할 때 발생하는 문제점
+
+### ⇒ 단순히 AR의 GRPO를 적용할 수 없음.
+
+## 2. Method
+
+![Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/3acbc979-3f43-48f4-8683-229c6104ec76/2af397a2-b0ef-4122-87fd-8051a492555f/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=ASIAZI2LB46677QE53EK%2F20250810%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20250810T105953Z&X-Amz-Expires=3600&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEJr%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJGMEQCID7hl3y0S6Vt566OIHoZW0k3tUDyMtHtkQL30wNNqgk0AiBMu3VZ%2FOWeY7a2CLlXD56KyGj5U93w0exdYK08Zv3d7yqIBAjT%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAAaDDYzNzQyMzE4MzgwNSIMI5l7lhwy5MQHL73sKtwDcRn87YGJInpO4y1X5IhiSLuNZY8A%2FN4pH3EI3Dbujvn35Bm7eYLlwUu%2Byp7HxP0YvG%2Bmm0WS%2F70gAN3pBKyVtbgbLtQVub8g6%2BeoPJZjGCWJLNA6QE53X%2BZv6Zo3tWbPwpiWl%2FhiJTEP2e9zFP22Enzb5jOMquGo667I4kf4lnSXey3lDUOSsdnTz1JzRQth6LGOE%2BaYZQi%2BzaxEBg%2F0y9p5WVVMInz6PyHkXpOFSJssfgXcAb4z0HR4aCbAMW9aRTD83f4nujXwYPCjhEdD%2BARn9Rbw8hR0dmbNHbAUUGWFNjJ3zj7WI9%2Bs4V0Uu5yTShufuPXVOSSRxkgXTrSZr%2FdoPsN0LpQqcTqLepOEEA7o4QJ42R5hFN3mdJjeYdVr9TL9FNH9l1Or%2BptkVfkqYbuxbQB58X0tGQYjtZLxPN5QTajECvA6zsWZbRCQsZaXWZy9zqInIrGCDeZqJnfbNkQn980052tii3h%2FuCPODBQz0D2pOgvNPjqi1NQfM1LpJ6nMb5tQo651uvEUIzL41fwoK%2Bw%2BEHD8L%2Bz1FsNv01ePj5h2g6sujHDcqwr5l4Tc9VzkjhOHj%2BLpAVP3LdgnBVqfoGO0HVLJ5tuozgXhy51n94l1%2F1yh%2BEdn%2BNQwrNPhxAY6pgHsFS5qHE8p2bEqzeL%2Fwd%2BCjLUxIpRinsVkeYbb0rV01SyRIExJss7S4nzt2xDJJQckDLrT%2BRS5nY2ifGSWUBPjQSXTNW8SB23xWpYH4uPRNp8RYMbCeWjNT0GTXRD2MWnBzFKCqy%2B%2BqI6InUDu2Qakm4cEdscBzqD4RoMeWKxPM6pxw5V7%2B0C1UWhOGEPR1UCP%2FhT2Adr8ptZxDSingYTETX4P6GXn&X-Amz-Signature=c9a00ec0dc1cf14725cf679edbcdab946b66bb5df8b5446169e2168347f69497&X-Amz-SignedHeaders=host&x-amz-checksum-mode=ENABLED&x-id=GetObject)
+
+### 2.1 Mean Field Estimation
+
+- 복잡한 상호작용을 가진 시스템의 기대값 계산을 단순화하기 위해 독립 확률 분포로 근사하는 방법론
+
+- AR: 각 토큰의 생성이 이전 토큰에 종속적 
+
+- DDLM: 각 토큰의 생성이 모든 다른 토큰에 종속적
+
+### 2.1 Sequence-level Loglikelihood Estimation
+
+- AR: 각 토큰의 loglikelihod로 분해 가능
+
+- DDLM: 모든 토큰이 동시에 생성되어 적용 불가 
+
+### 2.2 One-step Per-token loglikelihood estimation
+
+- 기존 쿼리의 일부 토큰을 masking하고 전체 토큰의 loglikelihood를 그대로 사용
+
+### 2.3 diffu-GRPO: Policy Gradient Optimization for Masked dLLMs
+
+![Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/3acbc979-3f43-48f4-8683-229c6104ec76/5e091d1a-7e84-41ca-942e-8c133dcf2142/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=ASIAZI2LB46677QE53EK%2F20250810%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20250810T105953Z&X-Amz-Expires=3600&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEJr%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJGMEQCID7hl3y0S6Vt566OIHoZW0k3tUDyMtHtkQL30wNNqgk0AiBMu3VZ%2FOWeY7a2CLlXD56KyGj5U93w0exdYK08Zv3d7yqIBAjT%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAAaDDYzNzQyMzE4MzgwNSIMI5l7lhwy5MQHL73sKtwDcRn87YGJInpO4y1X5IhiSLuNZY8A%2FN4pH3EI3Dbujvn35Bm7eYLlwUu%2Byp7HxP0YvG%2Bmm0WS%2F70gAN3pBKyVtbgbLtQVub8g6%2BeoPJZjGCWJLNA6QE53X%2BZv6Zo3tWbPwpiWl%2FhiJTEP2e9zFP22Enzb5jOMquGo667I4kf4lnSXey3lDUOSsdnTz1JzRQth6LGOE%2BaYZQi%2BzaxEBg%2F0y9p5WVVMInz6PyHkXpOFSJssfgXcAb4z0HR4aCbAMW9aRTD83f4nujXwYPCjhEdD%2BARn9Rbw8hR0dmbNHbAUUGWFNjJ3zj7WI9%2Bs4V0Uu5yTShufuPXVOSSRxkgXTrSZr%2FdoPsN0LpQqcTqLepOEEA7o4QJ42R5hFN3mdJjeYdVr9TL9FNH9l1Or%2BptkVfkqYbuxbQB58X0tGQYjtZLxPN5QTajECvA6zsWZbRCQsZaXWZy9zqInIrGCDeZqJnfbNkQn980052tii3h%2FuCPODBQz0D2pOgvNPjqi1NQfM1LpJ6nMb5tQo651uvEUIzL41fwoK%2Bw%2BEHD8L%2Bz1FsNv01ePj5h2g6sujHDcqwr5l4Tc9VzkjhOHj%2BLpAVP3LdgnBVqfoGO0HVLJ5tuozgXhy51n94l1%2F1yh%2BEdn%2BNQwrNPhxAY6pgHsFS5qHE8p2bEqzeL%2Fwd%2BCjLUxIpRinsVkeYbb0rV01SyRIExJss7S4nzt2xDJJQckDLrT%2BRS5nY2ifGSWUBPjQSXTNW8SB23xWpYH4uPRNp8RYMbCeWjNT0GTXRD2MWnBzFKCqy%2B%2BqI6InUDu2Qakm4cEdscBzqD4RoMeWKxPM6pxw5V7%2B0C1UWhOGEPR1UCP%2FhT2Adr8ptZxDSingYTETX4P6GXn&X-Amz-Signature=5b7bf125949ee59f7abc0a10f43bbd49740b5e10100b1a1a6c76bdb84d8c40d3&X-Amz-SignedHeaders=host&x-amz-checksum-mode=ENABLED&x-id=GetObject)
+
+![Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/3acbc979-3f43-48f4-8683-229c6104ec76/bd1cab92-84dc-45ad-b3be-42ea3efc58a8/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=ASIAZI2LB46677QE53EK%2F20250810%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20250810T105953Z&X-Amz-Expires=3600&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEJr%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJGMEQCID7hl3y0S6Vt566OIHoZW0k3tUDyMtHtkQL30wNNqgk0AiBMu3VZ%2FOWeY7a2CLlXD56KyGj5U93w0exdYK08Zv3d7yqIBAjT%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAAaDDYzNzQyMzE4MzgwNSIMI5l7lhwy5MQHL73sKtwDcRn87YGJInpO4y1X5IhiSLuNZY8A%2FN4pH3EI3Dbujvn35Bm7eYLlwUu%2Byp7HxP0YvG%2Bmm0WS%2F70gAN3pBKyVtbgbLtQVub8g6%2BeoPJZjGCWJLNA6QE53X%2BZv6Zo3tWbPwpiWl%2FhiJTEP2e9zFP22Enzb5jOMquGo667I4kf4lnSXey3lDUOSsdnTz1JzRQth6LGOE%2BaYZQi%2BzaxEBg%2F0y9p5WVVMInz6PyHkXpOFSJssfgXcAb4z0HR4aCbAMW9aRTD83f4nujXwYPCjhEdD%2BARn9Rbw8hR0dmbNHbAUUGWFNjJ3zj7WI9%2Bs4V0Uu5yTShufuPXVOSSRxkgXTrSZr%2FdoPsN0LpQqcTqLepOEEA7o4QJ42R5hFN3mdJjeYdVr9TL9FNH9l1Or%2BptkVfkqYbuxbQB58X0tGQYjtZLxPN5QTajECvA6zsWZbRCQsZaXWZy9zqInIrGCDeZqJnfbNkQn980052tii3h%2FuCPODBQz0D2pOgvNPjqi1NQfM1LpJ6nMb5tQo651uvEUIzL41fwoK%2Bw%2BEHD8L%2Bz1FsNv01ePj5h2g6sujHDcqwr5l4Tc9VzkjhOHj%2BLpAVP3LdgnBVqfoGO0HVLJ5tuozgXhy51n94l1%2F1yh%2BEdn%2BNQwrNPhxAY6pgHsFS5qHE8p2bEqzeL%2Fwd%2BCjLUxIpRinsVkeYbb0rV01SyRIExJss7S4nzt2xDJJQckDLrT%2BRS5nY2ifGSWUBPjQSXTNW8SB23xWpYH4uPRNp8RYMbCeWjNT0GTXRD2MWnBzFKCqy%2B%2BqI6InUDu2Qakm4cEdscBzqD4RoMeWKxPM6pxw5V7%2B0C1UWhOGEPR1UCP%2FhT2Adr8ptZxDSingYTETX4P6GXn&X-Amz-Signature=13506f952256d6e92d377d09429c5e1cf4c17076d62042cc44a6d360da8807b9&X-Amz-SignedHeaders=host&x-amz-checksum-mode=ENABLED&x-id=GetObject)
+
+- 기존 GRPO와 다른 점: 쿼리의 일부 토큰을 masking
+
+- 이외 점은 Mean Field Estimation을 통해 동일하게 구성됨 → 뭐여;;
+
+- masking이 가져오는 이점
+
+### 2.4 SFT
+
+![Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/3acbc979-3f43-48f4-8683-229c6104ec76/aa260d46-7dd2-4081-ab22-39865434b362/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=ASIAZI2LB46677QE53EK%2F20250810%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20250810T105953Z&X-Amz-Expires=3600&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEJr%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJGMEQCID7hl3y0S6Vt566OIHoZW0k3tUDyMtHtkQL30wNNqgk0AiBMu3VZ%2FOWeY7a2CLlXD56KyGj5U93w0exdYK08Zv3d7yqIBAjT%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAAaDDYzNzQyMzE4MzgwNSIMI5l7lhwy5MQHL73sKtwDcRn87YGJInpO4y1X5IhiSLuNZY8A%2FN4pH3EI3Dbujvn35Bm7eYLlwUu%2Byp7HxP0YvG%2Bmm0WS%2F70gAN3pBKyVtbgbLtQVub8g6%2BeoPJZjGCWJLNA6QE53X%2BZv6Zo3tWbPwpiWl%2FhiJTEP2e9zFP22Enzb5jOMquGo667I4kf4lnSXey3lDUOSsdnTz1JzRQth6LGOE%2BaYZQi%2BzaxEBg%2F0y9p5WVVMInz6PyHkXpOFSJssfgXcAb4z0HR4aCbAMW9aRTD83f4nujXwYPCjhEdD%2BARn9Rbw8hR0dmbNHbAUUGWFNjJ3zj7WI9%2Bs4V0Uu5yTShufuPXVOSSRxkgXTrSZr%2FdoPsN0LpQqcTqLepOEEA7o4QJ42R5hFN3mdJjeYdVr9TL9FNH9l1Or%2BptkVfkqYbuxbQB58X0tGQYjtZLxPN5QTajECvA6zsWZbRCQsZaXWZy9zqInIrGCDeZqJnfbNkQn980052tii3h%2FuCPODBQz0D2pOgvNPjqi1NQfM1LpJ6nMb5tQo651uvEUIzL41fwoK%2Bw%2BEHD8L%2Bz1FsNv01ePj5h2g6sujHDcqwr5l4Tc9VzkjhOHj%2BLpAVP3LdgnBVqfoGO0HVLJ5tuozgXhy51n94l1%2F1yh%2BEdn%2BNQwrNPhxAY6pgHsFS5qHE8p2bEqzeL%2Fwd%2BCjLUxIpRinsVkeYbb0rV01SyRIExJss7S4nzt2xDJJQckDLrT%2BRS5nY2ifGSWUBPjQSXTNW8SB23xWpYH4uPRNp8RYMbCeWjNT0GTXRD2MWnBzFKCqy%2B%2BqI6InUDu2Qakm4cEdscBzqD4RoMeWKxPM6pxw5V7%2B0C1UWhOGEPR1UCP%2FhT2Adr8ptZxDSingYTETX4P6GXn&X-Amz-Signature=5c38cb543fd10700d47b30c2b141ac112e76e33783016509dd1f9c3dc551bcc6&X-Amz-SignedHeaders=host&x-amz-checksum-mode=ENABLED&x-id=GetObject)
+
+- LLaDA에서 사용한 방식 그대로 활용
+
+- 학습 데이터: s1K 데이터 사용
+
+## 3. Experiments
+
+### 3.0 Setup
+
+- backbone: LLaDA-8B-Instruct, from scratch로 학습된 dLLM
+
+- reward: correctness, formatting
+
+- max len: 
+
+### 3.1 Main 
+
+- 각 데이터 별 별도 학습 진행 
+
+- SFT와 diffu-GRPO의 효과 검증
+
+![Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/3acbc979-3f43-48f4-8683-229c6104ec76/7ae9b530-e0d6-4c24-9a78-006ee70660ee/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=ASIAZI2LB46677QE53EK%2F20250810%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20250810T105953Z&X-Amz-Expires=3600&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEJr%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJGMEQCID7hl3y0S6Vt566OIHoZW0k3tUDyMtHtkQL30wNNqgk0AiBMu3VZ%2FOWeY7a2CLlXD56KyGj5U93w0exdYK08Zv3d7yqIBAjT%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAAaDDYzNzQyMzE4MzgwNSIMI5l7lhwy5MQHL73sKtwDcRn87YGJInpO4y1X5IhiSLuNZY8A%2FN4pH3EI3Dbujvn35Bm7eYLlwUu%2Byp7HxP0YvG%2Bmm0WS%2F70gAN3pBKyVtbgbLtQVub8g6%2BeoPJZjGCWJLNA6QE53X%2BZv6Zo3tWbPwpiWl%2FhiJTEP2e9zFP22Enzb5jOMquGo667I4kf4lnSXey3lDUOSsdnTz1JzRQth6LGOE%2BaYZQi%2BzaxEBg%2F0y9p5WVVMInz6PyHkXpOFSJssfgXcAb4z0HR4aCbAMW9aRTD83f4nujXwYPCjhEdD%2BARn9Rbw8hR0dmbNHbAUUGWFNjJ3zj7WI9%2Bs4V0Uu5yTShufuPXVOSSRxkgXTrSZr%2FdoPsN0LpQqcTqLepOEEA7o4QJ42R5hFN3mdJjeYdVr9TL9FNH9l1Or%2BptkVfkqYbuxbQB58X0tGQYjtZLxPN5QTajECvA6zsWZbRCQsZaXWZy9zqInIrGCDeZqJnfbNkQn980052tii3h%2FuCPODBQz0D2pOgvNPjqi1NQfM1LpJ6nMb5tQo651uvEUIzL41fwoK%2Bw%2BEHD8L%2Bz1FsNv01ePj5h2g6sujHDcqwr5l4Tc9VzkjhOHj%2BLpAVP3LdgnBVqfoGO0HVLJ5tuozgXhy51n94l1%2F1yh%2BEdn%2BNQwrNPhxAY6pgHsFS5qHE8p2bEqzeL%2Fwd%2BCjLUxIpRinsVkeYbb0rV01SyRIExJss7S4nzt2xDJJQckDLrT%2BRS5nY2ifGSWUBPjQSXTNW8SB23xWpYH4uPRNp8RYMbCeWjNT0GTXRD2MWnBzFKCqy%2B%2BqI6InUDu2Qakm4cEdscBzqD4RoMeWKxPM6pxw5V7%2B0C1UWhOGEPR1UCP%2FhT2Adr8ptZxDSingYTETX4P6GXn&X-Amz-Signature=25965f409c1b2cdb3617ede1fe66768c9588deeee4cb7985cfa9ae4e7243fac7&X-Amz-SignedHeaders=host&x-amz-checksum-mode=ENABLED&x-id=GetObject)
+
+- SFT: 일부 지표에서 성능이 개선되는 모습을 보임
+
+- diffu-GRPO: SFT보다 훨씬 큰 성능 개선을 **모든 지표**에서 보임
+
+- SFT+diffu-GRPO: 최종적인 제안 방법론(d1)으로 훈련된 모델
+
+### 3.2 Unified Model
+
+![Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/3acbc979-3f43-48f4-8683-229c6104ec76/c7d951d4-9170-4c50-a63a-660d307d7905/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=ASIAZI2LB46677QE53EK%2F20250810%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20250810T105953Z&X-Amz-Expires=3600&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEJr%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJGMEQCID7hl3y0S6Vt566OIHoZW0k3tUDyMtHtkQL30wNNqgk0AiBMu3VZ%2FOWeY7a2CLlXD56KyGj5U93w0exdYK08Zv3d7yqIBAjT%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAAaDDYzNzQyMzE4MzgwNSIMI5l7lhwy5MQHL73sKtwDcRn87YGJInpO4y1X5IhiSLuNZY8A%2FN4pH3EI3Dbujvn35Bm7eYLlwUu%2Byp7HxP0YvG%2Bmm0WS%2F70gAN3pBKyVtbgbLtQVub8g6%2BeoPJZjGCWJLNA6QE53X%2BZv6Zo3tWbPwpiWl%2FhiJTEP2e9zFP22Enzb5jOMquGo667I4kf4lnSXey3lDUOSsdnTz1JzRQth6LGOE%2BaYZQi%2BzaxEBg%2F0y9p5WVVMInz6PyHkXpOFSJssfgXcAb4z0HR4aCbAMW9aRTD83f4nujXwYPCjhEdD%2BARn9Rbw8hR0dmbNHbAUUGWFNjJ3zj7WI9%2Bs4V0Uu5yTShufuPXVOSSRxkgXTrSZr%2FdoPsN0LpQqcTqLepOEEA7o4QJ42R5hFN3mdJjeYdVr9TL9FNH9l1Or%2BptkVfkqYbuxbQB58X0tGQYjtZLxPN5QTajECvA6zsWZbRCQsZaXWZy9zqInIrGCDeZqJnfbNkQn980052tii3h%2FuCPODBQz0D2pOgvNPjqi1NQfM1LpJ6nMb5tQo651uvEUIzL41fwoK%2Bw%2BEHD8L%2Bz1FsNv01ePj5h2g6sujHDcqwr5l4Tc9VzkjhOHj%2BLpAVP3LdgnBVqfoGO0HVLJ5tuozgXhy51n94l1%2F1yh%2BEdn%2BNQwrNPhxAY6pgHsFS5qHE8p2bEqzeL%2Fwd%2BCjLUxIpRinsVkeYbb0rV01SyRIExJss7S4nzt2xDJJQckDLrT%2BRS5nY2ifGSWUBPjQSXTNW8SB23xWpYH4uPRNp8RYMbCeWjNT0GTXRD2MWnBzFKCqy%2B%2BqI6InUDu2Qakm4cEdscBzqD4RoMeWKxPM6pxw5V7%2B0C1UWhOGEPR1UCP%2FhT2Adr8ptZxDSingYTETX4P6GXn&X-Amz-Signature=c88a233c72202f22e7e6637327718a8948fb1efd38efd729ceff74be86f6363c&X-Amz-SignedHeaders=host&x-amz-checksum-mode=ENABLED&x-id=GetObject)
+
+- 각각의 태스크로부터 동일한 크기의 데이터를 샘플링해서 함께 학습시키는 실험 세팅
+
+- 놀랍게도 단일 모델보다 더 높은 성능을 달성
+
+### 3.3 Code Domain
+
+![Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/3acbc979-3f43-48f4-8683-229c6104ec76/7fd9176c-6c40-4ed0-81eb-f2d68bce8578/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=ASIAZI2LB46677QE53EK%2F20250810%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20250810T105953Z&X-Amz-Expires=3600&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEJr%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJGMEQCID7hl3y0S6Vt566OIHoZW0k3tUDyMtHtkQL30wNNqgk0AiBMu3VZ%2FOWeY7a2CLlXD56KyGj5U93w0exdYK08Zv3d7yqIBAjT%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAAaDDYzNzQyMzE4MzgwNSIMI5l7lhwy5MQHL73sKtwDcRn87YGJInpO4y1X5IhiSLuNZY8A%2FN4pH3EI3Dbujvn35Bm7eYLlwUu%2Byp7HxP0YvG%2Bmm0WS%2F70gAN3pBKyVtbgbLtQVub8g6%2BeoPJZjGCWJLNA6QE53X%2BZv6Zo3tWbPwpiWl%2FhiJTEP2e9zFP22Enzb5jOMquGo667I4kf4lnSXey3lDUOSsdnTz1JzRQth6LGOE%2BaYZQi%2BzaxEBg%2F0y9p5WVVMInz6PyHkXpOFSJssfgXcAb4z0HR4aCbAMW9aRTD83f4nujXwYPCjhEdD%2BARn9Rbw8hR0dmbNHbAUUGWFNjJ3zj7WI9%2Bs4V0Uu5yTShufuPXVOSSRxkgXTrSZr%2FdoPsN0LpQqcTqLepOEEA7o4QJ42R5hFN3mdJjeYdVr9TL9FNH9l1Or%2BptkVfkqYbuxbQB58X0tGQYjtZLxPN5QTajECvA6zsWZbRCQsZaXWZy9zqInIrGCDeZqJnfbNkQn980052tii3h%2FuCPODBQz0D2pOgvNPjqi1NQfM1LpJ6nMb5tQo651uvEUIzL41fwoK%2Bw%2BEHD8L%2Bz1FsNv01ePj5h2g6sujHDcqwr5l4Tc9VzkjhOHj%2BLpAVP3LdgnBVqfoGO0HVLJ5tuozgXhy51n94l1%2F1yh%2BEdn%2BNQwrNPhxAY6pgHsFS5qHE8p2bEqzeL%2Fwd%2BCjLUxIpRinsVkeYbb0rV01SyRIExJss7S4nzt2xDJJQckDLrT%2BRS5nY2ifGSWUBPjQSXTNW8SB23xWpYH4uPRNp8RYMbCeWjNT0GTXRD2MWnBzFKCqy%2B%2BqI6InUDu2Qakm4cEdscBzqD4RoMeWKxPM6pxw5V7%2B0C1UWhOGEPR1UCP%2FhT2Adr8ptZxDSingYTETX4P6GXn&X-Amz-Signature=6cf06644e0510cb206910700c24ea472ac474921d98c2abdd3f6094c1e650aef&X-Amz-SignedHeaders=host&x-amz-checksum-mode=ENABLED&x-id=GetObject)
+
+- code domain에 대한 학습 및 평가 진행
+
+- SFT: 오히려 성능이 떨어지는 모습을 보이고 있음
+
+- diffu-GRPO: 바로 diffu-GRPO를 적용해도 성능이 대부분 개선되는 모습을 보임
+
+### 3.4 beyond trained length
+
+- 재밌는 현상은 rl 시 sampling max length가 256임에도 평가 시 512 토큰 생성시에 개선되는 모습을 보이는 점 (AR은 안 그런가…?)
+
+- dLLM의 경우 학습 시 length에 overfit되지 않고 general reasoning strategy를 학습하는 것으로 보임
+
+→ analysis 파트에서 계속
+
+## 4. Analysis
+
+### 4.1 Aha Moments
+
+- 128,256의 길이 생성 시에는 aha moment가 보이지 않았음
+
+- 512 길이를 생성시키자 aha moment 발현
+
+### 4.2 Generation Length
+
+![Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/3acbc979-3f43-48f4-8683-229c6104ec76/86f44b6c-835f-4ae3-90c9-20eb3cc7e649/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=ASIAZI2LB46677QE53EK%2F20250810%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20250810T105953Z&X-Amz-Expires=3600&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEJr%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJGMEQCID7hl3y0S6Vt566OIHoZW0k3tUDyMtHtkQL30wNNqgk0AiBMu3VZ%2FOWeY7a2CLlXD56KyGj5U93w0exdYK08Zv3d7yqIBAjT%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAAaDDYzNzQyMzE4MzgwNSIMI5l7lhwy5MQHL73sKtwDcRn87YGJInpO4y1X5IhiSLuNZY8A%2FN4pH3EI3Dbujvn35Bm7eYLlwUu%2Byp7HxP0YvG%2Bmm0WS%2F70gAN3pBKyVtbgbLtQVub8g6%2BeoPJZjGCWJLNA6QE53X%2BZv6Zo3tWbPwpiWl%2FhiJTEP2e9zFP22Enzb5jOMquGo667I4kf4lnSXey3lDUOSsdnTz1JzRQth6LGOE%2BaYZQi%2BzaxEBg%2F0y9p5WVVMInz6PyHkXpOFSJssfgXcAb4z0HR4aCbAMW9aRTD83f4nujXwYPCjhEdD%2BARn9Rbw8hR0dmbNHbAUUGWFNjJ3zj7WI9%2Bs4V0Uu5yTShufuPXVOSSRxkgXTrSZr%2FdoPsN0LpQqcTqLepOEEA7o4QJ42R5hFN3mdJjeYdVr9TL9FNH9l1Or%2BptkVfkqYbuxbQB58X0tGQYjtZLxPN5QTajECvA6zsWZbRCQsZaXWZy9zqInIrGCDeZqJnfbNkQn980052tii3h%2FuCPODBQz0D2pOgvNPjqi1NQfM1LpJ6nMb5tQo651uvEUIzL41fwoK%2Bw%2BEHD8L%2Bz1FsNv01ePj5h2g6sujHDcqwr5l4Tc9VzkjhOHj%2BLpAVP3LdgnBVqfoGO0HVLJ5tuozgXhy51n94l1%2F1yh%2BEdn%2BNQwrNPhxAY6pgHsFS5qHE8p2bEqzeL%2Fwd%2BCjLUxIpRinsVkeYbb0rV01SyRIExJss7S4nzt2xDJJQckDLrT%2BRS5nY2ifGSWUBPjQSXTNW8SB23xWpYH4uPRNp8RYMbCeWjNT0GTXRD2MWnBzFKCqy%2B%2BqI6InUDu2Qakm4cEdscBzqD4RoMeWKxPM6pxw5V7%2B0C1UWhOGEPR1UCP%2FhT2Adr8ptZxDSingYTETX4P6GXn&X-Amz-Signature=5b395a72e3f8cc7b5d01c9b42e97ad891077c2c88a3bc78bbc20df0245af51d4&X-Amz-SignedHeaders=host&x-amz-checksum-mode=ENABLED&x-id=GetObject)
+
+- max length를 달리하며 각 태스크별 생성 길이 측정
+
+- (main) 학습된 길이(256)을 넘어 생성하여도 꾸준히 성능이 개선되는 모습을 보임
+
+- Effective Tokens: 실제 생성된 sequence의 평균 길이 (AR과 다르게 max len 만큼 <mask>를 채워서 forwarding해서 이렇게 표현하나…?)
+
+### 4.3 inner loop 횟수
+
+![Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/3acbc979-3f43-48f4-8683-229c6104ec76/4a98ca11-09c7-4719-a0c0-c4160fe87eb9/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=ASIAZI2LB46677QE53EK%2F20250810%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20250810T105953Z&X-Amz-Expires=3600&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEJr%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJGMEQCID7hl3y0S6Vt566OIHoZW0k3tUDyMtHtkQL30wNNqgk0AiBMu3VZ%2FOWeY7a2CLlXD56KyGj5U93w0exdYK08Zv3d7yqIBAjT%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAAaDDYzNzQyMzE4MzgwNSIMI5l7lhwy5MQHL73sKtwDcRn87YGJInpO4y1X5IhiSLuNZY8A%2FN4pH3EI3Dbujvn35Bm7eYLlwUu%2Byp7HxP0YvG%2Bmm0WS%2F70gAN3pBKyVtbgbLtQVub8g6%2BeoPJZjGCWJLNA6QE53X%2BZv6Zo3tWbPwpiWl%2FhiJTEP2e9zFP22Enzb5jOMquGo667I4kf4lnSXey3lDUOSsdnTz1JzRQth6LGOE%2BaYZQi%2BzaxEBg%2F0y9p5WVVMInz6PyHkXpOFSJssfgXcAb4z0HR4aCbAMW9aRTD83f4nujXwYPCjhEdD%2BARn9Rbw8hR0dmbNHbAUUGWFNjJ3zj7WI9%2Bs4V0Uu5yTShufuPXVOSSRxkgXTrSZr%2FdoPsN0LpQqcTqLepOEEA7o4QJ42R5hFN3mdJjeYdVr9TL9FNH9l1Or%2BptkVfkqYbuxbQB58X0tGQYjtZLxPN5QTajECvA6zsWZbRCQsZaXWZy9zqInIrGCDeZqJnfbNkQn980052tii3h%2FuCPODBQz0D2pOgvNPjqi1NQfM1LpJ6nMb5tQo651uvEUIzL41fwoK%2Bw%2BEHD8L%2Bz1FsNv01ePj5h2g6sujHDcqwr5l4Tc9VzkjhOHj%2BLpAVP3LdgnBVqfoGO0HVLJ5tuozgXhy51n94l1%2F1yh%2BEdn%2BNQwrNPhxAY6pgHsFS5qHE8p2bEqzeL%2Fwd%2BCjLUxIpRinsVkeYbb0rV01SyRIExJss7S4nzt2xDJJQckDLrT%2BRS5nY2ifGSWUBPjQSXTNW8SB23xWpYH4uPRNp8RYMbCeWjNT0GTXRD2MWnBzFKCqy%2B%2BqI6InUDu2Qakm4cEdscBzqD4RoMeWKxPM6pxw5V7%2B0C1UWhOGEPR1UCP%2FhT2Adr8ptZxDSingYTETX4P6GXn&X-Amz-Signature=7f563c065889771d2f5e54f79c209748d6e495810222adbb4d32191864802ad6&X-Amz-SignedHeaders=host&x-amz-checksum-mode=ENABLED&x-id=GetObject)
+
+- prompt masking을 통해 inner loop 횟수를 증가시켜도 안정적인 학습 확인 가능
+
+- inner loop iteration 동안 random하게 masking을 주는 것이 동일 masking보다 높은 성능 달성
+
+- inner loop iteration을 늘리는 것이 실제 수렴 속도를 매우 빠르게 만듬
+
+### 4.4 Masking Ratio
+
+## 7. Conclusion
+
+- Diffuion LM에서 RL을 위해 필요한 요소들을 잘 정의함
+
+- 매우 단순하게 해결하여 성능 개선을 이끌어냄
+
+- Diffusion LM의 RL 시 현상들에 대해 (거의) 최초로 분석한 논문
+
+- scale이 너무 작아서 조금 더 큰 실험들에 대해 궁금하다.
