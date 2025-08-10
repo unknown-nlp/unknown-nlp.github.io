@@ -539,7 +539,7 @@ ninja.data = [{
         
           title: "Titans: Learning to Memorize at Test Time",
         
-        description: "논문 리뷰 - Titans: Learning to Memorize at Test Time",
+        description: "논문 리뷰",
         section: "Posts",
         handler: () => {
           
@@ -550,7 +550,7 @@ ninja.data = [{
         
           title: "SSM → HIPPO → LSSL → S4 → Mamba → Mamba2",
         
-        description: "논문 리뷰 - SSM → HIPPO → LSSL → S4 → Mamba → Mamba2",
+        description: "논문 리뷰",
         section: "Posts",
         handler: () => {
           
@@ -561,7 +561,7 @@ ninja.data = [{
         
           title: "Agent Laboratory: Using LLM Agents as Research Assistants",
         
-        description: "논문 리뷰 - Agent Laboratory: Using LLM Agents as Research Assistants",
+        description: "논문 리뷰",
         section: "Posts",
         handler: () => {
           
@@ -583,7 +583,7 @@ ninja.data = [{
         
           title: "OpenVLA: An Open-Source Vision-Language-Action Model",
         
-        description: "논문 리뷰 - OpenVLA: An Open-Source Vision-Language-Action Model",
+        description: "논문 리뷰",
         section: "Posts",
         handler: () => {
           
@@ -704,11 +704,23 @@ ninja.data = [{
         
           title: "Rule Based Rewards for Language Model Safety",
         
-        description: "논문 리뷰 - Rule Based Rewards for Language Model Safety",
+        description: "논문 리뷰",
         section: "Posts",
         handler: () => {
           
             window.location.href = "/al-folio/blog/2024/rule-based-rewards-for-language-model-safety/";
+          
+        },
+      },{id: "post-knowledge-entropy-decay-during-language-model-pretraining-hinders-new-knowledge-acquisition",
+        
+          title: "KNOWLEDGE ENTROPY DECAY DURING LANGUAGE MODEL
+PRETRAINING HINDERS NEW KNOWLEDGE ACQUISITION",
+        
+        description: "논문 리뷰 - Interpretability, Continual Learning 관련 연구",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/al-folio/blog/2024/knowledge-entropy-decay-during-language-model-pretraining-hinders/";
           
         },
       },{id: "post-knowledge-entropy-decay-during-language-model-pretraining-hinders-new-knowledge-acquisition",
@@ -727,6 +739,17 @@ PRETRAINING HINDERS NEW KNOWLEDGE ACQUISITION",
         
           title: "FAITHEVAL: CAN YOUR LANGUAGE MODEL STAY FAITHFUL TO CONTEXT, EVEN IF “THE MOON...",
         
+        description: "논문 리뷰 - Safety 관련 연구",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/al-folio/blog/2024/faitheval-can-your-language-model-stay-faithful-to/";
+          
+        },
+      },{id: "post-faitheval-can-your-language-model-stay-faithful-to-context-even-if-the-moon-is-made-of-marshmallows",
+        
+          title: "FAITHEVAL: CAN YOUR LANGUAGE MODEL STAY FAITHFUL TO CONTEXT, EVEN IF “THE MOON...",
+        
         description: "논문 리뷰 - FAITHEVAL: CAN YOUR LANGUAGE MODEL STAY FAITHFUL TO CONTEXT, EVEN IF “THE MOON IS MADE OF MARSHMALLOWS”",
         section: "Posts",
         handler: () => {
@@ -738,11 +761,33 @@ PRETRAINING HINDERS NEW KNOWLEDGE ACQUISITION",
         
           title: "QCRD: Quality-guided Contrastive Rationale Distillation for Large Lanauge Models",
         
+        description: "논문 리뷰 - Knowledge Distillation 관련 연구",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/al-folio/blog/2024/qcrd-quality-guided-contrastive-rationale-distillation-for-large/";
+          
+        },
+      },{id: "post-qcrd-quality-guided-contrastive-rationale-distillation-for-large-lanauge-models",
+        
+          title: "QCRD: Quality-guided Contrastive Rationale Distillation for Large Lanauge Models",
+        
         description: "논문 리뷰 - QCRD: Quality-guided Contrastive Rationale Distillation for Large Lanauge Models",
         section: "Posts",
         handler: () => {
           
             window.location.href = "/al-folio/blog/2024/qcrd-quality-guided-contrastive-rationale-distillation-for-large-lanauge-models/";
+          
+        },
+      },{id: "post-training-language-models-to-self-correct-via-reinforcement-learning",
+        
+          title: "Training Language Models to Self-Correct via Reinforcement Learning",
+        
+        description: "논문 리뷰 - Reinforcement Learning, AGI 관련 연구",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/al-folio/blog/2024/training-language-models-to-self-correct-via-reinforcement/";
           
         },
       },{id: "post-training-language-models-to-self-correct-via-reinforcement-learning",
@@ -761,11 +806,34 @@ PRETRAINING HINDERS NEW KNOWLEDGE ACQUISITION",
           title: "SUPER: Evaluating Agents on Setting Up and Executing Tasks
 from Research Repositories",
         
+        description: "논문 리뷰 - Autonomous-Agents, Code Generation 관련 연구",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/al-folio/blog/2024/super-evaluating-agents-on-setting-up-and-executing/";
+          
+        },
+      },{id: "post-super-evaluating-agents-on-setting-up-and-executing-tasks-from-research-repositories",
+        
+          title: "SUPER: Evaluating Agents on Setting Up and Executing Tasks
+from Research Repositories",
+        
         description: "논문 리뷰 - SUPER: Evaluating Agents on Setting Up and Executing Tasksfrom Research Repositories",
         section: "Posts",
         handler: () => {
           
             window.location.href = "/al-folio/blog/2024/super-evaluating-agents-on-setting-up-and-executing-tasks-from-research-repositories/";
+          
+        },
+      },{id: "post-smaller-weaker-yet-better-training-llm-reasoners-via-compute-optimal-sampling",
+        
+          title: "Smaller, Weaker, Yet Better: Training LLM Reasoners via Compute-Optimal Sampling",
+        
+        description: "논문 리뷰 - Knowledge Distillation, LLM, Limited Budget 관련 연구",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/al-folio/blog/2024/smaller-weaker-yet-better-training-llm-reasoners-via/";
           
         },
       },{id: "post-smaller-weaker-yet-better-training-llm-reasoners-via-compute-optimal-sampling",
@@ -783,6 +851,17 @@ from Research Repositories",
         
           title: "Jailbreak in pieces: Compositional Adversarial Attacks on Multi-Modal Language Models",
         
+        description: "논문 리뷰 - VLM, Safety 관련 연구",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/al-folio/blog/2024/jailbreak-in-pieces-compositional-adversarial-attacks-on-multi/";
+          
+        },
+      },{id: "post-jailbreak-in-pieces-compositional-adversarial-attacks-on-multi-modal-language-models",
+        
+          title: "Jailbreak in pieces: Compositional Adversarial Attacks on Multi-Modal Language Models",
+        
         description: "논문 리뷰 - Jailbreak in pieces: Compositional Adversarial Attacks on Multi-Modal Language Models",
         section: "Posts",
         handler: () => {
@@ -794,11 +873,22 @@ from Research Repositories",
         
           title: "Many-shot jailbreaking",
         
-        description: "논문 리뷰 - Many-shot jailbreaking",
+        description: "논문 리뷰 - ICL, Safety 관련 연구",
         section: "Posts",
         handler: () => {
           
             window.location.href = "/al-folio/blog/2024/many-shot-jailbreaking/";
+          
+        },
+      },{id: "post-llm2vec-large-language-models-are-secretly-powerful-text-encoders",
+        
+          title: "LLM2Vec: Large Language Models Are Secretly Powerful Text Encoders",
+        
+        description: "논문 리뷰 - Embeddings, LLM 관련 연구",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/al-folio/blog/2024/llm2vec-large-language-models-are-secretly-powerful-text/";
           
         },
       },{id: "post-llm2vec-large-language-models-are-secretly-powerful-text-encoders",
@@ -816,11 +906,33 @@ from Research Repositories",
         
           title: "Knowledge-Augmented Reasoning distillation for Small Language Models in Knowledge-Intensive Tasks (KARD)",
         
+        description: "논문 리뷰 - Reasoning, Knowledge Distillation 관련 연구",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/al-folio/blog/2024/knowledge-augmented-reasoning-distillation-for-small-language-models/";
+          
+        },
+      },{id: "post-knowledge-augmented-reasoning-distillation-for-small-language-models-in-knowledge-intensive-tasks-kard",
+        
+          title: "Knowledge-Augmented Reasoning distillation for Small Language Models in Knowledge-Intensive Tasks (KARD)",
+        
         description: "논문 리뷰 - Knowledge-Augmented Reasoning distillation for Small Language Models in Knowledge-Intensive Tasks (KARD)",
         section: "Posts",
         handler: () => {
           
             window.location.href = "/al-folio/blog/2024/knowledge-augmented-reasoning-distillation-for-small-language-models-in-knowledge-intensive-tasks-kard/";
+          
+        },
+      },{id: "post-physics-of-language-models-part-2-1-grade-school-math-and-the-hidden-reasoning-process",
+        
+          title: "Physics of Language Models: Part 2.1, Grade-School Math and the Hidden Reasoning Process...",
+        
+        description: "논문 리뷰 - Reasoning, Explainability 관련 연구",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/al-folio/blog/2024/physics-of-language-models-part-21-grade-school/";
           
         },
       },{id: "post-physics-of-language-models-part-2-1-grade-school-math-and-the-hidden-reasoning-process",
@@ -838,7 +950,7 @@ from Research Repositories",
         
           title: "Knowledge conflict survey",
         
-        description: "논문 리뷰 - Knowledge conflict survey",
+        description: "논문 리뷰",
         section: "Posts",
         handler: () => {
           
@@ -849,11 +961,22 @@ from Research Repositories",
         
           title: "In-Context Retrieval-Augmented Language Models",
         
-        description: "논문 리뷰 - In-Context Retrieval-Augmented Language Models",
+        description: "논문 리뷰 - Retrieval, ICL, In Context Learning 관련 연구",
         section: "Posts",
         handler: () => {
           
             window.location.href = "/al-folio/blog/2024/in-context-retrieval-augmented-language-models/";
+          
+        },
+      },{id: "post-training-large-language-models-for-reasoning-through-reverse-curriculum-reinforcement-learning",
+        
+          title: "Training Large Language Models for Reasoning through Reverse Curriculum Reinforcement Learning",
+        
+        description: "논문 리뷰 - Reasoning, Reinforcement Learning 관련 연구",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/al-folio/blog/2024/training-large-language-models-for-reasoning-through-reverse/";
           
         },
       },{id: "post-training-large-language-models-for-reasoning-through-reverse-curriculum-reinforcement-learning",
@@ -871,11 +994,33 @@ from Research Repositories",
         
           title: "Step-DPO : Step-wise preference optimization for long-chain reasoning of LLMs",
         
+        description: "논문 리뷰 - Reasoning, Reinforcement Learning 관련 연구",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/al-folio/blog/2024/step-dpo-step-wise-preference-optimization-for-long/";
+          
+        },
+      },{id: "post-step-dpo-step-wise-preference-optimization-for-long-chain-reasoning-of-llms",
+        
+          title: "Step-DPO : Step-wise preference optimization for long-chain reasoning of LLMs",
+        
         description: "논문 리뷰 - Step-DPO : Step-wise preference optimization for long-chain reasoning of LLMs",
         section: "Posts",
         handler: () => {
           
             window.location.href = "/al-folio/blog/2024/step-dpo-step-wise-preference-optimization-for-long-chain-reasoning-of-llms/";
+          
+        },
+      },{id: "post-pyspark-how-to-preprocess-large-scale-data-with-python",
+        
+          title: "Pyspark - How to preprocess Large Scale Data with Python",
+        
+        description: "논문 리뷰 - spark 관련 연구",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/al-folio/blog/2024/pyspark-how-to-preprocess-large-scale/";
           
         },
       },{id: "post-pyspark-how-to-preprocess-large-scale-data-with-python",
@@ -893,11 +1038,23 @@ from Research Repositories",
         
           title: "LLAVA - Visual Instruction Tuning",
         
-        description: "논문 리뷰 - LLAVA - Visual Instruction Tuning",
+        description: "논문 리뷰 - VLM 관련 연구",
         section: "Posts",
         handler: () => {
           
             window.location.href = "/al-folio/blog/2024/llava-visual-instruction-tuning/";
+          
+        },
+      },{id: "post-rl-jack-reinforcement-learning-powered-black-box-jailbreaking-attack-against-llms",
+        
+          title: "RL-JACK: Reinforcement Learning-powered Black-box
+Jailbreaking Attack against LLMs",
+        
+        description: "논문 리뷰 - RL, Safety 관련 연구",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/al-folio/blog/2024/rl-jack-reinforcement-learning-powered-black-box-jailbreaking/";
           
         },
       },{id: "post-rl-jack-reinforcement-learning-powered-black-box-jailbreaking-attack-against-llms",
@@ -916,7 +1073,7 @@ Jailbreaking Attack against LLMs",
         
           title: "Llama3 Tokenizer",
         
-        description: "논문 리뷰 - Llama3 Tokenizer",
+        description: "논문 리뷰 - Tokenizer 관련 연구",
         section: "Posts",
         handler: () => {
           
@@ -938,11 +1095,33 @@ Jailbreaking Attack against LLMs",
         
           title: "Scaling Monosemanticity: Extracting Interpretable Features from Claude 3 Sonnet",
         
+        description: "논문 리뷰 - LLM, Interpretability 관련 연구",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/al-folio/blog/2024/scaling-monosemanticity-extracting-interpretable-features-from-claude-3/";
+          
+        },
+      },{id: "post-scaling-monosemanticity-extracting-interpretable-features-from-claude-3-sonnet",
+        
+          title: "Scaling Monosemanticity: Extracting Interpretable Features from Claude 3 Sonnet",
+        
         description: "논문 리뷰 - Scaling Monosemanticity: Extracting Interpretable Features from Claude 3 Sonnet",
         section: "Posts",
         handler: () => {
           
             window.location.href = "/al-folio/blog/2024/scaling-monosemanticity-extracting-interpretable-features-from-claude-3-sonnet/";
+          
+        },
+      },{id: "post-does-fine-tuning-llms-on-new-knowledge-encourage-hallucinations",
+        
+          title: "Does Fine-Tuning LLMs on New Knowledge Encourage Hallucinations?",
+        
+        description: "논문 리뷰 - LLM, Knowledge 관련 연구",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/al-folio/blog/2024/does-fine-tuning-llms-on-new-knowledge-encourage/";
           
         },
       },{id: "post-does-fine-tuning-llms-on-new-knowledge-encourage-hallucinations",
@@ -960,11 +1139,22 @@ Jailbreaking Attack against LLMs",
         
           title: "Contextual Position Encoding: Learning to Count What’s Important",
         
-        description: "논문 리뷰 - Contextual Position Encoding: Learning to Count What’s Important",
+        description: "논문 리뷰 - Natural Language Generation 관련 연구",
         section: "Posts",
         handler: () => {
           
             window.location.href = "/al-folio/blog/2024/contextual-position-encoding-learning-to-count-whats-important/";
+          
+        },
+      },{id: "post-stacking-your-transformers-a-closer-look-at-model-growth-for-efficient-llm-pre-training",
+        
+          title: "Stacking Your Transformers: A Closer Look at Model Growth for Efficient LLM Pre-Training...",
+        
+        description: "논문 리뷰 - LLM, Pre-Training 관련 연구",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/al-folio/blog/2024/stacking-your-transformers-a-closer-look-at-model/";
           
         },
       },{id: "post-stacking-your-transformers-a-closer-look-at-model-growth-for-efficient-llm-pre-training",
@@ -982,11 +1172,33 @@ Jailbreaking Attack against LLMs",
         
           title: "SimPO: Simple Preference Optimization with a Reference-Free Reward",
         
+        description: "논문 리뷰 - Alignment, RLHF 관련 연구",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/al-folio/blog/2024/simpo-simple-preference-optimization-with-a-reference-free/";
+          
+        },
+      },{id: "post-simpo-simple-preference-optimization-with-a-reference-free-reward",
+        
+          title: "SimPO: Simple Preference Optimization with a Reference-Free Reward",
+        
         description: "논문 리뷰 - SimPO: Simple Preference Optimization with a Reference-Free Reward",
         section: "Posts",
         handler: () => {
           
             window.location.href = "/al-folio/blog/2024/simpo-simple-preference-optimization-with-a-reference-free-reward/";
+          
+        },
+      },{id: "post-understanding-the-performance-gap-between-online-and-offline-alignment-algorithms",
+        
+          title: "Understanding the performance gap between online and offline alignment algorithms",
+        
+        description: "논문 리뷰 - RLHF 관련 연구",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/al-folio/blog/2024/understanding-the-performance-gap-between-online-and-offline/";
           
         },
       },{id: "post-understanding-the-performance-gap-between-online-and-offline-alignment-algorithms",
@@ -1015,7 +1227,7 @@ Jailbreaking Attack against LLMs",
         
           title: "LLAMA PRO: Progressive LLaMA with Block Expansion",
         
-        description: "논문 리뷰 - LLAMA PRO: Progressive LLaMA with Block Expansion",
+        description: "논문 리뷰 - LLM, Continual Learning 관련 연구",
         section: "Posts",
         handler: () => {
           
@@ -1037,11 +1249,33 @@ Jailbreaking Attack against LLMs",
         
           title: "How to Train LLM? - From Data Parallel To Fully Sharded Data Parallel...",
         
+        description: "논문 리뷰 - LLM, Pre-Training, torch 관련 연구",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/al-folio/blog/2024/how-to-train-llm-from-data/";
+          
+        },
+      },{id: "post-how-to-train-llm-from-data-parallel-to-fully-sharded-data-parallel",
+        
+          title: "How to Train LLM? - From Data Parallel To Fully Sharded Data Parallel...",
+        
         description: "논문 리뷰 - How to Train LLM? - From Data Parallel To Fully Sharded Data Parallel",
         section: "Posts",
         handler: () => {
           
             window.location.href = "/al-folio/blog/2024/how-to-train-llm-from-data-parallel-to-fully-sharded-data-parallel/";
+          
+        },
+      },{id: "post-how-to-inference-big-llm-using-accelerate-library",
+        
+          title: "How to Inference Big LLM? - Using Accelerate Library",
+        
+        description: "논문 리뷰 - LLM, Inference 관련 연구",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/al-folio/blog/2024/how-to-inference-big-llm-using/";
           
         },
       },{id: "post-how-to-inference-big-llm-using-accelerate-library",
@@ -1070,7 +1304,7 @@ Jailbreaking Attack against LLMs",
         
           title: "Training diffusion modelse with reinforcement learning",
         
-        description: "논문 리뷰 - Training diffusion modelse with reinforcement learning",
+        description: "논문 리뷰 - Evaluation Metric, RL 관련 연구",
         section: "Posts",
         handler: () => {
           
@@ -1081,7 +1315,7 @@ Jailbreaking Attack against LLMs",
         
           title: "Many-Shot In-Context Learning",
         
-        description: "논문 리뷰 - Many-Shot In-Context Learning",
+        description: "논문 리뷰 - ICL 관련 연구",
         section: "Posts",
         handler: () => {
           
@@ -1114,11 +1348,22 @@ Jailbreaking Attack against LLMs",
         
           title: "ORPO: Monolithic Preference Optimization without Reference Model",
         
-        description: "논문 리뷰 - ORPO: Monolithic Preference Optimization without Reference Model",
+        description: "논문 리뷰 - Alignment 관련 연구",
         section: "Posts",
         handler: () => {
           
             window.location.href = "/al-folio/blog/2024/orpo-monolithic-preference-optimization-without-reference-model/";
+          
+        },
+      },{id: "post-exploring-concept-depth-how-large-language-models-acquire-knowledge-at-different-layers",
+        
+          title: "Exploring Concept Depth: How Large Language Models Acquire Knowledge at Different Layers?",
+        
+        description: "논문 리뷰",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/al-folio/blog/2024/exploring-concept-depth-how-large-language-models-acquire/";
           
         },
       },{id: "post-exploring-concept-depth-how-large-language-models-acquire-knowledge-at-different-layers",
@@ -1130,6 +1375,17 @@ Jailbreaking Attack against LLMs",
         handler: () => {
           
             window.location.href = "/al-folio/blog/2024/exploring-concept-depth-how-large-language-models-acquire-knowledge-at-different-layers/";
+          
+        },
+      },{id: "post-understanding-emergent-abilities-of-language-models-from-the-loss-perspective",
+        
+          title: "Understanding Emergent Abilities of Language Models from the Loss Perspective",
+        
+        description: "논문 리뷰 - Pre-training 관련 연구",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/al-folio/blog/2024/understanding-emergent-abilities-of-language-models-from-the/";
           
         },
       },{id: "post-understanding-emergent-abilities-of-language-models-from-the-loss-perspective",
@@ -1159,6 +1415,18 @@ Jailbreaking Attack against LLMs",
           title: "Scaling Laws for Data Filtering—
 Data Curation cannot be Compute Agnostic",
         
+        description: "논문 리뷰 - LM, LLM, Efficient Training, Pre-training 관련 연구",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/al-folio/blog/2024/scaling-laws-for-data-filtering-data-curation-cannot/";
+          
+        },
+      },{id: "post-scaling-laws-for-data-filtering-data-curation-cannot-be-compute-agnostic",
+        
+          title: "Scaling Laws for Data Filtering—
+Data Curation cannot be Compute Agnostic",
+        
         description: "논문 리뷰 - Scaling Laws for Data Filtering—Data Curation cannot be Compute Agnostic",
         section: "Posts",
         handler: () => {
@@ -1170,11 +1438,22 @@ Data Curation cannot be Compute Agnostic",
         
           title: "Preference-free Alignment Learning with Regularized Relevance Reward",
         
-        description: "논문 리뷰 - Preference-free Alignment Learning with Regularized Relevance Reward",
+        description: "논문 리뷰 - Reinforcement Learning, Alignment 관련 연구",
         section: "Posts",
         handler: () => {
           
             window.location.href = "/al-folio/blog/2024/preference-free-alignment-learning-with-regularized-relevance-reward/";
+          
+        },
+      },{id: "post-search-in-the-chain-interactively-enhancing-large-language-models-with-search-for-knowledge-intensive-tasks",
+        
+          title: "Search-in-the-Chain: Interactively Enhancing Large Language Models with Search for Knowledge-intensive Tasks",
+        
+        description: "논문 리뷰 - Retrieval 관련 연구",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/al-folio/blog/2024/search-in-the-chain-interactively-enhancing-large-language/";
           
         },
       },{id: "post-search-in-the-chain-interactively-enhancing-large-language-models-with-search-for-knowledge-intensive-tasks",
@@ -1186,6 +1465,17 @@ Data Curation cannot be Compute Agnostic",
         handler: () => {
           
             window.location.href = "/al-folio/blog/2024/search-in-the-chain-interactively-enhancing-large-language-models-with-search-for-knowledge-intensive-tasks/";
+          
+        },
+      },{id: "post-unveiling-the-generalization-power-of-fine-tuned-large-language-models",
+        
+          title: "Unveiling the Generalization Power of Fine-Tuned Large Language Models",
+        
+        description: "논문 리뷰 - ICL, Generalization, Fine-tuning 관련 연구",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/al-folio/blog/2024/unveiling-the-generalization-power-of-fine-tuned-large/";
           
         },
       },{id: "post-unveiling-the-generalization-power-of-fine-tuned-large-language-models",
@@ -1214,11 +1504,33 @@ Data Curation cannot be Compute Agnostic",
         
           title: "A Simple and Effective Pruning Approach for Large Language Models",
         
+        description: "논문 리뷰 - Pruning 관련 연구",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/al-folio/blog/2024/a-simple-and-effective-pruning-approach-for-large/";
+          
+        },
+      },{id: "post-a-simple-and-effective-pruning-approach-for-large-language-models",
+        
+          title: "A Simple and Effective Pruning Approach for Large Language Models",
+        
         description: "논문 리뷰 - A Simple and Effective Pruning Approach for Large Language Models",
         section: "Posts",
         handler: () => {
           
             window.location.href = "/al-folio/blog/2024/a-simple-and-effective-pruning-approach-for-large-language-models/";
+          
+        },
+      },{id: "post-bitnet-scaling-1-bit-transformers-for-large-language-models",
+        
+          title: "BitNet: Scaling 1-bit Transformers for Large Language Models",
+        
+        description: "논문 리뷰 - LLM, Quantization 관련 연구",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/al-folio/blog/2024/bitnet-scaling-1-bit-transformers-for-large-language/";
           
         },
       },{id: "post-bitnet-scaling-1-bit-transformers-for-large-language-models",
@@ -1236,11 +1548,22 @@ Data Curation cannot be Compute Agnostic",
         
           title: "Beyond Memorization: Violating Privacy Via Inferencing With LLMs",
         
-        description: "논문 리뷰 - Beyond Memorization: Violating Privacy Via Inferencing With LLMs",
+        description: "논문 리뷰 - Prompt Tuning, Inference 관련 연구",
         section: "Posts",
         handler: () => {
           
             window.location.href = "/al-folio/blog/2024/beyond-memorization-violating-privacy-via-inferencing-with-llms/";
+          
+        },
+      },{id: "post-self-rag-learning-to-retrieve-generate-and-critique-through-self-reflection",
+        
+          title: "SELF-RAG: LEARNING TO RETRIEVE, GENERATE, AND CRITIQUE THROUGH SELF-REFLECTION",
+        
+        description: "논문 리뷰 - Retrieval, Natural Language Generation 관련 연구",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/al-folio/blog/2024/self-rag-learning-to-retrieve-generate-and-critique/";
           
         },
       },{id: "post-self-rag-learning-to-retrieve-generate-and-critique-through-self-reflection",
@@ -1258,6 +1581,17 @@ Data Curation cannot be Compute Agnostic",
         
           title: "WikiChat: Stopping the Hallucination of Large Language Model Chatbots by Few-Shot Grounding on...",
         
+        description: "논문 리뷰 - Retrieval, ICL, QA, Knowledge 관련 연구",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/al-folio/blog/2024/wikichat-stopping-the-hallucination-of-large-language-model/";
+          
+        },
+      },{id: "post-wikichat-stopping-the-hallucination-of-large-language-model-chatbots-by-few-shot-grounding-on-wikipedia",
+        
+          title: "WikiChat: Stopping the Hallucination of Large Language Model Chatbots by Few-Shot Grounding on...",
+        
         description: "논문 리뷰 - WikiChat: Stopping the Hallucination of Large Language Model Chatbots by Few-Shot Grounding on Wikipedia",
         section: "Posts",
         handler: () => {
@@ -1269,11 +1603,67 @@ Data Curation cannot be Compute Agnostic",
         
           title: "KNOWLEDGE CARD: FILLING LLMS’ KNOWLEDGE GAPS WITH PLUG-IN SPECIALIZED LANGUAGE MODELS",
         
+        description: "논문 리뷰",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/al-folio/blog/2024/knowledge-card-filling-llms-knowledge-gaps-with-plug/";
+          
+        },
+      },{id: "post-knowledge-card-filling-llms-knowledge-gaps-with-plug-in-specialized-language-models",
+        
+          title: "KNOWLEDGE CARD: FILLING LLMS’ KNOWLEDGE GAPS WITH PLUG-IN SPECIALIZED LANGUAGE MODELS",
+        
         description: "논문 리뷰 - KNOWLEDGE CARD: FILLING LLMS’ KNOWLEDGE GAPS WITH PLUG-IN SPECIALIZED LANGUAGE MODELS",
         section: "Posts",
         handler: () => {
           
             window.location.href = "/al-folio/blog/2024/knowledge-card-filling-llms-knowledge-gaps-with-plug-in-specialized-language-models/";
+          
+        },
+      },{id: "post-llm-augmented-llms-expanding-capabilities-through-composition",
+        
+          title: "LLM AUGMENTED LLMS:
+EXPANDING CAPABILITIES THROUGH COMPOSITION",
+        
+        description: "논문 리뷰",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/al-folio/blog/2024/llm-augmented-llms-expanding-capabilities-through-composition/";
+          
+        },
+      },{id: "post-can-sensitive-information-be-deleted-from-llms-objectives-for-defending-against-extraction-attacks",
+        
+          title: "CAN SENSITIVE INFORMATION BE DELETED FROM LLMS? OBJECTIVES FOR DEFENDING AGAINST EXTRACTION ATTACKS...",
+        
+        description: "논문 리뷰 - Editing, Evaluation Metric 관련 연구",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/al-folio/blog/2024/can-sensitive-information-be-deleted-from-llms-objectives/";
+          
+        },
+      },{id: "post-self-rewarding-language-models",
+        
+          title: "Self-Rewarding Language Models",
+        
+        description: "논문 리뷰 - Instruction Tuning 관련 연구",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/al-folio/blog/2024/self-rewarding-language-models/";
+          
+        },
+      },{id: "post-lion-adversarial-distillation-of-proprietary-large-language-models",
+        
+          title: "Lion: Adversarial Distillation of Proprietary Large Language Models",
+        
+        description: "논문 리뷰 - Knowledge Distillation 관련 연구",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/al-folio/blog/2024/lion-adversarial-distillation-of-proprietary-large-language-models/";
           
         },
       },{id: "post-a-post-with-code-diff",
@@ -1342,6 +1732,116 @@ Data Curation cannot be Compute Agnostic",
             window.location.href = "/al-folio/blog/2024/chartjs/";
           
         },
+      },{id: "post-overthinking-the-truth-understanding-how-language-models-process-false-demonstrations",
+        
+          title: "OVERTHINKING THE TRUTH: UNDERSTANDING HOW LANGUAGE MODELS PROCESS FALSE DEMONSTRATIONS",
+        
+        description: "논문 리뷰",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/al-folio/blog/2024/overthinking-the-truth-understanding-how-language-models-process/";
+          
+        },
+      },{id: "post-in-context-pretraining-language-modeling-beyond-document-boundaries",
+        
+          title: "IN-CONTEXT PRETRAINING: LANGUAGE MODELING BEYOND DOCUMENT BOUNDARIES",
+        
+        description: "논문 리뷰 - ICL, LLM, In Context Learning 관련 연구",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/al-folio/blog/2024/in-context-pretraining-language-modeling-beyond-document-boundaries/";
+          
+        },
+      },{id: "post-mistral-7b-amp-mixtral-mixtral-of-experts",
+        
+          title: "Mistral 7B &amp; Mixtral (Mixtral of Experts)",
+        
+        description: "논문 리뷰 - LLM 관련 연구",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/al-folio/blog/2024/mistral-7b-mixtral-mixtral-of-experts/";
+          
+        },
+      },{id: "post-benchmarking-cognitive-biases-in-large-language-models-as-evaluators",
+        
+          title: "BENCHMARKING COGNITIVE BIASES IN LARGE LANGUAGE MODELS AS EVALUATORS",
+        
+        description: "논문 리뷰",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/al-folio/blog/2024/benchmarking-cognitive-biases-in-large-language-models-as/";
+          
+        },
+      },{id: "post-making-large-language-models-a-better-foundation-for-dense-retrieval",
+        
+          title: "Making Large Language Models A Better Foundation For Dense Retrieval",
+        
+        description: "논문 리뷰 - LLM, Retrieval 관련 연구",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/al-folio/blog/2024/making-large-language-models-a-better-foundation-for/";
+          
+        },
+      },{id: "post-vllm-easy-fast-and-cheap-llm-serving-with-pagedattention",
+        
+          title: "vLLM: Easy, Fast, and Cheap LLM Serving with PagedAttention",
+        
+        description: "논문 리뷰 - LLM, Library 관련 연구",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/al-folio/blog/2024/vllm-easy-fast-and-cheap-llm-serving-with/";
+          
+        },
+      },{id: "post-detecting-pretraining-data-from-large-language-models",
+        
+          title: "DETECTING PRETRAINING DATA FROM LARGE LANGUAGE MODELS",
+        
+        description: "논문 리뷰 - LLM 관련 연구",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/al-folio/blog/2024/detecting-pretraining-data-from-large-language-models/";
+          
+        },
+      },{id: "post-are-emergent-abilities-of-large-language-models-a-mirage",
+        
+          title: "Are Emergent Abilities of Large Language Models a Mirage?",
+        
+        description: "논문 리뷰 - LLM, Evaluation Metric 관련 연구",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/al-folio/blog/2023/are-emergent-abilities-of-large-language-models-a/";
+          
+        },
+      },{id: "post-learning-to-tokenize-for-generative-retrieval",
+        
+          title: "Learning to Tokenize for Generative Retrieval",
+        
+        description: "논문 리뷰 - Retrieval 관련 연구",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/al-folio/blog/2023/learning-to-tokenize-for-generative-retrieval/";
+          
+        },
+      },{id: "post-break-the-sequential-dependency-of-llm-inference-using-lookahead-decoding",
+        
+          title: "Break the Sequential Dependency of LLM Inference Using Lookahead Decoding",
+        
+        description: "논문 리뷰 - Decoding 관련 연구",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/al-folio/blog/2023/break-the-sequential-dependency-of-llm-inference-using/";
+          
+        },
       },{id: "post-a-post-with-tikzjax",
         
           title: "a post with TikZJax",
@@ -1351,6 +1851,138 @@ Data Curation cannot be Compute Agnostic",
         handler: () => {
           
             window.location.href = "/al-folio/blog/2023/tikzjax/";
+          
+        },
+      },{id: "post-label-words-are-anchors-an-information-flow-perspective-for-understanding-in-context-learning",
+        
+          title: "Label Words are Anchors: An Information Flow Perspective for Understanding In-Context Learning",
+        
+        description: "논문 리뷰 - ICL, In Context Learning, LLM 관련 연구",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/al-folio/blog/2023/label-words-are-anchors-an-information-flow-perspective/";
+          
+        },
+      },{id: "post-in-context-learning-learns-label-relationships-but-is-not-conventional-learning",
+        
+          title: "In-Context Learning Learns Label Relationships but Is Not Conventional Learning",
+        
+        description: "논문 리뷰 - In Context Learning 관련 연구",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/al-folio/blog/2023/in-context-learning-learns-label-relationships-but-is/";
+          
+        },
+      },{id: "post-efficient-streaming-language-models-with-attention-sinks",
+        
+          title: "EFFICIENT STREAMING LANGUAGE MODELS WITH ATTENTION SINKS",
+        
+        description: "논문 리뷰 - LLM 관련 연구",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/al-folio/blog/2023/efficient-streaming-language-models-with-attention-sinks/";
+          
+        },
+      },{id: "post-a-survey-on-large-language-model-based-autonomous-agents",
+        
+          title: "A Survey on Large Language Model based Autonomous Agents",
+        
+        description: "논문 리뷰 - Autonomous-Agents 관련 연구",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/al-folio/blog/2023/a-survey-on-large-language-model-based-autonomous/";
+          
+        },
+      },{id: "post-resolving-interference-when-merging-models",
+        
+          title: "Resolving Interference When Merging Models",
+        
+        description: "논문 리뷰 - Task Vectors 관련 연구",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/al-folio/blog/2023/resolving-interference-when-merging-models/";
+          
+        },
+      },{id: "post-longlora-efficient-fine-tuning-of-long-context-large-language-models",
+        
+          title: "LongLoRA: Efficient Fine-Tuning of Long-Context Large Language Models",
+        
+        description: "논문 리뷰 - LLM, Efficient Training 관련 연구",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/al-folio/blog/2023/longlora-efficient-fine-tuning-of-long-context-large/";
+          
+        },
+      },{id: "post-dola-decoding-by-contrasting-layers-improves-factuality-in-large-language-models",
+        
+          title: "DoLa: Decoding by Contrasting Layers Improves Factuality in Large Language Models",
+        
+        description: "논문 리뷰 - Factual Consistency, LLM, Calibrating 관련 연구",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/al-folio/blog/2023/dola-decoding-by-contrasting-layers-improves-factuality-in/";
+          
+        },
+      },{id: "post-the-cringe-loss-learning-what-language-not-to-model",
+        
+          title: "The CRINGE Loss: Learning what language not to model",
+        
+        description: "논문 리뷰 - LM 관련 연구",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/al-folio/blog/2023/the-cringe-loss-learning-what-language-not-to/";
+          
+        },
+      },{id: "post-large-language-models-as-optimizers",
+        
+          title: "LARGE LANGUAGE MODELS AS OPTIMIZERS",
+        
+        description: "논문 리뷰 - LLM, Instruction Tuning 관련 연구",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/al-folio/blog/2023/large-language-models-as-optimizers/";
+          
+        },
+      },{id: "post-silo-language-models-isolating-legal-risk-in-a-nonparametric-datastore",
+        
+          title: "SILO LANGUAGE MODELS: ISOLATING LEGAL RISK IN A NONPARAMETRIC DATASTORE",
+        
+        description: "논문 리뷰 - LM, Retrieval, Domain Adaptation 관련 연구",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/al-folio/blog/2023/silo-language-models-isolating-legal-risk-in-a/";
+          
+        },
+      },{id: "post-a-systematic-study-of-knowledge-distillation-for-natural-language-generation-with-pseudo-target-training",
+        
+          title: "A Systematic Study of Knowledge Distillation for Natural Language Generation with Pseudo-Target Training...",
+        
+        description: "논문 리뷰 - Knowledge Distillation 관련 연구",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/al-folio/blog/2023/a-systematic-study-of-knowledge-distillation-for-natural/";
+          
+        },
+      },{id: "post-code-llama-open-foundation-models-for-code",
+        
+          title: "Code Llama: Open Foundation Models for Code",
+        
+        description: "논문 리뷰 - LLM 관련 연구",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/al-folio/blog/2023/code-llama-open-foundation-models-for-code/";
           
         },
       },{id: "post-a-post-with-bibliography",
@@ -1375,6 +2007,50 @@ Data Curation cannot be Compute Agnostic",
             window.location.href = "/al-folio/blog/2023/jupyter-notebook/";
           
         },
+      },{id: "post-qlora-eficient-finetuning-of-quantized-llms",
+        
+          title: "QLoRA: Eficient Finetuning of Quantized LLMs",
+        
+        description: "논문 리뷰 - LLM, Efficient Training 관련 연구",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/al-folio/blog/2023/qlora-eficient-finetuning-of-quantized-llms/";
+          
+        },
+      },{id: "post-the-false-promise-of-imitating-proprietary-llms",
+        
+          title: "The False Promise of Imitating Proprietary LLMs",
+        
+        description: "논문 리뷰 - sLLM, LLM, Evaluation Metric 관련 연구",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/al-folio/blog/2023/the-false-promise-of-imitating-proprietary-llms/";
+          
+        },
+      },{id: "post-do-prompt-based-models-really-understand-the-meaning-of-their-prompts",
+        
+          title: "Do Prompt-Based Models Really Understand the Meaning of Their Prompts?",
+        
+        description: "논문 리뷰 - Instruction Tuning, ICL, Prompt Tuning 관련 연구",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/al-folio/blog/2023/do-prompt-based-models-really-understand-the-meaning/";
+          
+        },
+      },{id: "post-rethinking-the-role-of-demonstrations-what-makes-in-context-learning-work",
+        
+          title: "Rethinking the Role of Demonstrations: What Makes In-Context Learning Work?",
+        
+        description: "논문 리뷰 - LLM, ICL 관련 연구",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/al-folio/blog/2023/rethinking-the-role-of-demonstrations-what-makes-in/";
+          
+        },
       },{id: "post-a-post-with-custom-blockquotes",
         
           title: "a post with custom blockquotes",
@@ -1384,6 +2060,28 @@ Data Curation cannot be Compute Agnostic",
         handler: () => {
           
             window.location.href = "/al-folio/blog/2023/custom-blockquotes/";
+          
+        },
+      },{id: "post-measuring-association-between-labels-and-free-text-rationales",
+        
+          title: "Measuring Association Between Labels and Free-Text Rationales",
+        
+        description: "논문 리뷰 - Reasoning 관련 연구",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/al-folio/blog/2023/measuring-association-between-labels-and-free-text-rationales/";
+          
+        },
+      },{id: "post-automatic-chain-of-thought-prompting-in-large-language-models",
+        
+          title: "Automatic chain of thought prompting in large language models",
+        
+        description: "논문 리뷰 - Prompt Tuning 관련 연구",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/al-folio/blog/2023/automatic-chain-of-thought-prompting-in-large-language/";
           
         },
       },{id: "post-automatic-chain-of-thought-prompting-in-large-language-models",
@@ -1430,11 +2128,44 @@ Data Curation cannot be Compute Agnostic",
             window.location.href = "/al-folio/blog/2023/videos/";
           
         },
+      },{id: "post-falsesum-generating-document-level-nli-examples-for-recognizing-factual-inconsistency-in-summarization",
+        
+          title: "FALSESUM : Generating Document-level NLI Examples for Recognizing Factual Inconsistency in Summarization",
+        
+        description: "논문 리뷰 - Text summarization, Data augmentation 관련 연구",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/al-folio/blog/2023/falsesum-generating-document-level-nli-examples-for-recognizing/";
+          
+        },
+      },{id: "post-p-tuning-v2-prompt-tuning-can-be-comparable-to-fine-tuning-universally-across-scales-and-tasks",
+        
+          title: "P-Tuning v2: Prompt Tuning Can Be Comparable to Fine-tuning Universally Across Scales and...",
+        
+        description: "논문 리뷰 - Parameter Efficiency 관련 연구",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/al-folio/blog/2023/p-tuning-v2-prompt-tuning-can-be-comparable/";
+          
+        },
+      },{id: "post-adapterdrop-on-the-efficiency-of-adapters-in-transformers",
+        
+          title: "AdapterDrop: On the Efficiency of Adapters in Transformers",
+        
+        description: "논문 리뷰 - Adapter 관련 연구",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/al-folio/blog/2023/adapterdrop-on-the-efficiency-of-adapters-in-transformers/";
+          
+        },
       },{id: "post-gpt-understands-too",
         
           title: "GPT Understands, Too",
         
-        description: "논문 리뷰 - GPT Understands, Too",
+        description: "논문 리뷰 - Prompt Tuning 관련 연구",
         section: "Posts",
         handler: () => {
           
@@ -1461,6 +2192,72 @@ Data Curation cannot be Compute Agnostic",
         handler: () => {
           
             window.location.href = "/al-folio/blog/2023/table-of-contents/";
+          
+        },
+      },{id: "post-calibrating-factual-knowledge-in-pretrained-language-models",
+        
+          title: "Calibrating Factual Knowledge in Pretrained Language Models",
+        
+        description: "논문 리뷰 - Knowledge, Calibrating 관련 연구",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/al-folio/blog/2023/calibrating-factual-knowledge-in-pretrained-language-models/";
+          
+        },
+      },{id: "post-adapterhub-a-framework-for-adapting-transformers-parameter-efficient-transfer-learning-for-nlp",
+        
+          title: "AdapterHub: A Framework for Adapting Transformers, Parameter-Efficient Transfer Learning for NLP",
+        
+        description: "논문 리뷰 - LM, Adapter 관련 연구",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/al-folio/blog/2023/adapterhub-a-framework-for-adapting-transformers-parameter-efficient/";
+          
+        },
+      },{id: "post-measuring-and-improving-semantic-diversity-of-dialogue-generation",
+        
+          title: "Measuring and Improving Semantic Diversity of Dialogue Generation",
+        
+        description: "논문 리뷰 - Dialogue, Evaluation Metric 관련 연구",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/al-folio/blog/2023/measuring-and-improving-semantic-diversity-of-dialogue-generation/";
+          
+        },
+      },{id: "post-task-aware-retrieval-with-instructions",
+        
+          title: "Task-aware Retrieval with Instructions",
+        
+        description: "논문 리뷰 - Retrieval, Instruction Tuning 관련 연구",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/al-folio/blog/2023/task-aware-retrieval-with-instructions/";
+          
+        },
+      },{id: "post-kala-knowledge-augmented-language-model-adaptation",
+        
+          title: "KALA: Knowledge-Augmented Language Model Adaptation",
+        
+        description: "논문 리뷰 - QA, NER, Knowledge 관련 연구",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/al-folio/blog/2023/kala-knowledge-augmented-language-model-adaptation/";
+          
+        },
+      },{id: "post-a-survey-for-in-context-learning",
+        
+          title: "A Survey for In-context Learning",
+        
+        description: "논문 리뷰 - ICL, Survey 관련 연구",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/al-folio/blog/2023/a-survey-for-in-context-learning/";
           
         },
       },{id: "post-a-post-with-giscus-comments",
