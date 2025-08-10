@@ -62,6 +62,17 @@ ninja.data = [{
             window.location.href = "/al-folio/blog/2025/plotly/";
           
         },
+      },{id: "post-inferring-from-logits-exploring-best-practices-for-decoding-free-generative-candidate-selection",
+        
+          title: "Inferring from Logits: Exploring Best Practices for Decoding-Free Generative Candidate Selection",
+        
+        description: "ACL 논문 리뷰 - Logit 기반의 디코딩 없는 생성 모델 후보 선택 방법론에 대한 연구",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/al-folio/blog/2025/logits-decoding/";
+          
+        },
       },{id: "post-a-post-with-image-galleries",
         
           title: "a post with image galleries",
