@@ -629,15 +629,15 @@ for i, data in enumerate(data_loader):
 
 1. FSDP Unit_0 - [Layer0] Forwarding & FSDP Unit_1 - [Layer1;Layer2] All-Gather
 
-1. FSDP Unit_2 - [Layer4;Layer5] All-Gather & FSDP Unit_1 - [Layer1;Layer2] _Forwarding & FSDP Unit_1 - [Layer1;Layer2] & FSDP Unit_1 Parameter Free (Forwarding 끝) _& FSDP Unit_0 - [Layer3] Forwarding
+1. FSDP Unit*2 - [Layer4;Layer5] All-Gather & FSDP Unit_1 - [Layer1;Layer2] \_Forwarding & FSDP Unit_1 - [Layer1;Layer2] & FSDP Unit_1 Parameter Free (Forwarding 끝) *& FSDP Unit_0 - [Layer3] Forwarding
 
-1. FSDP Unit_2 - [Layer4;Layer5] All-Gather (BackProp용) & FSDP Unit_2 - [Layer4;Layer5] Forwarding & _FSDP Unit 2 Parameter Free (Forwarding 끝)_
+1. FSDP Unit*2 - [Layer4;Layer5] All-Gather (BackProp용) & FSDP Unit_2 - [Layer4;Layer5] Forwarding & \_FSDP Unit 2 Parameter Free (Forwarding 끝)*
 
 1. (4에서 All-Gather한) FSDP Unit_2 - [Layer4;Laye5] Backward & *FSDP Unit 2 Parameter Free (Backward 끝) & ReduceScatter & *FSDP Unit_0 - [Layer3] BackProp
 
 1. FSDP Unit_1 - [Layer1,2] All-Gather
 
-1. FSDP Unit_1 - [Layer1,2] Backward (Layer 3 Gradient 있기 때문에) & FSDP Unit_1 - [Layer1,2] *ReduceScatter & *FSDP Unit_1 - [Layer1,2] _ Parameter Free (Backward 끝) & FSDP Unit 0 _[Layer1] BackProp
+1. FSDP Unit*1 - [Layer1,2] Backward (Layer 3 Gradient 있기 때문에) & FSDP Unit_1 - [Layer1,2] *ReduceScatter & _FSDP Unit_1 - [Layer1,2] _ Parameter Free (Backward 끝) & FSDP Unit 0 \_[Layer1] BackProp
 
 1. _FSDP Unit 0 Parameter Free (Layer1까지 Backprop 완료)_
 

@@ -272,7 +272,7 @@ $$ \max*{\theta} \mathbb{E}*{x*1, y_1 \sim \pi*{\theta}(\cdot \mid x), y*2 \sim 
 
   - second response에 아래의 bonus를 더해줌. (Δ^i→c(t1, t2)와 Δ^c→i(t1, t2)에 유리한 reward shapping)
 
-    - $ \hat{b}(y_2 \mid y_1, y^_) = \alpha \cdot (\hat{r}(y_2, y^_) - \hat{r}(y_1, y^\*)) $
+    - $ \hat{b}(y*2 \mid y_1, y^*) = \alpha \cdot (\hat{r}(y*2, y^*) - \hat{r}(y_1, y^\*)) $
 
   - training set에 mode collapse를 완화해줄 것을 기대
 
