@@ -1,6 +1,6 @@
 # 노션 → ai-folio 블로그 변환 도구 ⚡
 
-**간단하고 확실한** 노션 export를 ai-folio 블로그로 변환하는 도구입니다.
+**간단하고 확실한** 노션을 ai-folio 블로그로 변환하는 도구입니다.
 
 ## 🎯 특징
 
@@ -8,12 +8,14 @@
 - ✅ **안정성**: 검증된 방법으로 확실한 변환  
 - ✅ **완전 자동**: 이미지, 태그, front matter 모두 자동 처리
 - ✅ **ai-folio 최적화**: Jekyll과 완벽 호환
+- 🆕 **DB 자동화**: 노션 URL만으로 완전 자동 변환
 
 ## 📁 파일 구조
 
 ```
 scripts/
-├── 📄 notion_to_blog.py     # 🌟 메인 변환 스크립트
+├── 📄 notion_db_auto.py     # 🌟 노션 DB URL 자동 변환 (NEW!)
+├── 📄 notion_to_blog.py     # 📄 Export 파일 변환
 ├── 📄 markdown_utils.py     # 마크다운 처리 함수들
 ├── 📄 markdown_improver.py  # 기존 마크다운 개선 도구  
 ├── 📄 setup_guide.md        # 빠른 시작 가이드
@@ -22,120 +24,170 @@ scripts/
 
 ## 🚀 사용법
 
-### 📋 준비 단계
-1. 노션에서 **"Export" → "Markdown & CSV"**로 내보내기
-2. 다운로드된 파일을 적당한 폴더에 저장
+### 🥇 **방법 1: 노션 DB URL 완전 자동화** ⭐ **추천**
 
-### 🔄 변환 명령어
-
-#### 단일 파일 변환
 ```bash
-python3 scripts/notion_to_blog.py --notion-file "논문제목.md" --date "2025-01-02"
+# 1. 노션 API 토큰 설정 (한 번만)
+export NOTION_TOKEN="your_integration_token"
+
+# 2. 노션 DB URL만으로 완전 자동 변환!
+python3 scripts/notion_db_auto.py \
+  --database-url "https://unknown-nlp-study.notion.site/24dbac48c8d34705ba7d2ac1317274ec"
 ```
 
-#### 여러 파일 일괄 변환  
+**장점:**
+- 🎯 **URL만 있으면 끝**: 수동 작업 없음
+- ⚡ **실시간 동기화**: 노션 업데이트 시 재실행만 하면 됨
+- 🔄 **배치 처리**: 모든 논문을 한 번에 처리
+- 🖼️ **이미지 지원**: API를 통한 이미지 다운로드
+
+### 🥈 **방법 2: Export 파일 변환**
+
 ```bash
+# 1. 노션에서 "Export" → "Markdown & CSV"로 내보내기
+# 2. 파일 변환
+python3 scripts/notion_to_blog.py --notion-file "논문제목.md" --date "2025-01-02"
+
+# 3. 여러 파일 일괄 변환
 python3 scripts/notion_to_blog.py --notion-dir "notion_exports/" --batch
 ```
 
-#### 커스텀 설정
-```bash
-python3 scripts/notion_to_blog.py \
-  --notion-file "paper.md" \
-  --date "2025-01-02" \
-  --title "내가 정한 제목"
-```
+**장점:**
+- 🔒 **API 토큰 불필요**: 간단한 설정
+- 📷 **이미지 확실**: Export된 이미지 직접 복사
+- 🎨 **커스터마이즈**: 세부 조정 가능
 
 ## 📊 변환 과정
 
+### 방법 1: DB 자동화
+```mermaid
+graph LR
+    A[노션 DB URL] --> B[API 호출]
+    B --> C[페이지 리스트]
+    C --> D[내용 변환]
+    D --> E[ai-folio 포스트]
+```
+
+### 방법 2: Export 변환
 ```mermaid
 graph LR
     A[노션 Export] --> B[스크립트 실행]
     B --> C[메타데이터 추출]
     C --> D[이미지 복사]
-    D --> E[마크다운 개선]
-    E --> F[ai-folio 포스트]
+    D --> E[ai-folio 포스트]
 ```
 
-### 🔍 자동 처리 항목
-1. **메타데이터 추출**: Venue, Date, Person, Property
-2. **이미지 처리**: 자동 검색, 복사, 경로 변환
-3. **태그 생성**: 내용 분석 기반 스마트 태그
-4. **Front Matter**: Jekyll 호환 YAML 헤더 생성
-5. **가독성 개선**: 리스트, 코드블록, 강조 정리
+## 🔧 설정
 
-## 💡 예시
+### 노션 API 토큰 생성 (방법 1용)
 
-### 입력 (노션 Export)
+1. [Notion Developers](https://developers.notion.com/) 방문
+2. "New integration" 클릭
+3. 토큰 복사 후 환경변수 설정:
+   ```bash
+   export NOTION_TOKEN="secret_ABC123..."
+   ```
+4. 노션 데이터베이스에서 Integration 연결:
+   - 데이터베이스 페이지 → "..." → "Add connections" → Integration 선택
+
+## 💡 사용 예시
+
+### 🆕 **DB 자동화 예시**
+
+```bash
+# 전체 논문 DB 동기화
+python3 scripts/notion_db_auto.py \
+  --database-url "https://notion.so/your-database-url" \
+  --start-date "2025-01-01"
+
+# 특정 날짜부터
+python3 scripts/notion_db_auto.py \
+  --database-url "https://notion.so/your-database-url" \
+  --start-date "2024-01-01"
+
+# 토큰을 파라미터로 전달
+python3 scripts/notion_db_auto.py \
+  --database-url "https://notion.so/..." \
+  --token "secret_ABC123..."
 ```
-downloads/
-├── Attention Is All You Need.md
-└── Attention Is All You Need/
-    ├── architecture.png
-    ├── results.png
-    └── comparison.png
+
+### 📄 **Export 변환 예시**
+
+```bash
+# 단일 파일
+python3 scripts/notion_to_blog.py --notion-file "paper.md" --date "2025-01-02"
+
+# 커스텀 제목
+python3 scripts/notion_to_blog.py \
+  --notion-file "paper.md" \
+  --title "내가 정한 제목" \
+  --date "2025-01-02"
 ```
 
-### 출력 (ai-folio 블로그)
-```
-_posts/
-└── 2025-01-02-attention-is-all-you-need.md
+## 📈 성능 비교
 
-assets/img/posts/
-└── 2025-01-02-attention-is-all-you-need/
-    ├── architecture.png
-    ├── results.png
-    └── comparison.png
-```
-
-### 생성된 블로그 포스트
-```markdown
----
-layout: post
-title: "Attention Is All You Need"
-date: 2025-01-02 00:00:00
-description: NIPS 논문 리뷰 - NLP, Transformer 관련 연구
-tags: [paper-review, transformer, attention, nlp, nips]
-categories: [paper-reviews]
-giscus_comments: true
-related_posts: false
-slug: 2025-01-02-attention-is-all-you-need
----
-
-**논문 정보**
-- **Venue**: NIPS 2017
-- **Date**: 2017년 6월
-- **Reviewer**: 홍길동
-- **Property**: NLP, Transformer
-
-## 📝 Abstract
-Transformer 아키텍처를 제안...
-
-{% include figure.liquid loading="eager" path="assets/img/posts/2025-01-02-attention-is-all-you-need/architecture.png" class="img-fluid rounded z-depth-1" %}
-
-## 🔍 Key Insights
-- Self-attention 메커니즘의 혁신...
-- 병렬화 가능한 구조...
-```
+| 특징 | DB 자동화 | Export 변환 |
+|------|-----------|-------------|
+| **설정 복잡도** | 보통 (토큰 필요) | 간단 |
+| **속도** | 빠름 | 매우 빠름 |
+| **자동화** | 완전 자동 ⭐ | 수동 export |
+| **이미지 처리** | API 다운로드 | 직접 복사 ⭐ |
+| **실시간 동기화** | 가능 ⭐ | 불가능 |
+| **안정성** | 높음 | 매우 높음 ⭐ |
 
 ## 🛠️ 고급 기능
 
-### 기존 마크다운 개선
+### 🔄 **정기 동기화**
+
+```bash
+#!/bin/bash
+# auto_sync.sh
+
+echo "🔄 주간 논문 동기화 시작..."
+
+python3 scripts/notion_db_auto.py \
+  --database-url "https://notion.so/your-database" \
+  --start-date "$(date -d '7 days ago' +%Y-%m-%d)"
+
+# Jekyll 재시작
+pkill -f jekyll
+bundle exec jekyll serve --detach
+
+echo "✅ 동기화 완료!"
+```
+
+### ⏰ **Cron 자동화**
+
+```bash
+# 매주 일요일 오전 9시에 실행
+0 9 * * 0 /path/to/auto_sync.sh
+```
+
+### 🎨 **기존 마크다운 개선**
+
 ```bash
 python3 scripts/markdown_improver.py --input "기존파일.md"
 ```
 
-### 배치 처리
-```bash
-# 모든 notion export를 한번에 변환
-find downloads/ -name "*.md" -exec python3 scripts/notion_to_blog.py --notion-file {} --date "2025-01-{}" \;
-```
-
 ## 🔧 문제 해결
 
-### 자주 발생하는 문제
+### DB 자동화 관련
 
-**Q: 이미지가 표시되지 않아요**
+**Q: "Unauthorized" 오류**
+- 노션 API 토큰 확인
+- Integration이 데이터베이스에 연결되어 있는지 확인
+
+**Q: 이미지가 다운로드되지 않음**
+- 현재 버전에서는 이미지 URL만 참조 (향후 업데이트 예정)
+- Export 방식 사용 권장
+
+**Q: 변환 속도가 느림**
+- API 제한으로 인한 지연 (정상)
+- 대량 변환 시 시간 소요 예상
+
+### Export 변환 관련
+
+**Q: 이미지가 표시되지 않음**
 ```bash
 # 이미지 파일 확인
 ls -la assets/img/posts/2025-01-02-제목/
@@ -148,50 +200,41 @@ bundle exec jekyll serve
 - 노션 export 시 UTF-8 확인
 - 파일명에 특수문자 피하기
 
-**Q: 변환 실패**
+## 📦 필요한 패키지
+
+### DB 자동화용
 ```bash
-# 자세한 로그 확인
-python3 scripts/notion_to_blog.py --notion-file "file.md" --date "2025-01-02" 2>&1 | tee log.txt
+pip install notion-client PyYAML
 ```
 
-## 📈 성능
-
-- **처리 속도**: 논문 1개당 ~2초
-- **지원 형식**: PNG, JPG, JPEG, GIF, WebP
-- **파일 크기**: 제한 없음 (GitHub 100MB 제한 적용)
-- **동시 처리**: 일괄 변환 지원
-
-## 🎨 커스터마이즈
-
-### 태그 추가
-`markdown_utils.py`의 `ai_keywords` 리스트 수정:
-```python
-ai_keywords = [
-    "transformer", "attention", "bert", "gpt", 
-    "your-custom-tag"  # 여기에 추가
-]
+### Export 변환용
+```bash
+pip install PyYAML  # 기본 라이브러리만
 ```
 
-### 이미지 형식 변경
-`notion_to_blog.py`의 이미지 참조 부분 수정:
-```python
-def replace_image_path(match):
-    filename = match.group(1)
-    return f'![Image]({filename})'  # 기본 마크다운 형식
-```
+## 🎖️ 권장 워크플로
+
+### 🥇 **추천: 하이브리드 접근**
+
+1. **초기 설정**: DB 자동화로 전체 논문 가져오기
+2. **이미지 보완**: 중요한 논문은 Export 방식으로 재변환
+3. **정기 동기화**: 새 논문은 DB 자동화로 추가
+4. **세부 조정**: markdown_improver로 개별 개선
 
 ## 📚 참고 자료
 
 - **Jekyll 문서**: https://jekyllrb.com/docs/
 - **ai-folio 테마**: https://github.com/alshedivat/al-folio
+- **노션 API**: https://developers.notion.com/
 - **마크다운 가이드**: https://www.markdownguide.org/
 
 ## 🙋‍♂️ 지원
 
 문제가 발생하면:
 1. `setup_guide.md` 확인
-2. 에러 로그와 함께 문의
-3. 코드 직접 수정도 환영! 🎉
+2. 적절한 방법 선택 (DB 자동화 vs Export)
+3. 에러 로그와 함께 문의
+4. 코드 직접 수정도 환영! 🎉
 
 ---
 
