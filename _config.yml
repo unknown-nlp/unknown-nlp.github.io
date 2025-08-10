@@ -149,8 +149,8 @@ collections:
     defaults:
       layout: post
     output: true
-  projects:
-    output: true
+  # projects:
+  #   output: true
 
 # -----------------------------------------------------------------------------
 # Jekyll settings
@@ -172,9 +172,6 @@ kramdown:
 # Includes & excludes
 include: ["_pages", "_scripts"]
 exclude:
-  - _projects/
-  - _repositories/
-  - _teaching/
   - bin/
   - CONTRIBUTING.md
   - CUSTOMIZE.md
