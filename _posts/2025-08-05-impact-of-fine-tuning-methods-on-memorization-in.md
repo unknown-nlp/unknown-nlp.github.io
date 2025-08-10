@@ -1,31 +1,30 @@
 ---
 categories:
-  - paper-reviews
-date: "2025-08-05 00:00:00"
+- paper-reviews
+date: '2025-08-05 00:00:00'
 description: 논문 리뷰
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-  - attention
-  - embedding
-  - fine-tuning
-  - gpt
-  - language-model
-  - llm
-  - paper-review
+- attention
+- embedding
+- fine-tuning
+- gpt
+- language-model
+- llm
+- paper-review
 thumbnail: assets/img/posts/2025-08-05-impact-of-fine-tuning-methods-on-memorization-in/thumbnail.jpg
 title: Impact of Fine-Tuning Methods on Memorization in Large Language Models
 ---
 
 **논문 정보**
-
 - **Date**: 2025-08-05
 - **Reviewer**: hyowon Cho
 
-많은 연구들이 LLM이 사전학습 단계에서 학습 데이터를 외우는 이슈에 대해서 보고하고 있는 한편, finetuning에 대해서 비슷한 연구는 놀라울 정도로 적다.
+많은 연구들이 LLM이 사전학습 단계에서 학습 데이터를 외우는 이슈에 대해서 보고하고 있는 한편, finetuning에 대해서 비슷한 연구는 놀라울 정도로 적다. 
 
-하지만, finetuning도 당연히 모델 대부의 업데이트와 때때로는 구조적인 변화까지도 이루어지기 때문에, finetuning의 memorization level에 대한 연구도 필요하다.
+하지만, finetuning도 당연히 모델 대부의 업데이트와 때때로는 구조적인 변화까지도 이루어지기 때문에, finetuning의 memorization level에 대한 연구도 필요하다. 
 
 그렇다면, 존재하는 다양한 finetuning 방법에 따른 memorization of fineuning data의 영향력은 어떻게 되는가?
 
@@ -35,9 +34,9 @@ title: Impact of Fine-Tuning Methods on Memorization in Large Language Models
 
 1. Prompt-based fine-tuning: 모델 파라 고정, soft token/prefix embedding…
 
-결과적으로 두 카테고리를 고루 포함한 5가지 방법을 시험했고,
+결과적으로 두 카테고리를 고루 포함한 5가지 방법을 시험했고, 
 
-평가는 다양한 MIAs(membership inference attacks )로 했고,
+평가는 다양한 MIAs(membership inference attacks )로 했고, 
 
 데이터는 Wikitext, WebNLG, Xsum 세 가지로 했다 (좀 적긴하네요)
 
@@ -45,15 +44,15 @@ title: Impact of Fine-Tuning Methods on Memorization in Large Language Models
 
 # Fine-Tuning Methods
 
-- Parameter-based fine-tuning
+- Parameter-based fine-tuning 
 
-- Prompt-based fine-tuning: task-specific prompts only
+- Prompt-based fine-tuning:  task-specific prompts only
 
 # Memorization and MIAs
 
 - 사용된 MIA 기법과 점수 계산 방식:
 
-# Experimental Setup
+#  Experimental Setup
 
 - 데이터
 
@@ -79,7 +78,7 @@ title: Impact of Fine-Tuning Methods on Memorization in Large Language Models
 
 하지만, prompt-based methods 는 parameter-based 보다 외우는 성능 떨어짐 (당연)
 
-> Observation ♯2:
+> Observation ♯2: 
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2025-08-05-impact-of-fine-tuning-methods-on-memorization-in/image_001.png" class="img-fluid rounded z-depth-1" %}
 
@@ -96,7 +95,7 @@ the soft prompt or prefix, rather than altering the attention mechanism itself.
 
 distributions of non-membership and membership examples on the LLaMA2-7B를 세 세팅에서 비교함:
 
-1. pre-trained model,
+1. pre-trained model, 
 
 1. fine-tuned with LoRA
 
@@ -124,6 +123,7 @@ prompt-based fine-tuning:
 
 - converging without the overfitting-induced rise
 
+
 이는 아까도 이야기 했듯이, 후자가 internal sample distribution of the model을 바꾸는 것이 아니라 단순히 다운스트림 태스크에 쪼끔 더 나은 bias를 추가하는 정도임을 다시한번 보인다
 
 # Discussion
@@ -140,9 +140,9 @@ four variants of the GPT-2 architecture:
 
 - GPT-2 (124M),
 
-- GPT-2 Medium (345M),
+- GPT-2 Medium (345M), 
 
-- GPT2 Large (762M),
+- GPT2 Large (762M),  
 
 - GPT-2 XL (1.5B).
 
@@ -157,7 +157,7 @@ LLaMA2-7B vs LLaMA3-1B
 ## Impact of Downstream Tasks
 
 > Observation ♯4
-> Prompt-based tuning leads to stronger memorization in structured tasks than in other downstream tasks.
+Prompt-based tuning leads to stronger memorization in structured tasks than in other downstream tasks.
 
 다운스트림 태스크의 종류에 따라서도 다를 수 있음. 이를 위 LLaMA2-7B를 다양한 방법을 통해 학습시키고 LOSS attack against에 대해서 각각을 평가해봄
 

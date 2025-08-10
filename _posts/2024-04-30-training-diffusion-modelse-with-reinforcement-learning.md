@@ -1,27 +1,26 @@
 ---
 categories:
-  - paper-reviews
-date: "2024-04-30 00:00:00"
+- paper-reviews
+date: '2024-04-30 00:00:00'
 description: 논문 리뷰 - Evaluation Metric, RL 관련 연구
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-  - alignment
-  - diffusion
-  - evaluation metric
-  - generative
-  - language-model
-  - paper-review
-  - reinforcement-learning
-  - rl
-  - vision
+- alignment
+- diffusion
+- evaluation metric
+- generative
+- language-model
+- paper-review
+- reinforcement-learning
+- rl
+- vision
 thumbnail: assets/img/posts/2024-04-30-training-diffusion-modelse-with-reinforcement-learning/thumbnail.jpg
 title: Training diffusion modelse with reinforcement learning
 ---
 
 **논문 정보**
-
 - **Date**: 2024-04-30
 - **Reviewer**: 전민진
 - **Property**: Evaluation Metric, RL
@@ -112,4 +111,4 @@ title: Training diffusion modelse with reinforcement learning
 
 - DDPO는 prompt로 명시하기 어렵고, 프로그래밍 적으로 평가하기 어려운 taks에 대해서 매우 효과적으로 최적화 하는 방법론
 
-- 향후 과제로,
+- 향후 과제로, 

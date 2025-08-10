@@ -1,25 +1,24 @@
 ---
 categories:
-  - paper-reviews
-date: "2025-07-15 00:00:00"
+- paper-reviews
+date: '2025-07-15 00:00:00'
 description: 논문 리뷰
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-  - attention
-  - detection
-  - embedding
-  - llm
-  - paper-review
-  - reasoning
+- attention
+- detection
+- embedding
+- llm
+- paper-review
+- reasoning
 thumbnail: assets/img/posts/2025-07-15-reasoning-model-is-stubborn-diagnosing-instruction-overriding-in/thumbnail.jpg
-title: "Reasoning Model is Stubborn: Diagnosing Instruction Overriding in Reasoning
-  Models"
+title: 'Reasoning Model is Stubborn: Diagnosing Instruction Overriding in Reasoning
+  Models'
 ---
 
 **논문 정보**
-
 - **Date**: 2025-07-15
 - **Reviewer**: 전민진
 

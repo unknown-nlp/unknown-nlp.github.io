@@ -1,24 +1,23 @@
 ---
 categories:
-  - paper-reviews
-date: "2024-06-04 00:00:00"
+- paper-reviews
+date: '2024-06-04 00:00:00'
 description: "논문 리뷰 - LLM, \bPre-Training 관련 연구"
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-  - "\bpre-training"
-  - llm
-  - paper-review
-  - pre-training
-  - transformer
+- "\bpre-training"
+- llm
+- paper-review
+- pre-training
+- transformer
 thumbnail: assets/img/posts/2024-06-04-stacking-your-transformers-a-closer-look-at-model/thumbnail.jpg
-title: "Stacking Your Transformers: A Closer Look at Model Growth for Efficient LLM
-  Pre-Training"
+title: 'Stacking Your Transformers: A Closer Look at Model Growth for Efficient LLM
+  Pre-Training'
 ---
 
 **논문 정보**
-
 - **Date**: 2024-06-04
 - **Reviewer**: 김재희
 - **Property**: LLM, Pre-Training
@@ -47,11 +46,11 @@ title: "Stacking Your Transformers: A Closer Look at Model Growth for Efficient 
 
 ffnn layer
 
-- (d_model, d_model\*4)
+- (d_model, d_model*4)
 
 - relu
 
-- (d_model\*4, d_model)
+- (d_model*4, d_model)
 
 ### Training Small Model
 
@@ -63,7 +62,7 @@ ffnn layer
 
 - from scracth 모델 학습
 
-### 실험 결과
+### 실험 결과 
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-06-04-stacking-your-transformers-a-closer-look-at-model/image_001.png" class="img-fluid rounded z-depth-1" %}
 

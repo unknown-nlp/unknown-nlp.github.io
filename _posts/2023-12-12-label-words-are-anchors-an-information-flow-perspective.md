@@ -1,25 +1,24 @@
 ---
 categories:
-  - paper-reviews
-date: "2023-12-12 00:00:00"
+- paper-reviews
+date: '2023-12-12 00:00:00'
 description: 논문 리뷰 - ICL, In Context Learning, LLM 관련 연구
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-  - attention
-  - classification
-  - icl
-  - in context learning
-  - llm
-  - paper-review
+- attention
+- classification
+- icl
+- in context learning
+- llm
+- paper-review
 thumbnail: assets/img/posts/2023-12-12-label-words-are-anchors-an-information-flow-perspective/thumbnail.jpg
-title: "Label Words are Anchors: An Information Flow Perspective for Understanding
-  In-Context Learning"
+title: 'Label Words are Anchors: An Information Flow Perspective for Understanding
+  In-Context Learning'
 ---
 
 **논문 정보**
-
 - **Date**: 2023-12-12
 - **Reviewer**: 김재희
 - **Property**: ICL, In Context Learning, LLM
@@ -44,7 +43,7 @@ title: "Label Words are Anchors: An Information Flow Perspective for Understandi
 
 - ICL 환경에서 입력을 세가지로 구분
 
-- 위 3가지 입력에 따라 Saliency Score를 계산하게 됨
+- 위 3가지 입력에 따라 Saliency Score를 계산하게 됨 
 
 - Input Text(w) → Label Words(p)
 
@@ -56,7 +55,7 @@ title: "Label Words are Anchors: An Information Flow Perspective for Understandi
 
 - 4개의 Text Classification Task 사용
 
-- Model :
+- Model : 
 
 ### 2.3 Information Flow 실험
 
@@ -66,7 +65,7 @@ title: "Label Words are Anchors: An Information Flow Perspective for Understandi
 
 - Isolation(Label Words) : Attention Map을 임의로 조정하여 Input Text → Label Word의 Attention을 막는 환경
 
-- First/Last : 초기/후기 5개 레이어에 대해 Isolation을 수행
+- First/Last : 초기/후기 5개 레이어에 대해 Isolation을 수행 
 
 - Random : Attention Map 내 임의의 attention을 조정
 
@@ -82,11 +81,11 @@ title: "Label Words are Anchors: An Information Flow Perspective for Understandi
 
 - 레이어가 깊어질 수록 AUROC 값이 커지는 경향성 확인
 
-- 레이어가 깊어질수록 R_l값이 점차 커지는 모습 확인
+- 레이어가 깊어질수록 R_l값이 점차 커지는 모습 확인 
 
 ### 2.6 결론
 
-- Label Word가 해당 Demonstration의 정보를 종합하고, 이를 예측에 전달하는 역할을 하는 모습 확인
+- Label Word가 해당 Demonstration의 정보를 종합하고, 이를 예측에 전달하는 역할을 하는 모습 확인 
 
 ## 3. Proposed Method
 
@@ -98,7 +97,7 @@ title: "Label Words are Anchors: An Information Flow Perspective for Understandi
 
 - Attention Mechanism을 직접적인 예측 확률의 추정으로 간주
 
-- 두가지 식을 치환하여, log prob으로 표현 가능(\textbf{q}_q / \sqrt{d} = \hat{\textbf{x}}, \textbf{k}_{p*i} - \textbf{k}*{p_C} = \beta_i )
+- 두가지 식을 치환하여, log prob으로 표현 가능(\textbf{q}_q / \sqrt{d} = \hat{\textbf{x}}, \textbf{k}_{p_i} - \textbf{k}_{p_C} = \beta_i )
 
 - 위와 같은 식은 결국 logistic regression 식으로 표현이 됨
 
@@ -112,7 +111,7 @@ title: "Label Words are Anchors: An Information Flow Perspective for Understandi
 
 ### 3.2 Anchor-Only Context Compression
 
-- 앞선 내용을 요약하면 **_모델이 예측 수행 시 Demonstration 중 Label Word에서만 정보를 취합하고 있음_**
+- 앞선 내용을 요약하면 ***모델이 예측 수행 시 Demonstration 중 Label Word에서만 정보를 취합하고 있음***
 
 ## 4. Experiments
 

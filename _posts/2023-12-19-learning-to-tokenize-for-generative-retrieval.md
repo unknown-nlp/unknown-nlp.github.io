@@ -1,23 +1,22 @@
 ---
 categories:
-  - paper-reviews
-date: "2023-12-19 00:00:00"
+- paper-reviews
+date: '2023-12-19 00:00:00'
 description: 논문 리뷰 - Retrieval 관련 연구
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-  - embedding
-  - generative
-  - paper-review
-  - retrieval
-  - transformer
+- embedding
+- generative
+- paper-review
+- retrieval
+- transformer
 thumbnail: assets/img/posts/2023-12-19-learning-to-tokenize-for-generative-retrieval/thumbnail.jpg
 title: Learning to Tokenize for Generative Retrieval
 ---
 
 **논문 정보**
-
 - **Date**: 2023-12-19
 - **Reviewer**: 건우 김
 - **Property**: Retrieval
@@ -26,7 +25,7 @@ title: Learning to Tokenize for Generative Retrieval
 
 # Abstract
 
-- 본 연구에서는 generative retrieval 계열의 방법으로 document semantics을 docids로 encoding하는 과정을 학습하는 GENRET을 소개함.
+- 본 연구에서는 generative retrieval 계열의 방법으로 document semantics을 docids로 encoding하는 과정을 학습하는 GENRET을 소개함. 
 
 - 당연하게도 GENRET는 IR에서 SOTA를 보이고, 특히 unseen doc에 있어 높은 성능 향상을 보임.
 
@@ -72,7 +71,7 @@ docid인 z는 아래 두가지 조건을 만족해야함.
 
 **Tokenization model**: Q:d\to z, document d를 docid z로 mapping
 
-**Generative retrieval model: \*\***P:q \to z\***\*, **query q와 관련된 문서 docid z를 autoregressive하게 생성하며 학습함
+**Generative retrieval model: ****P:q \to z****, **query q와 관련된 문서 docid z를 autoregressive하게 생성하며 학습함
 
 # Method
 
@@ -86,11 +85,11 @@ document tokenization은 주로 fixed pre-processing step으로 사용됨
 
 크게 세가지 components로 구성이 됨
 
-1. **seq2seq based retrieval model: \*\***P(z|q)\*\*
+1. **seq2seq based retrieval model: ****P(z|q)**
 
-1. **document tokenization model: \*\***Q(z|d)\*\*
+1. **document tokenization model: ****Q(z|d)**
 
-1. **reconstruction model: \*\***R(d|z)\*\*
+1. **reconstruction model: ****R(d|z)**
 
 ### **Overview process**
 
@@ -100,7 +99,7 @@ document tokenization은 주로 fixed pre-processing step으로 사용됨
 
 ### Document Tokenization Model
 
-- enc-dec Transformer: input text d가 있을 때, T5-based tokenization model이 d와 a prefix of docid z\_{<t}를 인코딩하여 hidden latent vector d_t 생성.
+- enc-dec Transformer: input text d가 있을 때, T5-based tokenization model이 d와 a prefix of docid z_{<t}를 인코딩하여 hidden latent vector d_t 생성.
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2023-12-19-learning-to-tokenize-for-generative-retrieval/image_003.png" class="img-fluid rounded z-depth-1" %}
 
@@ -108,7 +107,7 @@ document tokenization은 주로 fixed pre-processing step으로 사용됨
 
 - 각 timestep t 마다, codebook을 정의해줌
 
-- codebook embedding matrix E_t와 latent vector d_t를 dot-prodcut softmax 취하여 j \isin [K]에 대한 t 시점에서의 확률값 계산,
+- codebook embedding matrix E_t와 latent vector d_t를 dot-prodcut softmax 취하여 j \isin [K]에 대한 t 시점에서의 확률값 계산, 
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2023-12-19-learning-to-tokenize-for-generative-retrieval/image_004.png" class="img-fluid rounded z-depth-1" %}
 
@@ -134,7 +133,7 @@ Document tokenization model, generative retrieval model, reconstruction model을
 
 ### Progressive training scheme
 
-- M번의 learning steps을 갖는 전체 learning scheme에서 docid z_T은 T \isin [M] 시점에 학습이 됨. 이후 시점에서는 이전 시점의 docid z_T와 parameters들은 fixed됨.
+- M번의 learning steps을 갖는 전체 learning scheme에서 docid z_T은 T \isin [M] 시점에 학습이 됨. 이후 시점에서는 이전 시점의 docid z_T와 parameters들은 fixed됨. 
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2023-12-19-learning-to-tokenize-for-generative-retrieval/image_005.png" class="img-fluid rounded z-depth-1" %}
 
@@ -142,7 +141,7 @@ Document tokenization model, generative retrieval model, reconstruction model을
 
 ### Diverse clustering techniques
 
-docids의 diversity를 보장하기 위해 아래 두가지 clustering techniques을 각 progressive training step에 적용함.
+docids의 diversity를 보장하기 위해 아래 두가지 clustering techniques을 각 progressive training step에 적용함. 
 
 1. **Codebook Initialization**
 
@@ -166,7 +165,7 @@ docids의 diversity를 보장하기 위해 아래 두가지 clustering technique
 
 - strong pretrained retrieval GTR + previous SOTA in generative retrieval보다 우수한 성능 보임
 
-- Seen + Unseen dataset에서 우수한 성능 보임
+- Seen + Unseen dataset에서 우수한 성능 보임 
 
 ### MS MARCO + BEIR results
 
@@ -188,7 +187,7 @@ NQ320K dataset에서 GENRET이 생성한 docid에 대한 시각화
 
 # Conclusion
 
-본 연구에서 처음으로 generative retrieval 계열의 document tokenization learning method인 GENRET 소개함. 요약하면, generated docids가 semantics을 담게 설계된 auto-encoding 방식을 통해 documents를 discrete representations으로 tokenize하는 것을 학습함.
+본 연구에서 처음으로 generative retrieval 계열의 document tokenization learning method인 GENRET 소개함. 요약하면, generated docids가 semantics을 담게 설계된 auto-encoding 방식을 통해 documents를 discrete representations으로 tokenize하는 것을 학습함. 
 
 Dense retrieval method 보다 안정적으로 높은 성능을 보이며, 특히 unseen dataset에서도 좋은 성능을 보인 것으로 미루어 보아 generative retrieval이 앞으로 IR에서 핵심 연구 주제가 되지 않을까 싶음
 

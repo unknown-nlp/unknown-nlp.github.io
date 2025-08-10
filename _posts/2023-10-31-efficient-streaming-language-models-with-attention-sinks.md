@@ -1,22 +1,21 @@
 ---
 categories:
-  - paper-reviews
-date: "2023-10-31 00:00:00"
+- paper-reviews
+date: '2023-10-31 00:00:00'
 description: 논문 리뷰 - LLM 관련 연구
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-  - attention
-  - language-model
-  - llm
-  - paper-review
+- attention
+- language-model
+- llm
+- paper-review
 thumbnail: assets/img/posts/2023-10-31-efficient-streaming-language-models-with-attention-sinks/thumbnail.jpg
 title: EFFICIENT STREAMING LANGUAGE MODELS WITH ATTENTION SINKS
 ---
 
 **논문 정보**
-
 - **Date**: 2023-10-31
 - **Reviewer**: 김재희
 - **Property**: LLM
@@ -37,7 +36,7 @@ title: EFFICIENT STREAMING LANGUAGE MODELS WITH ATTENTION SINKS
 
 - Window Attention은 성능이 망가지는데, Sliding Window는 그렇지 않다…?
 
-⇒ Long Context를 다루는 기존의 방법론들이 놓치는 무엇인가가 있는 느낌…
+⇒ Long Context를 다루는 기존의 방법론들이 놓치는 무엇인가가 있는 느낌… 
 
 ## 3. Attention Sink
 
@@ -51,7 +50,7 @@ title: EFFICIENT STREAMING LANGUAGE MODELS WITH ATTENTION SINKS
 
 - 위 현상의 원인을 분석하기 위해 2가지 가설 설정
 
-- (x+y) 토큰 조합을 통한 성능 변화 관찰 실험
+- (x+y) 토큰 조합을 통한 성능 변화 관찰 실험 
 
 - 0 + 1024 : 현재 토큰 이전 1024개의 토큰을 이용(Sliding Window)
 
@@ -61,7 +60,7 @@ title: EFFICIENT STREAMING LANGUAGE MODELS WITH ATTENTION SINKS
 
 ### Why Attention Goes into Sink Tokens?
 
-- Attention Mechanism을 살펴볼 필요가 있음
+- Attention Mechanism을 살펴볼 필요가 있음 
 
 - 현재 시점의 Query에서 이전 시점의 Key에 대한 Attention은 아래 식과 같음
 
@@ -69,7 +68,7 @@ title: EFFICIENT STREAMING LANGUAGE MODELS WITH ATTENTION SINKS
 
 - 이때 SoftMax 함수에 의해 Query는 이전 시점의 값들에 대해 무조건 Attention을 주어야함
 
-- 위 개념에 대한 아이디어는 올해 7월 블로그 글에 처음 개제됨
+- 위 개념에 대한 아이디어는 올해 7월 블로그 글에 처음 개제됨 
 
 ## 4. Experiments
 
@@ -79,7 +78,7 @@ title: EFFICIENT STREAMING LANGUAGE MODELS WITH ATTENTION SINKS
 
 - 첫 K개의 토큰을 사용할 수 없어지는 시점부터 Dense Attention, Window Attention 모두 성능이 박살
 
-- Sliding Window의 경우 안정적인 성능을 유지하는 모습
+- Sliding Window의 경우 안정적인 성능을 유지하는 모습 
 
 - StreamingLLM(본 논문에서 Attention Sink를 이용해 첫 K개 토큰을 계속 살리는 방법론)은 Sliding Window와 비슷한 성능을 유지
 
@@ -87,7 +86,7 @@ title: EFFICIENT STREAMING LANGUAGE MODELS WITH ATTENTION SINKS
 
 - 모델이 사전 학습 과정에서 첫 토큰들을 Attention Sink로 사용
 
-- Vanilla 모델과 비교하여 Loss 및 Downstream Task 모두에서 살짝 더 좋은 성능을 보임.
+- Vanilla 모델과 비교하여 Loss 및 Downstream Task 모두에서 살짝 더 좋은 성능을 보임. 
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2023-10-31-efficient-streaming-language-models-with-attention-sinks/image_004.png" class="img-fluid rounded z-depth-1" %}
 
@@ -109,7 +108,7 @@ title: EFFICIENT STREAMING LANGUAGE MODELS WITH ATTENTION SINKS
 
 ## 7. Conclusion
 
-### Attention Sink
+### Attention Sink 
 
 - Pretrained LM이 학습 과정에서 고정적으로 등장하는 첫 K개의 토큰에 필요없는 Attention을 버리는 현상
 
@@ -127,6 +126,6 @@ title: EFFICIENT STREAMING LANGUAGE MODELS WITH ATTENTION SINKS
 
 - Sliding Window에 비해 낮은 Computation Cost 발생
 
-### Limitation
+### Limitation 
 
 - 조금 더 다양한 Downstream Task에 대한 성능 비교 필요

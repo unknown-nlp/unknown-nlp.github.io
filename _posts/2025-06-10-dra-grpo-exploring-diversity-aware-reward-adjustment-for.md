@@ -1,25 +1,24 @@
 ---
 categories:
-  - paper-reviews
-date: "2025-06-10 00:00:00"
+- paper-reviews
+date: '2025-06-10 00:00:00'
 description: 논문 리뷰
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-  - embedding
-  - fine-tuning
-  - language-model
-  - llm
-  - paper-review
-  - reasoning
+- embedding
+- fine-tuning
+- language-model
+- llm
+- paper-review
+- reasoning
 thumbnail: assets/img/posts/2025-06-10-dra-grpo-exploring-diversity-aware-reward-adjustment-for/thumbnail.jpg
-title: "DRA-GRPO: Exploring Diversity-Aware Reward Adjustment for R1-Zero-Like Training
-  of Large Language Models"
+title: 'DRA-GRPO: Exploring Diversity-Aware Reward Adjustment for R1-Zero-Like Training
+  of Large Language Models'
 ---
 
 **논문 정보**
-
 - **Date**: 2025-06-10
 - **Reviewer**: 건우 김
 
@@ -29,17 +28,17 @@ title: "DRA-GRPO: Exploring Diversity-Aware Reward Adjustment for R1-Zero-Like T
 
 - 위 문제를 해결하기 위해 reward computation 과정에서 semantic diversity를 직접적으로 반영하는 방법인 **Diversity-aware Reward Adjustment (DRA)**를 제안함
 
-- DRA는 Submodular Mutual Information (SMI)를 활용하여
+- DRA는 Submodular Mutual Information (SMI)를 활용하여 
 
-- 5개 Mathematical Reasoning benchmark에서 recent methods 대비 outperform 성능 보여줌
+- 5개 Mathematical Reasoning benchmark에서 recent methods 대비 outperform 성능 보여줌 
 
 # 1. Introduction
 
-DeepSeek-R1-Zero (Guo et al., 2025)에서 기존 LLM에 SFT를 적용하는 것에서 벗어나, base LM에 바로 RL을 적용할 수 있는 R1-Zero training pipeline을 제안함.
+DeepSeek-R1-Zero (Guo et al., 2025)에서 기존 LLM에 SFT를 적용하는 것에서 벗어나, base LM에 바로 RL을 적용할 수 있는 R1-Zero training pipeline을 제안함. 
 
 → Group Relative Policy Optimization (GRPO) 알고리즘 덕분에 가능한 방법
 
-GRPO는 PPO와 다르게 critic model 없이 주어진 prompt에 대해 여러 sampling된 completions의 relative performance에 대한 advantage를 평가함.
+GRPO는 PPO와 다르게 critic model 없이 주어진 prompt에 대해 여러 sampling된 completions의 relative performance에 대한 advantage를 평가함. 
 
 하지만 최근에 공개된 GRPO 및 그 variants (e.g,. DR. GRPO)들은 일반적으로 정답 여부와 같은 **solution-level의 scalar reward signals에만 의존하는 경향이 있어, 같은 정답이라도 diverse reasoning path의 차이를 반영하지 못함**.
 
@@ -49,9 +48,9 @@ GRPO는 PPO와 다르게 critic model 없이 주어진 prompt에 대해 여러 s
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2025-06-10-dra-grpo-exploring-diversity-aware-reward-adjustment-for/image_000.png" class="img-fluid rounded z-depth-1" %}
 
-이 문제를 해결하기 위해서 저자들은 **Diversity-aware Reward Adjustment (DRA)**를 제안함.
+이 문제를 해결하기 위해서 저자들은 **Diversity-aware Reward Adjustment (DRA)**를 제안함. 
 
-이는 학습 과정에서 sampling된 completions 간의 _semantic diversity를 직접적으로 모델링하는 방식으로_ 그룹 내 다른 *completions과의 semantic similarity를 기반으로 각 output의 reward를 reweight*함.
+이는 학습 과정에서 sampling된 completions 간의 *semantic diversity를 직접적으로 모델링하는 방식으로* 그룹 내 다른 *completions과의 semantic similarity를 기반으로 각 output의 reward를 reweight*함.
 
 - **diverse completions에는 더 높은 weight, 중복된 completion에는 더 낮은 weight 부여**
 
@@ -59,17 +58,17 @@ GRPO는 PPO와 다르게 critic model 없이 주어진 prompt에 대해 여러 s
 
 ### Preliminary
 
-LM의 generation은 token-level Markov Decision Process로 볼 수 있음. 각 generation step t에서 state s*t는 input question q와 지금까지 생성된 partial output sequence o*{<t}의 concatenation이기에, sates는 다음과 같음 s*t=[q;o*{<t}].
+LM의 generation은 token-level Markov Decision Process로 볼 수 있음. 각 generation step t에서 state s_t는 input question q와 지금까지 생성된 partial output sequence o_{<t}의 concatenation이기에, sates는 다음과 같음 s_t=[q;o_{<t}]. 
 
-policy \pi*{\theta}(.|s_t)는 vocab set A에서 next token o_t를 선택하고, 이는 deterministic transition을 유도하여 next state s*{t+1}=[s_t;o_t]로 이동함.
+policy \pi_{\theta}(.|s_t)는 vocab set A에서 next token o_t를 선택하고, 이는 deterministic transition을 유도하여 next state s_{t+1}=[s_t;o_t]로 이동함. 
 
 GRPO는 각 question q에 대해 여러 개의 responses C={o_1,...o_G}를 sampling하고, 각 response에 대해 reward를 계산함 R={R(q,o_1), ... , R(q,o_G)}
 
-계산된 reward R을 이용해 advantage A\_{i,t}를 아래와 같이 계산함 (normalize)
+계산된 reward R을 이용해 advantage A_{i,t}를 아래와 같이 계산함 (normalize)
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2025-06-10-dra-grpo-exploring-diversity-aware-reward-adjustment-for/image_001.png" class="img-fluid rounded z-depth-1" %}
 
-GRPO의 objective function J*{GRPO}(\pi*{\theta})를 optimize함
+GRPO의 objective function J_{GRPO}(\pi_{\theta})를 optimize함
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2025-06-10-dra-grpo-exploring-diversity-aware-reward-adjustment-for/image_002.png" class="img-fluid rounded z-depth-1" %}
 
@@ -79,9 +78,9 @@ GRPO의 objective function J*{GRPO}(\pi*{\theta})를 optimize함
 
 GRPO와 DR.GRPO의 reward signal은 **solution-level correctness**만 사용하기 때문에, 각 completion에 대해 **sparse scalar judgement**를 계산함.
 
-→ 이러한 scalar reward는 동일하거나 유사한 결과를 산출하는 diverse reasoning-path를 고려하지 않기 때문에, Diversity-Quality Inconsistency가 발생함.
+→ 이러한 scalar reward는 동일하거나 유사한 결과를 산출하는 diverse reasoning-path를 고려하지 않기 때문에, Diversity-Quality Inconsistency가 발생함. 
 
-위에 Example 말고, 보다 실증적인 방식으로 다음 statement (”**_reward alone fails to reflect the underlying variability in reasoning strategies_**”) 를 검증하기 위해 embedding distances로 측정된 completions의 structural dissimilarity를 계산함.
+위에 Example 말고, 보다 실증적인 방식으로 다음 statement (”***reward alone fails to reflect the underlying variability in reasoning strategies***”) 를 검증하기 위해 embedding distances로 측정된 completions의 structural dissimilarity를 계산함. 
 
 - Spearman’s rank correlation을 사용하여 sampled completions 사이에서 reward difference와 semantic distance를 측정함 →semantic distance가 커질수록 reward 차이도 커지는가?
 
@@ -91,7 +90,7 @@ GRPO와 DR.GRPO의 reward signal은 **solution-level correctness**만 사용하�
 
 ### Diversity-aware Reward Adjustment
 
-Diversity-Quality Inconsistency 문제를 해결하기 위해, 각 sample의 relative diversity/redundancy에 따라 reward를 reweight하는 방법을 제안함.
+Diversity-Quality Inconsistency 문제를 해결하기 위해, 각 sample의 relative diversity/redundancy에 따라 reward를 reweight하는 방법을 제안함. 
 
 **→ diverse completions은 더 높은 weight, 중복된 response는 낮은 weight**
 
@@ -101,7 +100,7 @@ Diversity-Quality Inconsistency 문제를 해결하기 위해, 각 sample의 rel
 
 - SMI({o_i},C \ {o_i})는 completion o_i와 나머지 group C \ o_i 간의 Submodular Mutual Information을 나타냄
 
-- Submodular functions은 diminishing returns 특성을 갖으며, diversity와 redundancy를 모델링할 수 있음
+- Submodular functions은 diminishing returns 특성을 갖으며, diversity와 redundancy를 모델링할 수 있음 
 
 - SMI는 두 집합 간의 shared information을 정량화하며 (Iyer et al., 2021a,b)에서는 아래와 같이 정의함
 
@@ -109,7 +108,7 @@ Diversity-Quality Inconsistency 문제를 해결하기 위해, 각 sample의 rel
 
 - Submodular 함수는 수학 개념으로 “새로운 element가 기존에 비슷한게 많을수록 기여도가 줄어드는 성질”을 갖고 있음
 
-→ 이렇게 새로운 reward를 구하는 연산은 Pytorch에서 효과적으로 처리될 수 있음
+→ 이렇게 새로운 reward를 구하는 연산은 Pytorch에서 효과적으로 처리될 수 있음 
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2025-06-10-dra-grpo-exploring-diversity-aware-reward-adjustment-for/image_005.png" class="img-fluid rounded z-depth-1" %}
 
@@ -121,7 +120,7 @@ Diversity-Quality Inconsistency 문제를 해결하기 위해, 각 sample의 rel
 
 **Evaluation Dataset: **
 
-**Baselines**:
+**Baselines**: 
 
 - general purpose large model: Llama-3.1-70B-Instruct, o1-preivew
 
@@ -153,7 +152,7 @@ Diversity-Quality Inconsistency 문제를 해결하기 위해, 각 sample의 rel
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2025-06-10-dra-grpo-exploring-diversity-aware-reward-adjustment-for/image_007.png" class="img-fluid rounded z-depth-1" %}
 
-DRA는 completions을 encoding 해야하기에 over-head가 존재하지만, 별로 크지 않음.
+DRA는 completions을 encoding 해야하기에 over-head가 존재하지만, 별로 크지 않음. 
 
 → 저자들이 실험에 사용한 GPU스펙인 (A100-40GB)에서는 어차피 DRA 없이도 mini-batch를 늘리는 것이 불가능해서 DRA 적용하는 것이 별 문제가 되지 않다고 하는데…. → 🐶 🔊 라고 생각합니다
 
@@ -171,9 +170,9 @@ DRA는 completions을 encoding 해야하기에 over-head가 존재하지만, 별
 
 DRA는 Exploration-exploitation balance를 policy gradient 안에 직접 통합하여 적용함
 
-- Base reward는 high score를 받는 completion을 reinforce함
+- Base reward는 high score를 받는 completion을 reinforce함 
 
-- Diversity weighting은 semantically novel completion에 learning signal을 amplify
+- Diversity weighting은 semantically novel completion에 learning signal을 amplify 
 
 이러한 탐색은 low-resource settings (prompt당 sampling할 수 있는 응답 수가 제한 적인 경우)에서 중요함
 
@@ -181,7 +180,7 @@ DRA는 Exploration-exploitation balance를 policy gradient 안에 직접 통합�
 
 **Ad-hoc vs Post-hoc Diversity**
 
-generated completions간의 diversity를 모델링하는 방법은 크게 Ad-hoc, Post-hoc 방식이 있음
+generated completions간의 diversity를 모델링하는 방법은 크게 Ad-hoc,  Post-hoc 방식이 있음
 
 1. **Ad-hoc**
 

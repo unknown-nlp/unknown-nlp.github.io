@@ -1,23 +1,22 @@
 ---
 categories:
-  - paper-reviews
-date: "2024-10-17 00:00:00"
+- paper-reviews
+date: '2024-10-17 00:00:00'
 description: 논문 리뷰
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-  - gpt
-  - language-model
-  - llm
-  - paper-review
-  - rlhf
+- gpt
+- language-model
+- llm
+- paper-review
+- rlhf
 thumbnail: assets/img/posts/2024-10-17-rule-based-rewards-for-language-model-safety/thumbnail.jpg
 title: Rule Based Rewards for Language Model Safety
 ---
 
 **논문 정보**
-
 - **Date**: 2024-10-17
 - **Reviewer**: 준원 장
 
@@ -45,13 +44,13 @@ title: Rule Based Rewards for Language Model Safety
 
 ### Rule-Based Rewards for Safety
 
-⇒ 위에서 열심히 구분한 completion들을 (1) 어떻게 fine-grained하게 구분해서 (2) Reward Signal로 줄 . 수있냐?가 가장 큰 관건이나, openai는 heuristic과 자원으로 해결
+⇒ 위에서 열심히 구분한 completion들을 (1) 어떻게 fine-grained하게  구분해서 (2) Reward Signal로 줄 . 수있냐?가 가장 큰 관건이나, openai는 heuristic과 자원으로 해결
 
 - **Propositions and Rules**
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-10-17-rule-based-rewards-for-language-model-safety/image_000.png" class="img-fluid rounded z-depth-1" %}
 
-- **A Small Set of Human Labelled Data for Prompt Tuning: **
+- **A Small Set of Human Labelled Data for Prompt Tuning:  **
 
 - **Synthetic Comparison Data For Weight Fitting**
 

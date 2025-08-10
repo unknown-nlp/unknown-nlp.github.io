@@ -1,33 +1,32 @@
 ---
 categories:
-  - paper-reviews
-date: "2025-03-11 00:00:00"
+- paper-reviews
+date: '2025-03-11 00:00:00'
 description: 논문 리뷰
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-  - attention
-  - classification
-  - fine-tuning
-  - llm
-  - paper-review
-  - transformer
+- attention
+- classification
+- fine-tuning
+- llm
+- paper-review
+- transformer
 thumbnail: assets/img/posts/2025-03-11-when-is-task-vector-provably-effective-for-model/thumbnail.jpg
-title: "WHEN IS TASK VECTOR Provably EFFECTIVE FOR MODEL EDITING? A GENERALIZATION
+title: 'WHEN IS TASK VECTOR Provably EFFECTIVE FOR MODEL EDITING? A GENERALIZATION
   ANALYSIS OF
 
-  NONLINEAR TRANSFORMERS"
+  NONLINEAR TRANSFORMERS'
 ---
 
 **논문 정보**
-
 - **Date**: 2025-03-11
 - **Reviewer**: hyowon Cho
 
 # 1. Intro
 
-LLM의 학습 연산 및 메모리 비용 문제를 해결하기 위한 방법론으로 대표적인 것은 PEFT이지만, 간혹 Task Vector를 이용한 접근법들이 등장하고 있다.
+LLM의 학습 연산 및 메모리 비용 문제를 해결하기 위한 방법론으로 대표적인 것은 PEFT이지만, 간혹 Task Vector를 이용한 접근법들이 등장하고 있다. 
 
 태스크 벡터 기법은 다음과 같이 작동한다:
 
@@ -47,13 +46,13 @@ LLM의 학습 연산 및 메모리 비용 문제를 해결하기 위한 방법�
 
 태스크 벡터의 실용적 성공에도 불구하고, 이에 대한 **이론적 분석은 아직 충분하지 않음**. 특히, 다음과 같은 질문이 제기된다:
 
-> 태스크 벡터가 멀티태스크 학습, unlearning, 및 out-of-domain generalization를** \*\*\***언제, 왜\*\*\* 성공적으로 수행할 수 있는가?
+> 태스크 벡터가 멀티태스크 학습, unlearning, 및 out-of-domain generalization를** *****언제, 왜*** 성공적으로 수행할 수 있는가?
 
-오늘 소개할 논문은 **비선형 Transformer 모델에서 태스크 벡터(task arithmetic)의 이론적 일반화 분석을 최초로 수행**하며, multi-task learning, unlearning, out-of-domain generalization에 대한 이론적 근거를 제공한다.
+오늘 소개할 논문은 **비선형 Transformer 모델에서 태스크 벡터(task arithmetic)의 이론적 일반화 분석을 최초로 수행**하며, multi-task learning, unlearning, out-of-domain generalization에 대한 이론적 근거를 제공한다. 
 
-특히, **binary classification 태스크**를 대상으로 태스크 벡터 효과가 산술적 하이퍼파라미터(arithmetic hyperparameters)에 어떻게 의존하는지를 정량적으로 분석한다.
+특히, **binary classification 태스크**를 대상으로 태스크 벡터 효과가 산술적 하이퍼파라미터(arithmetic hyperparameters)에 어떻게 의존하는지를 정량적으로 분석한다. 
 
-비록 분석은 **단순화된 단일 헤드(single-head) 및 단일 층(one-layer) 비선형 Transformer**을 기반으로 하지만, 이론적 통찰은 실제 아키텍처에서도 검증된다.
+비록 분석은 **단순화된 단일 헤드(single-head) 및 단일 층(one-layer) 비선형 Transformer**을 기반으로 하지만, 이론적 통찰은 실제 아키텍처에서도 검증된다. 
 
 (건우 연구에 태스크 벡터가 활용된다고 들어서, 선행 연구 참고용으로 가져왔습니다🙌)
 
@@ -93,19 +92,19 @@ LLM의 학습 연산 및 메모리 비용 문제를 해결하기 위한 방법�
 
 - **\Psi^{(0)}**: 사전 학습된(pre-trained) 모델
 
-- **\Psi^\*\_T**: 특정 태스크 T 에 대해 미세 조정된(fine-tuned) 모델
+- **\Psi^*_T**: 특정 태스크 T 에 대해 미세 조정된(fine-tuned) 모델
 
 ### 태스크 벡터(Task Vector) 정의
 
-**정의 1.** 태스크 T 에 대한 **태스크 벡터 **\Delta \Psi_T 는 사전 학습 모델과 미세 조정 모델 간의 가중치 차이로 정의됨:
+**정의 1.** 태스크 T 에 대한 **태스크 벡터 **\Delta \Psi_T 는 사전 학습 모델과 미세 조정 모델 간의 가중치 차이로 정의됨: 
 
 즉, 특정 태스크에 대한 모델의 변화량을 나타내는 벡터임.
 
 ### **Task Arithmetic과 일반화**
 
-- 주어진 **사전 학습 모델** \Psi^{(0)}와 여러 태스크 벡터 **{** {\Delta \Psi*{T_i}\}*{i \in V}}를 사용하여 **병합된 모델(merged model)** 을 구성할 수 있음:
+- 주어진 **사전 학습 모델** \Psi^{(0)}와 여러 태스크 벡터 **{** {\Delta \Psi_{T_i}\}_{i \in V}}를 사용하여 **병합된 모델(merged model)** 을 구성할 수 있음:
 
-- 손실 함수 l(X, y; \Psi) 를 사용하여 **태스크 \*\***T′\***\* 에 대한 일반화 오류**는 다음과 같이 정의됨:
+- 손실 함수 l(X, y; \Psi) 를 사용하여 **태스크 ****T′**** 에 대한 일반화 오류**는 다음과 같이 정의됨: 
 
 - **멀티태스크 학습 (Multi-Task Learning)**
 
@@ -125,7 +124,7 @@ Colored-MNIST 데이터셋을 활용하여 태스크 간 관계를 분석
 
 ### **모델 평가 방식**
 
-- 두 개의 태스크 T1 과 T2 를 고려하여, 모델 \Psi = \Psi^{(0)} + \Delta \Psi*{T_1} + \lambda \Delta \Psi*{T_2} 의 성능을 측정.
+- 두 개의 태스크 T1 과 T2 를 고려하여, 모델 \Psi = \Psi^{(0)} + \Delta \Psi_{T_1} + \lambda \Delta \Psi_{T_2} 의 성능을 측정.
 
 ### **주요 실험 결과 1**
 
@@ -145,7 +144,7 @@ Colored-MNIST 데이터셋을 활용하여 태스크 간 관계를 분석
 
 - Colored-MNIST를 이용해 **새로운 태스크 T′** 를 구성
 
-- \lambda*1, \lambda_2를 최적화하여 \Psi = \Psi^{(0)} + \lambda_1 \Delta \Psi*{T*1} + \lambda_2 \Delta \Psi*{T_2} 를 학습
+- \lambda_1, \lambda_2를 최적화하여 \Psi = \Psi^{(0)} + \lambda_1 \Delta \Psi_{T_1} + \lambda_2 \Delta \Psi_{T_2} 를 학습
 
 - 실험 결과, **적절한 λ1,λ2 선택 시 개별 미세 조정된 모델보다 뛰어난 성능을 보임**
 
@@ -165,7 +164,7 @@ Colored-MNIST 데이터셋을 활용하여 태스크 간 관계를 분석
 
 - 멀티 태스크, 언러닝, OOD에 대한 이론적 분석을 수행해봅시다
 
-- 또한, low-rank approximation & sparsification 방법이 성능을 유지하면서 계산 비용을 줄일 수 있음을 증명한다.
+- 또한, low-rank approximation & sparsification 방법이 성능을 유지하면서 계산 비용을 줄일 수 있음을 증명한다. 
 
 ## 3.1 Main Theoretical Insights
 

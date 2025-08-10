@@ -1,26 +1,26 @@
 ---
 categories:
-  - paper-reviews
-date: "2023-10-17 00:00:00"
+- paper-reviews
+date: '2023-10-17 00:00:00'
 description: 논문 리뷰 - Task Vectors 관련 연구
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-  - paper-review
-  - task vectors
-  - vision
+- paper-review
+- task vectors
+- vision
 thumbnail: assets/img/posts/2023-10-17-resolving-interference-when-merging-models/thumbnail.jpg
 title: Resolving Interference When Merging Models
 ---
 
 **논문 정보**
-
 - **Date**: 2023-10-17
 - **Reviewer**: hyowon Cho
 - **Property**: Task Vectors
 
 # Introduction
+
 
 각 태스크에 맞춰서 모델을 finetuning하는 것은 좋은 성능을 보장하나, 다음의 문제를 가진다.
 
@@ -38,7 +38,7 @@ title: Resolving Interference When Merging Models
 
 - summing the individual model weights with different weighting schemes, either via a simple average
 
-- more sophisticated means that incorporate parameter importance
+- more sophisticated means that incorporate parameter importance 
 
 - by task vectors
 
@@ -57,7 +57,7 @@ In this paper, we first demonstrate that interference can stem from two major ca
 1. different modalities, including language and vision benchmarks
 
 1. distinct model sizes and families,
-   such as T5-base and T5-large as well as ViT-B/32 and ViT-L/14
+such as T5-base and T5-large as well as ViT-B/32 and ViT-L/14
 
 1. in-domain and out-of domain tasks,
 
@@ -68,7 +68,7 @@ In this paper, we first demonstrate that interference can stem from two major ca
 # Background and Motivation
 
 학습 방법: full finetuning or peft(IA3)
-Task vector = \theta*{ft} - \theta*{init}
+Task vector = \theta_{ft} - \theta_{init}
 
 ## Redundancies in Model Parameters
 
@@ -77,6 +77,7 @@ Task vector = \theta*{ft} - \theta*{init}
 다음의 그림은 11개의 task-specific task vector를 top-k의 largest magnitude value만 남기도록 trimming을 한 후, 그들의 평균 정확도를 보여준다.
 
 그림을 통해서 알 수 있듯, 전체 task vector의 20%만 남기는 것만으로도 전체 파라미터를 유지하는 것과 유사한 성능을 가지는 것을 확인할 수 있다. 즉, 이는 finetuning 과정에서 일어나는 대부분의 parameter change가 사실 상 redundant하다는 것을 의미한다.
+
 
 따라서, 이러한 값들을 merging 시 무시하는 것은 task의 성능 저하에 크게 영향이 가지 않을 것이다.
 
@@ -100,7 +101,7 @@ Task vector = \theta*{ft} - \theta*{init}
 
 1. Disjoint Merge: 남겨진 param들의 mean을 취한다.
 
-최종적인 모델은 \theta*{init} + \lambda \* \tau*{m}이 되며 \lambda는 scaling hyperparamter.
+최종적인 모델은 \theta_{init} + \lambda * \tau_{m}이 되며 \lambda는 scaling hyperparamter.
 
 # Experimental Setup
 

@@ -1,23 +1,22 @@
 ---
 categories:
-  - paper-reviews
-date: "2024-01-03 00:00:00"
+- paper-reviews
+date: '2024-01-03 00:00:00'
 description: 논문 리뷰 - LLM, Library 관련 연구
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-  - attention
-  - library
-  - llm
-  - paper-review
-  - transformer
+- attention
+- library
+- llm
+- paper-review
+- transformer
 thumbnail: assets/img/posts/2024-01-03-vllm-easy-fast-and-cheap-llm-serving-with/thumbnail.jpg
-title: "vLLM: Easy, Fast, and Cheap LLM Serving with PagedAttention"
+title: 'vLLM: Easy, Fast, and Cheap LLM Serving with PagedAttention'
 ---
 
 **논문 정보**
-
 - **Date**: 2024-01-03
 - **Reviewer**: hyowon Cho
 - **Property**: LLM, Library
@@ -45,10 +44,10 @@ Transformers는 분당 1자리수 정도의 요청만 처리할 수 있지만, v
 autoregressive decoding 과정에서 LLM의 모든 입력 토큰은 어텐션 key와 value 텐서를 생성하며, 이러한 텐서는 다음 토큰을 생성하기 위해 GPU 메모리에 유지된다. 이 캐시된 key와 value 텐서는 일반적으로 KV 캐시라고 불린다. KV 캐시는 다음과 같은 특징을 가지고 있다.
 
 - 크기가 매우 크다:
-  LLaMA-13B의 단일 시퀀스에 대해 최대 1.7GB의 공간을 차지한다.
+LLaMA-13B의 단일 시퀀스에 대해 최대 1.7GB의 공간을 차지한다.
 
 - 동적이다:
-  KV캐시의 사이즈는 문장의 길이에 의지한다. 하지만, 대규모 언어 모델이 얼마나 문장을 출력할지 예측할 수 없기 때문에, 메모리의 효율적인 관리가 어렵다. 기존 시스템에서는 fragmentation과 over-reservation으로 인해 메모리의 60%에서 80%가 낭비된다.
+KV캐시의 사이즈는 문장의 길이에 의지한다. 하지만, 대규모 언어 모델이 얼마나 문장을 출력할지 예측할 수 없기 때문에, 메모리의 효율적인 관리가 어렵다. 기존 시스템에서는 fragmentation과 over-reservation으로 인해 메모리의 60%에서 80%가 낭비된다.
 
 이 문제를 해결하기 위해 연구진은 OS의 가상 메모리와 페이징 구조를 참고하여 어텐션 계산시 효율적으로 메모리를 취급할 수 있는 구조인 **PagedAttention**을 개발한다.
 

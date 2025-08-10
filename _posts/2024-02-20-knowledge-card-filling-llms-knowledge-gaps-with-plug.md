@@ -1,23 +1,22 @@
 ---
 categories:
-  - paper-reviews
-date: "2024-02-20 00:00:00"
+- paper-reviews
+date: '2024-02-20 00:00:00'
 description: 논문 리뷰
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-  - detection
-  - language-model
-  - llm
-  - paper-review
+- detection
+- language-model
+- llm
+- paper-review
 thumbnail: assets/img/posts/2024-02-20-knowledge-card-filling-llms-knowledge-gaps-with-plug/thumbnail.jpg
-title: "KNOWLEDGE CARD: FILLING LLMS’ KNOWLEDGE GAPS WITH PLUG-IN SPECIALIZED LANGUAGE
-  MODELS"
+title: 'KNOWLEDGE CARD: FILLING LLMS’ KNOWLEDGE GAPS WITH PLUG-IN SPECIALIZED LANGUAGE
+  MODELS'
 ---
 
 **논문 정보**
-
 - **Date**: 2024-02-20
 - **Reviewer**: 전민진
 
@@ -27,7 +26,7 @@ title: "KNOWLEDGE CARD: FILLING LLMS’ KNOWLEDGE GAPS WITH PLUG-IN SPECIALIZED 
 
 - 이를 위해, Knowledge card, general-purse LLM에 새로운, 관련된 지식을 plug-in할 수 있는 modular framework를 제안
 
-- 실험 결과, 6가지 데이터셋에서 SOTA 달성
+- 실험 결과, 6가지 데이터셋에서 SOTA 달성 
 
 # Introduction
 

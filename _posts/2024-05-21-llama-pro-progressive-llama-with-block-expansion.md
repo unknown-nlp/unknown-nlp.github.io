@@ -1,26 +1,25 @@
 ---
 categories:
-  - paper-reviews
-date: "2024-05-21 00:00:00"
+- paper-reviews
+date: '2024-05-21 00:00:00'
 description: 논문 리뷰 - LLM, Continual Learning 관련 연구
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-  - alignment
-  - attention
-  - continual learning
-  - language-model
-  - llm
-  - paper-review
-  - reasoning
-  - transformer
+- alignment
+- attention
+- continual learning
+- language-model
+- llm
+- paper-review
+- reasoning
+- transformer
 thumbnail: assets/img/posts/2024-05-21-llama-pro-progressive-llama-with-block-expansion/thumbnail.jpg
-title: "LLAMA PRO: Progressive LLaMA with Block Expansion"
+title: 'LLAMA PRO: Progressive LLaMA with Block Expansion'
 ---
 
 **논문 정보**
-
 - **Date**: 2024-05-21
 - **Reviewer**: hyowon Cho
 - **Property**: LLM, Continual Learning
@@ -38,7 +37,7 @@ title: "LLAMA PRO: Progressive LLaMA with Block Expansion"
 ## Depth Up-Scaling
 
 - Base model.
-  llama2 architecture에 Mistral 7b weight를 가져와서 사용.
+llama2 architecture에 Mistral 7b weight를 가져와서 사용.
 
 ### Depthwise scaling.
 
@@ -48,7 +47,7 @@ title: "LLAMA PRO: Progressive LLaMA with Block Expansion"
 
 당연히 단순한 Merging만으로 성능이 오르는 것이 아니라, continual pretraining을 수행함. 하지만 요점은, 아주 빠른 성능의 복구가 일어났다는 것.
 
-논문 상에 얼마나 continual pretraining을 했는지는 나와있지 않음.
+논문 상에 얼마나 continual pretraining을 했는지는 나와있지 않음. 
 
 이렇게 초반부를 잘라서 merging하는 방식 외에도, 사실 단순히 레이어를 다시 얹어서 반복하는 방식으로 크기를 키울 수 있을 것이다. 하지만, 이러한 방식은 layer간의 discrepency가 강해지기에 성능 복구하는데 더 오랜 시간이 걸린다고 한다. 중간 단을 merging하는 방식으로 heterogeneity를 낮췄기 때문에 모델 입장에서 성능 복구가 가능하다는 주장!
 

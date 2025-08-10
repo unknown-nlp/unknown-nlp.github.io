@@ -1,27 +1,26 @@
 ---
 categories:
-  - paper-reviews
-date: "2024-07-02 00:00:00"
+- paper-reviews
+date: '2024-07-02 00:00:00'
 description: 논문 리뷰 - RL, Safety 관련 연구
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-  - alignment
-  - fine-tuning
-  - llm
-  - paper-review
-  - reinforcement-learning
-  - rl
-  - safety
+- alignment
+- fine-tuning
+- llm
+- paper-review
+- reinforcement-learning
+- rl
+- safety
 thumbnail: assets/img/posts/2024-07-02-rl-jack-reinforcement-learning-powered-black-box-jailbreaking/thumbnail.jpg
-title: "RL-JACK: Reinforcement Learning-powered Black-box
+title: 'RL-JACK: Reinforcement Learning-powered Black-box
 
-  Jailbreaking Attack against LLMs"
+  Jailbreaking Attack against LLMs'
 ---
 
 **논문 정보**
-
 - **Date**: 2024-07-02
 - **Reviewer**: 상엽
 - **Property**: RL, Safety
@@ -38,7 +37,7 @@ Jailbreaking prompt
 
 - 기존 방법들의 한계점
 
-→ Deep RL을 활용한 RL-JACK 제안
+→ Deep RL을  활용한 RL-JACK 제안
 
 **RL-JACK**
 
@@ -52,7 +51,7 @@ Jailbreaking prompt
 
 **Contributions**
 
-- jailbreaking을 검색 문제로 정의함으로써 RL을 활용한 novel black-box jailbreaking 방법 제안
+- jailbreaking을 검색 문제로 정의함으로써 RL을 활용한 novel black-box jailbreaking 방법 제안 
 
 - 기존 SOTA 모델들과 비교했을 때 매우 큰 성능 향상을 보임.
 
@@ -96,7 +95,7 @@ DRL이 아무리 효과적이라 해도 시스템 디자인에 너무 의존적�
 
 **Rationale for action design: large search space를 피하기**
 
-- Helper LLM을 이용한 prompt generation 방법 제안
+- Helper LLM을 이용한 prompt generation 방법 제안 
 
 - 10개의 strategies를 선정 (Section 4.4)
 
@@ -120,7 +119,7 @@ DRL이 아무리 효과적이라 해도 시스템 디자인에 너무 의존적�
 
 - p^{(0)}: Helper LLM을 통한 prompt 수정 (+ query)
 
-- R(u^{(0)}, \hat{u}) : reward 계산
+- R(u^{(0)}, \hat{u}) : reward 계산 
 
 ### Attack Design Details
 

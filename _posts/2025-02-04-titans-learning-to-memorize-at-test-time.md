@@ -1,23 +1,22 @@
 ---
 categories:
-  - paper-reviews
-date: "2025-02-04 00:00:00"
+- paper-reviews
+date: '2025-02-04 00:00:00'
 description: 논문 리뷰
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-  - attention
-  - language-model
-  - neural
-  - paper-review
-  - transformer
+- attention
+- language-model
+- neural
+- paper-review
+- transformer
 thumbnail: assets/img/posts/2025-02-04-titans-learning-to-memorize-at-test-time/thumbnail.jpg
-title: "Titans: Learning to Memorize at Test Time"
+title: 'Titans: Learning to Memorize at Test Time'
 ---
 
 **논문 정보**
-
 - **Date**: 2025-02-04
 - **Reviewer**: 준원 장
 
@@ -27,7 +26,7 @@ title: "Titans: Learning to Memorize at Test Time"
 
 - Overcome the scalability issue of Transformers
 
-- Limitation of recurrent neural network
+- Limitation of recurrent neural network 
 
 - Memory Perspective
 
@@ -39,7 +38,7 @@ title: "Titans: Learning to Memorize at Test Time"
 
 - Input: x ∈ ℝ^{(N×d_m)}
 
-- Neural Network Module: \mathcal{M}
+- Neural Network Module: \mathcal{M} 
 
 - Attention Mask: M
 
@@ -81,15 +80,15 @@ title: "Titans: Learning to Memorize at Test Time"
 
 → long-term memory module 학습시에 긴 sequence를 parallel하게 학습할 수 있다.를 수식적으로 보여준 부분
 
-- \mathcal{M}\_0에서 학습시작
+- \mathcal{M}_0에서 학습시작
 
 - t': 0
 
 - t: b
 
-- \beta*i = \prod*{j=1}^i(1-\alpha_j)
+- \beta_i = \prod_{j=1}^i(1-\alpha_j)
 
-→각 청크(rank)에 관련된 행렬을 저장함으로 분산학습 가능
+ →각 청크(rank)에 관련된 행렬을 저장함으로 분산학습 가능
 
 → 각 chunk에 대한 u_t를 구해놓고 recurrent하게 `surprise` value값 구하기 가능
 
@@ -105,7 +104,7 @@ title: "Titans: Learning to Memorize at Test Time"
 
 ## 4 How to Incorporate Memory?
 
-→ 아래 모든 framework에서 core를 neural network/lm정도로 생각하고 따라가면 된다.
+→ 아래 모든 framework에서 core를 neural network/lm정도로 생각하고 따라가면 된다. 
 
 → 또한 아래의 모든 framework가 test time에 어떻게 동작하는지를 기준으로 따라가자.
 
@@ -115,13 +114,13 @@ title: "Titans: Learning to Memorize at Test Time"
 
 → S^{(i)} \ (i = 1,\ldots,N/C) : sequence를 고정 크기 세그먼트만 처리하는 시스템
 
-1. h*t = \mathcal{M}*{t-1}^\*(\mathbf{q}\_t) : memory module에서 고정 세그먼트와 유사한 past information retrieve
+1. h_t = \mathcal{M}_{t-1}^*(\mathbf{q}_t) : memory module에서 고정 세그먼트와 유사한 past information retrieve
 
 1. \tilde{S}^{(t)} = [p_1 \quad p_2 \quad \cdots \quad p_{N_p}] | h_t | S^{(t)} \\ y_t = \text{Attn}(\tilde{S}^{(t)}) : persistent memory, past information, 고정 segment를 neural network에 forwarding해서 attention
 
 1. \mathcal{M}_t = \mathcal{M}_{t-1}(y_t) : attention output을 활용해 long-term memory module을 update
 
-1. o_t = y_t \otimes \mathcal{M}\_t^\*(y_t) : update되 memory module에 attention output을 통과한 후 이를 기존 attention output과 tensor곱 연산 해 최종 output 계산
+1. o_t = y_t \otimes \mathcal{M}_t^*(y_t) : update되 memory module에 attention output을 통과한 후 이를 기존 attention output과 tensor곱 연산 해 최종 output 계산
 
 ⇒ 해당 구조의 가장 큰 장점은 attention이 current/longterm에 동시에 attention을 주기 때문에 어떤 정보가 유용한지 파악 후 메모리 용량을 관리하기에 용이하다는 것
 
@@ -133,9 +132,9 @@ title: "Titans: Learning to Memorize at Test Time"
 
 1. \tilde{x} = [p_1 \quad p_2 \quad \cdots \quad p_{N_p}] | x
 
-1. y = \text{SW-Attn}^\*(\tilde{x}) : sliding window attention으로 attention 처리
+1. y = \text{SW-Attn}^*(\tilde{x}) : sliding window attention으로 attention 처리
 
-1. o = y \otimes \mathcal{M}(\tilde{x})
+1. o = y \otimes \mathcal{M}(\tilde{x}) 
 
 ### 4.3 Memory as a Layer (MAL)
 
@@ -163,7 +162,7 @@ title: "Titans: Learning to Memorize at Test Time"
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2025-02-04-titans-learning-to-memorize-at-test-time/image_003.png" class="img-fluid rounded z-depth-1" %}
 
-→ attention이 들어간 모델: hybrid model → \*표기
+→ attention이 들어간 모델: hybrid model → *표기
 
 → attention을 안썼는데 가장 성능이 좋은 model → **model**
 

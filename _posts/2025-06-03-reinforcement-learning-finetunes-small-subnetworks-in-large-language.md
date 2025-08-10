@@ -1,23 +1,22 @@
 ---
 categories:
-  - paper-reviews
-date: "2025-06-03 00:00:00"
+- paper-reviews
+date: '2025-06-03 00:00:00'
 description: 논문 리뷰 - Reinforcement Learning 관련 연구
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-  - language-model
-  - llm
-  - paper-review
-  - reinforcement learning
-  - reinforcement-learning
+- language-model
+- llm
+- paper-review
+- reinforcement learning
+- reinforcement-learning
 thumbnail: assets/img/posts/2025-06-03-reinforcement-learning-finetunes-small-subnetworks-in-large-language/thumbnail.jpg
 title: Reinforcement Learning Finetunes Small Subnetworks in Large Language Models
 ---
 
 **논문 정보**
-
 - **Date**: 2025-06-03
 - **Reviewer**: 준원 장
 - **Property**: Reinforcement Learning
@@ -32,15 +31,15 @@ title: Reinforcement Learning Finetunes Small Subnetworks in Large Language Mode
 
 (무작위 시드, 훈련 데이터 구성 및 순서, 그리고 서로 다른 RL 알고리즘에 따라 학습된 서브네트워크들 간에도 강한 일관성이 관찰)
 
-- θ\_{init}
+- θ_{init}
 
-- θ\_{full}: parameters after full RL finetuning from the initial model
+- θ_{full}: parameters after full RL finetuning from the initial model
 
-- m ∈ {0,1}^{|θ\_{init}|}
+-  m ∈ {0,1}^{|θ_{init}|}
 
-- m*i = 1 \rightarrow (θ*{init} - θ\_{full})\_i ≠ 0
+- m_i = 1 \rightarrow (θ_{init} - θ_{full})_i ≠ 0
 
-- m ⊙ ∇θ L(θ) : θ*{full}을 학습했을때와 같은 데이터로 θ*{init}때와 똑같이 학습
+-  m ⊙ ∇θ L(θ) : θ_{full}을 학습했을때와 같은 데이터로 θ_{init}때와 똑같이 학습
 
 > **VS. LoRA**
 
@@ -76,13 +75,13 @@ title: Reinforcement Learning Finetunes Small Subnetworks in Large Language Mode
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2025-06-03-reinforcement-learning-finetunes-small-subnetworks-in-large-language/image_001.png" class="img-fluid rounded z-depth-1" %}
 
-- θ\_{0}: ft 이전의 파라미터
+- θ_{0}: ft 이전의 파라미터
 
-- θ\_{1}: ft 이후의 파라미터
+- θ_{1}: ft 이후의 파라미터
 
-- ||\cdot ||\_{0}: non-zero 원소의 개수
+- ||\cdot ||_{0}: non-zero 원소의 개수
 
-**_ bfloat16 값이 절대 차이 10⁻⁵ 이하일 경우 동일한 값으로 간주 _**
+***  bfloat16 값이 절대 차이 10⁻⁵ 이하일 경우 동일한 값으로 간주 *** 
 
 ### Learning from in-distribution data
 
@@ -108,7 +107,7 @@ title: Reinforcement Learning Finetunes Small Subnetworks in Large Language Mode
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2025-06-03-reinforcement-learning-finetunes-small-subnetworks-in-large-language/image_003.png" class="img-fluid rounded z-depth-1" %}
 
-- (accumulated gradients로 측정이 살짝 다르긴 하지만) SFT는 6%-15% sparsity를 보임
+- (accumulated gradients로 측정이 살짝 다르긴 하지만)  SFT는 6%-15% sparsity를 보임
 
 - 이전 연구들에서 밝혀낸 바와 동일한 결론에 이름
 
@@ -128,17 +127,17 @@ title: Reinforcement Learning Finetunes Small Subnetworks in Large Language Mode
 
 - θ: Tulu
 
-- θ\_{full}: parameters after full RL finetuning from the initial model
+- θ_{full}: parameters after full RL finetuning from the initial model
 
-- θ\_{sub}: parameters after subnetwork RL finetuning from the initial model
+- θ_{sub}: parameters after subnetwork RL finetuning from the initial model
 
 - RL
 
 ### Result
 
-- DPO → θ*{full} & θ*{sub} : **94.0% 파라미터 동일**
+- DPO → θ_{full} & θ_{sub} : **94.0% 파라미터 동일**
 
-- PRIME → θ*{full} & θ*{sub} : **90.5% 파라미터 동일**
+- PRIME → θ_{full} & θ_{sub} : **90.5% 파라미터 동일**
 
 - 허용 오차 기준을 10⁻⁴로 완화할 경우, 두 모델은 **100% 동일한 파라미터 값을 가짐**
 
@@ -146,7 +145,7 @@ title: Reinforcement Learning Finetunes Small Subnetworks in Large Language Mode
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2025-06-03-reinforcement-learning-finetunes-small-subnetworks-in-large-language/image_007.png" class="img-fluid rounded z-depth-1" %}
 
-⇒ 논문 서두에서 언급한 conjecture를 실험적으로 완벽하게 증명하며, RL 훈련에서의 sparse update을 명시적으로 활용한 **효율적인 학습 전략**에 대한 가능성을 열어둠.
+⇒ 논문 서두에서 언급한 conjecture를 실험적으로 완벽하게 증명하며, RL 훈련에서의 sparse update을 명시적으로 활용한 **효율적인 학습 전략**에 대한 가능성을 열어둠. 
 
 (post hoc으로 찾아낸 sparse parameter를 미리 알아내는건 future work!)
 

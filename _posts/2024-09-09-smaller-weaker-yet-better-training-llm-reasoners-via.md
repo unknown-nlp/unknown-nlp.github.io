@@ -1,24 +1,23 @@
 ---
 categories:
-  - paper-reviews
-date: "2024-09-09 00:00:00"
+- paper-reviews
+date: '2024-09-09 00:00:00'
 description: 논문 리뷰 - Knowledge Distillation, LLM, Limited Budget 관련 연구
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-  - knowledge distillation
-  - language-model
-  - limited budget
-  - llm
-  - paper-review
-  - reasoning
+- knowledge distillation
+- language-model
+- limited budget
+- llm
+- paper-review
+- reasoning
 thumbnail: assets/img/posts/2024-09-09-smaller-weaker-yet-better-training-llm-reasoners-via/thumbnail.jpg
-title: "Smaller, Weaker, Yet Better: Training LLM Reasoners via Compute-Optimal Sampling"
+title: 'Smaller, Weaker, Yet Better: Training LLM Reasoners via Compute-Optimal Sampling'
 ---
 
 **논문 정보**
-
 - **Date**: 2024-09-09
 - **Reviewer**: hyowon Cho
 - **Property**: Knowledge Distillation, LLM, Limited Budget
@@ -43,7 +42,7 @@ title: "Smaller, Weaker, Yet Better: Training LLM Reasoners via Compute-Optimal 
 
 당연히 고정된 예산 하에서, WC model이 SE model보다 더 많은 데이터를 만들어낼 수 있다. 하지만 SE가 당연히 퀄리티는 높을 것. 그렇기 때문에, WC가 더 높은 coverage and diversity 그리고 동시에 higher FPR를 가질 것이라고 이야기한다.
 
-이후, 저자들은 이 추측을 검증하기 위해서 SE and WC로 만든 데이터를 이용해서 모델들을 finetuning한다. 단순 하나의 방법이 아니라 여러 가지로.
+이후, 저자들은 이 추측을 검증하기 위해서 SE and WC로 만든 데이터를 이용해서 모델들을 finetuning한다. 단순 하나의 방법이 아니라 여러 가지로. 
 
 1. knowledge distillation, where a student LM learns from a teacher LM (Hinton et al., 2015);
 
@@ -83,7 +82,7 @@ title: "Smaller, Weaker, Yet Better: Training LLM Reasoners via Compute-Optimal 
 
 당연히 고정된 예산, 고정된 sampling budget (FLOPs) 상에서, 사람들은 더 weaker but cheaper (WC) model을 통해서 더 많은 샘플들을 만들어낼 수도 있고 혹은 stronger but more expensive (SE) model을 통해 더 적지만 양질의 데이터를 만들 수 있다.
 
-WC model가 𝑃*𝑊𝐶 parameters를 가지고, SE가 𝑃*𝑆𝐸 parameters를 가진다고 하고, 두 모델을 이용해서 무조건 같은 예산만을 사용할 수 있다고 하면, 만들 수 있는 데이터의 개수는 다음과 같이 차이가 난다.
+WC model가 𝑃_𝑊𝐶 parameters를 가지고, SE가 𝑃_𝑆𝐸 parameters를 가진다고 하고, 두 모델을 이용해서 무조건 같은 예산만을 사용할 수 있다고 하면, 만들 수 있는 데이터의 개수는 다음과 같이 차이가 난다.
 
 - Following (Kaplan et al., 2020), FLOPs per inference token = 2𝑃
 
@@ -91,7 +90,7 @@ WC model가 𝑃*𝑊𝐶 parameters를 가지고, SE가 𝑃*𝑆𝐸 parameter
 
 - assume that generating each solution requires an average of 𝑊 inference tokens
 
-- 𝑆*𝑊𝐶 and 𝑆*𝑆𝐸 = number of samples we generate per question
+- 𝑆_𝑊𝐶 and 𝑆_𝑆𝐸 = number of samples we generate per question
 
 - total cost
 
@@ -122,7 +121,7 @@ WC model가 𝑃*𝑊𝐶 parameters를 가지고, SE가 𝑃*𝑆𝐸 parameter
 - (§5.2) Subsequently, we present the supervised finetuning results for the different setups .
 
 - (§5.3) Finally, we perform ablation studies to study the impact of dataset size, sampling
-  strategy, and the role of quality dimensions in the model performance.
+strategy, and the role of quality dimensions in the model performance.
 
 ## 1. Synthetic Data Analysis
 
@@ -134,7 +133,7 @@ WC model가 𝑃*𝑊𝐶 parameters를 가지고, SE가 𝑃*𝑆𝐸 parameter
 
 - 11% and 6% at the low and high sampling budgets,
 
-- 8% and 1% for GSM-8K.
+- 8% and 1% for GSM-8K. 
 
 즉, 더 많이 만드는 것이 퀄리티가 더 낮더라도 더 많이 문제를 푸는데 도움이 되었다. converge trend는 다양.
 
@@ -156,14 +155,14 @@ human 평가에 따르면 WC 모델이 생성한 해결책의 FPR이 MATH에서�
 그렇다면 이들은 다양하게 학습해봤을 때는 어떨까.
 
 1. Student-LM Finetuning
-   Gemma-7B를 WC와 SC로 학습한 결과.
-   WC consistently outperforms the one finetuned on data from SC. 일반적인 믿음과 다르다.
+Gemma-7B를 WC와 SC로 학습한 결과.
+WC consistently outperforms the one finetuned on data from SC. 일반적인 믿음과 다르다.
 
 1. WC-LM Finetuning
-   Gemma2-9B를 Gemma2-9B가 만든 WC와 27B가 만든 SC로 학습한 결과. 대부분 WC가 더 나았지만, 그렇지 않은 경우도 존재. 저자들은 이것이 데이터가 너무 쉬워서라고 주장.
+Gemma2-9B를 Gemma2-9B가 만든 WC와 27B가 만든 SC로 학습한 결과. 대부분 WC가 더 나았지만, 그렇지 않은 경우도 존재. 저자들은 이것이 데이터가 너무 쉬워서라고 주장.
 
 1. SE-LM finetuning
-   Gemma2-27B를 양 데이터로 학습. 더 작은 모델로 만든 데이터가 놀랍게도 더 도움이 되었다.
+Gemma2-27B를 양 데이터로 학습. 더 작은 모델로 만든 데이터가 놀랍게도 더 도움이 되었다.
 
 > Takeaway: Overall, our findings challenge the conventional wisdom that advocates training on samples from the SE model, by showing that training on samples from the WC model may be more compute-optimal across various tasks and setups.
 
@@ -182,6 +181,6 @@ human 평가에 따르면 WC 모델이 생성한 해결책의 FPR이 MATH에서�
 # Scaling to state-of-the-art language models
 
 > Takeaway: We demonstrate that price-matched sampling from weaker SoTA LMs produces
-> superior reasoners compared to finetuning with data from stronger SoTA models.
+superior reasoners compared to finetuning with data from stronger SoTA models.
 
 # Conclusion

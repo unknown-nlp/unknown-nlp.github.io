@@ -1,23 +1,22 @@
 ---
 categories:
-  - paper-reviews
-date: "2024-01-23 00:00:00"
+- paper-reviews
+date: '2024-01-23 00:00:00'
 description: 논문 리뷰
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-  - attention
-  - classification
-  - gpt
-  - language-model
-  - paper-review
+- attention
+- classification
+- gpt
+- language-model
+- paper-review
 thumbnail: assets/img/posts/2024-01-23-overthinking-the-truth-understanding-how-language-models-process/thumbnail.jpg
-title: "OVERTHINKING THE TRUTH: UNDERSTANDING HOW LANGUAGE MODELS PROCESS FALSE DEMONSTRATIONS"
+title: 'OVERTHINKING THE TRUTH: UNDERSTANDING HOW LANGUAGE MODELS PROCESS FALSE DEMONSTRATIONS'
 ---
 
 **논문 정보**
-
 - **Date**: 2024-01-23
 - **Reviewer**: hyowon Cho
 
@@ -25,7 +24,7 @@ title: "OVERTHINKING THE TRUTH: UNDERSTANDING HOW LANGUAGE MODELS PROCESS FALSE 
 
 최근의 언어모델들의 핵심은 context-following이 가능하다는 것이다. 때때로 그들은 finetuning 없이도 그에 준하는 성능을 보인다. 이 때문에, 최신 연구들은 context가 성능에 미치는 영향을 연구하고 더 발달된 프롬프트를 만들기 위한 연구 혹은 그것에 대한 Internal mechanism에 집중하고 있다.
 
-하지만, context-following이 가능하는 말은 즉, incorrect, toxic, unsafe한 모델 출력을 만들어낸다는 말과도 동일하다. 즉, user error의 패턴을 받아들여 그것을 재생산하는 문제가 있다는 것이다. 다른 말로, context-following learns too much. 의도한 속성 외에도 다른 것까지 모조리 학습해버리는 문제가 있다.
+하지만, context-following이 가능하는 말은 즉,  incorrect, toxic, unsafe한 모델 출력을 만들어낸다는 말과도 동일하다. 즉, user error의 패턴을 받아들여 그것을 재생산하는 문제가 있다는 것이다. 다른 말로, context-following learns too much. 의도한 속성 외에도 다른 것까지 모조리 학습해버리는 문제가 있다.
 
 오늘 소개할 논문에서는 모델이 이미 zero-shot에서 정답을 알고 있지만 context에 의해 잘못된 답을 뱉는 경우를 좀 더 파고 든다.
 
@@ -53,7 +52,7 @@ title: "OVERTHINKING THE TRUTH: UNDERSTANDING HOW LANGUAGE MODELS PROCESS FALSE 
 
 ## FALSE DEMONSTRATION LABELS DECREASE ACCURACY
 
-첫 번째로 보장한 것은, demonstratoin label이 모두 맞을 경우와, 모두 틀린 경우의 성능 차이이다. 잘못된 레이블을 매핑할 때, 같은 클래스의 데이터는 모두 같은 레이블을 가지도록 한다. 즉, 레이블만 permute됨으로, 저자들은 이 세팅을 permuted labels setting이라고 부른다.
+첫 번째로 보장한 것은, demonstratoin label이 모두 맞을 경우와, 모두 틀린 경우의 성능 차이이다. 잘못된 레이블을 매핑할 때, 같은 클래스의 데이터는 모두 같은 레이블을 가지도록 한다. 즉, 레이블만 permute됨으로, 저자들은 이 세팅을  permuted labels setting이라고 부른다.
 
 결과는 다음과 같다:
 
@@ -78,7 +77,7 @@ false context-following에 대해 더 잘 알아보기 위해, 저자들은 mode
 이 섹션에서는 크게 두 가지 finding이 있다.
 
 1. the model’s accuracies given correct and incorrect demonstrations sharply diverge at
-   the same “critical layers” across tasks
+the same “critical layers” across tasks
 
 1. on incorrect demonstrations the model “overthinks” – it performs better midway through processing
 
@@ -90,7 +89,7 @@ false context-following에 대해 더 잘 알아보기 위해, 저자들은 mode
 
 즉, 본래 . For a sequence of tokens t1, ..., tn \in V , the logits of the full
 model’s predictive distribution p(tn+1 | t1, ..., tn) are given by:
-[logit_1, ..., logit_{|V|}] = W_U . LayerNorm(h^{(n)}\_L).
+[logit_1, ..., logit_{|V|}] = W_U . LayerNorm(h^{(n)}_L).
 
 여기서 h_L을 intermediate hidden state인 h_l^{(n)}으로 바꿨다고 생각하면 된다.
 
@@ -118,7 +117,7 @@ average accuracy of 3 of our 11 models over the fourteen non-toy datasets
 
 ## Ablating attention heads only improves accuracy further
 
-올바른 정보와 잘못된 정보를 보여주는 demonstration이 critical layer에서부터 차이가 나기 시작한다는 것은, 해당 레이어 이후에서야 demonstration에 대한 정보가 제대로 인코딩된다고도 해석할 수 있다. 즉, late attention layers가 overthinking을 유발한다는 것이다.
+올바른 정보와 잘못된 정보를 보여주는 demonstration이 critical layer에서부터 차이가 나기 시작한다는 것은, 해당 레이어 이후에서야 demonstration에 대한 정보가 제대로 인코딩된다고도 해석할 수 있다. 즉,  late attention layers가 overthinking을 유발한다는 것이다.
 
 이를 확인하기 위해, 뒤의 Layer에서 attention head들을 zero-out 해본다 (MLP는 건들지 않는다).
 
@@ -143,13 +142,13 @@ there are false induction heads that attend to false labels in similar past demo
 
 1. label-promoting
 
-false induction head를 판별하는 공식 prefix-matching score는 다음과 같다:
+false induction head를 판별하는 공식  prefix-matching score는 다음과 같다:
 
 PM^h = \sum
-^n*{i=1}Att^h(x, yi) · 1*{class(x)=class(x*i)} −
+^n_{i=1}Att^h(x, yi) · 1_{class(x)=class(x_i)} −
 \frac{1}{\#labels − 1}
-\sum^n*{i=1}Att^h
-(x, y*i) · 1*{class(x)\neq class(x_i)}
+\sum^n_{i=1}Att^h
+(x, y_i) · 1_{class(x)\neq class(x_i)}
 
 첫번째 텀에서 head가 class x의 label에 잘 attend하는가를 포착하고, 그렇지 않으면 작아지도록 뒤의 텀에서 값을 줄인다.
 
@@ -161,12 +160,12 @@ PM^h = \sum
 
 ## Verifying that our heads are label-promoting.
 
-여기서는 label promoting (i.e. that they increase the probability of the false labels they attend to)한지를 확인한다.
+ 여기서는 label promoting (i.e. that they increase the probability of the false labels they attend to)한지를 확인한다.
 
 이를 위해 각 head들에게 logit lens를 적용해본다. 이후, 정답 레이블과 permuted 레이블의 차를 false label promoting score로 지정한다. 높은 숫자는 permuted label의 확률이 높아졌다는 뜻이다.
 
-위에 언급한 5 heads: average false label promoting score of 6.5를 기록했다. 즉, 그들은 정답 레이블에 비해 permuted label logit을 6.5나 더 증가시킨 것이다.
+위에 언급한 5 heads: average false label promoting score of 6.5를 기록했다. 즉, 그들은 정답 레이블에 비해  permuted label logit을 6.5나 더 증가시킨 것이다.
 
-반면, 랜덤하게 레드들을 추출했을 때는 average score of −0.04, with a standard deviation of 0.41를 기록했다.
+반면, 랜덤하게 레드들을 추출했을 때는  average score of −0.04, with a standard deviation of 0.41를 기록했다.
 
 요약하면, later layer에 소수의 false induction heads가 있으며, 그들은 false labels in past demonstrations에 attend, and increasing their probability함으로써 잘못된 컨텍스트를 따르는데 기여한다.

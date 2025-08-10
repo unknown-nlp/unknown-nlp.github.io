@@ -1,26 +1,25 @@
 ---
 categories:
-  - paper-reviews
-date: "2024-08-13 00:00:00"
+- paper-reviews
+date: '2024-08-13 00:00:00'
 description: 논문 리뷰 - Reasoning, Explainability 관련 연구
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-  - explainability
-  - gpt
-  - language-model
-  - llm
-  - paper-review
-  - pre-training
-  - reasoning
+- explainability
+- gpt
+- language-model
+- llm
+- paper-review
+- pre-training
+- reasoning
 thumbnail: assets/img/posts/2024-08-13-physics-of-language-models-part-21-grade-school/thumbnail.jpg
-title: "Physics of Language Models: Part 2.1, Grade-School Math and the Hidden Reasoning
-  Process"
+title: 'Physics of Language Models: Part 2.1, Grade-School Math and the Hidden Reasoning
+  Process'
 ---
 
 **논문 정보**
-
 - **Date**: 2024-08-13
 - **Reviewer**: 준원 장
 - **Property**: Reasoning, Explainability
@@ -31,7 +30,7 @@ title: "Physics of Language Models: Part 2.1, Grade-School Math and the Hidden R
 
 - small language models (GPT2 in this paper)의 GSM8K, its augmentation의 성능을 향상시키는 기존의 연구는 많았음.
 
-- 논문에서는 단순한 성능 향상이 아닌 보다 근본적인 질문을 해결하고자 함.
+- 논문에서는 단순한 성능 향상이 아닌 보다 근본적인 질문을 해결하고자 함. 
 
 - 이를 위해 6개의 RQ를 수립하고, 이를 검증하기 위한 굉장히 통제적인 실험을 진행함
 
@@ -43,9 +42,9 @@ title: "Physics of Language Models: Part 2.1, Grade-School Math and the Hidden R
 
 1. LM은 모델은 인간과 유사 혹은 다른 방식으로 수학 문제를 해결할까?
 
-1. GSM8K와 같은 데이터셋에 훈련된 LM은 GSM8K 문제를 해결하는 데 필요한 것을 넘어서는 추론 능력을 학습할 수 있을까? (⇒ Generalization에 대한 질문)
+1.  GSM8K와 같은 데이터셋에 훈련된 LM은 GSM8K 문제를 해결하는 데 필요한 것을 넘어서는 추론 능력을 학습할 수 있을까? (⇒ Generalization에 대한 질문)
 
-1. 어떤 hidden (mental) reasoning process이 추론 오류를 범하게 만들까?
+1. 어떤  hidden (mental) reasoning process이 추론 오류를 범하게 만들까?
 
 1. GSM8K 수준의 수학 문제를 효과적으로 해결할 수 있는 LM은 얼마나 크거나 깊어야 할까?
 

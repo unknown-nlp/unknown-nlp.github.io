@@ -1,30 +1,29 @@
 ---
 categories:
-  - paper-reviews
-date: "2024-04-23 00:00:00"
+- paper-reviews
+date: '2024-04-23 00:00:00'
 description: 논문 리뷰 - Alignment 관련 연구
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-  - alignment
-  - fine-tuning
-  - paper-review
-  - reinforcement-learning
-  - rlhf
+- alignment
+- fine-tuning
+- paper-review
+- reinforcement-learning
+- rlhf
 thumbnail: assets/img/posts/2024-04-23-orpo-monolithic-preference-optimization-without-reference-model/thumbnail.jpg
-title: "ORPO: Monolithic Preference Optimization without Reference Model"
+title: 'ORPO: Monolithic Preference Optimization without Reference Model'
 ---
 
 **논문 정보**
-
 - **Date**: 2024-04-23
 - **Reviewer**: 건우 김
 - **Property**: Alignment
 
 # Abstract
 
-최근에 LM에 preference alignment에 supervised fine-tuning (SFT)가 많이 활용되고 있음. 본 연구에서 minor한 disfavored generations style로 SFT 중에 penalty를 주는 것이 preference-alignment에 다다르기에 충분하다는 것을 보여줌.
+최근에 LM에 preference alignment에 supervised fine-tuning (SFT)가 많이 활용되고 있음. 본 연구에서 minor한 disfavored generations style로 SFT 중에 penalty를 주는 것이 preference-alignment에 다다르기에 충분하다는 것을 보여줌. 
 
 - ORPO algorithm은 기존 방법론과 달리 preference alignment tuning 단계 및 reference model이 별도로 필요하지 않음
 
@@ -32,9 +31,9 @@ title: "ORPO: Monolithic Preference Optimization without Reference Model"
 
 # Introduction
 
-Large corpus로 학습한 PLMs이 general-domain applications에 사용되기 위해서는 instruction tuning 혹은 preference alignment 과정이 필요함.
+Large corpus로 학습한 PLMs이 general-domain applications에 사용되기 위해서는 instruction tuning 혹은 preference alignment 과정이 필요함. 
 
-본 연구에서 pairwise preference dataset이 model alignment에 있어 SFT에 어떤 영향을 주는지 확인하고, 새로운 효과적인 preference alignment algorithm을 제안함.
+본 연구에서 pairwise preference dataset이 model alignment에 있어 SFT에 어떤 영향을 주는지 확인하고, 새로운 효과적인 preference alignment algorithm을 제안함. 
 
 # Related Works
 
@@ -68,7 +67,7 @@ Preference alignment에서 Initial stage로 사용되는 SFT의 loss function과
 
 SFT는 PLM을 특정 domain에 맞춰 학습 시킬때 주요 역할을 담당하는데, 이는 undesirable style로 token을 생성하는 것에 대한 Likelihood를 높이는 문제가 존재함 (아래 Figure 확인).
 
-위 figure에서 Rejected response에 대한 log probability 값이 (unwanted generation에 대한 penalty 부재로 인해) 학습할 수록 계속 커지는 것이 관찰됨.
+위 figure에서 Rejected response에 대한 log probability 값이 (unwanted generation에 대한 penalty 부재로 인해) 학습할 수록 계속 커지는 것이 관찰됨. 
 
 → 따라서, SFT의 domain adaptaion을 유지하며 unwanted generation styles을 완화시키는 방법이 필요함
 

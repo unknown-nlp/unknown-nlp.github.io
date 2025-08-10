@@ -1,22 +1,21 @@
 ---
 categories:
-  - paper-reviews
-date: "2024-07-02 00:00:00"
+- paper-reviews
+date: '2024-07-02 00:00:00'
 description: 논문 리뷰 - Tokenizer 관련 연구
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-  - embedding
-  - neural
-  - paper-review
-  - tokenizer
+- embedding
+- neural
+- paper-review
+- tokenizer
 thumbnail: assets/img/posts/2024-07-02-llama3-tokenizer/thumbnail.jpg
 title: Llama3 Tokenizer
 ---
 
 **논문 정보**
-
 - **Date**: 2024-07-02
 - **Reviewer**: 준원 장
 - **Property**: Tokenizer
@@ -35,7 +34,7 @@ title: Llama3 Tokenizer
 
 ### Tokenizer의 교체
 
-- Llama3부터는 **BPE(Byte Pair Encoding)**기반의 https://github.com/openai/tiktoken?tab=readme-ov-file 라이브러리로 교체를 했다고 합니다. (효율성과 확장성 때문이지 않을까라고 사료됩니다)
+- Llama3부터는 **BPE(Byte Pair Encoding)**기반의  https://github.com/openai/tiktoken?tab=readme-ov-file 라이브러리로 교체를 했다고 합니다. (효율성과 확장성 때문이지 않을까라고 사료됩니다)
 
 - ti-tokn 라이브러리는 token당 4 bytes의 압축률을 보인다고 합니다.
 
@@ -53,9 +52,9 @@ title: Llama3 Tokenizer
 
 ### Token수의 확장은 Not Free Lunch
 
-- 이미 눈치채셨겠지만, Vocab Size를 4배 가량 확장했다는 의미는 Embedding Layer, lm_head(Research Scientist는 Debedding Layer라구하더라구요!ㅋㅋ)도 그만큼 확장해야 한다는 의미입니다.
+- 이미 눈치채셨겠지만, Vocab Size를 4배 가량 확장했다는 의미는 Embedding Layer, lm_head(Research Scientist는 Debedding Layer라구하더라구요!ㅋㅋ)도 그만큼 확장해야 한다는 의미입니다. 
 
-- 실제로 이 이유가 Llama3가 7B가 아니라 8B로 끝난 이유라고 합니다..!
+- 실제로 이 이유가 Llama3가 7B가 아니라 8B로 끝난 이유라고 합니다..! 
 
 - 특히나 lm_head가 증가하면 inference 속도에 직접적인 영향을 주기 때문에 GQA를 줘서 완화를 했다고 합니다.
 

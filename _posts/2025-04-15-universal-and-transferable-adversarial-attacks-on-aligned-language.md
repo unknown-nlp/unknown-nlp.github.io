@@ -1,28 +1,27 @@
 ---
 categories:
-  - paper-reviews
-date: "2025-04-15 00:00:00"
+- paper-reviews
+date: '2025-04-15 00:00:00'
 description: 논문 리뷰
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-  - alignment
-  - gpt
-  - language-model
-  - llm
-  - paper-review
-  - rlhf
+- alignment
+- gpt
+- language-model
+- llm
+- paper-review
+- rlhf
 thumbnail: assets/img/posts/2025-04-15-universal-and-transferable-adversarial-attacks-on-aligned-language/thumbnail.jpg
 title: Universal and Transferable Adversarial Attacks on Aligned Language Models
 ---
 
 **논문 정보**
-
 - **Date**: 2025-04-15
 - **Reviewer**: 건우 김
 
-**_23년도 12월에 출판된 논문이라 살짝 outdated 되어있는 점도 있지만, 유용한 내용이 많아서 공유드림._**
+***23년도 12월에 출판된 논문이라 살짝 outdated 되어있는 점도 있지만, 유용한 내용이 많아서 공유드림.***
 
 # Abstract
 

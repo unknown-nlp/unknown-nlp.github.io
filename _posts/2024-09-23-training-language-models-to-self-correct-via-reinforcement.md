@@ -1,27 +1,26 @@
 ---
 categories:
-  - paper-reviews
-date: "2024-09-23 00:00:00"
+- paper-reviews
+date: '2024-09-23 00:00:00'
 description: 논문 리뷰 - Reinforcement Learning, AGI 관련 연구
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-  - agi
-  - alignment
-  - fine-tuning
-  - language-model
-  - llm
-  - paper-review
-  - reinforcement learning
-  - reinforcement-learning
-  - vision
+- agi
+- alignment
+- fine-tuning
+- language-model
+- llm
+- paper-review
+- reinforcement learning
+- reinforcement-learning
+- vision
 thumbnail: assets/img/posts/2024-09-23-training-language-models-to-self-correct-via-reinforcement/thumbnail.jpg
 title: Training Language Models to Self-Correct via Reinforcement Learning
 ---
 
 **논문 정보**
-
 - **Date**: 2024-09-23
 - **Reviewer**: 준원 장
 - **Property**: Reinforcement Learning, AGI
@@ -36,7 +35,7 @@ title: Training Language Models to Self-Correct via Reinforcement Learning
 
 - 저자들은 실험 가능한 2개의 baseline의 한계를 제시하면서 새로운 방법론을 제시함
 
-- 이를 해결하기 위해 논문에서는
+- 이를 해결하기 위해 논문에서는 
 
 ## 2. Related Works
 
@@ -62,7 +61,7 @@ title: Training Language Models to Self-Correct via Reinforcement Learning
 
 - Standard SFT나 일반적인 RL tuning과는 달리, 여러 턴을 동시에 학습.
 
-- 중간 턴 응답 ŷ\_{1:t}은 final reward의 intermediate context를 위해 간접적으로 supervised tuning됨.
+- 중간 턴 응답 ŷ_{1:t}은 final reward의 intermediate context를 위해 간접적으로 supervised tuning됨.
 
 - **A base RL approach for fine-tuning LLMs**
 
@@ -92,15 +91,15 @@ title: Training Language Models to Self-Correct via Reinforcement Learning
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-09-23-training-language-models-to-self-correct-via-reinforcement/image_002.png" class="img-fluid rounded z-depth-1" %}
 
-- (제안한 방법론 SCoRe도 거의 변화가 없긴한데..) STaR D+, SFT D는 base model 대비 edit distance (first vs second response)의 차이가 거의 없는 것을 알 수 있습니다.
+- (제안한 방법론 SCoRe도 거의 변화가 없긴한데..) STaR D+, SFT D는 base model 대비 edit distance (first vs second response)의 차이가 거의 없는 것을 알 수 있습니다. 
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-09-23-training-language-models-to-self-correct-via-reinforcement/image_003.png" class="img-fluid rounded z-depth-1" %}
 
-- STaR D+와는 달리 SFT D는 training과 evaluation에서 edit distance (first vs second response)의 분포 차이가 많이 남.
+-  STaR D+와는 달리 SFT D는 training과 evaluation에서 edit distance (first vs second response)의 분포 차이가 많이 남.
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-09-23-training-language-models-to-self-correct-via-reinforcement/image_004.png" class="img-fluid rounded z-depth-1" %}
 
-- Pair-SFT에 대한 ablation
+-  Pair-SFT에 대한 ablation
 
 - Pair-SFT에서 Training때처럼 fixed validation set으로 validation을 진행하면 성능이 지속적으로 유지되는 것을 알 수 있음
 
@@ -130,11 +129,11 @@ title: Training Language Models to Self-Correct via Reinforcement Learning
 
 **⇒ 과거의 주어진 attempts에 대해서 self-correcting하는 최적의 방법이 아니라, 현재 주어진 response를 개선하는 next response를 생성하라고 model에게 학습시켜야 함. **
 
-### Method
+### Method 
 
 Objective
 
-1. (비유를 들면 prior distribution을 깔아줌으로써) LM이 first attempt distribution하에서 second distribution을 생성하도록 학습
+1. (비유를 들면 prior distribution을 깔아줌으로써) LM이 first attempt distribution하에서 second distribution을 생성하도록 학습 
 
 1. reward-shaping을 통해 bias model to self-correct
 
@@ -160,7 +159,7 @@ Objective
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-09-23-training-language-models-to-self-correct-via-reinforcement/image_006.png" class="img-fluid rounded z-depth-1" %}
 
-- base model 대비 Δ(t1, t2) 15.6%, Accuracy@t2 23.0% 증가
+- base model 대비 Δ(t1, t2)  15.6%,   Accuracy@t2 23.0% 증가
 
 - 가장 고무적인건 의도한 self-correction이 동작한다는 점
 
@@ -172,7 +171,7 @@ Objective
 
 - (w/o m.t.t) single turn으로 학습을 진행하면 당연히 Accuracy@t1은 높지만 그 외의 지표는 떨어지고,
 
-- (w/o s1, rs) stage 1이나 reward shaping을 제거하면 의도한 self-correction을 수행하지 못해 Accuracy@t2와 net increase acc 역시 하락하는 것을 확인할 수 있다.
+- (w/o s1, rs) stage 1이나 reward shaping을 제거하면 의도한 self-correction을 수행하지 못해  Accuracy@t2와 net increase acc 역시 하락하는 것을 확인할 수 있다.
 
 - (w STaR) 마지막으로 stage 2에서 on-policy가 아닌 offline data로 학습하면 distributional shift때문에 spurious solution을 학습해 성능이 하락한다고 논문에서 설명하고 있다.
 

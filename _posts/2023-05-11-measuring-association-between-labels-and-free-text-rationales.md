@@ -1,21 +1,20 @@
 ---
 categories:
-  - paper-reviews
-date: "2023-05-11 00:00:00"
+- paper-reviews
+date: '2023-05-11 00:00:00'
 description: 논문 리뷰 - Reasoning 관련 연구
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-  - embedding
-  - paper-review
-  - reasoning
+- embedding
+- paper-review
+- reasoning
 thumbnail: assets/img/posts/2023-05-11-measuring-association-between-labels-and-free-text-rationales/thumbnail.jpg
 title: Measuring Association Between Labels and Free-Text Rationales
 ---
 
 **논문 정보**
-
 - **Date**: 2023-05-11
 - **Reviewer**: 준원 장
 - **Property**: Reasoning
@@ -26,13 +25,13 @@ title: Measuring Association Between Labels and Free-Text Rationales
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2023-05-11-measuring-association-between-labels-and-free-text-rationales/image_000.png" class="img-fluid rounded z-depth-1" %}
 
-- 기존의 INPUT(Question/Hypothesis)안에 표면적으로 존재한 rationale는 OUPUT까지 reasoning 하는데 한계
+-  기존의 INPUT(Question/Hypothesis)안에 표면적으로 존재한 rationale는 OUPUT까지 reasoning 하는데 한계
 
-- fill in the gap을 위해 free text rationale를 포함한 dataset이 나옴
+-  fill in the gap을 위해 free text rationale를 포함한 dataset이 나옴
 
 → free text rationale를 활용해 추론하는 방법에는 크게 2가지가 있다.
 
-1. Pipeline: INPUT(Question & Answer Candidiates) > MODEL 1 > Rationale && Raitonale & Subset of Input (Answer Candidiates) > MODEL 2 > Answer
+1. Pipeline: INPUT(Question & Answer Candidiates) > MODEL 1 > Rationale  && Raitonale & Subset of Input (Answer Candidiates) > MODEL 2 > Answer
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2023-05-11-measuring-association-between-labels-and-free-text-rationales/image_001.png" class="img-fluid rounded z-depth-1" %}
 
@@ -74,7 +73,7 @@ title: Measuring Association Between Labels and Free-Text Rationales
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2023-05-11-measuring-association-between-labels-and-free-text-rationales/image_005.png" class="img-fluid rounded z-depth-1" %}
 
-- 하지만 Self-rationalizing이 I → O 으로 직접적으로 training한 모델보다 미세하게 성능이 떨어진다.
+- 하지만 Self-rationalizing이 I → O 으로 직접적으로 training한 모델보다 미세하게 성능이 떨어진다. 
 
 (논문은 성능이 미세하게 떨어져도 모델이 추론능력을 학습했는지를 보여주고자 함)
 
@@ -100,11 +99,11 @@ title: Measuring Association Between Labels and Free-Text Rationales
 
 - missing information due to rationales not being sufficient
 
-- double the number of parameters and more manual labor needed to reach comparable performance to an end-to-end (I→O) model; still often performing worse
+- double the number of parameters and more manual labor needed to reach comparable performance to an end-to-end (I→O) model; still often performing worse 
 
 ### Analyzing Necessary Properties of Joint Models (Ablation Study)
 
-(I → OR 모델이 얼마나 faithful한 rationale을 가지고 prediction을 하는가
+(I → OR 모델이 얼마나 faithful한 rationale을 가지고 prediction을 하는가 
 
 ↔ predicted label과 predicted Rationales 사이에는 어떠한 관계가 있는가)
 
@@ -114,7 +113,7 @@ title: Measuring Association Between Labels and Free-Text Rationales
 
 (둘다 틀리거나 아니면 같은 pattern을 가지고 틀려야 faithful한 rationale을 가지고 output을 생성했다고 말할 수 있음)
 
-- N (0, σ^2)에 따라 σ^2를 늘려가면서 input embedding에 노이즈를 주어 output(accuracy)과 rationale(output predictive power)이 얼마나 손상되었는지 평가
+- N (0, σ^2)에 따라 σ^2를 늘려가면서 input embedding에 노이즈를 주어 output(accuracy)과 rationale(output predictive power)이 얼마나 손상되었는지 평가 
 
 - Noise가 적은 구간(0~15)에는 output과 rationale quality가 stable하게 유지되면서 하락하고 큰 구간(15~)에서는 unstable하게 떨어진다.
 

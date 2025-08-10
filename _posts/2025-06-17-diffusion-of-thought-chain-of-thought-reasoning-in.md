@@ -1,29 +1,28 @@
 ---
 categories:
-  - paper-reviews
-date: "2025-06-17 00:00:00"
+- paper-reviews
+date: '2025-06-17 00:00:00'
 description: 논문 리뷰 - Text Generation, DiffusionLM 관련 연구
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-  - diffusion
-  - diffusionlm
-  - fine-tuning
-  - gpt
-  - language-model
-  - llm
-  - paper-review
-  - reasoning
-  - text generation
-  - transformer
-  - vision
+- diffusion
+- diffusionlm
+- fine-tuning
+- gpt
+- language-model
+- llm
+- paper-review
+- reasoning
+- text generation
+- transformer
+- vision
 thumbnail: assets/img/posts/2025-06-17-diffusion-of-thought-chain-of-thought-reasoning-in/thumbnail.jpg
-title: "Diffusion of Thought: Chain-of-Thought Reasoning in Diffusion Language Models"
+title: 'Diffusion of Thought: Chain-of-Thought Reasoning in Diffusion Language Models'
 ---
 
 **논문 정보**
-
 - **Date**: 2025-06-17
 - **Reviewer**: 상엽
 - **Property**: Text Generation, DiffusionLM
@@ -78,15 +77,15 @@ https://huggingface.co/blog/ProCreations/diffusion-language-model?utm_source=cha
 
 ## Diffusion-of-Thoughts
 
-- Notation: s (problem statement), a (answer), p\_{\theta}^{LM} (language model)
+- Notation: s (problem statement), a (answer), p_{\theta}^{LM} (language model)
 
-- Answer-only generation model: \mathbf{a}\sim p\_\theta^{\textit{LM}}(\mathbf{a}|\mathbf{s})
+- Answer-only generation model: \mathbf{a}\sim p_\theta^{\textit{LM}}(\mathbf{a}|\mathbf{s})
 
-- CoT: \mathbf{a}\sim p*\theta^{\textit{LM}}(\mathbf{a}|\mathbf{s}, \mathbf{r}*{1\dots n})
+- CoT: \mathbf{a}\sim p_\theta^{\textit{LM}}(\mathbf{a}|\mathbf{s}, \mathbf{r}_{1\dots n})
 
-- implicit CoT: \mathbf{a}\sim p*\theta^{\textit{iCoT}}(\mathbf{a}|\mathbf{s}, \mathbf{z}*{1\dots n})
+- implicit CoT: \mathbf{a}\sim p_\theta^{\textit{iCoT}}(\mathbf{a}|\mathbf{s}, \mathbf{z}_{1\dots n})
 
-- DoT: \mathbf{a}\sim p\_\theta^{\textit{DoT}}(\mathbf{a}|\mathbf{s}, \mathbf{z}\_t)
+- DoT: \mathbf{a}\sim p_\theta^{\textit{DoT}}(\mathbf{a}|\mathbf{s}, \mathbf{z}_t)
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2025-06-17-diffusion-of-thought-chain-of-thought-reasoning-in/image_001.png" class="img-fluid rounded z-depth-1" %}
 
@@ -156,7 +155,7 @@ DoT 모델에 대해 두 가지 학습 방법을 사용
 
 - Multiple sampling을 통한 다양한 reasoning pathway 생성
 
-- 동일 문제 s에 대해 다양한 (r\_{i;1...n}, a_i)를 구함. (Diffusion 모델의 강점: noise seed만 다르게 해도 됨!)
+- 동일 문제 s에 대해 다양한 (r_{i;1...n}, a_i)를 구함. (Diffusion 모델의 강점: noise seed만 다르게 해도 됨!)
 
 - Majority vote:
 

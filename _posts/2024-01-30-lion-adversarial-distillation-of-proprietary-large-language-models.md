@@ -1,24 +1,23 @@
 ---
 categories:
-  - paper-reviews
-date: "2024-01-30 00:00:00"
+- paper-reviews
+date: '2024-01-30 00:00:00'
 description: 논문 리뷰 - Knowledge Distillation 관련 연구
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-  - gpt
-  - knowledge distillation
-  - language-model
-  - llm
-  - paper-review
-  - reasoning
+- gpt
+- knowledge distillation
+- language-model
+- llm
+- paper-review
+- reasoning
 thumbnail: assets/img/posts/2024-01-30-lion-adversarial-distillation-of-proprietary-large-language-models/thumbnail.jpg
-title: "Lion: Adversarial Distillation of Proprietary Large Language Models"
+title: 'Lion: Adversarial Distillation of Proprietary Large Language Models'
 ---
 
 **논문 정보**
-
 - **Date**: 2024-01-30
 - **Reviewer**: 전민진
 - **Property**: Knowledge Distillation

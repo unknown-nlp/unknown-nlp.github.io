@@ -1,26 +1,25 @@
 ---
 categories:
-  - paper-reviews
-date: "2024-04-02 00:00:00"
+- paper-reviews
+date: '2024-04-02 00:00:00'
 description: 논문 리뷰 - Reinforcement Learning, Alignment 관련 연구
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-  - alignment
-  - classification
-  - gpt
-  - language-model
-  - llm
-  - paper-review
-  - reinforcement learning
-  - rlhf
+- alignment
+- classification
+- gpt
+- language-model
+- llm
+- paper-review
+- reinforcement learning
+- rlhf
 thumbnail: assets/img/posts/2024-04-02-preference-free-alignment-learning-with-regularized-relevance-reward/thumbnail.jpg
 title: Preference-free Alignment Learning with Regularized Relevance Reward
 ---
 
 **논문 정보**
-
 - **Date**: 2024-04-02
 - **Reviewer**: 준원 장
 - **Property**: Reinforcement Learning, Alignment
@@ -105,7 +104,7 @@ class PolicyLoss(nn.Module):
 
 - 논문에서는 human feedback이 가지고 있는 선천적인 한계점/bias을 지적한다.
 
-- **_Relevance를 Reward Signal로 주어서 LLM의 Alignment를 human preference 없이 증가시켜볼 수 있지 않을까?_**
+- ***Relevance를 Reward Signal로 주어서 LLM의 Alignment를 human preference 없이 증가시켜볼 수 있지 않을까?***
 
 - 이를 위해 Relevance에 대한 정의부터 하고 넘어감
 
@@ -137,11 +136,11 @@ class PolicyLoss(nn.Module):
 
 - Contriever를 직접적인 RM으로 사용해서 Reward Signal을 줘보자
 
-- x : query
+-  x : query
 
-- \hat{y} : rollout response in the exploration stage of PPO
+-  \hat{y} : rollout response in the exploration stage of PPO 
 
-- M(x) \cdot M(\hat{y})\rightarrow r\_{x}\in \R^{1} : M is contriever
+-  M(x) \cdot M(\hat{y})\rightarrow r_{x}\in \R^{1}  : M is contriever
 
 - Anthropic-HH dataset 사용, Vicuna Bench
 
@@ -163,7 +162,7 @@ class PolicyLoss(nn.Module):
 
 ### Length Incentive (LI)
 
-- r\_{x} 가 response를 짧게하는 것을 방지하기 위함
+-  r_{x} 가 response를 짧게하는 것을 방지하기 위함
 
 ### Repetition Penalty (RP)
 
@@ -171,9 +170,9 @@ class PolicyLoss(nn.Module):
 
 - unique trigram을 보장하는 아래의 reward를 추가함
 
-- RP(\hat{y})= \frac{\# unique \ trigram \ of \ \hat{y}}{\# \ trigrams \ of \ \hat{y}}
+-  RP(\hat{y})= \frac{\# unique \ trigram \ of  \ \hat{y}}{\# \ trigrams \ of  \ \hat{y}}
 
-⇒ r\_{x} \cdot LI(\hat{y})\cdot RP(\hat{y})
+⇒  r_{x} \cdot LI(\hat{y})\cdot RP(\hat{y})
 
 - 높은 relevance
 
@@ -181,13 +180,13 @@ class PolicyLoss(nn.Module):
 
 - less repetition
 
-### Reference Answer Relevance (r\_{y})
+### Reference Answer Relevance (r_{y})
 
-- Contrained/Factual한 Response를 요구하는 Query에서 여전히 Diverse한 답변을 생성하는 위의 Reward는 치명적일 수 있음
+- Contrained/Factual한 Response를 요구하는 Query에서 여전히 Diverse한 답변을 생성하는 위의 Reward는 치명적일 수 있음 
 
 - 저자들은 Open-ended/Closed Ended Query에 대해서 다른 Reward를 적용함.
 
-- F(r*{y}) \ ,where \ M (y) · M (\hat{y}) → r*{y}: 범위 맞춰주는 interpolation function
+- F(r_{y}) \ ,where \ M (y) · M (\hat{y}) → r_{y}: 범위 맞춰주는 interpolation function
 
 ⇒ Mixture of Reward Function, Only needs SFT dataset!
 

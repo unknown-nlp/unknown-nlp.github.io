@@ -1,34 +1,33 @@
 ---
 categories:
-  - paper-reviews
-date: "2024-01-16 00:00:00"
+- paper-reviews
+date: '2024-01-16 00:00:00'
 description: 논문 리뷰
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-  - alignment
-  - language-model
-  - llm
-  - paper-review
+- alignment
+- language-model
+- llm
+- paper-review
 thumbnail: assets/img/posts/2024-01-16-benchmarking-cognitive-biases-in-large-language-models-as/thumbnail.jpg
 title: BENCHMARKING COGNITIVE BIASES IN LARGE LANGUAGE MODELS AS EVALUATORS
 ---
 
 **논문 정보**
-
 - **Date**: 2024-01-16
 - **Reviewer**: yukyung lee
 
 # 0. Abstract
 
-- 최근 LLM을 automatic evaluator로 사용하는 연구들이 제안되고 있음
+- 최근 LLM을 automatic evaluator로 사용하는 연구들이 제안되고 있음 
 
 - 하지만 본 논문은 LLM을 evaluator로 사용할 때 congnitive bias가 생길 수 있다는 점을 지적하며, Cognitive bias benchmark for llm as evaluator라는 새로운 데이터셋을 발표함
 
 - CoBBLER는 llm evaluation output에서 발생할 수 있는 6가지 cognitive bias들을 평가할 수 있음 (예를들어 자기 자신이 만든 아웃풋에 훨씬 더 선호도가 높은 egocentric bias를 포함)
 
-- 이 논문의 주장은 “LLM을 text quality evaluator”로 사용하기에 어려움이 있다는 점을 지적하며, human과 machine 사이의 correlation을 테스트 함
+-  이 논문의 주장은 “LLM을 text quality evaluator”로 사용하기에 어려움이 있다는 점을 지적하며, human과 machine 사이의 correlation을 테스트 함
 
 # 1. Introduction
 

@@ -1,26 +1,25 @@
 ---
 categories:
-  - paper-reviews
-date: "2023-10-31 00:00:00"
+- paper-reviews
+date: '2023-10-31 00:00:00'
 description: 논문 리뷰 - In Context Learning 관련 연구
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-  - alignment
-  - gpt
-  - in context learning
-  - language-model
-  - llm
-  - nlp
-  - paper-review
-  - pre-training
+- alignment
+- gpt
+- in context learning
+- language-model
+- llm
+- nlp
+- paper-review
+- pre-training
 thumbnail: assets/img/posts/2023-10-31-in-context-learning-learns-label-relationships-but-is/thumbnail.jpg
 title: In-Context Learning Learns Label Relationships but Is Not Conventional Learning
 ---
 
 **논문 정보**
-
 - **Date**: 2023-10-31
 - **Reviewer**: hyowon Cho
 - **Property**: In Context Learning
@@ -55,7 +54,7 @@ Brown 등(2020)은 대규모 언어 모델(Large Language Models, LLMs)은 처�
 
 > NH1: ICL prediction은 in-context에서 제공된 예시의 조건부 label distribution와 독립적이다.
 
-먼저, Min et al이 말했듯, 정말 label randomization이 ICL predictive beliefs에 영향을 주지 않는지 실험한다.
+먼저, Min et al이 말했듯, 정말 label randomization이 ICL predictive beliefs에 영향을 주지 않는지 실험한다. 
 
 > NH2: ICL은 사전 훈련된 모델의 zero-shot prediction preferences를 극복할 수 있다.
 
@@ -79,7 +78,7 @@ NH3가 참이라면, ICL 예측은 라벨 관계 제시 순서에 의존하지 �
 
 # (1) DO ICL PREDICTIONS DEPEND ON IN-CONTEXT LABELS?
 
-저자는 먼저 Min et al. (2022b)의 실험을 다시 살펴보기 위해 컨텍스트의 모든 예시의 레이블을 해당 작업의 훈련 세트에서 무작위로 선택한 레이블로 대체한다. Min et al.이 참이라면, 정확도, log-likelihood 및 엔트로피는 randomized와 standard label scenario와 동일해야 한다.
+저자는 먼저 Min et al. (2022b)의 실험을 다시 살펴보기 위해 컨텍스트의 모든 예시의 레이블을 해당 작업의 훈련 세트에서 무작위로 선택한 레이블로 대체한다.  Min et al.이 참이라면, 정확도, log-likelihood 및 엔트로피는 randomized와 standard label scenario와 동일해야 한다.
 
 Figure 1은 LLaMa-2-70B의 log likelihood를 보여주며, Figure 3은 SST-2에서 Falcon 모델의 모든 메트릭을 보여준다.
 

@@ -1,23 +1,22 @@
 ---
 categories:
-  - paper-reviews
-date: "2024-05-07 00:00:00"
+- paper-reviews
+date: '2024-05-07 00:00:00'
 description: "논문 리뷰 - LLM, \bPre-Training, torch 관련 연구"
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-  - "\bpre-training"
-  - llm
-  - paper-review
-  - torch
-  - transformer
+- "\bpre-training"
+- llm
+- paper-review
+- torch
+- transformer
 thumbnail: assets/img/posts/2024-05-07-how-to-train-llm---from-data/thumbnail.jpg
 title: How to Train LLM? - From Data Parallel To Fully Sharded Data Parallel
 ---
 
 **논문 정보**
-
 - **Date**: 2024-05-07
 - **Reviewer**: 준원 장
 - **Property**: LLM, Pre-Training, torch
@@ -26,7 +25,7 @@ title: How to Train LLM? - From Data Parallel To Fully Sharded Data Parallel
 
 ## 0. Floating Point
 
-- 컴퓨터에서 실수를 표현하는 방법으로, 수를 Exponent와 Fraction로 분리하여 표현.
+- 컴퓨터에서 실수를 표현하는 방법으로, 수를 Exponent와 Fraction로 분리하여 표현. 
 
 - IEEE 754 표준은 floating 포인트 수를 표현하는 데 널리 사용되는 표준. 해당 표준에서는 다양한 정밀도를 제공.
 
@@ -40,7 +39,7 @@ title: How to Train LLM? - From Data Parallel To Fully Sharded Data Parallel
 
 - BF16
 
-→ BF16은 fp16과 다르게 자릿수를 대표하는 exponent 동일한 8비트로 설정함으로써 더 넓은 범위의 수를 표현할 수 있음.
+→ BF16은 fp16과 다르게 자릿수를 대표하는 exponent 동일한 8비트로 설정함으로써 더 넓은 범위의 수를 표현할 수 있음. 
 
 → 대신 fraction의 자릿수를 희생했기 때문에 수의 정밀도가 떨어진다는 한계가 존재
 
@@ -60,7 +59,7 @@ title: How to Train LLM? - From Data Parallel To Fully Sharded Data Parallel
 
 * exponent는 FP16과 동일하게 -4이고, 지수 필드 값은 −4+127=123 (이진수 `**01111011**`).
 
-- 결론
+- 결론 
 
 ⇒ Layer가 깊어질수록 logit값이 커지는 transformer계열에서는 BF16을 활용해 모델을 training하는 것이 적합해보임. input의 스케일이 크게 다른 경우, BF16은 underflow나 overflow를 방지할 수 있음.
 
@@ -68,7 +67,7 @@ title: How to Train LLM? - From Data Parallel To Fully Sharded Data Parallel
 
 ## 1. Mixed Precision
 
-- Mixed Precision은 DL 학습 시 다양한 Precision을 혼합하여 사용하는 기술.
+- Mixed Precision은 DL 학습 시 다양한 Precision을 혼합하여 사용하는 기술. 
 
 - 대표적으로 NVIDIA의 Tensor Cores에서는 fp16과 fp32를 혼합하여 더 빠른 수행 시간과 높은 수치 정밀도를 제공
 
@@ -82,13 +81,13 @@ title: How to Train LLM? - From Data Parallel To Fully Sharded Data Parallel
 
 - 위를 해결하기 위해 Precision을 혼합해서 활용하는 Mixed Precision 기법이 나옴
 
-- 가정: 우리의 Model은 fp32이다. 해당 모델이 가지고 있는 weights을 Master weights라고 명명.
+- 가정: 우리의 Model은 fp32이다. 해당 모델이 가지고 있는  weights을 Master weights라고 명명.
 
 1. fp32로 표현된 Master weights을 복사하여 fp16 weights로 가져옴
 
 1. fp16 weights로 forward & loss 계산
 
-1. loss값이 scaling factor를 곱한다.
+1. loss값이 scaling factor를 곱한다. 
 
 1. fp16으로 표현된 loss에서 backward (loss.backward()) → backpropagate 한다.
 
@@ -135,11 +134,11 @@ for epoch in epochs:
 
 - 2개의 프로세스간의 통신 패턴을 point-to-point communication(점대점 통신)라고 명명한다면, 여러 개의 프로세스간의 통신을 collective communication(집합 통신)이라고 명명한다.
 
-→ point-to-point communication는 sender는 데이터를 보내고, receiver는 데이터를 받도록 설계하면 되기 때문에 구현 난이도가 상대적으로 쉬움
+→  point-to-point communication는 sender는 데이터를 보내고, receiver는 데이터를 받도록 설계하면 되기 때문에 구현 난이도가 상대적으로 쉬움
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-05-07-how-to-train-llm---from-data/image_003.png" class="img-fluid rounded z-depth-1" %}
 
-→ multiple senders와 multiple receivers가 있는 collective communication의 경우, topology들이 구성이 매우 다양하기 때문에 (위 그림처럼) 데이터 통신을 최적화하기 매우 어렵다는 한계점이 존재한다.
+→ multiple senders와 multiple receivers가 있는  collective communication의 경우, topology들이 구성이 매우 다양하기 때문에 (위 그림처럼) 데이터 통신을 최적화하기 매우 어렵다는 한계점이 존재한다.
 
 - 조금 더 자세히 말하면, 몇 개의 GPU가 있고, 어떤 GPU가 어떤 GPU와 어떻게 연결(PCIe, NVLink, IB, ethernet 등등) 되어 있는 지와 같은 topology 정보는 통신 최적화에 필수로 고려해야 하는 요소인데, 그 조합이 너무나도 많기에 이것을 다 만족하는 최적화된 솔루션을 찾아 구현하기가 매우 어렵다.
 
@@ -147,9 +146,9 @@ for epoch in epochs:
 
 → 위는 Broadcast 연산인데 GPU0이 GPU[1:3]에 data를 뿌릴때 순차적으로 (GPU0→ GPU1 이 끝나면 GPU0 → GPU2 …)으로 하는게 아니라 데이터를 작은 조각으로 나누어서 GPU0 → GPU1 & GPU1 → GPU2 & GPU2 → GPU3 이렇게 인접한 모든 프로세스가 데이터를 전송하도록 구현하였음.
 
-- **NCCL(NVIDIA Collective Communications Library)**은 **_멀티 GPU_** 및 **_멀티 노드 환경_**에서 고성능을 제공하는 통신 라이브러리로 다양한 네트워크 topology에서도 최적 성능을 달성하는 것을 목표로 개발되었으며 이전에 언급한 Ring-based 집합통신 알고리즘을 기반으로 최적화된 집합 통신을 구현
+- **NCCL(NVIDIA Collective Communications Library)**은 ***멀티 GPU*** 및 ***멀티 노드 환경***에서 고성능을 제공하는 통신 라이브러리로 다양한 네트워크 topology에서도 최적 성능을 달성하는 것을 목표로 개발되었으며 이전에 언급한 Ring-based 집합통신 알고리즘을 기반으로 최적화된 집합 통신을 구현
 
-- NCCL은 DL training, inference에서의 다양한 집합 연산(예: All-reduce, All-gather, Broadcast 등)을 최적화하여 각 GPU 사이에 일관되고 효율적인 통신을 제공하여 병렬 처리 성능을 극대화하는것에 목표를 두고 있음.
+- NCCL은 DL training, inference에서의 다양한 집합 연산(예: All-reduce, All-gather, Broadcast 등)을 최적화하여 각 GPU 사이에 일관되고 효율적인 통신을 제공하여 병렬 처리 성능을 극대화하는것에 목표를 두고 있음. 
 
 - 동기 및 비동기 통신을 지원하며, CUDA 스트림을 통해 다른 연산과 겹쳐서 수행이 가능하다고 함.
 
@@ -157,11 +156,11 @@ for epoch in epochs:
 
 → (1) GPU를 이용한 연산 GPGPU(CUDA)으로 가속화 (2) NCCL을 활용해 하나의 GPU가 아닌 multiple GPUs, 나아가 multi-node 상의 multiple GPUs의 통신을 통한 연산 가속화
 
-- General-Purpse computing on Graphic Processing Unit: 일반적으로 컴퓨터 그래픽스를 위한 계산만 맡았던 그래픽 처리 장치를, 전통적으로 중앙 처리 장치가 맡았던 응용 프로그램들의 계산에 사용하는 기술
+* General-Purpse computing on Graphic Processing Unit: 일반적으로 컴퓨터 그래픽스를 위한 계산만 맡았던 그래픽 처리 장치를, 전통적으로 중앙 처리 장치가 맡았던 응용 프로그램들의 계산에 사용하는 기술
 
-* 간단한 용어 정리
+- 간단한 용어 정리
 
-* **NCCL Operations (DP나 DDP 쓰면서 다들 호출해보셨을 operations들)**
+- **NCCL Operations (DP나 DDP 쓰면서 다들 호출해보셨을 operations들)**
 
 1. **AllReduce**
 
@@ -199,13 +198,13 @@ for epoch in epochs:
 
 - 두 방법론 모두 효율적으로 모델을 학습하기 위해 등장한 방법론.
 
-- `DataParallel`은 단일 작업, 멀티쓰레드 방법론으로 GPU에 입력 데이터를 부분적으로 할당(mini-batch를 분할)하고 동일한 신경망 모델을 복제하여 이용하는 방식
+- `DataParallel`은 단일 작업, 멀티쓰레드 방법론으로  GPU에 입력 데이터를 부분적으로 할당(mini-batch를 분할)하고 동일한 신경망 모델을 복제하여 이용하는 방식
 
 - 반면, `DistributedDataParallel`은 다중 작업이며 단일 및 다중 기기 학습을 전부 지원하는 방식
 
 - `DataParallel`가 가진 스레드간 GIL 경합, 복제 모델의 반복 당 생성, 입력 및 수집 출력으로 인한 추가적인 오버헤드를 `DistributedDataParallel`가 보완해 현재는 DDP를 주로 활용,
 
-- **_DP와 DDP 모두 (당연히 ) Multi-GPUs training setting을 가정함_**
+- ***DP와 DDP 모두 (당연히 ) Multi-GPUs training setting을 가정함***
 
 - **DP (DataParallel)**
 
@@ -215,4 +214,4 @@ for epoch in epochs:
 
 1. **Replicate**
 
-1. **Forward**
+1. **Forward** 

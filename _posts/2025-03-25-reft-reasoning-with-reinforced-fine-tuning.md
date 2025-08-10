@@ -1,27 +1,26 @@
 ---
 categories:
-  - paper-reviews
-date: "2025-03-25 00:00:00"
+- paper-reviews
+date: '2025-03-25 00:00:00'
 description: 논문 리뷰 - Reinforcement Learning, SFT 관련 연구
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-  - fine-tuning
-  - language-model
-  - llm
-  - paper-review
-  - reasoning
-  - reinforcement learning
-  - reinforcement-learning
-  - rlhf
-  - sft
+- fine-tuning
+- language-model
+- llm
+- paper-review
+- reasoning
+- reinforcement learning
+- reinforcement-learning
+- rlhf
+- sft
 thumbnail: assets/img/posts/2025-03-25-reft-reasoning-with-reinforced-fine-tuning/thumbnail.jpg
-title: "ReFT: Reasoning with Reinforced Fine-Tuning"
+title: 'ReFT: Reasoning with Reinforced Fine-Tuning'
 ---
 
 **논문 정보**
-
 - **Date**: 2025-03-25
 - **Reviewer**: 김재희
 - **Property**: Reinforcement Learning, SFT
@@ -64,13 +63,13 @@ title: "ReFT: Reasoning with Reinforced Fine-Tuning"
 
 - state: all tokens including question and generated so far
 
-- policy model( \pi\_\theta): 학습 대상 모델
+- policy model( \pi_\theta): 학습 대상 모델 
 
 ### Objectives
 
 - SFT
 
-- RL: RLHF 수식과 동일합니다.
+- RL: RLHF 수식과 동일합니다. 
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2025-03-25-reft-reasoning-with-reinforced-fine-tuning/image_003.png" class="img-fluid rounded z-depth-1" %}
 
@@ -90,7 +89,7 @@ title: "ReFT: Reasoning with Reinforced Fine-Tuning"
 
 - 논문에서는 단순하게 접근
 
-### Training Reward Model
+### Training Reward Model 
 
 ### Reranking & Majority Voting
 
@@ -186,4 +185,4 @@ title: "ReFT: Reasoning with Reinforced Fine-Tuning"
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2025-03-25-reft-reasoning-with-reinforced-fine-tuning/image_009.png" class="img-fluid rounded z-depth-1" %}
 
-- SFT warmup step을 달리하며 실험 진행
+- SFT warmup step을 달리하며 실험 진행 
