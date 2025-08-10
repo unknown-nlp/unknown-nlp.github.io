@@ -1,23 +1,24 @@
 ---
 categories:
-- paper-reviews
-date: '2024-09-02 00:00:00'
+  - paper-reviews
+date: "2024-09-02 00:00:00"
 description: 논문 리뷰 - ICL, Safety 관련 연구
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-- alignment
-- fine-tuning
-- icl
-- llm
-- paper-review
-- safety
+  - alignment
+  - fine-tuning
+  - icl
+  - llm
+  - paper-review
+  - safety
 thumbnail: assets/img/posts/2024-09-02-many-shot-jailbreaking/thumbnail.jpg
 title: Many-shot jailbreaking
 ---
 
 **논문 정보**
+
 - **Date**: 2024-09-02
 - **Reviewer**: 상엽
 - **Property**: ICL, Safety
@@ -176,7 +177,7 @@ Figure 2M: 모든 모델에서 효과를 보이는 것을 확인할 수 있었�
 
 - 실험은 30-shot MSJ까지만 실험 (전체적으로 예시의 수가 줄었음.)
 
-**공통점**: Supervised fine-tuning & RL 
+**공통점**: Supervised fine-tuning & RL
 
 - 절편은 변화시키지만 기울기 변화는 역시 없다. (MSJ에 대한 효과가 없다고 볼 수 있다.)
 

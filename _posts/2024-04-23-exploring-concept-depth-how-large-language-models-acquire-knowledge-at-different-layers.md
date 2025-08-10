@@ -1,17 +1,18 @@
 ---
 categories: paper-reviews
-date: '2024-04-23 00:00:00'
-description: ' 논문 리뷰 - Exploring Concept Depth: How Large Language Models Acquire
-  Knowledge at Different Layers?'
+date: "2024-04-23 00:00:00"
+description: " 논문 리뷰 - Exploring Concept Depth: How Large Language Models Acquire
+  Knowledge at Different Layers?"
 giscus_comments: true
 layout: post
 related_posts: false
 tags: llm paper-review
-title: 'Exploring Concept Depth: How Large Language Models Acquire Knowledge at Different
-  Layers?'
+title: "Exploring Concept Depth: How Large Language Models Acquire Knowledge at Different
+  Layers?"
 ---
 
 **논문 정보**
+
 - **Date**: 2024-04-23
 - **Reviewer**: hyowon Cho
 
@@ -23,7 +24,7 @@ title: 'Exploring Concept Depth: How Large Language Models Acquire Knowledge at 
 
 1. analyzing model weights and architectures
 
-	- pruning을 통해 어떤 layer 혹은 param을 제거해도 성능에 변화가 없는지 확인
+   - pruning을 통해 어떤 layer 혹은 param을 제거해도 성능에 변화가 없는지 확인
 
 1. probing representations
 
@@ -99,11 +100,11 @@ linear classifier를 만들 때는, each layer의 마지막 feature representati
 
 - nine datasets
 
-	- fact/factual analysis (Cities[22], CommonClaim[7], Counterfact[24])
+  - fact/factual analysis (Cities[22], CommonClaim[7], Counterfact[24])
 
-	- emotion (STSA[17], IMDb[20], Sarcasm[25], HateEval [21])
+  - emotion (STSA[17], IMDb[20], Sarcasm[25], HateEval [21])
 
-	- inference/logical reasoning (StrategyQA[11], Coinflip[34])
+  - inference/logical reasoning (StrategyQA[11], Coinflip[34])
 
 ```latex
 Cities [22]: consists of statements about the location of cities and
@@ -137,9 +138,9 @@ it is either flipped or left unflipped by individuals.
 
 - LLM의 성능에 따라 easy ~ complex로 구분
 
-	- initial or middle depth of the LLMs에서 좋은 성능을 보이는 데이터는 easy
+  - initial or middle depth of the LLMs에서 좋은 성능을 보이는 데이터는 easy
 
-	- large fluctuations and stable classification accuracy occurring at the deep depth of the LLMs을 보이는 데이터는 complex
+  - large fluctuations and stable classification accuracy occurring at the deep depth of the LLMs을 보이는 데이터는 complex
 
 ### The Robustness of Internal Representations
 
@@ -158,18 +159,18 @@ quantization을 했을 때는 어떻게 달라질까?
 
 - Variation Rate
 
-	- i-th layer의 acc = a_i
+  - i-th layer의 acc = a_i
 
-	- vartiation rate β_i = a_i/a_{i-1}
+  - vartiation rate β*i = a_i/a*{i-1}
 
-2가지 acc metric을 소개한다:  (1) jump point (2) coveraging point
+2가지 acc metric을 소개한다: (1) jump point (2) coveraging point
 
 1. **Jump Point**
-We denote $ J(M, D) = min{\frac{i}{d}} $ s.t.
-$ β_i >= 1.1, i ∈ {1, 2, ..., d − 1} $, as the jump point, where $M$ and $D = (q, y)$ represents the LLM classifier and the dataset. 즉, 성능 상 주목할만한 향상이 있을 때, 그 지점을 jump point라고 부른다.
+   We denote $ J(M, D) = min{\frac{i}{d}} $ s.t.
+   $ β_i >= 1.1, i ∈ {1, 2, ..., d − 1} $, as the jump point, where $M$ and $D = (q, y)$ represents the LLM classifier and the dataset. 즉, 성능 상 주목할만한 향상이 있을 때, 그 지점을 jump point라고 부른다.
 
 1. **Converging Point**
-We denote $ C(M, D) = max{\frac{i}{d}} $ s.t. $ |β_i − 1| < 0.03, i ∈ {1, 2, ..., d − 1} $ s.t. , as the converging point, where M and D = (q, y) represents the LLM classifier and the dataset.
+   We denote $ C(M, D) = max{\frac{i}{d}} $ s.t. $ |β_i − 1| < 0.03, i ∈ {1, 2, ..., d − 1} $ s.t. , as the converging point, where M and D = (q, y) represents the LLM classifier and the dataset.
 
 <br/>
 
@@ -188,7 +189,7 @@ We denote $ C(M, D) = max{\frac{i}{d}} $ s.t. $ |β_i − 1| < 0.03, i ∈ {1, 2
 > RQ1: Do different LLMs’ concept depths behave consistently in the same dataset? (Section 5.1)
 
 1. LLMs은 다루는 개념에 따라, layer에서 다른 양상을 보였다.
-하지만, 같은 개념은 다양한 LLM들에서 일관된 양상을 보였다.
+   하지만, 같은 개념은 다양한 LLM들에서 일관된 양상을 보였다.
 
 1. 다양한 레벨의 conceptual understanding이 필요한 태스크의 경우, LLMs은 여러 레이어에 걸쳐가며 처리를 하는 양상을 보였다 ==> indicating a layered approach to processing complex concepts
 
@@ -265,7 +266,7 @@ string noise의 경우 랜덤하게 두 개의 짧은 string을 question앞에 �
 
 - [noise] learning curve가 좀 더 오른쪽으로 shift, 즉, convergence speed가 좀 느려짐.
 
-	- noise가 학습에 부정적인 역할!
+  - noise가 학습에 부정적인 역할!
 
 - [quantization] 32와 16의 경우 별로 달라지지 않고, 8의 경우에는 slower. 즉, 16이 더 좋은 선택이다!
 

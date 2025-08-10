@@ -1,22 +1,23 @@
 ---
 categories:
-- paper-reviews
-date: '2024-01-02 00:00:00'
+  - paper-reviews
+date: "2024-01-02 00:00:00"
 description: 논문 리뷰 - LLM 관련 연구
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-- detection
-- gpt
-- language-model
-- llm
-- paper-review
+  - detection
+  - gpt
+  - language-model
+  - llm
+  - paper-review
 thumbnail: assets/img/posts/2024-01-02-detecting-pretraining-data-from-large-language-models/thumbnail.jpg
 title: DETECTING PRETRAINING DATA FROM LARGE LANGUAGE MODELS
 ---
 
 **논문 정보**
+
 - **Date**: 2024-01-02
 - **Reviewer**: 김재희
 - **Property**: LLM
@@ -55,7 +56,7 @@ title: DETECTING PRETRAINING DATA FROM LARGE LANGUAGE MODELS
 
 - 해당 스코어에 대한 Thresholding을 통해 MIA 태스크 수행 가능
 
-## 4. Experiments 1 - Main 
+## 4. Experiments 1 - Main
 
 ### Implementation Details and Setup
 

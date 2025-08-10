@@ -1,31 +1,32 @@
 ---
 categories:
-- paper-reviews
-date: '2024-06-11 00:00:00'
+  - paper-reviews
+date: "2024-06-11 00:00:00"
 description: 논문 리뷰 - Natural Language Generation 관련 연구
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-- attention
-- embedding
-- gpt
-- language-model
-- llm
-- natural language generation
-- paper-review
+  - attention
+  - embedding
+  - gpt
+  - language-model
+  - llm
+  - natural language generation
+  - paper-review
 thumbnail: assets/img/posts/2024-06-11-contextual-position-encoding-learning-to-count-whats-important/thumbnail.jpg
-title: 'Contextual Position Encoding: Learning to Count What’s Important'
+title: "Contextual Position Encoding: Learning to Count What’s Important"
 ---
 
 **논문 정보**
+
 - **Date**: 2024-06-11
 - **Reviewer**: 김재희
 - **Property**: Natural Language Generation
 
 ## 1. Intro
 
-- Positional Encoding: Self Attn 시 처리되는 각 토큰들에 대해 위치 정보를 삽입하는 것 
+- Positional Encoding: Self Attn 시 처리되는 각 토큰들에 대해 위치 정보를 삽입하는 것
 
 - 왜 필요하쥬?
 
@@ -41,11 +42,11 @@ title: 'Contextual Position Encoding: Learning to Count What’s Important'
 
 sequence: yyyy**x**yy**y** → x
 
-- 마지막 시점에서 query에 대해 두 토큰 **x**와 **y**에 대한 token의 attention 관계 
+- 마지막 시점에서 query에 대해 두 토큰 **x**와 **y**에 대한 token의 attention 관계
 
 - 마지막 시점에서 query와 두 토큰 **x**(i번째 이전 시점)와 **y**(j번째 이전 시점)의 positional encoding의 attention 관계
 
-- query에 대해서 **x**와 **y**가 가지는 attention의 비 
+- query에 대해서 **x**와 **y**가 가지는 attention의 비
 
 - 현재 시점과의 self attn과 이전 i번째 시점과의 attn 차이의 minimum bound
 
@@ -121,7 +122,7 @@ sequence: yyyy**x**yy**y** → x
 
 ### 실험결과
 
-- Absolute PE: OOD에 대해 제대로 추론하지 못하는 모습 
+- Absolute PE: OOD에 대해 제대로 추론하지 못하는 모습
 
 - RoPE: OOD에 대해 제대로 추론하지 못하는 모습
 
@@ -169,8 +170,8 @@ sequence: yyyy**x**yy**y** → x
 
 ### Limitations (재희)
 
-- RoPE 및 Relative Positional Embedding 대비 성능 개선 폭이 크지 않음. 
+- RoPE 및 Relative Positional Embedding 대비 성능 개선 폭이 크지 않음.
 
-- Long Context에 robust함을 보이기에는 최근 연구들 대비 실험한 text context length가 너무 짧음 
+- Long Context에 robust함을 보이기에는 최근 연구들 대비 실험한 text context length가 너무 짧음
 
-- 실제 동작 여부는 아마 향후 llm 적용 등을 통해 확인할 수 있을듯. 
+- 실제 동작 여부는 아마 향후 llm 적용 등을 통해 확인할 수 있을듯.

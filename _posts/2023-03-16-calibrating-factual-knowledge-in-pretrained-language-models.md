@@ -1,24 +1,25 @@
 ---
 categories:
-- paper-reviews
-date: '2023-03-16 00:00:00'
+  - paper-reviews
+date: "2023-03-16 00:00:00"
 description: 논문 리뷰 - Knowledge, Calibrating 관련 연구
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-- calibrating
-- gpt
-- knowledge
-- language-model
-- nlp
-- paper-review
-- transformer
+  - calibrating
+  - gpt
+  - knowledge
+  - language-model
+  - nlp
+  - paper-review
+  - transformer
 thumbnail: assets/img/posts/2023-03-16-calibrating-factual-knowledge-in-pretrained-language-models/thumbnail.jpg
 title: Calibrating Factual Knowledge in Pretrained Language Models
 ---
 
 **논문 정보**
+
 - **Date**: 2023-03-16
 - **Reviewer**: 김재희
 - **Property**: Knowledge, Calibrating
@@ -27,7 +28,7 @@ title: Calibrating Factual Knowledge in Pretrained Language Models
 
 기존 LM의 내부에 사전학습을 통해 Factual Knowledge가 저장되어 있다고 간주하는 연구들이 있음
 
-###  LAMA(Language Models as Knowledge Bases?, Wu et al., EMNLP 2019)
+### LAMA(Language Models as Knowledge Bases?, Wu et al., EMNLP 2019)
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2023-03-16-calibrating-factual-knowledge-in-pretrained-language-models/image_000.png" class="img-fluid rounded z-depth-1" %}
 
@@ -41,7 +42,7 @@ title: Calibrating Factual Knowledge in Pretrained Language Models
 
 - 최근 연구에선 GPT3의 많은 파라미터 중 FFNN 레이어에 Factual Knowledge가 주로 저장된다고 주장
 
-- 트랜스포머의 FFNN은 model_dim → 4*model_dim → model_dim으로 2 레이어로 구성
+- 트랜스포머의 FFNN은 model_dim → 4\*model_dim → model_dim으로 2 레이어로 구성
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2023-03-16-calibrating-factual-knowledge-in-pretrained-language-models/image_001.png" class="img-fluid rounded z-depth-1" %}
 
@@ -51,21 +52,21 @@ title: Calibrating Factual Knowledge in Pretrained Language Models
 
 ### Contribution
 
-- 본 논문은 이러한 아이디어를 차용하여, 모델이 잘못 저장하고 있는 Factual Knowledge를 효율적으로 수정할 수 있는 방법론 제안 
+- 본 논문은 이러한 아이디어를 차용하여, 모델이 잘못 저장하고 있는 Factual Knowledge를 효율적으로 수정할 수 있는 방법론 제안
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2023-03-16-calibrating-factual-knowledge-in-pretrained-language-models/image_002.png" class="img-fluid rounded z-depth-1" %}
 
-- Retrieval Augmented LM, Knowlege Graph과 달리 오직 모델의 input-output으로 Knowlege를 수정하는 방법론 제안 
+- Retrieval Augmented LM, Knowlege Graph과 달리 오직 모델의 input-output으로 Knowlege를 수정하는 방법론 제안
 
 - 이와 더불어 모델이 잘못 알고 있는 Factual Knowledge를 효과적으로 탐색할 수 있는 scoring 방법론 제안
 
 ## 2. Contrastive Knowledge Assessment(CKA)
 
-- 본 논문의 주제는 결국 **모델이 잘못 알고 있는 사실을 수정하자** 임. 
+- 본 논문의 주제는 결국 **모델이 잘못 알고 있는 사실을 수정하자** 임.
 
-- 해당 문제의 출발점은 **모델이 잘못 알고 있는 사실이 무엇인가?** 
+- 해당 문제의 출발점은 **모델이 잘못 알고 있는 사실이 무엇인가?**
 
-- LM 태스크를 통해 subject와 relation이 입력되었을 때, object가 생성될 확률을 이용하여 모델이 옳바른 Factual Knowlege를 가지고 있는지 평가 
+- LM 태스크를 통해 subject와 relation이 입력되었을 때, object가 생성될 확률을 이용하여 모델이 옳바른 Factual Knowlege를 가지고 있는지 평가
 
 - 이러한 평가 시 두가지 고려사항 존재
 
@@ -91,9 +92,9 @@ title: Calibrating Factual Knowledge in Pretrained Language Models
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2023-03-16-calibrating-factual-knowledge-in-pretrained-language-models/image_003.png" class="img-fluid rounded z-depth-1" %}
 
-- 기존 FFNN 
+- 기존 FFNN
 
-- Calibration Slots 
+- Calibration Slots
 
 → LoRA와 다른점
 
@@ -103,13 +104,13 @@ title: Calibrating Factual Knowledge in Pretrained Language Models
 
 - CaliNet은 Decoder의 마지막 레이어에만 적용 (향후 실험 있어요!)
 
-## 4. 실험 및 결과 
+## 4. 실험 및 결과
 
 ### Dataset
 
 - 실제 Factual Knowledge : Facutal Knowledge 데이터셋(T-REx)의 triplet을 샘플링하여 사용
 
--  # of dataset : 100 or 1000
+- # of dataset : 100 or 1000
 
 ### Incorrect Factual Knowledge Dataset
 
@@ -127,14 +128,14 @@ title: Calibrating Factual Knowledge in Pretrained Language Models
 
 - Ori : 실제 Factual Knowledge triplet의 Object에 대한 Perplexity
 
-- Adv : Errorneous relation을 이용한 triplet의 Object에 대한 Perplexity 
+- Adv : Errorneous relation을 이용한 triplet의 Object에 대한 Perplexity
 
 - EM, F1 : object에 대한 실제 생성 정확도
 
 - LM : 전체 토큰에 대한 Perplexity
 
-> Ori : (Obama, born_in, Hawaii) → Obama was born in [MASK] → Hawaii 
-Adv : (Obama, died_in, Hawaii) → Obama was died in [MASK] → Hawaii
+> Ori : (Obama, born_in, Hawaii) → Obama was born in [MASK] → Hawaii
+> Adv : (Obama, died_in, Hawaii) → Obama was died in [MASK] → Hawaii
 
 - CP(Continual Pretraining) 에 비해 CALINET이 적은 파라미터 이용
 
@@ -170,7 +171,7 @@ Adv : (Obama, died_in, Hawaii) → Obama was died in [MASK] → Hawaii
 
 - E : 모델의 출력 임베딩 레이어
 
-- \text{v}^l :  기존 모델의 l번째 레이어의 hidden representation
+- \text{v}^l : 기존 모델의 l번째 레이어의 hidden representation
 
 - \text{v}^c : CaliNet의 hidden representation
 
@@ -196,4 +197,4 @@ Adv : (Obama, died_in, Hawaii) → Obama was died in [MASK] → Hawaii
 
 - Calibration을 통해 실제 정답 Object 뿐만 아니라 의미적으로 유사한 토큰들도 높은 liklihood가 생성됨
 
-## 4. 결론                      
+## 4. 결론

@@ -1,35 +1,36 @@
 ---
 categories:
-- paper-reviews
-date: '2024-10-03 00:00:00'
+  - paper-reviews
+date: "2024-10-03 00:00:00"
 description: 논문 리뷰 - Knowledge Distillation 관련 연구
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-- gpt
-- knowledge distillation
-- llm
-- paper-review
-- reasoning
-- vision
+  - gpt
+  - knowledge distillation
+  - llm
+  - paper-review
+  - reasoning
+  - vision
 thumbnail: assets/img/posts/2024-10-03-qcrd-quality-guided-contrastive-rationale-distillation-for-large/thumbnail.jpg
-title: 'QCRD: Quality-guided Contrastive Rationale Distillation for Large Lanauge
-  Models'
+title: "QCRD: Quality-guided Contrastive Rationale Distillation for Large Lanauge
+  Models"
 ---
 
 **논문 정보**
+
 - **Date**: 2024-10-03
 - **Reviewer**: 전민진
 - **Property**: Knowledge Distillation
 
 ## Abstract
 
-- LLM은 좋은 성능을 갖고 있으나 resource 제한, inference 효율성 등으로 다양한  application에서 사용되기엔 한계가 존재
+- LLM은 좋은 성능을 갖고 있으나 resource 제한, inference 효율성 등으로 다양한 application에서 사용되기엔 한계가 존재
 
 - 최근 LLM을 기반으로 한 knowledge distillatinon으로 smaller, task-specific한 모델을 학습하는 여러 방법론이 제안 됨
 
-- 하지만 기존 연구들은 knowledge의 disversity와 quality에 크게 집중하지 않음. 
+- 하지만 기존 연구들은 knowledge의 disversity와 quality에 크게 집중하지 않음.
 
 - 본 논문에서는 constrative knowledge learning을 통한 reasoning capability 향상을 목표로 하는 quality-guided contrstive rationale distillation(QCRD)을 제안
 
@@ -99,7 +100,7 @@ title: 'QCRD: Quality-guided Contrastive Rationale Distillation for Large Lanaug
 
 **Baselines**
 
-- Fintuning 
+- Fintuning
 
 - Single-supervision : teacher model이 예측한 label을 맞추도록 학습
 

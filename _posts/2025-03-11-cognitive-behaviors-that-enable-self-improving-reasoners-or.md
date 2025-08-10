@@ -1,24 +1,25 @@
 ---
 categories:
-- paper-reviews
-date: '2025-03-11 00:00:00'
+  - paper-reviews
+date: "2025-03-11 00:00:00"
 description: 논문 리뷰 - RL, Reasoning 관련 연구
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-- llm
-- paper-review
-- pre-training
-- reasoning
-- rl
-- vision
+  - llm
+  - paper-review
+  - pre-training
+  - reasoning
+  - rl
+  - vision
 thumbnail: assets/img/posts/2025-03-11-cognitive-behaviors-that-enable-self-improving-reasoners-or/thumbnail.jpg
 title: Cognitive Behaviors that Enable Self-Improving Reasoners, or, Four Habits of
   Highly Effective STaRs
 ---
 
 **논문 정보**
+
 - **Date**: 2025-03-11
 - **Reviewer**: 준원 장
 - **Property**: RL, Reasoning
@@ -49,7 +50,7 @@ title: Cognitive Behaviors that Enable Self-Improving Reasoners, or, Four Habits
 
 → Qwen 30 step부터 성능 증가, 60% accuracy 달성. Llama 최종 30% accuracy 달성.
 
-→ Qwen 초기에 explicit verification statements → implicit solution checking 
+→ Qwen 초기에 explicit verification statements → implicit solution checking
 
 (‘verbose하게 verification하다가 올바른 답을 찾을 때까지 순차적으로 다른 해결책을 시도를 하는 방식으로 바뀜)
 
@@ -75,9 +76,9 @@ title: Cognitive Behaviors that Enable Self-Improving Reasoners, or, Four Habits
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2025-03-11-cognitive-behaviors-that-enable-self-improving-reasoners-or/image_002.png" class="img-fluid rounded z-depth-1" %}
 
-→ General한 분석을 위해  Qwen-2.5-3B, Llama-3.2-3B, Llama-3.1-70B에 대한 분석 진행 (PPO model output)
+→ General한 분석을 위해 Qwen-2.5-3B, Llama-3.2-3B, Llama-3.1-70B에 대한 분석 진행 (PPO model output)
 
-→  Qwen-2.5-3B가 Llama들에 비해 4가지 행동 모두에서 상당히 높은 비율 기록
+→ Qwen-2.5-3B가 Llama들에 비해 4가지 행동 모두에서 상당히 높은 비율 기록
 
 - **Takeway**
 
@@ -111,7 +112,7 @@ title: Cognitive Behaviors that Enable Self-Improving Reasoners, or, Four Habits
 
 1. OpenWebMath에서 'cognitive behaviors'가 있는 부분을 추출해서
 
-1. question-thought-answer format변환 
+1. question-thought-answer format변환
 
 1. 'cognitive behaviors'가 있는 부분 없는 부분 (curated vs minimized curated)
 
@@ -129,4 +130,4 @@ title: Cognitive Behaviors that Enable Self-Improving Reasoners, or, Four Habits
 
 1. 'cognitive behaviors'가 rich한 pre-training data를 curation해 CL하면 RL후 test-time scaling을 달성할 수 있음
 
-1. 논문에서 검증한 'cognitive behaviors'가 task-dependent하다. 
+1. 논문에서 검증한 'cognitive behaviors'가 task-dependent하다.

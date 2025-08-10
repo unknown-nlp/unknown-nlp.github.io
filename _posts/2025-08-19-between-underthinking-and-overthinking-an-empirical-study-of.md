@@ -1,21 +1,22 @@
 ---
 categories:
-- paper-reviews
-date: '2025-08-19 00:00:00'
+  - paper-reviews
+date: "2025-08-19 00:00:00"
 description: 논문 리뷰 - Reasoning 관련 연구
 giscus_comments: true
 layout: post
 related_posts: false
 slug: 2025-08-19-between-underthinking-and-overthinking-an-empirical-study-of
 tags:
-- llm
-- paper-review
-- reasoning
-title: 'Between Underthinking and Overthinking: An Empirical Study of Reasoning Length
-  and correctness in LLMs'
+  - llm
+  - paper-review
+  - reasoning
+title: "Between Underthinking and Overthinking: An Empirical Study of Reasoning Length
+  and correctness in LLMs"
 ---
 
 **논문 정보**
+
 - **Date**: 2025-07-01
 - **Reviewer**: 준원 장
 - **Property**: Reasoning
@@ -94,23 +95,23 @@ title: 'Between Underthinking and Overthinking: An Empirical Study of Reasoning 
 
 ![Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/3acbc979-3f43-48f4-8683-229c6104ec76/6c8cd3cd-6aa3-4c46-b883-68b4246ceefc/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2025-07-01_%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE_6.07.59.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=ASIAZI2LB4666AJATHMS%2F20250810%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20250810T110001Z&X-Amz-Expires=3600&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEJr%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJGMEQCIHli89shSN%2Fc8Aabc%2FlUivfqU3HWuU2VXUBPAqPqlxXQAiAwOrTeg%2FukrfXM81xJy4UCC1dSghAtUECDmhGYcXObCiqIBAjT%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAAaDDYzNzQyMzE4MzgwNSIMQKAlTuz%2FOHIQpRQYKtwDvrVW654o%2FPaq8hWslFB6vnQ5Wh55jTEWRvGIfj2cvEbQz6T7CJDV96%2F9cnnjm9GHeTxDxnBHOScMaWTXBM1o4RuiSVROrOcplhpHbuegkzmR4L0W2%2FCGM6BLTswKsqW17xoWm6584HYFwDNco3LCU2xzvezcldG06hVF1xQ8oJOTBF1FZsSnwuZNMwcAVzr0bl0IDpa11rLGrMFeU%2Bv9NcEezu5oPfrQu6bCqIRnuNb%2FJrLSOp6xzd3vgpmb3e8BXziwg85%2FjwJ2p6vpSf2L%2Bh1PDKs7p5MrhYCpOhbZG5dWr58feQhFC3kZXWnML50KLhnIOi9CIKkfuYd2pec28Nz1SNXb4LEmiIC9woIJJKjsEZJ9%2FeXIhEBQz5BFQloTLFzxi6Y26cDLlT4HvbQbGo1WhqyOjTLC9Kt2%2BC6q5UkrO8qZj7qdVbfBdsUMZJj3%2Fjix%2FDn6rINV7AJUqvbgrt0vOgTZ6koE0qSCnQrad0R1VwQL5dLsP%2FM%2B67PwGstQbJFd8OaOQpOqJcQUNYA1ycQP457d5aOmLOYCbB%2B7ekU%2F1Co1%2FMh%2FnMDtXlrBsHnuB26sIamTD0cj%2BG1NWBK0AyWlifQ9mGTFRoNh3IZG%2FY7rRPTJCgtq65Uy8skw3dThxAY6pgGdJsdPqK3du6dmRgEQi%2FNtxXqRkhY68cmo0pPBraK1dQyX6hvq4UWtYs5xFjNvt4plmTBfiBoxXOxpIYbeab3XOZx1jAPtzivOQi1XbOVwHKCQ9MkecZrnsNB63zm%2ByTWztn%2Bo7bKwszImOgx%2FnZ%2BRwFFsWXbv1vmh36hLGgwqY%2BC3xm%2Fy99fh7mY5Yvwx%2FdvL9Am4Aks%2FnURLLn9Y1w1r6IKzNgnY&X-Amz-Signature=fc9cffd60f868d6a5667952278475a639f5b448cfcf3d9daa3a125c5bf6123d9&X-Amz-SignedHeaders=host&x-amz-checksum-mode=ENABLED&x-id=GetObject)
 
-- Q^{easy}_{\cap} = Q^{easy}_{i} \cap Q^{easy}_{j}
+- Q^{easy}_{\cap} = Q^{easy}_{i} \cap Q^{easy}\_{j}
 
-- Q^{easy}_{i/j} = Q^{easy}_{i} /  Q^{easy}_{j} > M_i  에서만 쉬운 문제
+- Q^{easy}_{i/j} = Q^{easy}_{i} / Q^{easy}\_{j} > M_i 에서만 쉬운 문제
 
-- Q^{easy}_{j/i} = Q^{easy}_{j} /  Q^{easy}_{i} > M_j에서만 쉬운 문제 
+- Q^{easy}_{j/i} = Q^{easy}_{j} / Q^{easy}\_{i} > M_j에서만 쉬운 문제
 
 - 보편적으로 쉬운 문제가 아니라 another model’s advantage set (다른모델에서 쉬운 문제)에서 오히려 lengthy generation을 보임
 
-- signficant로 보면 M_i  → M_j-Adv Set을 풀때 보다 lengthy해짐
+- signficant로 보면 M_i → M_j-Adv Set을 풀때 보다 lengthy해짐
 
 ![Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/3acbc979-3f43-48f4-8683-229c6104ec76/b272f5c0-6437-4a3b-8b62-31be1fb32ee4/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2025-07-01_%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE_6.32.17.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=ASIAZI2LB4666AJATHMS%2F20250810%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20250810T110002Z&X-Amz-Expires=3600&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEJr%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJGMEQCIHli89shSN%2Fc8Aabc%2FlUivfqU3HWuU2VXUBPAqPqlxXQAiAwOrTeg%2FukrfXM81xJy4UCC1dSghAtUECDmhGYcXObCiqIBAjT%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAAaDDYzNzQyMzE4MzgwNSIMQKAlTuz%2FOHIQpRQYKtwDvrVW654o%2FPaq8hWslFB6vnQ5Wh55jTEWRvGIfj2cvEbQz6T7CJDV96%2F9cnnjm9GHeTxDxnBHOScMaWTXBM1o4RuiSVROrOcplhpHbuegkzmR4L0W2%2FCGM6BLTswKsqW17xoWm6584HYFwDNco3LCU2xzvezcldG06hVF1xQ8oJOTBF1FZsSnwuZNMwcAVzr0bl0IDpa11rLGrMFeU%2Bv9NcEezu5oPfrQu6bCqIRnuNb%2FJrLSOp6xzd3vgpmb3e8BXziwg85%2FjwJ2p6vpSf2L%2Bh1PDKs7p5MrhYCpOhbZG5dWr58feQhFC3kZXWnML50KLhnIOi9CIKkfuYd2pec28Nz1SNXb4LEmiIC9woIJJKjsEZJ9%2FeXIhEBQz5BFQloTLFzxi6Y26cDLlT4HvbQbGo1WhqyOjTLC9Kt2%2BC6q5UkrO8qZj7qdVbfBdsUMZJj3%2Fjix%2FDn6rINV7AJUqvbgrt0vOgTZ6koE0qSCnQrad0R1VwQL5dLsP%2FM%2B67PwGstQbJFd8OaOQpOqJcQUNYA1ycQP457d5aOmLOYCbB%2B7ekU%2F1Co1%2FMh%2FnMDtXlrBsHnuB26sIamTD0cj%2BG1NWBK0AyWlifQ9mGTFRoNh3IZG%2FY7rRPTJCgtq65Uy8skw3dThxAY6pgGdJsdPqK3du6dmRgEQi%2FNtxXqRkhY68cmo0pPBraK1dQyX6hvq4UWtYs5xFjNvt4plmTBfiBoxXOxpIYbeab3XOZx1jAPtzivOQi1XbOVwHKCQ9MkecZrnsNB63zm%2ByTWztn%2Bo7bKwszImOgx%2FnZ%2BRwFFsWXbv1vmh36hLGgwqY%2BC3xm%2Fy99fh7mY5Yvwx%2FdvL9Am4Aks%2FnURLLn9Y1w1r6IKzNgnY&X-Amz-Signature=1f04e310eea5b25681d7220dcbeb5b9a18f1354472210b84eb8ff588da87cccb&X-Amz-SignedHeaders=host&x-amz-checksum-mode=ENABLED&x-id=GetObject)
 
-- hard question에서는 Q^{hard}_{\cap}에서 보다 another model’s advantage set에서 lengthy해질 것을 기대했으나 그렇진 않음
+- hard question에서는 Q^{hard}\_{\cap}에서 보다 another model’s advantage set에서 lengthy해질 것을 기대했으나 그렇진 않음
 
 ![Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/3acbc979-3f43-48f4-8683-229c6104ec76/9e383a99-5093-4f6d-b4b5-b45916cafabd/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2025-07-01_%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE_6.36.41.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=ASIAZI2LB4666AJATHMS%2F20250810%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20250810T110002Z&X-Amz-Expires=3600&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEJr%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJGMEQCIHli89shSN%2Fc8Aabc%2FlUivfqU3HWuU2VXUBPAqPqlxXQAiAwOrTeg%2FukrfXM81xJy4UCC1dSghAtUECDmhGYcXObCiqIBAjT%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAAaDDYzNzQyMzE4MzgwNSIMQKAlTuz%2FOHIQpRQYKtwDvrVW654o%2FPaq8hWslFB6vnQ5Wh55jTEWRvGIfj2cvEbQz6T7CJDV96%2F9cnnjm9GHeTxDxnBHOScMaWTXBM1o4RuiSVROrOcplhpHbuegkzmR4L0W2%2FCGM6BLTswKsqW17xoWm6584HYFwDNco3LCU2xzvezcldG06hVF1xQ8oJOTBF1FZsSnwuZNMwcAVzr0bl0IDpa11rLGrMFeU%2Bv9NcEezu5oPfrQu6bCqIRnuNb%2FJrLSOp6xzd3vgpmb3e8BXziwg85%2FjwJ2p6vpSf2L%2Bh1PDKs7p5MrhYCpOhbZG5dWr58feQhFC3kZXWnML50KLhnIOi9CIKkfuYd2pec28Nz1SNXb4LEmiIC9woIJJKjsEZJ9%2FeXIhEBQz5BFQloTLFzxi6Y26cDLlT4HvbQbGo1WhqyOjTLC9Kt2%2BC6q5UkrO8qZj7qdVbfBdsUMZJj3%2Fjix%2FDn6rINV7AJUqvbgrt0vOgTZ6koE0qSCnQrad0R1VwQL5dLsP%2FM%2B67PwGstQbJFd8OaOQpOqJcQUNYA1ycQP457d5aOmLOYCbB%2B7ekU%2F1Co1%2FMh%2FnMDtXlrBsHnuB26sIamTD0cj%2BG1NWBK0AyWlifQ9mGTFRoNh3IZG%2FY7rRPTJCgtq65Uy8skw3dThxAY6pgGdJsdPqK3du6dmRgEQi%2FNtxXqRkhY68cmo0pPBraK1dQyX6hvq4UWtYs5xFjNvt4plmTBfiBoxXOxpIYbeab3XOZx1jAPtzivOQi1XbOVwHKCQ9MkecZrnsNB63zm%2ByTWztn%2Bo7bKwszImOgx%2FnZ%2BRwFFsWXbv1vmh36hLGgwqY%2BC3xm%2Fy99fh7mY5Yvwx%2FdvL9Am4Aks%2FnURLLn9Y1w1r6IKzNgnY&X-Amz-Signature=17b896b6facbaf99f39560c7ae8d19345ca683f9d409429cb7ee60589d4d543a&X-Amz-SignedHeaders=host&x-amz-checksum-mode=ENABLED&x-id=GetObject)
 
-- (어떻게 실험했는지는 모르겠는데..) token length가 짧아질수록 accuracy가 올라간다. 
+- (어떻게 실험했는지는 모르겠는데..) token length가 짧아질수록 accuracy가 올라간다.
 
 - 위에 실험을 기반으로 token legnth가 짧으니 확률적으로 당연히 accuracy가 높은 답변일수록 PPL도 낮을 것
 
@@ -128,7 +129,7 @@ title: 'Between Underthinking and Overthinking: An Empirical Study of Reasoning 
 
 - SimPO가 진행됨에 따라 incorrect response의 생성이 줄어들었다.
 
-## 7. Conclusion &  Limitation
+## 7. Conclusion & Limitation
 
 - generation length와 final answer correctness에 대해서 심도 있는 분석
 

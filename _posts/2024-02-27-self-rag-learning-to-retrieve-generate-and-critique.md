@@ -1,25 +1,26 @@
 ---
 categories:
-- paper-reviews
-date: '2024-02-27 00:00:00'
+  - paper-reviews
+date: "2024-02-27 00:00:00"
 description: 논문 리뷰 - Retrieval, Natural Language Generation 관련 연구
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-- gpt
-- language-model
-- llm
-- natural language generation
-- paper-review
-- reasoning
-- retrieval
-- rlhf
+  - gpt
+  - language-model
+  - llm
+  - natural language generation
+  - paper-review
+  - reasoning
+  - retrieval
+  - rlhf
 thumbnail: assets/img/posts/2024-02-27-self-rag-learning-to-retrieve-generate-and-critique/thumbnail.jpg
-title: 'SELF-RAG: LEARNING TO RETRIEVE, GENERATE, AND CRITIQUE THROUGH SELF-REFLECTION'
+title: "SELF-RAG: LEARNING TO RETRIEVE, GENERATE, AND CRITIQUE THROUGH SELF-REFLECTION"
 ---
 
 **논문 정보**
+
 - **Date**: 2024-02-27
 - **Reviewer**: 상엽
 - **Property**: Retrieval, Natural Language Generation
@@ -38,7 +39,7 @@ title: 'SELF-RAG: LEARNING TO RETRIEVE, GENERATE, AND CRITIQUE THROUGH SELF-REFL
 
 → Self-Reflective Retrieval-augmented Generation (SELF-RAG)
 
-- via on-demand retrieval and self-reflection. 
+- via on-demand retrieval and self-reflection.
 
 **How?**
 
@@ -60,7 +61,7 @@ title: 'SELF-RAG: LEARNING TO RETRIEVE, GENERATE, AND CRITIQUE THROUGH SELF-REFL
 
 - 항상 고정된 개수의 document를 추출하는 RAG와는 달리 **retrieval을 조절할 수 있음**.
 
-- SELF-RAG는 support에 대한 **self assesment를 진행**하기 때문에 citation을 제공할 수  있음. → fact verification을 쉽게 함.
+- SELF-RAG는 support에 대한 **self assesment를 진행**하기 때문에 citation을 제공할 수 있음. → fact verification을 쉽게 함.
 
 # Related work
 
@@ -80,7 +81,7 @@ title: 'SELF-RAG: LEARNING TO RETRIEVE, GENERATE, AND CRITIQUE THROUGH SELF-REFL
 
 # SELF-RAG: LEARNING TO RETRIEVE, GENERATE AND CRITIQUE
 
-**Reflection tokens** 
+**Reflection tokens**
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-02-27-self-rag-learning-to-retrieve-generate-and-critique/image_001.png" class="img-fluid rounded z-depth-1" %}
 
@@ -98,7 +99,7 @@ y : textual outputs consisting of multiple segments [y_1, ..., y_T] (original to
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-02-27-self-rag-learning-to-retrieve-generate-and-critique/image_002.png" class="img-fluid rounded z-depth-1" %}
 
-x가 주어졌을 때 모든 generation 과정 y_{<t}에 대해서 모델은 retrieval 여부를 판단
+x가 주어졌을 때 모든 generation 과정 y\_{<t}에 대해서 모델은 retrieval 여부를 판단
 
 - retrieval이 필요없을 경우 : standard LM과 똑같이 next output segment prediction 진행
 
@@ -108,9 +109,9 @@ x가 주어졌을 때 모든 generation 과정 y_{<t}에 대해서 모델은 ret
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-02-27-self-rag-learning-to-retrieve-generate-and-critique/image_003.png" class="img-fluid rounded z-depth-1" %}
 
-- Data collections (\mathcal{D_{critic}}) : GPT-4를 이용해 reflection token을 포함한 데이터 수집
+- Data collections (\mathcal{D\_{critic}}) : GPT-4를 이용해 reflection token을 포함한 데이터 수집
 
-- Learning critic model  \mathcal{C} : \mathcal{D_{critic}} 데이터를 이용해 reflection token 생성 학습 (일종의 reward 모델)
+- Learning critic model \mathcal{C} : \mathcal{D\_{critic}} 데이터를 이용해 reflection token 생성 학습 (일종의 reward 모델)
 
 - Training generator \mathcal{M} : critic model을 이용해 input에 reflection token 생성 (offline으로 사전에 진행)한 데이터를 이용해 일반적인 generation task 학습
 
@@ -118,13 +119,13 @@ x가 주어졌을 때 모든 generation 과정 y_{<t}에 대해서 모델은 ret
 
 **TRAINING THE CRITIC MODEL**
 
-- Data collection for critic model : \mathcal{D_{critic}}
+- Data collection for critic model : \mathcal{D\_{critic}}
 
 - Critic learning
 
 **TRAINING THE GENERATOR MODEL**
 
-- **Data collection for generator : ****\mathcal{D_{gen}}**
+- **Data collection for generator : \*\***\mathcal{D\_{gen}}\*\*
 
 - **Generator learning**
 
@@ -132,7 +133,7 @@ x가 주어졌을 때 모든 generation 과정 y_{<t}에 대해서 모델은 ret
 
 - reflection token을 이용한 SELF-RAG는 controllable함.
 
-- task의 특징에 맞춰 retireval의 빈도를 조절할 수 있음. 
+- task의 특징에 맞춰 retireval의 빈도를 조절할 수 있음.
 
 **Adaptive retrieval with threshold**
 
@@ -150,17 +151,17 @@ x가 주어졌을 때 모든 generation 과정 y_{<t}에 대해서 모델은 ret
 
 ### Task and Datasets
 
-다양한 모델과 downstream task 비교  overall correctness, factuality, and fluency. 
+다양한 모델과 downstream task 비교 overall correctness, factuality, and fluency.
 
-zero-shot evaluations 진행 
+zero-shot evaluations 진행
 
 **Closed-set tasks**
 
 - **fact verification dataset **about public health (**PubHealth**; Zhang et al. 2023)
 
-- **multiple-choice reasoning dataset **created from scientific exams (**ARC-Challenge**; Clark et al. 2018). 
+- **multiple-choice reasoning dataset **created from scientific exams (**ARC-Challenge**; Clark et al. 2018).
 
-→ test set 정확도로 평가 
+→ test set 정확도로 평가
 
 **Short-form generations tasks**
 
@@ -174,7 +175,7 @@ two open-domain question answering (QA) datasets (factual knowledge에 대한 �
 
 **Long-form generation tasks**
 
-biography generation task 
+biography generation task
 
 - FactScore (Min et al., 2023)로 평가
 
@@ -183,7 +184,6 @@ long-form QA task
 - ALCE-ASQA dataset
 
 - correctness (str-em), fluency based on MAUVE, citation precision and recall
-
 
 ### BASELINES
 

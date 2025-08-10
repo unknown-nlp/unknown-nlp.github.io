@@ -1,24 +1,25 @@
 ---
 categories:
-- paper-reviews
-date: '2024-02-13 00:00:00'
+  - paper-reviews
+date: "2024-02-13 00:00:00"
 description: 논문 리뷰 - Editing, Evaluation Metric 관련 연구
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-- editing
-- evaluation metric
-- gpt
-- language-model
-- llm
-- paper-review
+  - editing
+  - evaluation metric
+  - gpt
+  - language-model
+  - llm
+  - paper-review
 thumbnail: assets/img/posts/2024-02-13-can-sensitive-information-be-deleted-from-llms-objectives/thumbnail.jpg
 title: CAN SENSITIVE INFORMATION BE DELETED FROM LLMS? OBJECTIVES FOR DEFENDING AGAINST
   EXTRACTION ATTACKS
 ---
 
 **논문 정보**
+
 - **Date**: 2024-02-13
 - **Reviewer**: hyowon Cho
 - **Property**: Editing, Evaluation Metric
@@ -73,7 +74,7 @@ title: CAN SENSITIVE INFORMATION BE DELETED FROM LLMS? OBJECTIVES FOR DEFENDING 
 
 ### Adversary’s Objective:
 
-민감한 정보에 대한 질문과 답을 담은  pair (Q, A)에서 답을 inference 중 낸 경우. 이때, A가 Candidate set C에 속하느냐로 unlearning 성능을 측정하며, |C| = B를 attack budget이라 칭한다.
+민감한 정보에 대한 질문과 답을 담은 pair (Q, A)에서 답을 inference 중 낸 경우. 이때, A가 Candidate set C에 속하느냐로 unlearning 성능을 측정하며, |C| = B를 attack budget이라 칭한다.
 
 1. Password Attempts:
 
@@ -95,7 +96,7 @@ $AttackSuccess@B(M)$ = prediction이 C안에 속하는 경우.
 
 1. avoiding damaging the model’s knowledge in general
 
-arg\ min _{M^∗}AttackSuccess@B(M^∗) + λDamage(M^∗,M)
+arg\ min \_{M^∗}AttackSuccess@B(M^∗) + λDamage(M^∗,M)
 
 M^∗은 edited model. M은 수정 전 모델.
 
@@ -130,7 +131,6 @@ Model Damage를 판단하기 위한 metric으로는 두 가지를 측정한다.
 - > 단순하지만 아직 아무도 안했다는 점이 포인트!
 
 5개의 paraphrases 생성.
-
 
 dipper-paraphraser-xxl (Krishna et al., 2023) model 사용.
 

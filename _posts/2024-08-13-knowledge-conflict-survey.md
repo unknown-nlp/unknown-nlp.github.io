@@ -1,26 +1,27 @@
 ---
 categories:
-- paper-reviews
-date: '2024-08-13 00:00:00'
+  - paper-reviews
+date: "2024-08-13 00:00:00"
 description: 논문 리뷰
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-- language-model
-- llm
-- paper-review
+  - language-model
+  - llm
+  - paper-review
 thumbnail: assets/img/posts/2024-08-13-knowledge-conflict-survey/thumbnail.jpg
 title: Knowledge conflict survey
 ---
 
 **논문 정보**
+
 - **Date**: 2024-08-13
 - **Reviewer**: yukyung lee
 
 ## 1. Introduction
 
-***Definition of Knowledge Conflict***
+**_Definition of Knowledge Conflict_**
 
 - In-depth analysis of knowledge conflicts for LLM
 
@@ -30,7 +31,7 @@ title: Knowledge conflict survey
 
 - 이 논문의 궁극적인 목표는 conflict를 해결해서 LLM의 robustness를 향상시키는 것으로 보임
 
-***Key terms***
+**_Key terms_**
 
 - Parametric knowledge (memory): LM’s world knowledge
 
@@ -38,50 +39,50 @@ title: Knowledge conflict survey
 
 - knowledge conflict: The discrepancies among the contexts and the model’s parametric knowledge are referred to as knowledge conflicts
 
-***Knowledge Conflict (Causes - Phenomenon- Behaviors)***
+**_Knowledge Conflict (Causes - Phenomenon- Behaviors)_**
 
 : lifecycle of knowledge conflicts as both a cause leading to various behaviors,
 and an effect emerges from the intricate nature of knowledge
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-08-13-knowledge-conflict-survey/image_000.png" class="img-fluid rounded z-depth-1" %}
 
-- Knowledge conflict is originally rooted in ODQA (answer→ short / yellow) 
+- Knowledge conflict is originally rooted in ODQA (answer→ short / yellow)
 
 - Timing relative to potential conflicts: pre-hoc, post-hoc strategies
 
-***Taxonomy***
+**_Taxonomy_**
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-08-13-knowledge-conflict-survey/image_001.png" class="img-fluid rounded z-depth-1" %}
 
-***Related Dataset***
+**_Related Dataset_**
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-08-13-knowledge-conflict-survey/image_002.png" class="img-fluid rounded z-depth-1" %}
 
 ## 2. Context-Memory Conflict
 
-> *This static parametric knowledge stands in stark contrast to the dynamic nature of external information, which evolves at a rapid pace (De Cao et al., 2021; Kasai et al., 2022)*
+> _This static parametric knowledge stands in stark contrast to the dynamic nature of external information, which evolves at a rapid pace (De Cao et al., 2021; Kasai et al., 2022)_
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-08-13-knowledge-conflict-survey/image_003.png" class="img-fluid rounded z-depth-1" %}
 
-- Causes: *Why do context-memory conflicts happen*?
+- Causes: _Why do context-memory conflicts happen_?
 
-- Analysis: *How do LLMs navigate context-memory conflicts?*
+- Analysis: _How do LLMs navigate context-memory conflicts?_
 
-- Solution: * What strategies are there to deal with context-memory conflicts*?
+- Solution: _ What strategies are there to deal with context-memory conflicts_?
 
 ## 3. Inter-Context Conflict
 
-***Outdated Information***
+**_Outdated Information_**
 
 - Facts can evolve !
 
 - Some findings
 
-***Solutions***
+**_Solutions_**
 
 - Eliminating Conflict (유의미하게 참고할 것들은 없는듯)
 
-- Improving Robustness 
+- Improving Robustness
 
 ## 4. Intra-Memory Conflict
 

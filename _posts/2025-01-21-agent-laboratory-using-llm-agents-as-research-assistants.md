@@ -1,20 +1,21 @@
 ---
 categories:
-- paper-reviews
-date: '2025-01-21 00:00:00'
+  - paper-reviews
+date: "2025-01-21 00:00:00"
 description: 논문 리뷰
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-- gpt
-- llm
-- paper-review
+  - gpt
+  - llm
+  - paper-review
 thumbnail: assets/img/posts/2025-01-21-agent-laboratory-using-llm-agents-as-research-assistants/thumbnail.jpg
-title: 'Agent Laboratory: Using LLM Agents as Research Assistants'
+title: "Agent Laboratory: Using LLM Agents as Research Assistants"
 ---
 
 **논문 정보**
+
 - **Date**: 2025-01-21
 - **Reviewer**: 상엽
 
@@ -82,11 +83,11 @@ PhD agent: arXiv API를 활용해 아래 3가지 main actions을 수행.
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2025-01-21-agent-laboratory-using-llm-agents-as-research-assistants/image_003.png" class="img-fluid rounded z-depth-1" %}
 
-- ***summary***: agent에 의해 생성된 쿼리와 관련성이 높은 20개의 paper를 추출.
+- **_summary_**: agent에 의해 생성된 쿼리와 관련성이 높은 20개의 paper를 추출.
 
-- ***full text***: paper의 전체 content를 추출.
+- **_full text_**: paper의 전체 content를 추출.
 
-- ***add paper***: summary와 full text를 이용해 curated review를 만듦.
+- **_add paper_**: summary와 full text를 이용해 curated review를 만듦.
 
 - 위의 과정은 반복적으로 실행 (다수의 쿼리를 이용)하며 매 스텝에서 selection을 진행하여 최종적으로 N_max의 레퍼런스가 확보되면 종료
 

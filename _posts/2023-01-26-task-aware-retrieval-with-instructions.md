@@ -1,34 +1,35 @@
 ---
 categories:
-- paper-reviews
-date: '2023-01-26 00:00:00'
+  - paper-reviews
+date: "2023-01-26 00:00:00"
 description: 논문 리뷰 - Retrieval, Instruction Tuning 관련 연구
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-- bert
-- instruction tuning
-- llm
-- nlp
-- paper-review
-- retrieval
+  - bert
+  - instruction tuning
+  - llm
+  - nlp
+  - paper-review
+  - retrieval
 thumbnail: assets/img/posts/2023-01-26-task-aware-retrieval-with-instructions/thumbnail.jpg
 title: Task-aware Retrieval with Instructions
 ---
 
 **논문 정보**
+
 - **Date**: 2023-01-26
 - **Reviewer**: 건우 김
 - **Property**: Retrieval, Instruction Tuning
 
 # 1. Introduction
 
-**Information Retrieval: **the task of finding ***relevant ***documents from a large colection of texts
+**Information Retrieval: **the task of finding **_relevant _**documents from a large colection of texts
 
 - **Relevance**
 
-- ***Retrieval with instructions***: explicitly하게 User의 의도를 자연어로 구성된 description을 통해 모델링하는 task → 이 task의 목표는 query와 relevant하면서 instruction에 잘 반영된 document를 찾는 것이다.
+- **_Retrieval with instructions_**: explicitly하게 User의 의도를 자연어로 구성된 description을 통해 모델링하는 task → 이 task의 목표는 query와 relevant하면서 instruction에 잘 반영된 document를 찾는 것이다.
 
 # 2. Background and Related Work
 
@@ -46,11 +47,11 @@ title: Task-aware Retrieval with Instructions
 
 # 3. Task Formulation
 
-- ***Retrieval with instructions (New Task)***
+- **_Retrieval with instructions (New Task)_**
 
-- Given, 
+- Given,
 
-# 4. BERRI: Collections of Instruction-annotated    Retrieval Tasks
+# 4. BERRI: Collections of Instruction-annotated Retrieval Tasks
 
 - BERRI (Bank of Explicit RetRieval Instructions): retrieval dataset + other NLP datasets
 
@@ -66,7 +67,7 @@ title: Task-aware Retrieval with Instructions
 
 - **TART-dual**: DPR과 동일한 구조를 갖고 있어 DPR이 갖는 장/단점 동일
 
-- **TART-full**: 다들 아시다시피 dual-encoder는 query와 document가 독립적으로 처리되기 때문에, limited interactions이 있음. 다른 cross-encdoer 구조의 retriever와 마찬가지로 query와 document를 함께 입력하여 relevance 계산. 그런데 수 백만 건의 document에 대해 학습하기에 매우 cost가 비싸기 때문에, 
+- **TART-full**: 다들 아시다시피 dual-encoder는 query와 document가 독립적으로 처리되기 때문에, limited interactions이 있음. 다른 cross-encdoer 구조의 retriever와 마찬가지로 query와 document를 함께 입력하여 relevance 계산. 그런데 수 백만 건의 document에 대해 학습하기에 매우 cost가 비싸기 때문에,
 
 - **Knowledge distillation from TART-full to TART-dual**
 
@@ -74,7 +75,7 @@ title: Task-aware Retrieval with Instructions
 
 - **Zero-shot retrieval**
 
-- **X^2 ****-Retrieval (Cross-task Cross-domain Retrieval)**
+- **X^2 \*\***-Retrieval (Cross-task Cross-domain Retrieval)\*\*
 
 - **Baselines**
 
@@ -84,7 +85,7 @@ title: Task-aware Retrieval with Instructions
 
 - **Zero-shot Evaluation Results**
 
-- **X^2****-Retreival Evaluation Results**
+- **X^2\*\***-Retreival Evaluation Results\*\*
 
 # 8. Analysis
 
@@ -92,7 +93,7 @@ title: Task-aware Retrieval with Instructions
 
 - **Effects of dataset scale + Effects of model scale **
 
-     → 모델 크기 크면 좋고 + 데이터셋 number/domain/task 많으면 좋다
+  → 모델 크기 크면 좋고 + 데이터셋 number/domain/task 많으면 좋다
 
 - **Effects of carefully-designed negative samples**
 

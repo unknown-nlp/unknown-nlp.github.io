@@ -1,22 +1,23 @@
 ---
 categories:
-- paper-reviews
-date: '2025-04-22 00:00:00'
+  - paper-reviews
+date: "2025-04-22 00:00:00"
 description: 논문 리뷰
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-- diffusion
-- fine-tuning
-- multimodal
-- paper-review
-- vision
+  - diffusion
+  - fine-tuning
+  - multimodal
+  - paper-review
+  - vision
 thumbnail: assets/img/posts/2025-04-22-fine-tuning-vision-language-action-models-optimizing-speed/thumbnail.jpg
-title: 'Fine-tuning Vision-Language-Action Models: Optimizing Speed and Success'
+title: "Fine-tuning Vision-Language-Action Models: Optimizing Speed and Success"
 ---
 
 **논문 정보**
+
 - **Date**: 2025-04-22
 - **Reviewer**: 전민진
 
@@ -68,7 +69,7 @@ title: 'Fine-tuning Vision-Language-Action Models: Optimizing Speed and Success'
 
 - 그러나, OpenVLA의 autoregressive generation scheme에서는 action chunking이 어려움
 
-- chunk size를 K, action dimensionality를 D라고 하면,  OpenVLA는 KD번 forward를 해야함
+- chunk size를 K, action dimensionality를 D라고 하면, OpenVLA는 KD번 forward를 해야함
 
 ## Proposed Method
 

@@ -1,25 +1,26 @@
 ---
 categories:
-- paper-reviews
-date: '2025-04-08 00:00:00'
+  - paper-reviews
+date: "2025-04-08 00:00:00"
 description: 논문 리뷰
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-- language-model
-- llm
-- paper-review
-- reasoning
+  - language-model
+  - llm
+  - paper-review
+  - reasoning
 thumbnail: assets/img/posts/2025-04-08-on-the-biology-of-a-large-language-model/thumbnail.jpg
 title: On the Biology of a Large Language Model
 ---
 
 **논문 정보**
+
 - **Date**: 2025-04-08
 - **Reviewer**: hyowon Cho
 
-오늘 소개할 논문은 Anthropic에서 3월 27일 낸 따끈따끈한 신상입니다. 
+오늘 소개할 논문은 Anthropic에서 3월 27일 낸 따끈따끈한 신상입니다.
 
 개인적으로 느끼기에는 LLM의 동작 원리에 대한 내부 분석을 할거면 이렇게 해라라는 바이블같은 논문인 것 같습니다,, 단순하지만 확실한 변인 통제를 한다는 점에서 재미있었어요!
 실험이 너무 많아서, 전체를 다 가져오지는 못했지만 최대한 많이 가져왔습니당
@@ -34,31 +35,31 @@ title: On the Biology of a Large Language Model
 
 최근 다양한 연구팀들은 언어 모델 내부를 탐색하기 위한 도구들을 개발해왔으며, 이 과정에서 모델 내부에는 **해석 가능한 개념 표현**, 즉 ‘기능(feature)’이 존재한다는 사실이 밝혀졌다. 우리가 세포를 생물학적 시스템의 기본 단위로 보듯, **이러한 기능들이 모델 내부 계산의 기본 단위**라고 가정할 수 있다.
 
-하지만 저자들은 이 기능들을 단순히 식별하는 것만으로는 충분하지 않다고 이야기하며, 그들이 **어떻게 상호작용하는지**를 이해해야만 모델의 작동 원리를 파악할 수 있다고 말한다. 
+하지만 저자들은 이 기능들을 단순히 식별하는 것만으로는 충분하지 않다고 이야기하며, 그들이 **어떻게 상호작용하는지**를 이해해야만 모델의 작동 원리를 파악할 수 있다고 말한다.
 
 본 연구는 동반 논문 *Circuit Tracing*에서 제안한, **기능들 사이의 연결 관계를 추적하는 도구인 어트리뷰션 그래프**를 이용해 분석을 진행한다. 이 그래프는 모델이 특정 입력 프롬프트를 출력으로 변환하는 중간 단계를 부분적으로 추적할 수 있게 해주기에, **모델의 내부 메커니즘을 실험을 통해 검증할 수 있다. **
 
 본 논문에서는 2024년 10월 공개된** Claude 3.5 Haiku**를 분석 대상으로 삼아 어트리뷰션 그래프를 적용하였다. 분석 대상들은 다음과 같다:
 
-1. **Introductory Example: Multi-step Reasoning.** 
+1. **Introductory Example: Multi-step Reasoning.**
 
-1. **Planning in Poems.** 
+1. **Planning in Poems.**
 
-1. **Multilingual Circuits.**** **
+1. **Multilingual Circuits.\*\*** \*\*
 
-1. **Addition.** 
+1. **Addition.**
 
-1. **Medical Diagnoses****. **
+1. **Medical Diagnoses\*\***. \*\*
 
-1. **Entity Recognition and Hallucinations.** 
+1. **Entity Recognition and Hallucinations.**
 
-1. **Refusal of Harmful Requests.** 
+1. **Refusal of Harmful Requests.**
 
-1. **An Analysis of a Jailbreak.** 
+1. **An Analysis of a Jailbreak.**
 
-1. **Chain-of-thought Faithfulness.** 
+1. **Chain-of-thought Faithfulness.**
 
-1. **A Model with a Hidden Goal.** 
+1. **A Model with a Hidden Goal.**
 
 결론적으로 Claude 3.5 Haiku는 다음과 같은 전략들을 실제로 활용하고 있다:
 
@@ -90,7 +91,7 @@ title: On the Biology of a Large Language Model
 
 모델을 해석하기 어려운 이유 중 하나는 뉴런들이 다의적(polysemantic)이라는 점이다. 즉, 개별 뉴런이 서로 관련 없어 보이는 여러 기능을 동시에 수행한다는 뜻.
 
-이를 해결하기 위해, 저자들은 원래 모델의 활성값을 근사 재현하면서도 해석 가능한 구성요소로 이루어진 ‘대체 모델(replacement model)’을 만든다. 
+이를 해결하기 위해, 저자들은 원래 모델의 활성값을 근사 재현하면서도 해석 가능한 구성요소로 이루어진 ‘대체 모델(replacement model)’을 만든다.
 
 이 대체 모델은 **CLT(Cross-Layer Transcoder)** 아키텍처에 기반하며, 원래의 MLP 뉴런을 희소하게 활성화되는 해석 가능한 기능(feature)들로 대체한다. 본 논문에서 사용한 CLT는 모든 레이어에 걸쳐 총 3천만 개의 기능을 갖고 있다.
 
@@ -106,7 +107,7 @@ title: On the Biology of a Large Language Model
 
 - **Local:** 특정 입력(prompt)에 대해 작동하는 작은 서브모델을 구성. 즉, 기존 모델의 모든 계산을 완전히 재현하는 건 불가능하기 때문에, **특정 문장 하나에 대해서만 작동하는 작은 모델 만들기**
 
-- **목적**: 
+- **목적**:
 
 - **보완기법**
 
@@ -156,7 +157,7 @@ Attribution Graph는 모델 계산의 근사적 표현 → 어디까지나 **설
 
 첫 번째 사례 연구는 모델이 **다단계 추론을 하는가를 확인하는 것**. 예를 들어, 다음과 같은 질문을 생각해봅시다:
 
-> Q: the capital of the state containing Dallas is __
+> Q: the capital of the state containing Dallas is \_\_
 
 이 질문을 올바르게 답하려면 두 가지 정보를 순차적으로 추론해야 한다:
 

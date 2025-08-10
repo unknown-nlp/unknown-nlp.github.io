@@ -1,17 +1,17 @@
 ---
 categories:
-- paper-reviews
-date: '2025-10-17 00:00:00'
+  - paper-reviews
+date: "2025-10-17 00:00:00"
 description: 논문 리뷰
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-- alignment
-- paper-review
-- rlhf
+  - alignment
+  - paper-review
+  - rlhf
 thumbnail: assets/img/posts/2025-10-17-simpo-simple-preference-optimization-with-a-reference-free/thumbnail.jpg
-title: 'SimPO: Simple Preference Optimization with a Reference-Free Reward'
+title: "SimPO: Simple Preference Optimization with a Reference-Free Reward"
 ---
 
 **논문 정보**
@@ -22,7 +22,7 @@ LM이 Human intention과 alignment를 형성하기 위해서는 (helpful, honest
 
 최근에는 DPO와 같이 simpler offline preference algorithm이 많이 소개됨. DPO는 reward function을 reparameterize하여 preference data로 부터 policy model을 directly 학습시켜 별도의 reward model이 필요가 없음. (simplicity & training stability 보장)
 
-DPO에서 implicit reward는 current policy model과 SFT model의 response의 likelihood의 log ratio로 구성이 되어 있음. 
+DPO에서 implicit reward는 current policy model과 SFT model의 response의 likelihood의 log ratio로 구성이 되어 있음.
 
 → 하지만, 연구진들은 ₩DPO reward 식은 policy model에 의해 생성되는 response의 average log likelihood를 통해 inference를 진행한다는 점에서 discrepancy가 존재하여 suboptimal performance를 보인다고 가정함.
 
@@ -58,7 +58,7 @@ DPO는 reward function (r)을 다음과 같이 reparameterize함.
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2025-10-17-simpo-simple-preference-optimization-with-a-reference-free/image_001.png" class="img-fluid rounded z-depth-1" %}
 
-위 reward function을 Bradley-Terry (BT) ranking objective에 적용하면, 
+위 reward function을 Bradley-Terry (BT) ranking objective에 적용하면,
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2025-10-17-simpo-simple-preference-optimization-with-a-reference-free/image_002.png" class="img-fluid rounded z-depth-1" %}
 
@@ -70,7 +70,7 @@ DPO는 reward function (r)을 다음과 같이 reparameterize함.
 
 **Discrepancy between reward and generation for DPO**
 
-앞에서 언급한  DPO에서 reward와 generation 간의 discrepancy에 집중을 해봄. 
+앞에서 언급한 DPO에서 reward와 generation 간의 discrepancy에 집중을 해봄.
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2025-10-17-simpo-simple-preference-optimization-with-a-reference-free/image_004.png" class="img-fluid rounded z-depth-1" %}
 
@@ -82,7 +82,7 @@ DPO는 reward function (r)을 다음과 같이 reparameterize함.
 
 **Length-normalized reward formulation**
 
-위에서 언급한 DPO의 문제점을 고려해보면, reward function이 likelihood metric과 align이 되도록 다음과 같이 다시 구성해야한다. 
+위에서 언급한 DPO의 문제점을 고려해보면, reward function이 likelihood metric과 align이 되도록 다음과 같이 다시 구성해야한다.
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2025-10-17-simpo-simple-preference-optimization-with-a-reference-free/image_005.png" class="img-fluid rounded z-depth-1" %}
 
@@ -112,7 +112,7 @@ Bradley-Terry objective에 target reward margin term (r)을 추가해주며 winn
 
 1. init model (llama, mistral) 을 SFT 모델로 학습
 
-1.  preference optimization 진행
+1. preference optimization 진행
 
 **Instruct**: off-the-shelf instruction-tuned model을 SFT model로 사용
 
@@ -130,7 +130,7 @@ Bradley-Terry objective에 target reward margin term (r)을 추가해주며 winn
 
 - fair한 비교를 위해 각 baseline에 대해서 Hypermarameter tuning을 많이 진행함
 
-- 결론부터 말하면, variants of DPO들은 일반 DPO보다 성능이 구림 
+- 결론부터 말하면, variants of DPO들은 일반 DPO보다 성능이 구림
 
 ## 4. Experimental Results
 

@@ -1,22 +1,23 @@
 ---
 categories:
-- paper-reviews
-date: '2025-08-30 00:00:00'
+  - paper-reviews
+date: "2025-08-30 00:00:00"
 description: 논문 리뷰
 giscus_comments: true
 layout: post
 related_posts: false
 slug: 2025-08-30-reasoning-models-dont-always-say-what-they-think
 tags:
-- alignment
-- paper-review
-- reasoning
-- reinforcement-learning
-- rlhf
+  - alignment
+  - paper-review
+  - reasoning
+  - reinforcement-learning
+  - rlhf
 title: Reasoning Models Don’t Always Say What They Think
 ---
 
 **논문 정보**
+
 - **Date**: 2025-04-08
 - **Reviewer**: 상엽
 
@@ -30,7 +31,7 @@ title: Reasoning Models Don’t Always Say What They Think
 
 → CoT 자체를 신뢰할 수 없다면
 
-→ 즉, 구체적 언어로 명시되지 않은 사고 과정에 의해 결과가 영향을 받는다면 
+→ 즉, 구체적 언어로 명시되지 않은 사고 과정에 의해 결과가 영향을 받는다면
 
 → CoT 모니터링을 통한 Safety 확보를 보장할 수 없음.
 
@@ -40,7 +41,7 @@ title: Reasoning Models Don’t Always Say What They Think
 
 - CoT없이도 풀 수 있는 매우 쉬운 문제의 경우: 옳은 reasoning process를 가진 Human 데이터로 학습이 됐으므로
 
-→ 하지만, **RLHF로 학습할 경우, 바람직하지 않은 reasoning 과정을 숨기기도 한다는 점을 발견.** 
+→ 하지만, **RLHF로 학습할 경우, 바람직하지 않은 reasoning 과정을 숨기기도 한다는 점을 발견.**
 
 → 즉, AI의 실제 사고과정과 reasoning이 다를 수 있다는 의문을 제기.
 
@@ -88,7 +89,7 @@ Inspired by Turpin et al. (2023); Chua and Evans (2025), we **evaluate faithfuln
 
 - “**hinted**” **prompt** x_h (직접적으로 정답을 가리키는 힌트를 x_u에 추가한 것)
 
-→ CoT의 faithfulness ==  x_u에서는 힌트가 아닌 다른 답변을 말하지만 x_h에서는 힌트를 정답으로 말할 때, 모델이 hinted prompt 문제를 풀기 위해 힌트를 사용했음을 말하는지 여부 (a_u \neq h \text { and } a_h=h인 경우)
+→ CoT의 faithfulness == x_u에서는 힌트가 아닌 다른 답변을 말하지만 x_h에서는 힌트를 정답으로 말할 때, 모델이 hinted prompt 문제를 풀기 위해 힌트를 사용했음을 말하는지 여부 (a_u \neq h \text { and } a_h=h인 경우)
 
 답변 변경의 무작위 노이즈를 고려하기 위해 다음의 **정규화 과정**을 따름.
 
@@ -132,7 +133,7 @@ q=P\left(a_h \neq h, a_h \neq a_u \mid a_u \neq h\right): non-hint answer에서 
 
 ![Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/3acbc979-3f43-48f4-8683-229c6104ec76/004d56eb-7647-41e9-b505-003c062be59e/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=ASIAZI2LB466RRXM5WPA%2F20250810%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20250810T110016Z&X-Amz-Expires=3600&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEJr%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJHMEUCIBirIFBszEFc0fpsBPCK%2B4NL8vX%2BuoMk0o%2Fhelo%2FUXv0AiEA%2Fttl75oDLcf0RweyfOkkS5RivtVqvD7GN%2F5ndz86djIqiAQI0%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FARAAGgw2Mzc0MjMxODM4MDUiDOS%2FMwU5cer4mE83oSrcA4WfJB0obEk155XtqAUQphJjReTgR16AxS1TSJHdN7OZW9r5HhVpZBQX67w5ZL9XKVgZ8VJIAEdh2wlpKTOn7WVk5zMWhegE5CskdobKTVvpHwCDrskzKBbeNphdzLSvBxmSvVIvimlwJEYCVb7bTG6a4OXZwOFLG7%2BMnSjsVLNAPHN%2B771mWDBDY6Yvj%2FjJW9s6uOIdEtFMxQOJjeIB8n3ah9e0QmZ0LmaPB%2B%2BWoGq%2B3E1T6tjyJZaR3AJyHDWAxY2VUA4rrH5SJsUSMJ5PLAlk%2Ba2742vynLwofrWvs96wdNtq6tcYBCPdSh14VvIeiH4gowhz6kyKYwkYr58%2B9Fvb2TJgqEuKkwIYFPk7hAhC6TDcFXOKzOskHFaFkAnkDWtVPDUwF1Mi1MFNh1VEUmQHIEg0QIESRFFJwDEclyJ8msT0%2F4IlwD9VwmsXoXCMZaYhi5abPzVLsx2E3l9RuukqwiC9qLTdN5dTlmebRkOQNvOvsmMuJyjM3spwoIiXJspaQXcB2ocO1u4eg5rNj%2F5TzHOLDXVHfjwRO%2FmsqKX%2FGWiJ0f2SE8xpLCeqqUplJT4Put%2B1UD79yRZ61TXFj6iJTb9cJosNNDpz85%2B8en99Ug6HN9CnP5vphqi2MKTU4cQGOqUBp1sSjXpHiAetn7%2F%2BwKhr6PgIbV7CnCCcTNQRCGt4%2BRbYHy%2FD8GwDGzCp36v76zLv2mC69Azz%2FAmc5o7n0pMe7XVS2VT2zLH%2FBhTeKJXzwA5%2FHc1s%2BhcJop6%2BBgIY%2B8JM8DQgx49juXUOrXr0wZtFIjZIyoG0i8Vvbe8TA79TZwH4ygcLjYRoSk4kD8KoOm%2FzYEEs0oUwN%2Bl4kxJJH6hhul3GVZeZ&X-Amz-Signature=b36c15b0f6203050c2fc2b25c73ae70859e395eeffa8a324b5e9a05a406cb32b&X-Amz-SignedHeaders=host&x-amz-checksum-mode=ENABLED&x-id=GetObject)
 
-**CoTs of reasoning models reveal hints across more settings, and do so more often than those of non-reasoning models.** 
+**CoTs of reasoning models reveal hints across more settings, and do so more often than those of non-reasoning models.**
 
 ![Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/3acbc979-3f43-48f4-8683-229c6104ec76/77ad8a4f-b079-4892-ac4c-5f280a869c3a/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=ASIAZI2LB466RRXM5WPA%2F20250810%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20250810T110016Z&X-Amz-Expires=3600&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEJr%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJHMEUCIBirIFBszEFc0fpsBPCK%2B4NL8vX%2BuoMk0o%2Fhelo%2FUXv0AiEA%2Fttl75oDLcf0RweyfOkkS5RivtVqvD7GN%2F5ndz86djIqiAQI0%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FARAAGgw2Mzc0MjMxODM4MDUiDOS%2FMwU5cer4mE83oSrcA4WfJB0obEk155XtqAUQphJjReTgR16AxS1TSJHdN7OZW9r5HhVpZBQX67w5ZL9XKVgZ8VJIAEdh2wlpKTOn7WVk5zMWhegE5CskdobKTVvpHwCDrskzKBbeNphdzLSvBxmSvVIvimlwJEYCVb7bTG6a4OXZwOFLG7%2BMnSjsVLNAPHN%2B771mWDBDY6Yvj%2FjJW9s6uOIdEtFMxQOJjeIB8n3ah9e0QmZ0LmaPB%2B%2BWoGq%2B3E1T6tjyJZaR3AJyHDWAxY2VUA4rrH5SJsUSMJ5PLAlk%2Ba2742vynLwofrWvs96wdNtq6tcYBCPdSh14VvIeiH4gowhz6kyKYwkYr58%2B9Fvb2TJgqEuKkwIYFPk7hAhC6TDcFXOKzOskHFaFkAnkDWtVPDUwF1Mi1MFNh1VEUmQHIEg0QIESRFFJwDEclyJ8msT0%2F4IlwD9VwmsXoXCMZaYhi5abPzVLsx2E3l9RuukqwiC9qLTdN5dTlmebRkOQNvOvsmMuJyjM3spwoIiXJspaQXcB2ocO1u4eg5rNj%2F5TzHOLDXVHfjwRO%2FmsqKX%2FGWiJ0f2SE8xpLCeqqUplJT4Put%2B1UD79yRZ61TXFj6iJTb9cJosNNDpz85%2B8en99Ug6HN9CnP5vphqi2MKTU4cQGOqUBp1sSjXpHiAetn7%2F%2BwKhr6PgIbV7CnCCcTNQRCGt4%2BRbYHy%2FD8GwDGzCp36v76zLv2mC69Azz%2FAmc5o7n0pMe7XVS2VT2zLH%2FBhTeKJXzwA5%2FHc1s%2BhcJop6%2BBgIY%2B8JM8DQgx49juXUOrXr0wZtFIjZIyoG0i8Vvbe8TA79TZwH4ygcLjYRoSk4kD8KoOm%2FzYEEs0oUwN%2Bl4kxJJH6hhul3GVZeZ&X-Amz-Signature=da648273e675e6e6cca2309ab04e786fcab6a137da7d3791e12e656ba67d928d&X-Amz-SignedHeaders=host&x-amz-checksum-mode=ENABLED&x-id=GetObject)
 
@@ -152,17 +153,17 @@ q=P\left(a_h \neq h, a_h \neq a_u \mid a_u \neq h\right): non-hint answer에서 
 
 ![Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/3acbc979-3f43-48f4-8683-229c6104ec76/cc70151a-089d-4998-99bb-178fcecf3057/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=ASIAZI2LB466RRXM5WPA%2F20250810%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20250810T110017Z&X-Amz-Expires=3600&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEJr%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJHMEUCIBirIFBszEFc0fpsBPCK%2B4NL8vX%2BuoMk0o%2Fhelo%2FUXv0AiEA%2Fttl75oDLcf0RweyfOkkS5RivtVqvD7GN%2F5ndz86djIqiAQI0%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FARAAGgw2Mzc0MjMxODM4MDUiDOS%2FMwU5cer4mE83oSrcA4WfJB0obEk155XtqAUQphJjReTgR16AxS1TSJHdN7OZW9r5HhVpZBQX67w5ZL9XKVgZ8VJIAEdh2wlpKTOn7WVk5zMWhegE5CskdobKTVvpHwCDrskzKBbeNphdzLSvBxmSvVIvimlwJEYCVb7bTG6a4OXZwOFLG7%2BMnSjsVLNAPHN%2B771mWDBDY6Yvj%2FjJW9s6uOIdEtFMxQOJjeIB8n3ah9e0QmZ0LmaPB%2B%2BWoGq%2B3E1T6tjyJZaR3AJyHDWAxY2VUA4rrH5SJsUSMJ5PLAlk%2Ba2742vynLwofrWvs96wdNtq6tcYBCPdSh14VvIeiH4gowhz6kyKYwkYr58%2B9Fvb2TJgqEuKkwIYFPk7hAhC6TDcFXOKzOskHFaFkAnkDWtVPDUwF1Mi1MFNh1VEUmQHIEg0QIESRFFJwDEclyJ8msT0%2F4IlwD9VwmsXoXCMZaYhi5abPzVLsx2E3l9RuukqwiC9qLTdN5dTlmebRkOQNvOvsmMuJyjM3spwoIiXJspaQXcB2ocO1u4eg5rNj%2F5TzHOLDXVHfjwRO%2FmsqKX%2FGWiJ0f2SE8xpLCeqqUplJT4Put%2B1UD79yRZ61TXFj6iJTb9cJosNNDpz85%2B8en99Ug6HN9CnP5vphqi2MKTU4cQGOqUBp1sSjXpHiAetn7%2F%2BwKhr6PgIbV7CnCCcTNQRCGt4%2BRbYHy%2FD8GwDGzCp36v76zLv2mC69Azz%2FAmc5o7n0pMe7XVS2VT2zLH%2FBhTeKJXzwA5%2FHc1s%2BhcJop6%2BBgIY%2B8JM8DQgx49juXUOrXr0wZtFIjZIyoG0i8Vvbe8TA79TZwH4ygcLjYRoSk4kD8KoOm%2FzYEEs0oUwN%2Bl4kxJJH6hhul3GVZeZ&X-Amz-Signature=02070cfc003340d88b476dc9eb1cc945dff4847784bbb480261a53633df64e24&X-Amz-SignedHeaders=host&x-amz-checksum-mode=ENABLED&x-id=GetObject)
 
-- Unfaithful CoTs에서는 **힌트를 사용하지 않고** (=Unfaithfulness) 장황한게 **각각의 옵션에 대해 확인을 하는 절차를 포함하는 경우가 많음.** 
+- Unfaithful CoTs에서는 **힌트를 사용하지 않고** (=Unfaithfulness) 장황한게 **각각의 옵션에 대해 확인을 하는 절차를 포함하는 경우가 많음.**
 
-- 더 문제가 되는 부분은 힌트를 정답으로 하기 위해 **기존 지식과 모순되는 방법을 동원**하기도 한다는 점. 이 때에도 힌트 사용 여부를 설명하지 않는 경우가 많음. 
+- 더 문제가 되는 부분은 힌트를 정답으로 하기 위해 **기존 지식과 모순되는 방법을 동원**하기도 한다는 점. 이 때에도 힌트 사용 여부를 설명하지 않는 경우가 많음.
 
-**CoT appears to be less faithful on harder questions.** 
+**CoT appears to be less faithful on harder questions.**
 
 ![Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/3acbc979-3f43-48f4-8683-229c6104ec76/875f196a-7b36-4d58-90fa-2683539a057f/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=ASIAZI2LB466RRXM5WPA%2F20250810%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20250810T110017Z&X-Amz-Expires=3600&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEJr%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJHMEUCIBirIFBszEFc0fpsBPCK%2B4NL8vX%2BuoMk0o%2Fhelo%2FUXv0AiEA%2Fttl75oDLcf0RweyfOkkS5RivtVqvD7GN%2F5ndz86djIqiAQI0%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FARAAGgw2Mzc0MjMxODM4MDUiDOS%2FMwU5cer4mE83oSrcA4WfJB0obEk155XtqAUQphJjReTgR16AxS1TSJHdN7OZW9r5HhVpZBQX67w5ZL9XKVgZ8VJIAEdh2wlpKTOn7WVk5zMWhegE5CskdobKTVvpHwCDrskzKBbeNphdzLSvBxmSvVIvimlwJEYCVb7bTG6a4OXZwOFLG7%2BMnSjsVLNAPHN%2B771mWDBDY6Yvj%2FjJW9s6uOIdEtFMxQOJjeIB8n3ah9e0QmZ0LmaPB%2B%2BWoGq%2B3E1T6tjyJZaR3AJyHDWAxY2VUA4rrH5SJsUSMJ5PLAlk%2Ba2742vynLwofrWvs96wdNtq6tcYBCPdSh14VvIeiH4gowhz6kyKYwkYr58%2B9Fvb2TJgqEuKkwIYFPk7hAhC6TDcFXOKzOskHFaFkAnkDWtVPDUwF1Mi1MFNh1VEUmQHIEg0QIESRFFJwDEclyJ8msT0%2F4IlwD9VwmsXoXCMZaYhi5abPzVLsx2E3l9RuukqwiC9qLTdN5dTlmebRkOQNvOvsmMuJyjM3spwoIiXJspaQXcB2ocO1u4eg5rNj%2F5TzHOLDXVHfjwRO%2FmsqKX%2FGWiJ0f2SE8xpLCeqqUplJT4Put%2B1UD79yRZ61TXFj6iJTb9cJosNNDpz85%2B8en99Ug6HN9CnP5vphqi2MKTU4cQGOqUBp1sSjXpHiAetn7%2F%2BwKhr6PgIbV7CnCCcTNQRCGt4%2BRbYHy%2FD8GwDGzCp36v76zLv2mC69Azz%2FAmc5o7n0pMe7XVS2VT2zLH%2FBhTeKJXzwA5%2FHc1s%2BhcJop6%2BBgIY%2B8JM8DQgx49juXUOrXr0wZtFIjZIyoG0i8Vvbe8TA79TZwH4ygcLjYRoSk4kD8KoOm%2FzYEEs0oUwN%2Bl4kxJJH6hhul3GVZeZ&X-Amz-Signature=8f03a959fc0da214213e57f5e520253f95e6bbfd94d7933e2c7481fe56098ef0&X-Amz-SignedHeaders=host&x-amz-checksum-mode=ENABLED&x-id=GetObject)
 
 - **GPQA >> MMLU, GPQA에서 신뢰도가 훨씬 낮았음.** (Claude 3.7 Sonnet에서 44% R1에서 32% 감소)
 
-- Faithful CoTs의 경우, **자신의 답변을 먼저 생성**하고 **Hint와 답변을 비교**하는 reasoning 과정을 가진 후 **hint에 따라 답을 바꾼다는 사실**을 보여줌. 
+- Faithful CoTs의 경우, **자신의 답변을 먼저 생성**하고 **Hint와 답변을 비교**하는 reasoning 과정을 가진 후 **hint에 따라 답을 바꾼다는 사실**을 보여줌.
 
 - CoT monitoring을 통한 safety 관리는 **어려운 문제로 scale이 어려울듯**
 
@@ -176,4 +177,4 @@ q=P\left(a_h \neq h, a_h \neq a_u \mid a_u \neq h\right): non-hint answer에서 
 
 - Sonnet 3.7 모델에 대해서 학습 극초기에는 MMLU 63%, GPQA 41% 정도 향상되는 것으로 보임.
 
-- 더 학습을 진행하더라도 개선되지 않음. 
+- 더 학습을 진행하더라도 개선되지 않음.

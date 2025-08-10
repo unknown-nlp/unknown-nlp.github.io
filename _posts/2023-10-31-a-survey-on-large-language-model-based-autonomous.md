@@ -1,24 +1,25 @@
 ---
 categories:
-- paper-reviews
-date: '2023-10-31 00:00:00'
+  - paper-reviews
+date: "2023-10-31 00:00:00"
 description: 논문 리뷰 - Autonomous-Agents 관련 연구
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-- alignment
-- autonomous-agents
-- fine-tuning
-- language-model
-- llm
-- paper-review
-- transformer
+  - alignment
+  - autonomous-agents
+  - fine-tuning
+  - language-model
+  - llm
+  - paper-review
+  - transformer
 thumbnail: assets/img/posts/2023-10-31-a-survey-on-large-language-model-based-autonomous/thumbnail.jpg
 title: A Survey on Large Language Model based Autonomous Agents
 ---
 
 **논문 정보**
+
 - **Date**: 2023-10-31
 - **Reviewer**: 건우 김
 - **Property**: Autonomous-Agents
@@ -31,13 +32,13 @@ title: A Survey on Large Language Model based Autonomous Agents
 
 - LLM-based autonomous agents를 다양한 **application**에 적용한 사례
 
-- LLM-based autonomous agents를 어떻게 **평가**하는지 
+- LLM-based autonomous agents를 어떻게 **평가**하는지
 
 # 1. Introduction
 
 사람들이 흔히 말하는 AGI를 달성하기 위해서는 self-directed planning과 action을 통해 task를 수행하는 autonomous agents가 필수적이라는 말이 많았음. 이전 연구들은 주로 agents가 heuristic한 policy를 기반으로 제한된 환경에서 action을 수행하는 식으로 이루어졌는데, abstract에서 언급한 내용과 동일하게 이는 human learning process와 많이 다르기 때문에 접근 자체가 잘못된다는 평가를 많이 받고 있음 → human-level decision process를 모방하지 못함
 
-최근에 LLM 연구가 많이 진행이 되며, LLM이 human-like intelligence를 갖고 있다고 보고 있음. 이 능력을 통해 autonmous agents를 구축할 때, LLM을 central controller로 두고 아래와 같은 연구가 많이 진행됨. 
+최근에 LLM 연구가 많이 진행이 되며, LLM이 human-like intelligence를 갖고 있다고 보고 있음. 이 능력을 통해 autonmous agents를 구축할 때, LLM을 central controller로 두고 아래와 같은 연구가 많이 진행됨.
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2023-10-31-a-survey-on-large-language-model-based-autonomous/image_000.png" class="img-fluid rounded z-depth-1" %}
 
@@ -129,7 +130,7 @@ Action module은 agent의 decision을 특정 outcome 형태로 변환해주는 �
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2023-10-31-a-survey-on-large-language-model-based-autonomous/image_003.png" class="img-fluid rounded z-depth-1" %}
 
-정말 다양한 분야의 연구 및 모델들이 소개되어 왔음 
+정말 다양한 분야의 연구 및 모델들이 소개되어 왔음
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2023-10-31-a-survey-on-large-language-model-based-autonomous/image_004.png" class="img-fluid rounded z-depth-1" %}
 
@@ -137,9 +138,9 @@ Action module은 agent의 decision을 특정 outcome 형태로 변환해주는 �
 
 ## 4.1 Subjective Evaluation
 
-- Human Annotation: 사람이 agents들이 생성한 response에 대해 직접 scoring, ranking 등 평가 
+- Human Annotation: 사람이 agents들이 생성한 response에 대해 직접 scoring, ranking 등 평가
 
-- Turing Test: 사람이 agent와 사람이 생성한 response 중 더 사람 같은 것을 선택하는 방법 
+- Turing Test: 사람이 agent와 사람이 생성한 response 중 더 사람 같은 것을 선택하는 방법
 
 ## 4.2 Objective Evaluation
 
@@ -149,7 +150,7 @@ Objective evaluation을 수행하기 위해서는 아래 세 가지 주요 내�
 
 1. Protocols: 위에 metrics을 어떤 상황에서 사용하는지 중요함
 
-1. Benchmarks: 지금까지 Minecraft, ALFWorld와 같은 benchmark에서 agent의 성능을 평가함. 
+1. Benchmarks: 지금까지 Minecraft, ALFWorld와 같은 benchmark에서 agent의 성능을 평가함.
 
 22년 7월부터 23년 8월까지 Evaluation strategy에 대해 정리된 Table이며, 생각보다 연구가 많이 됨
 
@@ -171,8 +172,8 @@ Objective evaluation을 수행하기 위해서는 아래 세 가지 주요 내�
 
 # Conclusion
 
-최근에 언급이 많이 되고 있는 LLM-based autonomous agents에 대한 survey paper를 review 했고, 논문은 construction, application, evaluation 크게 세 갈래의 주제로 작성됨. 
+최근에 언급이 많이 되고 있는 LLM-based autonomous agents에 대한 survey paper를 review 했고, 논문은 construction, application, evaluation 크게 세 갈래의 주제로 작성됨.
 
 읽어 보니 LLM-based autonomous agents가 완전히 새로운 분야라기 보다는 LLM을 활용해서 simulation에 적합한 agent를 만드는 것으로 우리가 기존에 알고 있는 내용들로 충분히 이해가 가능.
 
-따라서, 기존 LLMs에서 자주 연구되던 내용들이 Autonomous Agents에도 직접적으로 영향을 끼치므로 앞으로 LLMs skills + autonomous agents 다 중요하게 봐야 한다고 생각함. 
+따라서, 기존 LLMs에서 자주 연구되던 내용들이 Autonomous Agents에도 직접적으로 영향을 끼치므로 앞으로 LLMs skills + autonomous agents 다 중요하게 봐야 한다고 생각함.

@@ -1,25 +1,26 @@
 ---
 categories:
-- paper-reviews
-date: '2025-08-05 00:00:00'
+  - paper-reviews
+date: "2025-08-05 00:00:00"
 description: 논문 리뷰 - DiffusionLM, LLM 관련 연구
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-- attention
-- diffusion
-- diffusionlm
-- language-model
-- llm
-- paper-review
-- transformer
+  - attention
+  - diffusion
+  - diffusionlm
+  - language-model
+  - llm
+  - paper-review
+  - transformer
 thumbnail: assets/img/posts/2025-08-05-block-diffusion-interpolating-between-autoregressive-and-diffusion-language/thumbnail.jpg
-title: 'BLOCK DIFFUSION: INTERPOLATING BETWEEN AUTOREGRESSIVE AND DIFFUSION LANGUAGE
-  MODELS'
+title: "BLOCK DIFFUSION: INTERPOLATING BETWEEN AUTOREGRESSIVE AND DIFFUSION LANGUAGE
+  MODELS"
 ---
 
 **논문 정보**
+
 - **Date**: 2025-08-05
 - **Reviewer**: 상엽
 - **Property**: DiffusionLM, LLM
@@ -86,7 +87,7 @@ Interpolation between discrete diffusion and autoregressive model
 
 - D3PM framework: q를 Markov forward process, 각각의 토큰에 대해 독립적으로 아래의 식을 진행
 
-- 이상적인 diffusion model p_{\theta}는 q의 역방향이므로 D3PM에서는 아래 수식으로 p_{\theta}를 정의
+- 이상적인 diffusion model p*{\theta}는 q의 역방향이므로 D3PM에서는 아래 수식으로 p*{\theta}를 정의
 
 - **Negative ELBO (NELBO)를 이용해 학습**
 
@@ -114,11 +115,11 @@ NELBO를 적용해 위와 같이 학습 목적함수 정의, 이것도 Sum을 �
 
 **Denoiser model**
 
-- Transformer x_\theta를 사용해 파라미터화: p_\theta(x^b | x_t^b, x^{<b})
+- Transformer x*\theta를 사용해 파라미터화: p*\theta(x^b | x_t^b, x^{<b})
 
 - Block들에 대해 병렬적 학습을 가능하게 함 (block-causal attention mask)
 
-- x_\theta의 학습: block b 내에서 x_\theta^b(x_t^b, x^{<b}) → L' 길이의 결과 예측
+- x*\theta의 학습: block b 내에서 x*\theta^b(x_t^b, x^{<b}) → L' 길이의 결과 예측
 
 → 아래 K, V 캐시 수식을 보시면 모델을 이해하기 쉬움!
 
@@ -130,17 +131,17 @@ NELBO를 적용해 위와 같이 학습 목적함수 정의, 이것도 Sum을 �
 
 **Training**
 
-- 모든 block은 x_\theta의 forward pass를 두 번 거쳐야 함 (x_t^b, x^b) → 계산의 효율화 필요
+- 모든 block은 x\_\theta의 forward pass를 두 번 거쳐야 함 (x_t^b, x^b) → 계산의 효율화 필요
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2025-08-05-block-diffusion-interpolating-between-autoregressive-and-diffusion-language/image_001.png" class="img-fluid rounded z-depth-1" %}
 
 1. Block 별로 noise level sampling
 
-1. 각 block에 대해 noisy input x_{t_b}^b 생성
+1. 각 block에 대해 noisy input x\_{t_b}^b 생성
 
-1. \left(\emptyset, \mathbf{K}^{1: B}, \mathbf{V}^{1: B}\right) \leftarrow \mathbf{x}_\theta(\mathbf{x}): 원본 x를 이용해 K, V cache 미리 다 계산하기
+1. \left(\emptyset, \mathbf{K}^{1: B}, \mathbf{V}^{1: B}\right) \leftarrow \mathbf{x}\_\theta(\mathbf{x}): 원본 x를 이용해 K, V cache 미리 다 계산하기
 
-1. 모든 b에 대해 x^b_{\text{logit}} 계산
+1. 모든 b에 대해 x^b\_{\text{logit}} 계산
 
 **Sampling**
 
@@ -158,7 +159,7 @@ NELBO를 적용해 위와 같이 학습 목적함수 정의, 이것도 Sum을 �
 
 - 최근 가장 큰 효과를 보이고 있는 masking noise process를 적용
 
-- Per-token noise process 
+- Per-token noise process
 
 - 목적 함수 (Sahoo et al. (2024b)의 SUBS-parameterization denoising 모델 철학을 따름!!)
 
@@ -168,7 +169,7 @@ NELBO를 적용해 위와 같이 학습 목적함수 정의, 이것도 Sum을 �
 
 - 학습 목표의 기대값이 같음에도 불구하고 perplexity gap (=높은 학습 variance)가 존재함을 확인
 
-- 왜 그럴까?  \mathbb{E}_{t\sim\mathcal{U}[0,1]}q(x_t^\ell=m|x^\ell) = 0.5 기본적으로 학습에 사용하는 token의 수가 절반으로 줄기 때문에 variance가 커지는 것
+- 왜 그럴까? \mathbb{E}\_{t\sim\mathcal{U}[0,1]}q(x_t^\ell=m|x^\ell) = 0.5 기본적으로 학습에 사용하는 token의 수가 절반으로 줄기 때문에 variance가 커지는 것
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2025-08-05-block-diffusion-interpolating-between-autoregressive-and-diffusion-language/image_003.png" class="img-fluid rounded z-depth-1" %}
 

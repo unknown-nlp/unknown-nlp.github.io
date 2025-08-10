@@ -1,22 +1,23 @@
 ---
 categories:
-- paper-reviews
-date: '2025-08-25 00:00:00'
+  - paper-reviews
+date: "2025-08-25 00:00:00"
 description: 논문 리뷰 - Reinforcement Learning 관련 연구
 giscus_comments: true
 layout: post
 related_posts: false
 slug: 2025-08-25-reinforcement-learning-finetunes-small-subnetworks-in-large-language
 tags:
-- language-model
-- llm
-- paper-review
-- reinforcement learning
-- reinforcement-learning
+  - language-model
+  - llm
+  - paper-review
+  - reinforcement learning
+  - reinforcement-learning
 title: Reinforcement Learning Finetunes Small Subnetworks in Large Language Models
 ---
 
 **논문 정보**
+
 - **Date**: 2025-06-03
 - **Reviewer**: 준원 장
 - **Property**: Reinforcement Learning
@@ -31,15 +32,15 @@ title: Reinforcement Learning Finetunes Small Subnetworks in Large Language Mode
 
 (무작위 시드, 훈련 데이터 구성 및 순서, 그리고 서로 다른 RL 알고리즘에 따라 학습된 서브네트워크들 간에도 강한 일관성이 관찰)
 
-- θ_{init}
+- θ\_{init}
 
-- θ_{full}: parameters after full RL finetuning from the initial model
+- θ\_{full}: parameters after full RL finetuning from the initial model
 
--  m ∈ {0,1}^{|θ_{init}|}
+- m ∈ {0,1}^{|θ\_{init}|}
 
-- m_i = 1 \rightarrow (θ_{init} - θ_{full})_i ≠ 0
+- m*i = 1 \rightarrow (θ*{init} - θ\_{full})\_i ≠ 0
 
--  m ⊙ ∇θ L(θ) : θ_{full}을 학습했을때와 같은 데이터로 θ_{init}때와 똑같이 학습
+- m ⊙ ∇θ L(θ) : θ*{full}을 학습했을때와 같은 데이터로 θ*{init}때와 똑같이 학습
 
 > **VS. LoRA**
 
@@ -75,13 +76,13 @@ title: Reinforcement Learning Finetunes Small Subnetworks in Large Language Mode
 
 ![Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/3acbc979-3f43-48f4-8683-229c6104ec76/59af482d-5ea4-4a3f-8571-dcbba01f3421/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2025-06-03_%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE_1.20.26.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=ASIAZI2LB4665HP3BH3O%2F20250810%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20250810T110011Z&X-Amz-Expires=3600&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEJr%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJHMEUCIAuSvEhlkPlA8g4Pp6Y84HXQ8PkQapiQEMa22ht5MAymAiEAo%2BLawF7dqpDFUqaUd62fu%2Bb6CPD6KeE2nOO4aISdofIqiAQI0%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FARAAGgw2Mzc0MjMxODM4MDUiDPdvnMpVIF6jb3j%2BiircA6MK0TPCMII%2Flx8cs4FrzFaW1dyC8awkyTq73%2B8HqKH5i1dJVzOa0QYQGo%2Fz8kr8ALGRafw1uHndPj%2B8dGIRKTq41UMnkSKlUSDTm8ZbnhBp7q6ZyvhPVQVCcaWFEGlpjpZLuBV1SrKu0mDXpt2nUnKprYn%2BFEqX7MlXkk2IupdY3aPEd3EvzlLVpx1xdPEVxkgcJcDCb2RwvuREzQGMjpSpvcoETQiF1Tza5cPWh0Xv7x%2Bfq6jD%2BRuvXO4gcnvRlEJCU7J%2BJXgTI6UxP0YsAjp%2BMADOrUx35hsSY9EXkCeVom3PVpMkbm1v1%2FawYrrlEODh2z%2F9ulb9vnujcrCE1YqkopSgH5V4cPQ0%2Fe7cVRHn%2Fxts7Tjau6fBZurUYYwSDMFGh%2Bq7TXsJuX5n7PmWzYXfEyvMX2uB1jOWtEhpGUMy3rf6oJelCpCbDeNelKRpM1NUQynlIjklvgEAMjKa%2FB5Fk%2BRejLisS9wI3SupwypqVsNH3QqUVUzPFl6eUG3PnLS5GMp6qD0mAplUR1Dvy44wkCgFFAV6SMpxENnUpXbUHAEXlPgQk2zS6wuAPlh6vHv9Q7QglELrNpiK8rDv8d5%2FqUy4jGBsF3M5%2B97T7KJuu2JH%2FAqBDHjahHqwMOvT4cQGOqUBQaFCpB6qlshVgyg2iYZBVoLtIxGwDgo9YHqw6fGjVS9WUHfKb6g7Ijdwx%2By2XALg2rO8QB7NgJAe9ao9Kfa1UnDbrHP2CuqkIR5SC4KMp%2BjV6%2Bni402PSdT8YYXaptS1GZEvqdxfP4mvQpYOTd2vhm6Pui9djmfAJB%2FajvvW7djuOjtlWrTKpZFmUtl2SWACE52iYDAyLRKxezuberbZ5NOpemOk&X-Amz-Signature=1eb3e6fd99fee35309e9cef42697f0569ea091fec07eefad7f9a3c80c2d2340d&X-Amz-SignedHeaders=host&x-amz-checksum-mode=ENABLED&x-id=GetObject)
 
-- θ_{0}: ft 이전의 파라미터
+- θ\_{0}: ft 이전의 파라미터
 
-- θ_{1}: ft 이후의 파라미터
+- θ\_{1}: ft 이후의 파라미터
 
-- ||\cdot ||_{0}: non-zero 원소의 개수
+- ||\cdot ||\_{0}: non-zero 원소의 개수
 
-***  bfloat16 값이 절대 차이 10⁻⁵ 이하일 경우 동일한 값으로 간주 *** 
+**_ bfloat16 값이 절대 차이 10⁻⁵ 이하일 경우 동일한 값으로 간주 _**
 
 ### Learning from in-distribution data
 
@@ -107,7 +108,7 @@ title: Reinforcement Learning Finetunes Small Subnetworks in Large Language Mode
 
 ![Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/3acbc979-3f43-48f4-8683-229c6104ec76/c62f44f4-0ffd-41fb-b840-5ad4317f57f2/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2025-06-03_%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE_12.29.23.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=ASIAZI2LB4665HP3BH3O%2F20250810%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20250810T110011Z&X-Amz-Expires=3600&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEJr%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJHMEUCIAuSvEhlkPlA8g4Pp6Y84HXQ8PkQapiQEMa22ht5MAymAiEAo%2BLawF7dqpDFUqaUd62fu%2Bb6CPD6KeE2nOO4aISdofIqiAQI0%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FARAAGgw2Mzc0MjMxODM4MDUiDPdvnMpVIF6jb3j%2BiircA6MK0TPCMII%2Flx8cs4FrzFaW1dyC8awkyTq73%2B8HqKH5i1dJVzOa0QYQGo%2Fz8kr8ALGRafw1uHndPj%2B8dGIRKTq41UMnkSKlUSDTm8ZbnhBp7q6ZyvhPVQVCcaWFEGlpjpZLuBV1SrKu0mDXpt2nUnKprYn%2BFEqX7MlXkk2IupdY3aPEd3EvzlLVpx1xdPEVxkgcJcDCb2RwvuREzQGMjpSpvcoETQiF1Tza5cPWh0Xv7x%2Bfq6jD%2BRuvXO4gcnvRlEJCU7J%2BJXgTI6UxP0YsAjp%2BMADOrUx35hsSY9EXkCeVom3PVpMkbm1v1%2FawYrrlEODh2z%2F9ulb9vnujcrCE1YqkopSgH5V4cPQ0%2Fe7cVRHn%2Fxts7Tjau6fBZurUYYwSDMFGh%2Bq7TXsJuX5n7PmWzYXfEyvMX2uB1jOWtEhpGUMy3rf6oJelCpCbDeNelKRpM1NUQynlIjklvgEAMjKa%2FB5Fk%2BRejLisS9wI3SupwypqVsNH3QqUVUzPFl6eUG3PnLS5GMp6qD0mAplUR1Dvy44wkCgFFAV6SMpxENnUpXbUHAEXlPgQk2zS6wuAPlh6vHv9Q7QglELrNpiK8rDv8d5%2FqUy4jGBsF3M5%2B97T7KJuu2JH%2FAqBDHjahHqwMOvT4cQGOqUBQaFCpB6qlshVgyg2iYZBVoLtIxGwDgo9YHqw6fGjVS9WUHfKb6g7Ijdwx%2By2XALg2rO8QB7NgJAe9ao9Kfa1UnDbrHP2CuqkIR5SC4KMp%2BjV6%2Bni402PSdT8YYXaptS1GZEvqdxfP4mvQpYOTd2vhm6Pui9djmfAJB%2FajvvW7djuOjtlWrTKpZFmUtl2SWACE52iYDAyLRKxezuberbZ5NOpemOk&X-Amz-Signature=e093dd937a096261868fe660ef68e0a502813b63d4f69ed2533ddcf62ec35878&X-Amz-SignedHeaders=host&x-amz-checksum-mode=ENABLED&x-id=GetObject)
 
-- (accumulated gradients로 측정이 살짝 다르긴 하지만)  SFT는 6%-15% sparsity를 보임
+- (accumulated gradients로 측정이 살짝 다르긴 하지만) SFT는 6%-15% sparsity를 보임
 
 - 이전 연구들에서 밝혀낸 바와 동일한 결론에 이름
 
@@ -127,17 +128,17 @@ title: Reinforcement Learning Finetunes Small Subnetworks in Large Language Mode
 
 - θ: Tulu
 
-- θ_{full}: parameters after full RL finetuning from the initial model
+- θ\_{full}: parameters after full RL finetuning from the initial model
 
-- θ_{sub}: parameters after subnetwork RL finetuning from the initial model
+- θ\_{sub}: parameters after subnetwork RL finetuning from the initial model
 
 - RL
 
 ### Result
 
-- DPO → θ_{full} & θ_{sub} : **94.0% 파라미터 동일**
+- DPO → θ*{full} & θ*{sub} : **94.0% 파라미터 동일**
 
-- PRIME → θ_{full} & θ_{sub} : **90.5% 파라미터 동일**
+- PRIME → θ*{full} & θ*{sub} : **90.5% 파라미터 동일**
 
 - 허용 오차 기준을 10⁻⁴로 완화할 경우, 두 모델은 **100% 동일한 파라미터 값을 가짐**
 
@@ -145,7 +146,7 @@ title: Reinforcement Learning Finetunes Small Subnetworks in Large Language Mode
 
 ![Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/3acbc979-3f43-48f4-8683-229c6104ec76/99e90030-794d-4409-8af8-f8d4b0a94ffc/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2025-06-03_%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE_2.36.59.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=ASIAZI2LB4665HP3BH3O%2F20250810%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20250810T110011Z&X-Amz-Expires=3600&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEJr%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJHMEUCIAuSvEhlkPlA8g4Pp6Y84HXQ8PkQapiQEMa22ht5MAymAiEAo%2BLawF7dqpDFUqaUd62fu%2Bb6CPD6KeE2nOO4aISdofIqiAQI0%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FARAAGgw2Mzc0MjMxODM4MDUiDPdvnMpVIF6jb3j%2BiircA6MK0TPCMII%2Flx8cs4FrzFaW1dyC8awkyTq73%2B8HqKH5i1dJVzOa0QYQGo%2Fz8kr8ALGRafw1uHndPj%2B8dGIRKTq41UMnkSKlUSDTm8ZbnhBp7q6ZyvhPVQVCcaWFEGlpjpZLuBV1SrKu0mDXpt2nUnKprYn%2BFEqX7MlXkk2IupdY3aPEd3EvzlLVpx1xdPEVxkgcJcDCb2RwvuREzQGMjpSpvcoETQiF1Tza5cPWh0Xv7x%2Bfq6jD%2BRuvXO4gcnvRlEJCU7J%2BJXgTI6UxP0YsAjp%2BMADOrUx35hsSY9EXkCeVom3PVpMkbm1v1%2FawYrrlEODh2z%2F9ulb9vnujcrCE1YqkopSgH5V4cPQ0%2Fe7cVRHn%2Fxts7Tjau6fBZurUYYwSDMFGh%2Bq7TXsJuX5n7PmWzYXfEyvMX2uB1jOWtEhpGUMy3rf6oJelCpCbDeNelKRpM1NUQynlIjklvgEAMjKa%2FB5Fk%2BRejLisS9wI3SupwypqVsNH3QqUVUzPFl6eUG3PnLS5GMp6qD0mAplUR1Dvy44wkCgFFAV6SMpxENnUpXbUHAEXlPgQk2zS6wuAPlh6vHv9Q7QglELrNpiK8rDv8d5%2FqUy4jGBsF3M5%2B97T7KJuu2JH%2FAqBDHjahHqwMOvT4cQGOqUBQaFCpB6qlshVgyg2iYZBVoLtIxGwDgo9YHqw6fGjVS9WUHfKb6g7Ijdwx%2By2XALg2rO8QB7NgJAe9ao9Kfa1UnDbrHP2CuqkIR5SC4KMp%2BjV6%2Bni402PSdT8YYXaptS1GZEvqdxfP4mvQpYOTd2vhm6Pui9djmfAJB%2FajvvW7djuOjtlWrTKpZFmUtl2SWACE52iYDAyLRKxezuberbZ5NOpemOk&X-Amz-Signature=553bb7cbce4bf09ac13f1ed4537acdd7e0282e816991af8073a2190722652ace&X-Amz-SignedHeaders=host&x-amz-checksum-mode=ENABLED&x-id=GetObject)
 
-⇒ 논문 서두에서 언급한 conjecture를 실험적으로 완벽하게 증명하며, RL 훈련에서의 sparse update을 명시적으로 활용한 **효율적인 학습 전략**에 대한 가능성을 열어둠. 
+⇒ 논문 서두에서 언급한 conjecture를 실험적으로 완벽하게 증명하며, RL 훈련에서의 sparse update을 명시적으로 활용한 **효율적인 학습 전략**에 대한 가능성을 열어둠.
 
 (post hoc으로 찾아낸 sparse parameter를 미리 알아내는건 future work!)
 

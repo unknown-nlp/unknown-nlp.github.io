@@ -1,20 +1,21 @@
 ---
 categories:
-- paper-reviews
-date: '2025-04-15 00:00:00'
+  - paper-reviews
+date: "2025-04-15 00:00:00"
 description: 논문 리뷰
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-- language-model
-- llm
-- paper-review
+  - language-model
+  - llm
+  - paper-review
 thumbnail: assets/img/posts/2025-04-15-model-context-protocol-mcp---provided-by-antrophic/thumbnail.jpg
 title: Model Context Protocol (MCP) - provided by Antrophic
 ---
 
 **논문 정보**
+
 - **Date**: 2025-04-15
 - **Reviewer**: 준원 장
 
@@ -86,7 +87,7 @@ https://github.com/smithery-ai/reference-servers/tree/main/src/github
 
 1. Cursor > MCP > add to MCP > github json을 추가하면 아래와 같이 MCP server가 추가됨
 
-1. Cursor (AI agent)에게 Github Token의 권한 아래 있는 repo에 대해서 tool 실행 (e.g., issue를 실행해줘)를 요청하면, (1) LLM이 특정 MCP server가 필요하다고 판단 → 특정 Tool 실행이 필요하다고 판단  (2) MCP에 맞는 입력 생성
+1. Cursor (AI agent)에게 Github Token의 권한 아래 있는 repo에 대해서 tool 실행 (e.g., issue를 실행해줘)를 요청하면, (1) LLM이 특정 MCP server가 필요하다고 판단 → 특정 Tool 실행이 필요하다고 판단 (2) MCP에 맞는 입력 생성
 
 1. Agent를 통해 성공적으로 Tool 실행 (`Run tool`)
 

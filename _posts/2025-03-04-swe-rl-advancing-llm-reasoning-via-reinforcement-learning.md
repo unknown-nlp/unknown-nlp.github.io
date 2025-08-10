@@ -1,24 +1,25 @@
 ---
 categories:
-- paper-reviews
-date: '2025-03-04 00:00:00'
+  - paper-reviews
+date: "2025-03-04 00:00:00"
 description: 논문 리뷰 - RL 관련 연구
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-- gpt
-- llm
-- paper-review
-- reasoning
-- reinforcement-learning
-- rl
+  - gpt
+  - llm
+  - paper-review
+  - reasoning
+  - reinforcement-learning
+  - rl
 thumbnail: assets/img/posts/2025-03-04-swe-rl-advancing-llm-reasoning-via-reinforcement-learning/thumbnail.jpg
-title: 'SWE-RL: Advancing LLM Reasoning via Reinforcement Learning on Open Software
-  Evolution'
+title: "SWE-RL: Advancing LLM Reasoning via Reinforcement Learning on Open Software
+  Evolution"
 ---
 
 **논문 정보**
+
 - **Date**: 2025-03-04
 - **Reviewer**: 전민진
 - **Property**: RL
@@ -47,7 +48,7 @@ title: 'SWE-RL: Advancing LLM Reasoning via Reinforcement Learning on Open Softw
 
 - PR data aggregation ⇒ 자세한 내용은 원문 참고.. 이해 못했음..
 
-- Relevant files prediction 
+- Relevant files prediction
 
 - Data filtering
 

@@ -1,28 +1,29 @@
 ---
 categories:
-- paper-reviews
-date: '2023-01-19 00:00:00'
+  - paper-reviews
+date: "2023-01-19 00:00:00"
 description: 논문 리뷰 - QA, NER, Knowledge 관련 연구
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-- bert
-- embedding
-- fine-tuning
-- knowledge
-- language-model
-- ner
-- paper-review
-- pre-training
-- qa
-- transformer
-- vision
+  - bert
+  - embedding
+  - fine-tuning
+  - knowledge
+  - language-model
+  - ner
+  - paper-review
+  - pre-training
+  - qa
+  - transformer
+  - vision
 thumbnail: assets/img/posts/2023-01-19-kala-knowledge-augmented-language-model-adaptation/thumbnail.jpg
-title: 'KALA: Knowledge-Augmented Language Model Adaptation'
+title: "KALA: Knowledge-Augmented Language Model Adaptation"
 ---
 
 **논문 정보**
+
 - **Date**: 2023-01-19
 - **Reviewer**: yukyung lee
 - **Property**: QA, NER, Knowledge
@@ -32,10 +33,10 @@ title: 'KALA: Knowledge-Augmented Language Model Adaptation'
 - Simple fine-tuning of PLMs, on the other hand, might be suboptimal for domain-specific tasks because they cannot possibly cover knowledge from all domains
 
 - Adaptive pre-training of PLM can help LM obtain domain-specific knowledge  
-→ require large training cost
-→ catastrophic forgeting of general knowledge
+  → require large training cost
+  → catastrophic forgeting of general knowledge
 
-- KALA 
+- KALA
 
 ## 1. Introduction
 
@@ -126,7 +127,7 @@ Pretraining based
 - two entities 사이의 relational information도 고려해주기 위해 Relational Retrieval도 함께 수행함
 
 - GNN을 통해 3.1에서 정의한 entity memory의 entity embedding을 보강해줌
-: 이때 neighborhood aggregation scheme을 사용함
+  : 이때 neighborhood aggregation scheme을 사용함
 
 - score는 all neighbors를 모두 고려하여 normalize되고 softmax를 취해서 사용함
 
@@ -180,7 +181,7 @@ Finetuning, TAPT, DAPT, Other knowledge models
 
 - layer norm 횟수도 함께 실험했음
 
-- 두가지를 모두 사용하는것이 가장 효과적이었음 
+- 두가지를 모두 사용하는것이 가장 효과적이었음
 
 → knowledge integration을 적절하게 해준것으로 해석할 수 있음
 

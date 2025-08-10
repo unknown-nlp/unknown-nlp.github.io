@@ -1,25 +1,26 @@
 ---
 categories:
-- paper-reviews
-date: '2024-07-23 00:00:00'
+  - paper-reviews
+date: "2024-07-23 00:00:00"
 description: 논문 리뷰 - Reasoning, Reinforcement Learning 관련 연구
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-- language-model
-- llm
-- paper-review
-- reasoning
-- reinforcement learning
-- reinforcement-learning
-- vision
+  - language-model
+  - llm
+  - paper-review
+  - reasoning
+  - reinforcement learning
+  - reinforcement-learning
+  - vision
 thumbnail: assets/img/posts/2024-07-23-training-large-language-models-for-reasoning-through-reverse/thumbnail.jpg
 title: Training Large Language Models for Reasoning through Reverse Curriculum Reinforcement
   Learning
 ---
 
 **논문 정보**
+
 - **Date**: 2024-07-23
 - **Reviewer**: 전민진
 - **Property**: Reasoning, Reinforcement Learning
@@ -32,7 +33,7 @@ title: Training Large Language Models for Reasoning through Reverse Curriculum R
 
 - 반대로, step마다 reward를 부여하는 process supervision 방식의 경우 annotation비용이 너무 커진다는 단점 존재
 
->> 본 논문에서는 정답 rationale을 reverse curriculum방식으로 학습하여 이와 같은 문제를 해결하고자 함
+> > 본 논문에서는 정답 rationale을 reverse curriculum방식으로 학습하여 이와 같은 문제를 해결하고자 함
 
 ## Introduction
 

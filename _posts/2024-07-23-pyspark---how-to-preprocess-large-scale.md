@@ -1,24 +1,25 @@
 ---
 categories:
-- paper-reviews
-date: '2024-07-23 00:00:00'
+  - paper-reviews
+date: "2024-07-23 00:00:00"
 description: 논문 리뷰 - spark 관련 연구
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-- paper-review
-- spark
+  - paper-review
+  - spark
 thumbnail: assets/img/posts/2024-07-23-pyspark---how-to-preprocess-large-scale/thumbnail.jpg
 title: Pyspark - How to preprocess Large Scale Data with Python
 ---
 
 **논문 정보**
+
 - **Date**: 2024-07-23
 - **Reviewer**: 준원 장
 - **Property**: spark
 
-## 0. Prerequisites For Practice 
+## 0. Prerequisites For Practice
 
 - Spark runs on Java 8, 11, or 17.
 
@@ -36,10 +37,10 @@ conda install jupyter
 - Launch jupyter lab in python
 
 ```javascript
-jupyter-lab
+jupyter - lab;
 ```
 
-## 1. Introduction to Spark 
+## 1. Introduction to Spark
 
 ### Spark
 
@@ -63,19 +64,19 @@ jupyter-lab
 
 - 이름에도 명시되어 있듯이, 해당 모델은 두 가지 주요 단계, 즉 `Map` 단계와 `Reduce` 단계로 구성
 
-*⇒ MapReduce 모델은 하둡(Hadoop)과 같은 시스템에서 널리 사용됨. 데이터를 디스크에 저장하고, 중간 결과도 디스크에 쓰기 때문에 대량의 데이터 처리에 적합하지만, 입출력 작업으로 인해 속도가 느려짐.*
+_⇒ MapReduce 모델은 하둡(Hadoop)과 같은 시스템에서 널리 사용됨. 데이터를 디스크에 저장하고, 중간 결과도 디스크에 쓰기 때문에 대량의 데이터 처리에 적합하지만, 입출력 작업으로 인해 속도가 느려짐._
 
-⇒ MapReduce는 YARN (Hadoop에서 사용되는 resource manager - CPU나 메모리 등의 계산 리소스가 관리되며, 아래 그림에서 어떤 호스트에 컨테이너를 어떻게 할당할 것인가를 결정)상에서 동작하는 분산 애플리케이션 중 하나며, 분산 시스템에서 데이터를 처리하는 데 사용됨. 
+⇒ MapReduce는 YARN (Hadoop에서 사용되는 resource manager - CPU나 메모리 등의 계산 리소스가 관리되며, 아래 그림에서 어떤 호스트에 컨테이너를 어떻게 할당할 것인가를 결정)상에서 동작하는 분산 애플리케이션 중 하나며, 분산 시스템에서 데이터를 처리하는 데 사용됨.
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-07-23-pyspark---how-to-preprocess-large-scale/image_002.png" class="img-fluid rounded z-depth-1" %}
 
-⇒  또한, SQL 같은 쿼리 언어를 위해  Apache Hive라는 쿼리 엔진을 사용할 수 있는데, 이들은 입력한 쿼리를 자동으로 MapReduce 프로그램으로 변환 해주기에 **아래 그림에서 확인할 수 있듯이 위 2개의 애플리케이션 (Hadoop, YARN) 모두 대량의 데이터를 배치 처리에 적합하지만, 애드 훅 쿼리를 여러 번 실행하는 복잡한 쿼리에는 부적합하며데이터 처리의 스테이지가 바꿜 때마다 약간의 대기 시간이 필요** (이건 Hive on Tez같은 기술적인 해결책이 존재)
+⇒ 또한, SQL 같은 쿼리 언어를 위해 Apache Hive라는 쿼리 엔진을 사용할 수 있는데, 이들은 입력한 쿼리를 자동으로 MapReduce 프로그램으로 변환 해주기에 **아래 그림에서 확인할 수 있듯이 위 2개의 애플리케이션 (Hadoop, YARN) 모두 대량의 데이터를 배치 처리에 적합하지만, 애드 훅 쿼리를 여러 번 실행하는 복잡한 쿼리에는 부적합하며데이터 처리의 스테이지가 바꿜 때마다 약간의 대기 시간이 필요** (이건 Hive on Tez같은 기술적인 해결책이 존재)
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-07-23-pyspark---how-to-preprocess-large-scale/image_003.png" class="img-fluid rounded z-depth-1" %}
 
 ⇒ 하지만 점점 RAM 가격이 저렴해졌고, (Disk IO로 빠질것을) In-Memory에서 돌아가는 SPARK 등장!
 
-## 2.  Spark (How Spark Work & Spark Session)
+## 2. Spark (How Spark Work & Spark Session)
 
 ### How Spark Work
 
@@ -113,7 +114,7 @@ Spark 2.0 이후 도입된 SparkSession은 DataFrame과 같은 high-level API를
 
 1. **Master Node와 클러스터 매니저**
 
-1. Untitled 
+1. Untitled
 
 ## 3. RDDs (Resilient Distributed Datasets)
 
@@ -133,7 +134,7 @@ Spark 2.0 이후 도입된 SparkSession은 DataFrame과 같은 high-level API를
 
 ### How to Make RDDs?
 
-**#### **Untitled** **
+**#### **Untitled\*\* \*\*
 
 ```python
 # Set the PySpark environment variables
@@ -146,7 +147,7 @@ os.environ['PYSPARK_DRIVER_PYTHON'] = 'jupyter'
 os.environ['PYSPARK_DRIVER_PYTHON_OPTS'] = 'lab'
 # PySpark가 Jupyter Lab을 실행할 때 필요한 추가 옵션을 제공
 os.environ['PYSPARK_PYTHON'] = 'python'
-# PYSPARK_PYTHON 환경 변수는 클러스터의 모든 노드에서 PySpark 작업을 처리할 때 사용할 Python 인터프리터를 
+# PYSPARK_PYTHON 환경 변수는 클러스터의 모든 노드에서 PySpark 작업을 처리할 때 사용할 Python 인터프리터를
 # 이 설정은 PySpark가 작업을 분산 처리할 때 일관된 Python 환경을 유지하도록 돕습니다.
 ```
 
@@ -197,7 +198,7 @@ partitioned_data = rdd.glom().collect()
 print("Data in each partition:")
 for i, data in enumerate(partitioned_data):
     print(f"Partition {i}: {data}")
-    
+
 
 # Data in each partition:
 # Partition 0: [1]
@@ -212,7 +213,7 @@ rdd.collect()
 # [1, 2, 3, 4, 5]
 ```
 
-**#### **Untitled** **
+**#### **Untitled\*\* \*\*
 
 ```python
 from pyspark.sql import SparkSession
@@ -228,7 +229,7 @@ spark = SparkSession.builder \
 
 
 # RDD 생성 및 파티션 설정
-numbers = list(range(1, 21))  
+numbers = list(range(1, 21))
 rdd = spark.sparkContext.parallelize(numbers, 6)  # 명시적으로 파티션 수를 6으로 설정
 
 # 각 파티션의 데이터를 리스트로 변환
@@ -238,8 +239,8 @@ partitioned_data = rdd.glom().collect()
 print("Data in each partition:")
 for i, data in enumerate(partitioned_data):
     print(f"Partition {i}: {data}")
-    
- 
+
+
 '''
 (예상 출력 결과)
 Data in each partition:
@@ -260,7 +261,7 @@ Partition 5: [19, 20]
 
 **#### Transformations**
 
-- **개념**: Transformations은 RDD에 적용되는 연산으로, 새로운 RDD를 생성. *Transformations은 '지연 평가(lazy evaluation)' 모델을 따르기 때문에, 실제 연산은 관련된 동작(Action)이 호출될 때까지 실행X*
+- **개념**: Transformations은 RDD에 적용되는 연산으로, 새로운 RDD를 생성. _Transformations은 '지연 평가(lazy evaluation)' 모델을 따르기 때문에, 실제 연산은 관련된 동작(Action)이 호출될 때까지 실행X_
 
 - **특성**: Transformations을 통해 생성된 새 RDD는 원본 RDD의 변경 불가능한(immutable) 특성을 유지하며, 원본 데이터를 수정하지 않고 새로운 데이터셋을 생성
 
@@ -284,7 +285,7 @@ Partition 5: [19, 20]
 
 - `saveAsTextFile()`
 
--  `textFile()`
+- `textFile()`
 
 ## 4. DataFrame in Spark
 

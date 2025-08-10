@@ -1,15 +1,16 @@
 ---
 categories: paper-reviews
-date: '2024-03-19 00:00:00'
-description: ' 논문 리뷰 - MM1: Methods, Analysis & Insights from Multimodal LLM Pre-training'
+date: "2024-03-19 00:00:00"
+description: " 논문 리뷰 - MM1: Methods, Analysis & Insights from Multimodal LLM Pre-training"
 giscus_comments: true
 layout: post
 related_posts: false
 tags: llm paper-review
-title: 'MM1: Methods, Analysis & Insights from Multimodal LLM Pre-training'
+title: "MM1: Methods, Analysis & Insights from Multimodal LLM Pre-training"
 ---
 
 **논문 정보**
+
 - **Date**: 2024-03-19
 - **Reviewer**: 건우 김
 - **Property**: Multimodal

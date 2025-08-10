@@ -1,34 +1,35 @@
 ---
 categories:
-- paper-reviews
-date: '2023-02-02 00:00:00'
+  - paper-reviews
+date: "2023-02-02 00:00:00"
 description: "논문 리뷰 - \bDialogue, Evaluation Metric 관련 연구"
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-- "\bdialogue"
-- evaluation metric
-- gpt
-- paper-review
+  - "\bdialogue"
+  - evaluation metric
+  - gpt
+  - paper-review
 thumbnail: assets/img/posts/2023-02-02-measuring-and-improving-semantic-diversity-of-dialogue-generation/thumbnail.jpg
 title: Measuring and Improving Semantic Diversity of Dialogue Generation
 ---
 
 **논문 정보**
+
 - **Date**: 2023-02-02
 - **Reviewer**: 준원 장
 - **Property**: Dialogue, Evaluation Metric
 
 ### 1. Introduction
 
-Dialogue Model들이 어느정도 ‘fluent’한 대답들을 생성할 수 있게 되었지만, 여전히 dull하고 uninformative generic한 대답을 자주 생성하는 문제는 해결하지 못하고 있다. 
+Dialogue Model들이 어느정도 ‘fluent’한 대답들을 생성할 수 있게 되었지만, 여전히 dull하고 uninformative generic한 대답을 자주 생성하는 문제는 해결하지 못하고 있다.
 
-Dull하고 uninformative generic한 대답은 왜 문제가 되는가? → engagingness가 떨어진다. 
+Dull하고 uninformative generic한 대답은 왜 문제가 되는가? → engagingness가 떨어진다.
 
-논문에서 사람들의 Engagingness를 올리기 위해서는 diversity of responses를 향상시켜야 한다고 주장한다. 
+논문에서 사람들의 Engagingness를 올리기 위해서는 diversity of responses를 향상시켜야 한다고 주장한다.
 
-그렇다면 diversity of reponse라는 것은 무엇인가? 
+그렇다면 diversity of reponse라는 것은 무엇인가?
 
 논문에서 명확하게 정의하지는 않았지만 아래처럼 ‘형식적인’ 대답이 아니라 다양한 어휘들을 구사해 가면서 대답을 생성하는 것을 diversity한 대답이라고 정의하는 것 같다.
 
@@ -37,11 +38,11 @@ Dull하고 uninformative generic한 대답은 왜 문제가 되는가? → engag
 → Yeah. I know.
 → Thank you .
 → That’s cool .
-→  Not yet .
+→ Not yet .
 
 ‘’’
 
-또한 저자들은 좋은 diversity of responses는 human judgement와의 상관관계가 높아야 한다고 주장한다. 
+또한 저자들은 좋은 diversity of responses는 human judgement와의 상관관계가 높아야 한다고 주장한다.
 
 기존 연구들은 diversity of responses를 향상시키기 위해 ‘lexical-level’ metric에 의존했다고 한다.
 
@@ -51,9 +52,9 @@ Dull하고 uninformative generic한 대답은 왜 문제가 되는가? → engag
 
 하지만 lexical-level은 semantic diversity를 충분히 잡아내는데 한계가 있다.
 
-(ex. 아름다운 꽃병이 있다. &  예쁜 꽃병이 책상 위에 있다. → 표면적으로 다르지만 유사한 토큰은 semantic diversity를 확장하는데 한계가 있다 → latent space 영역의 도움이 필요하다)
+(ex. 아름다운 꽃병이 있다. & 예쁜 꽃병이 책상 위에 있다. → 표면적으로 다르지만 유사한 토큰은 semantic diversity를 확장하는데 한계가 있다 → latent space 영역의 도움이 필요하다)
 
-이를 해결하기 위해 (1) 저자들은 (latent space를 활용해) semantic diversity를 측정하는  ‘***SEM-ENT’ ***라는 automatic evaluation metric을 제시하며, (2) Generated Responses의 semantic diversity를 향상시키기 위한 simple하고 effective한 방법론을 제시한다.
+이를 해결하기 위해 (1) 저자들은 (latent space를 활용해) semantic diversity를 측정하는 ‘**_SEM-ENT’ _**라는 automatic evaluation metric을 제시하며, (2) Generated Responses의 semantic diversity를 향상시키기 위한 simple하고 effective한 방법론을 제시한다.
 
 ### 2. Related Works
 
@@ -79,13 +80,13 @@ Dull하고 uninformative generic한 대답은 왜 문제가 되는가? → engag
 
 ‘’’
 
- Input Context : c_{a} → Generated responses  {r_{a1},r_{a2},r_{a3}, …, r_{an}}
+Input Context : c*{a} → Generated responses {r*{a1},r*{a2},r*{a3}, …, r\_{an}}
 
- Input Context : c_{b} → Generated responses  {r_{b1},r_{b2},r_{b3}, …, r_{bn}}
+Input Context : c*{b} → Generated responses {r*{b1},r*{b2},r*{b3}, …, r\_{bn}}
 
-이 있다고 할 때, 기존의 NLI diversity metric은 intra-diversity ({r_{a1},r_{a2},r_{a3}, …, r_{an}})는 측정이 가능하나 context가 유사할 경우 inter-diversity ({r_{a1},r_{a2},r_{a3}, …, r_{an}} vs {r_{b1},r_{b2},r_{b3}, …, r_{bn}})를 측정하기에는 한계가 있다고 주장한다.)
+이 있다고 할 때, 기존의 NLI diversity metric은 intra-diversity ({r*{a1},r*{a2},r*{a3}, …, r*{an}})는 측정이 가능하나 context가 유사할 경우 inter-diversity ({r*{a1},r*{a2},r*{a3}, …, r*{an}} vs {r*{b1},r*{b2},r*{b3}, …, r*{bn}})를 측정하기에는 한계가 있다고 주장한다.)
 
-### *! 읽으면서 아쉬웠던 POINT !*
+### _! 읽으면서 아쉬웠던 POINT !_
 
 **→ context가 유사할 경우 본인들이 제시한 metric의 성능이 diversity of response를 더 잘 측정하는지에 대한 실험이 없는게 아쉽다..!! **
 
@@ -117,7 +118,7 @@ Dull하고 uninformative generic한 대답은 왜 문제가 되는가? → engag
 
 - dataset : 10 contexts from the test set of a DailyDialog dataset
 
-- criteria:  *diversity* and* interestingness (*5-point Likert scale) 
+- criteria: _diversity_ and* interestingness (*5-point Likert scale)
 
 **Baselines**
 
@@ -129,9 +130,9 @@ Dull하고 uninformative generic한 대답은 왜 문제가 되는가? → engag
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2023-02-02-measuring-and-improving-semantic-diversity-of-dialogue-generation/image_005.png" class="img-fluid rounded z-depth-1" %}
 
-(** Bradley-Terry model은 outcome을 확률로 바꿔주는 모델)
+(\*\* Bradley-Terry model은 outcome을 확률로 바꿔주는 모델)
 
-### *! 읽으면서 아쉬웠던 POINT !*
+### _! 읽으면서 아쉬웠던 POINT !_
 
 **→ DialoGPT의 Latent Space의 reliability를 증명해 줄 실험이 전혀 X**
 
@@ -155,7 +156,7 @@ Dull하고 uninformative generic한 대답은 왜 문제가 되는가? → engag
 
 결국에는 데이터셋이 문제라는 건데, 저자들은 이를 해결하기 위해 DRESS라는 방법론을 제시한다. (**역설적이게도 데이터셋이 문제가 있다는 것을 알았을 때 사용할 수 있다… → DialoGPT 태우는 비용 어쩔래?라는 반박은 대응 못할듯..**)
 
-이 방법론도 간단하다. 
+이 방법론도 간단하다.
 
 다음과 같이 특정 responses들마다 가중치를 주어서 보정하는 방식이다.
 

@@ -1,28 +1,29 @@
 ---
 categories:
-- paper-reviews
-date: '2023-08-29 00:00:00'
+  - paper-reviews
+date: "2023-08-29 00:00:00"
 description: 논문 리뷰 - LLM 관련 연구
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-- fine-tuning
-- llm
-- paper-review
-- pre-training
+  - fine-tuning
+  - llm
+  - paper-review
+  - pre-training
 thumbnail: assets/img/posts/2023-08-29-code-llama-open-foundation-models-for-code/thumbnail.jpg
-title: 'Code Llama: Open Foundation Models for Code'
+title: "Code Llama: Open Foundation Models for Code"
 ---
 
 **논문 정보**
+
 - **Date**: 2023-08-29
 - **Reviewer**: hyowon Cho
 - **Property**: LLM
 
 # Introduction
 
-domain-specific dataset을 이용해서 application에 특화된 모델을 만드는 것은 보편적인 방법이다. 이러한 추세는 언어모델을 이용하여 코드를 작성하는데까지도 이어졌다. 예를 들어, code completion, debugging,  generating documentation과 같은 작업을 수행할 수 있다.
+domain-specific dataset을 이용해서 application에 특화된 모델을 만드는 것은 보편적인 방법이다. 이러한 추세는 언어모델을 이용하여 코드를 작성하는데까지도 이어졌다. 예를 들어, code completion, debugging, generating documentation과 같은 작업을 수행할 수 있다.
 
 이번 발표에서는 Meta AI에서 공개한 Code Llama에 대한 리뷰를 진행한다. 해당 모델의 의의는 크게 두 가지, 제일 성능이 좋다는 것과 repository-level의 긴 context를 받아서 처리할 수 있다는 것이다.
 
@@ -60,7 +61,7 @@ domain-specific dataset을 이용해서 application에 특화된 모델을 만�
 
 Infilling을 위한 데이터들은 다음과 같이 구성된다.
 
-먼저 모든 데이터들은 prefix-middle-suffix로 나눠진다.  (splitting locations are sampled independently from a uniform distribution over the document length.) 
+먼저 모든 데이터들은 prefix-middle-suffix로 나눠진다. (splitting locations are sampled independently from a uniform distribution over the document length.)
 
 이후, 전체 데이터의 절반은 prefix-suffix-middle (PSM) format, 나머지 절반은 suffix-prefix-middle (SPM) format으로 구성한다.
 
@@ -68,7 +69,7 @@ suffix, prefix, middle의 시작과 infilling span의 끝을 표기하기 위한
 
 이렇게 재배열된 데이터에 대한 auto-regressive training을 수행한다.
 
-전체 데이터의 90퍼센트는 Infilling, 나머지는 일반 auto-regressive수행한다. 
+전체 데이터의 90퍼센트는 Infilling, 나머지는 일반 auto-regressive수행한다.
 
 ### Long context fine-tuning
 

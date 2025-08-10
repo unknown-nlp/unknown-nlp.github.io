@@ -1,25 +1,26 @@
 ---
 categories:
-- paper-reviews
-date: '2023-10-10 00:00:00'
+  - paper-reviews
+date: "2023-10-10 00:00:00"
 description: 논문 리뷰 - LLM, Efficient Training 관련 연구
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-- attention
-- efficient training
-- embedding
-- fine-tuning
-- language-model
-- llm
-- paper-review
-- transformer
+  - attention
+  - efficient training
+  - embedding
+  - fine-tuning
+  - language-model
+  - llm
+  - paper-review
+  - transformer
 thumbnail: assets/img/posts/2023-10-10-longlora-efficient-fine-tuning-of-long-context-large/thumbnail.jpg
-title: 'LongLoRA: Efficient Fine-Tuning of Long-Context Large Language Models'
+title: "LongLoRA: Efficient Fine-Tuning of Long-Context Large Language Models"
 ---
 
 **논문 정보**
+
 - **Date**: 2023-10-10
 - **Reviewer**: 건우 김
 - **Property**: LLM, Efficient Training
@@ -32,17 +33,17 @@ LLM의 context extension을 두 가지 aspects를 고려함
 
 1. PEFT 방법 적용 → 단순히 LoRA를 적용한 LongLoRA 제안
 
-8장 A100으로 LongLoRA를 적용한 LLaMA2 7B는 최대 100k, 70B는 32k token까지 처리 가능 
+8장 A100으로 LongLoRA를 적용한 LLaMA2 7B는 최대 100k, 70B는 32k token까지 처리 가능
 
 ## Introduction
 
-길이가 긴 text를 처리하고자 하는 LLM에 대한 수요가 많음. 하지만 단순히 long text를 finetuning하는 것은 compuationally 매우 비싸기 때문에 이에 대한 연구들이 많이 이어져 왔음. 
+길이가 긴 text를 처리하고자 하는 LLM에 대한 수요가 많음. 하지만 단순히 long text를 finetuning하는 것은 compuationally 매우 비싸기 때문에 이에 대한 연구들이 많이 이어져 왔음.
 
-최근에 연구된 Positional Interpolation (Chen et al., 2023)은 RoPE을 기반으로 LLM의 context window size를 32k까지 늘리는 방법을 제안했지만, 실제로 8k 이상의 길이를 처리하게끔 학습을 시킬 때 128대의 A100이 필요하다는 resource가 여전히 많이 필요하다는 문제점이 있음. 
+최근에 연구된 Positional Interpolation (Chen et al., 2023)은 RoPE을 기반으로 LLM의 context window size를 32k까지 늘리는 방법을 제안했지만, 실제로 8k 이상의 길이를 처리하게끔 학습을 시킬 때 128대의 A100이 필요하다는 resource가 여전히 많이 필요하다는 문제점이 있음.
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2023-10-10-longlora-efficient-fine-tuning-of-long-context-large/image_000.png" class="img-fluid rounded z-depth-1" %}
 
-또한, Focused Transformer (Tworkowski et al., 2023)은 contrastive learning에 영감을 받은 학습 방식을 사용해서 256k 길이의 prompt까지 처리할 수 있긴 하지만, 이 역시도 128대의 TPU가 필요하다는 문제점이 있다. 
+또한, Focused Transformer (Tworkowski et al., 2023)은 contrastive learning에 영감을 받은 학습 방식을 사용해서 256k 길이의 prompt까지 처리할 수 있긴 하지만, 이 역시도 128대의 TPU가 필요하다는 문제점이 있다.
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2023-10-10-longlora-efficient-fine-tuning-of-long-context-large/image_001.png" class="img-fluid rounded z-depth-1" %}
 
@@ -52,7 +53,7 @@ LLM의 context extension을 두 가지 aspects를 고려함
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2023-10-10-longlora-efficient-fine-tuning-of-long-context-large/image_002.png" class="img-fluid rounded z-depth-1" %}
 
-본 연구에서 위에 문제점들을 개선한 LongLoRA를 소개함. 
+본 연구에서 위에 문제점들을 개선한 LongLoRA를 소개함.
 
 Contributions은 다음과 같음
 
@@ -98,7 +99,7 @@ Contributions은 다음과 같음
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2023-10-10-longlora-efficient-fine-tuning-of-long-context-large/image_004.png" class="img-fluid rounded z-depth-1" %}
 
-당연하게 finetuning을 하지 않으면, context 길이가 늘어남에 따라 perplexity가 매우 높아짐. 
+당연하게 finetuning을 하지 않으면, context 길이가 늘어남에 따라 perplexity가 매우 높아짐.
 
 앞으로 standard baseline을 full attention으로 full finetuning시킨 model로 설정
 
@@ -158,7 +159,7 @@ RedPajama도 그렇게 나쁘진 않음
 
 ## Conclusion
 
-LLM이 Long-context를 다루는데 효과적인 매우 간단한 방법론인 LongLoRA를 제안함. LLaMA가 2048 tokens, LLaMA2가 4096 tokens까지 처리하는 것을 생각하면, 본 실험에서 진행한 **32k**~**100k**는 매우 크다는 것을 알 수 있음. 
+LLM이 Long-context를 다루는데 효과적인 매우 간단한 방법론인 LongLoRA를 제안함. LLaMA가 2048 tokens, LLaMA2가 4096 tokens까지 처리하는 것을 생각하면, 본 실험에서 진행한 **32k**~**100k**는 매우 크다는 것을 알 수 있음.
 
 또한, A100 8장으로 모든 실험을 진행했기에 정말 효율적으로 학습을 진행시킬 수 있고, Full-FT와 비교해도 비슷한 수준을 선 보임.
 Downstream task로는 topic retrieval을 진행하고, 해당 분야에서 SOTA인 LongChat-13B와 비교했을 때, 실제로 비슷하거나 더 나은 성능을 보여줌. 다만, downstream task가 하나 밖에 없어서 아쉬움 (물론 극단적인 길이의 long-context를 처리하는 task의 부재도 있음)

@@ -1,26 +1,27 @@
 ---
 categories:
-- paper-reviews
-date: '2024-03-05 00:00:00'
+  - paper-reviews
+date: "2024-03-05 00:00:00"
 description: 논문 리뷰 - Prompt Tuning, Inference 관련 연구
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-- alignment
-- gpt
-- inference
-- llm
-- paper-review
-- pre-training
-- prompt tuning
-- reasoning
-- rlhf
+  - alignment
+  - gpt
+  - inference
+  - llm
+  - paper-review
+  - pre-training
+  - prompt tuning
+  - reasoning
+  - rlhf
 thumbnail: assets/img/posts/2024-03-05-beyond-memorization-violating-privacy-via-inferencing-with-llms/thumbnail.jpg
-title: 'Beyond Memorization: Violating Privacy Via Inferencing With LLMs'
+title: "Beyond Memorization: Violating Privacy Via Inferencing With LLMs"
 ---
 
 **논문 정보**
+
 - **Date**: 2024-03-05
 - **Reviewer**: 준원 장
 - **Property**: Prompt Tuning, Inference
@@ -49,9 +50,9 @@ title: 'Beyond Memorization: Violating Privacy Via Inferencing With LLMs'
 
 - 기존의 LLMs에서 Privacy Leakage Issue는 주로 pre-training data memorization 측면에서 다루어져 왔었음
 
-- Carlini et al. (2023)에 따르면 memorization, model size, training data repetitions에는  log-linear 관계가 있음. 
+- Carlini et al. (2023)에 따르면 memorization, model size, training data repetitions에는 log-linear 관계가 있음.
 
-→ 기존에는 privacy leakage를 신경써야하는 source가 pt data라면 이 연구에서는 inference때 LM이 직면하는 data의 privacy leakage도 신경써야함을 주장. 
+→ 기존에는 privacy leakage를 신경써야하는 source가 pt data라면 이 연구에서는 inference때 LM이 직면하는 data의 privacy leakage도 신경써야함을 주장.
 
 ### Risk of LLMs
 
@@ -63,7 +64,7 @@ title: 'Beyond Memorization: Violating Privacy Via Inferencing With LLMs'
 
 - General Data Protection Regulation (GDPR) - EU
 
-- Personal Identifiable Information (PII)  - U.S.
+- Personal Identifiable Information (PII) - U.S.
 
 → 저자들 여기서 수집한 데이터 가능한 다 수집하려고 함
 
@@ -81,7 +82,7 @@ title: 'Beyond Memorization: Violating Privacy Via Inferencing With LLMs'
 
 - (u, t) ∈ D → (attribute, value)
 
-- P_{A_1} (t) = (S, P)
+- P\_{A_1} (t) = (S, P)
 
 → Output과 reasoning 요청
 
@@ -91,13 +92,13 @@ title: 'Beyond Memorization: Violating Privacy Via Inferencing With LLMs'
 
 - (논문에서 설명이 부족하긴 하지만) Persona적으로 무해해보이는 Role을 부여받은 chat-bot이 사용자와 계속 대화를 이어나가면서 뒤에서는 걔속해서 잠재적으로 민감한 정보를 학습할 수 있는 텍스트를 생성하도록 유도
 
-- T_{p} : public task of the LLM, e.g., “being a helpful travel assistant”
+- T\_{p} : public task of the LLM, e.g., “being a helpful travel assistant”
 
-- T_{h} : hidden task of the LLM, e.g., “trying to extract private information from the user”
+- T\_{h} : hidden task of the LLM, e.g., “trying to extract private information from the user”
 
-- m_{i} > r_{i}^{h} : a user message > a hidden model response to the model hosting entity (e.g., PII inferences from prior responses)
+- m*{i} > r*{i}^{h} : a user message > a hidden model response to the model hosting entity (e.g., PII inferences from prior responses)
 
-- m_{i} > r_{i}^{p} : a user message > a public model response revealed to the user
+- m*{i} > r*{i}^{p} : a user message > a public model response revealed to the user
 
 → chatbot platform 모방해서 실험진행
 
@@ -121,9 +122,9 @@ title: 'Beyond Memorization: Violating Privacy Via Inferencing With LLMs'
 
 - Perceived certainity & Hardness도 labeling
 
-- Decontamination 진행 
+- Decontamination 진행
 
- → Perceived Certainity ≥ 3 이상 dataset 가지고 실험 진행 (This resulted in 1066 (down from 1184) individual labels across all 520 profiles.)
+→ Perceived Certainity ≥ 3 이상 dataset 가지고 실험 진행 (This resulted in 1066 (down from 1184) individual labels across all 520 profiles.)
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-03-05-beyond-memorization-violating-privacy-via-inferencing-with-llms/image_002.png" class="img-fluid rounded z-depth-1" %}
 
@@ -133,7 +134,7 @@ title: 'Beyond Memorization: Violating Privacy Via Inferencing With LLMs'
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-03-05-beyond-memorization-violating-privacy-via-inferencing-with-llms/image_003.png" class="img-fluid rounded z-depth-1" %}
 
-- GPT-4의 경우 top-1으로만 비교했을때 전체 attributes에 대해서 84.6% 정도 ACC를 보임. 
+- GPT-4의 경우 top-1으로만 비교했을때 전체 attributes에 대해서 84.6% 정도 ACC를 보임.
 
 - 논문에서 강조하는 점은 인간은 (1) Internet에 무한정으로 access (2) 다른 하위 reddit 검색 (meta data)도 참고해서 attribute를 추출해낸데에 반면 GPT-4는 text 정보만으로 상당히 유의미한 개별정보를 식별해낼 수 있다는 거에 의의를 두고 있다.
 
@@ -163,7 +164,7 @@ title: 'Beyond Memorization: Violating Privacy Via Inferencing With LLMs'
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-03-05-beyond-memorization-violating-privacy-via-inferencing-with-llms/image_006.png" class="img-fluid rounded z-depth-1" %}
 
-- AzureLanguageService를 활용해 user attribute를 ***로 anonymize 하는 것
+- AzureLanguageService를 활용해 user attribute를 \*\*\*로 anonymize 하는 것
 
 - AzureLanguageService에 의해서 지원되는 location, age, occupation, place of birth, and income에 대해서만 anonymize 하고 inference시에 privacy leakage가 발생하는지 확인
 

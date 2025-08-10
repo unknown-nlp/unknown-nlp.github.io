@@ -1,22 +1,23 @@
 ---
 categories:
-- paper-reviews
-date: '2025-08-23 00:00:00'
+  - paper-reviews
+date: "2025-08-23 00:00:00"
 description: 논문 리뷰 - Robotics 관련 연구
 giscus_comments: true
 layout: post
 related_posts: false
 slug: 2025-08-23-towards-a-generalizable-bimanual-foundation-policy-via-flow
 tags:
-- alignment
-- attention
-- diffusion
-- paper-review
-- robotics
+  - alignment
+  - attention
+  - diffusion
+  - paper-review
+  - robotics
 title: Towards a Generalizable Bimanual Foundation Policy via Flow-based Video Prediction
 ---
 
 **논문 정보**
+
 - **Date**: 2025-06-10
 - **Reviewer**: 전민진
 - **Property**: Robotics
@@ -87,9 +88,9 @@ title: Towards a Generalizable Bimanual Foundation Policy via Flow-based Video P
 
 - 해당 그림을 보면, language-only model의 경우(그냥 SFT) meaningful region을 식별하는데 실패하는 것을 볼 수 있음
 
-- flow video를 중간에 생성, 이를 기반으로  detailed vidoe를 생성함으로써, intruction과 visual input사이의 더 나은 alignment를 달성
+- flow video를 중간에 생성, 이를 기반으로 detailed vidoe를 생성함으로써, intruction과 visual input사이의 더 나은 alignment를 달성
 
-- 첫번째 단계에서 생성한 flow video를 잘 활용하여 detailed video를 생성할 수 있도록, flow video와 RGB vidoe를 channel dimension에 따라서 concat하는 방법론을 제안 
+- 첫번째 단계에서 생성한 flow video를 잘 활용하여 detailed video를 생성할 수 있도록, flow video와 RGB vidoe를 channel dimension에 따라서 concat하는 방법론을 제안
 
 ![Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/3acbc979-3f43-48f4-8683-229c6104ec76/93f3655f-127a-4030-a8a9-85711bbe49c4/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=ASIAZI2LB466UUISFKIY%2F20250810%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20250810T110006Z&X-Amz-Expires=3600&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEJr%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJIMEYCIQD2Q4Kl1a73Clwa%2FOUxyyJ8%2FH6OqW0hMYB0eg5w0TQHgQIhAIfImakH4f4YgAii3TXAJSGCCyTzp6DFoIDfegKiUaj%2FKogECNP%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEQABoMNjM3NDIzMTgzODA1Igxl8rBn4j7wb%2BUoTPQq3ANEluJ6qZ%2B6wz15ZxWD8qSsH%2B4FWOv78iNDvjp5UliKsONCPmOzwsQ45JpXmJonL%2BTXEecjy2zjW%2BkxgUEo1FM8nqI45IQf4u%2FCKwfnr0xc7cFSV6HOAFfLePAMQoGyqXTEWkCyhk7CLbvp%2B5hkhBxZu77%2BsMx8kUtmlhdrUFEw5ozcgZItSPToSklgLcf104vJow0eAMv9iKTm0ZiCCjT5fqKrYTsqOLPP5mf54j61B4TBtXUEM%2Fpyaq7V5vyuXsVy%2BfYIAOdwp241cLRNhNKmZQgJal4jcRP5gw%2FZ5tmFnImRBwXFfbFddJIQ%2FPpLtca%2BSD6jOQ9jUBhq0XdLJH4efQbG7YxWtBrWcBqx097VdVt53ERu52Jwq6HZh0lblTjSbsy4RxQ42DAyjlx46iS3ggpea6WLSQTfXj%2BdZZC2kxv8hK8RC5P3GGgRzh2mhG%2FH9qKhGy2kbkVIYOYDhld%2FVAb3E1ZfrobpmXKIV%2F3epkDoKsaaeDQpwEgQXtjO59wKkUjI%2F1wHnmdozSbQvI1HlT2OL8zNFn259L3adDVxSoeNsjsUTFAOBvJv7dZubfYOCreDgr2qIDs0OeKnOORzoP9oOQjQbwELu7uEM2bAbS7i1LkTAP7%2BIqew0DCo0%2BHEBjqkAb02oNrAZFLBAsyCVwToyv%2B0WpBpwpc6dmjOgBTfJ27Of3ujF1wYmVATQB1R14rNT3wSFCbO2Qgi5vh9KgNmWDgnlNaYenPeoLQwvACJ%2F%2F31yFi%2FlDQ2lVgCjeH9HnTR4YKCzPP6RlBcj4U%2FKBrOwRv9twF%2Bc49kPqnCRJ6ldDamvb1hgEbMvDVVs0oMdYfDZXQlsTt0T5UT0wLHiChNv5%2FMdohq&X-Amz-Signature=f05dda68265a1c07b817ec74e27eaf844c9e0d0957565e7c004bdbdb917a3868&X-Amz-SignedHeaders=host&x-amz-checksum-mode=ENABLED&x-id=GetObject)
 

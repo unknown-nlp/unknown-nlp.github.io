@@ -1,27 +1,28 @@
 ---
 categories:
-- paper-reviews
-date: '2025-01-02 00:00:00'
+  - paper-reviews
+date: "2025-01-02 00:00:00"
 description: 논문 리뷰 - DiffusionLM, SFT, Reinforcement Learning, Reasoning 관련 연구
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-- diffusion
-- diffusionlm
-- language-model
-- llm
-- paper-review
-- reasoning
-- reinforcement learning
-- reinforcement-learning
-- sft
+  - diffusion
+  - diffusionlm
+  - language-model
+  - llm
+  - paper-review
+  - reasoning
+  - reinforcement learning
+  - reinforcement-learning
+  - sft
 thumbnail: assets/img/posts/2025-01-02-d1-scaling-reasoning-in-diffusion-large-language-models/thumbnail.jpg
-title: 'd1: Scaling Reasoning in Diffusion Large Language Models via Reinforcement
-  Learning'
+title: "d1: Scaling Reasoning in Diffusion Large Language Models via Reinforcement
+  Learning"
 ---
 
 **논문 정보**
+
 - **Date**: 2025-01-02
 - **Reviewer**: 김재희
 - **Property**: DiffusionLM, SFT, Reinforcement Learning, Reasoning
@@ -52,7 +53,7 @@ title: 'd1: Scaling Reasoning in Diffusion Large Language Models via Reinforceme
 
 - 복잡한 상호작용을 가진 시스템의 기대값 계산을 단순화하기 위해 독립 확률 분포로 근사하는 방법론
 
-- AR: 각 토큰의 생성이 이전 토큰에 종속적 
+- AR: 각 토큰의 생성이 이전 토큰에 종속적
 
 - DDLM: 각 토큰의 생성이 모든 다른 토큰에 종속적
 
@@ -60,7 +61,7 @@ title: 'd1: Scaling Reasoning in Diffusion Large Language Models via Reinforceme
 
 - AR: 각 토큰의 loglikelihod로 분해 가능
 
-- DDLM: 모든 토큰이 동시에 생성되어 적용 불가 
+- DDLM: 모든 토큰이 동시에 생성되어 적용 불가
 
 ### 2.2 One-step Per-token loglikelihood estimation
 
@@ -94,11 +95,11 @@ title: 'd1: Scaling Reasoning in Diffusion Large Language Models via Reinforceme
 
 - reward: correctness, formatting
 
-- max len: 
+- max len:
 
-### 3.1 Main 
+### 3.1 Main
 
-- 각 데이터 별 별도 학습 진행 
+- 각 데이터 별 별도 학습 진행
 
 - SFT와 diffu-GRPO의 효과 검증
 

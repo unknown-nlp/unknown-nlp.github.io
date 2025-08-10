@@ -1,24 +1,25 @@
 ---
 categories: paper-reviews
-date: '2024-09-23 00:00:00'
-description: ' 논문 리뷰 - SUPER: Evaluating Agents on Setting Up and Executing Tasks
+date: "2024-09-23 00:00:00"
+description: " 논문 리뷰 - SUPER: Evaluating Agents on Setting Up and Executing Tasks
 
-  from Research Repositories'
+  from Research Repositories"
 giscus_comments: true
 layout: post
 related_posts: false
 tags: paper-review
-title: 'SUPER: Evaluating Agents on Setting Up and Executing Tasks
+title: "SUPER: Evaluating Agents on Setting Up and Executing Tasks
 
-  from Research Repositories'
+  from Research Repositories"
 ---
 
 **논문 정보**
+
 - **Date**: 2024-09-23
 - **Reviewer**: yukyung lee
 - **Property**: Autonomous-Agents, Code Generation
 
-[//]: # (table_of_contents is not supported)
+[//]: # "table_of_contents is not supported"
 
 <br/>
 
@@ -26,17 +27,17 @@ title: 'SUPER: Evaluating Agents on Setting Up and Executing Tasks
 
 - Can LLMs automate theset up and execution of tasks in research repositories?
 
-	- Experimentation frequently requires substantial effort to setup and execute them
+  - Experimentation frequently requires substantial effort to setup and execute them
 
-		- installing the environment:
+    - installing the environment:
 
-			- conﬁguration changes
+      - conﬁguration changes
 
-			- resolv-ing outdated package dependencies
+      - resolv-ing outdated package dependencies
 
-			- ﬁxing bugs
+      - ﬁxing bugs
 
-			- determining the correct execution commands
+      - determining the correct execution commands
 
 - both setting up and executing experiments using research repositories in-the-wild
 
@@ -48,7 +49,7 @@ title: 'SUPER: Evaluating Agents on Setting Up and Executing Tasks
 
 - Contributions
 
-	- In contrast to these works,SUPER focuses onthe end-to-end task of setting up and executingresearch tasks in lower-proﬁle repositories, pre-senting a unique set of challenges, with tasks thatrequire repository comprehension and reasoning,editing multiple ﬁles, setting up the repository en-vironment for execution while interactively run-ning commands in the environment
+  - In contrast to these works,SUPER focuses onthe end-to-end task of setting up and executingresearch tasks in lower-proﬁle repositories, pre-senting a unique set of challenges, with tasks thatrequire repository comprehension and reasoning,editing multiple ﬁles, setting up the repository en-vironment for execution while interactively run-ning commands in the environment
 
 ### 2) LLM Agent
 
@@ -60,21 +61,21 @@ title: 'SUPER: Evaluating Agents on Setting Up and Executing Tasks
 
 - SUPER benchmark (3 setting)
 
-	- Expert set - contains manuallywritten problems, solved by experts.
+  - Expert set - contains manuallywritten problems, solved by experts.
 
-	- Masked set - contains sub-problems extracted from the Expert set using the gold solution, which pro-vide easier and more focused sub-problems.
+  - Masked set - contains sub-problems extracted from the Expert set using the gold solution, which pro-vide easier and more focused sub-problems.
 
-	- Auto set -  contains automatically generated problemswhich can be used for development and improve-ment of agents
+  - Auto set - contains automatically generated problemswhich can be used for development and improve-ment of agents
 
 - Environment setup : Jupyter notebook as engine
 
-	- Execute cells: system shell command & stateful python command
+  - Execute cells: system shell command & stateful python command
 
-	- Each execution returns an observation string
+  - Each execution returns an observation string
 
-	- [https://modal.com](https://modal.com/)
+  - [https://modal.com](https://modal.com/)
 
-		- 2-3 cents per problem in Modal (**not including** API costs)
+    - 2-3 cents per problem in Modal (**not including** API costs)
 
 ---
 
@@ -92,9 +93,9 @@ title: 'SUPER: Evaluating Agents on Setting Up and Executing Tasks
 
 - Pre-execute existing cells and pass as history - code to be written by model not required to fit “in between” existing cells, can follow sequentially
 
-	- In prompt history as [pre-executed by the user]
+  - In prompt history as [pre-executed by the user]
 
-**Auto**:** **604 auto-generated examples
+**Auto**:\*\* \*\*604 auto-generated examples
 
 - state-of-the-art approaches struggle to solve these problems with the best model (GPT-4o) solving only **16.3% of the end-to-end** set, and **46.1% ofthe scenarios**.
 
@@ -106,15 +107,15 @@ title: 'SUPER: Evaluating Agents on Setting Up and Executing Tasks
 
 - Partial credit through “**landmarks**” (points in code signalling sub-completion, e.g. training stage done)
 
-	- E.g., the explicit output string “***training completed ***” or the string “Loading data... 100%”
+  - E.g., the explicit output string “**_training completed _**” or the string “Loading data... 100%”
 
 - Auto-generated: check no exceptions when running script (for a minimum duration)
 
-	- use 10 seconds based on gold expert solutions
+  - use 10 seconds based on gold expert solutions
 
 💡 “Open-source models substantially lag behind on both the sub-problems and end-to-end tasks.”
 
-	“agents are better at resolving well-specified sub-problems, such as solving exceptions, bugs, and other issues, than tasks requiring repository and file exploration to understand code structure”
+    “agents are better at resolving well-specified sub-problems, such as solving exceptions, bugs, and other issues, than tasks requiring repository and file exploration to understand code structure”
 
 **LLMs**
 
@@ -140,9 +141,9 @@ Llama 3.1 70B
 
 1. ReAct-SUPER
 
-	- Result
+   - Result
 
-		**Edit** action
+     **Edit** action
 
 - “ Specifically, the edit command accepts three parameters: the name of the file, the exact content of the lines to be replaced, and the content to replace it with.”
 
@@ -162,51 +163,51 @@ Llama 3.1 70B
 
 1. SWE-Agent
 
-	- Can read and scroll through file content
+   - Can read and scroll through file content
 
 1. Reflection
 
-	- *k tries to solve problem*
+   - _k tries to solve problem_
 
-	- Only provides minor improvements
+   - Only provides minor improvements
 
-	(1) reproducing numbers from research papers by running specific experiments
+   (1) reproducing numbers from research papers by running specific experiments
 
-	(2) running **modified** experiments with different datasets, models, or configurations
+   (2) running **modified** experiments with different datasets, models, or configurations
 
-	- PapersWithCode repos with “Text” modality research papers (with repos from 2021 or after)
+   - PapersWithCode repos with “Text” modality research papers (with repos from 2021 or after)
 
-	- Tasks that involve running experiment in readme/script in repo
+   - Tasks that involve running experiment in readme/script in repo
 
-	- “Whenever possible, we make the task more challenging by requiring the experiment to be run on a new dataset or model, other than the one described in the available documentation
+   - “Whenever possible, we make the task more challenging by requiring the experiment to be run on a new dataset or model, other than the one described in the available documentation
 
-		- Either from HF datasets, or Google Drive link
+     - Either from HF datasets, or Google Drive link
 
-		- “The challenge of running on a specific dataset varies in difficulty: it could involve only a single configuration line change if the dataset is already supported, or creating a new dataset reader, adjusting column names, etc.
+     - “The challenge of running on a specific dataset varies in difficulty: it could involve only a single configuration line change if the dataset is already supported, or creating a new dataset reader, adjusting column names, etc.
 
 ---
 
-[//]: # (column_list is not supported)
+[//]: # "column_list is not supported"
 
-	[//]: # (column is not supported)
+    [//]: # (column is not supported)
 
-			[//]: # (column is not supported)
+    		[//]: # (column is not supported)
 
-		<br/>
+    	<br/>
 
 Reduce computational requirements by reducing model size/training time/dataset size
 
-	- E.g. load first 10 examples only
+    - E.g. load first 10 examples only
 
-	- E.g. run one epoch
+    - E.g. run one epoch
 
-	Other implementation instructions:
+    Other implementation instructions:
 
-	- Branch
+    - Branch
 
-	- Certain HPs
+    - Certain HPs
 
-	- Seeds
+    - Seeds
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-09-23-super-evaluating-agents-on-setting-up-and-executing-tasks-from-research-repositories/https://lh7-rt.googleusercontent.com/docsz/AD_4nXeERhXw0OtpAe0D86wu39IgvncmtbjP3F8U86_DQbW6phI3to4jFmxmGDJx4rUF_SI-iW9T2RL0fOVQviPlCkrlaNZVK0YT9C6ds2imlPqnbmRhZXqRMjNDLicQQi8bmJPYfAWd5j6h6_4C1XrT_WABjNY?key=zOYcCVdaAaOk7v2w_fIm_A" class="img-fluid rounded z-depth-1" %}
 

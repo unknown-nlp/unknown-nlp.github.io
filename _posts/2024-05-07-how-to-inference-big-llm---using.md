@@ -1,22 +1,23 @@
 ---
 categories:
-- paper-reviews
-date: '2024-05-07 00:00:00'
+  - paper-reviews
+date: "2024-05-07 00:00:00"
 description: 논문 리뷰 - LLM, Inference 관련 연구
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-- attention
-- inference
-- llm
-- paper-review
-- transformer
+  - attention
+  - inference
+  - llm
+  - paper-review
+  - transformer
 thumbnail: assets/img/posts/2024-05-07-how-to-inference-big-llm---using/thumbnail.jpg
 title: How to Inference Big LLM? - Using Accelerate Library
 ---
 
 **논문 정보**
+
 - **Date**: 2024-05-07
 - **Reviewer**: 준원 장
 - **Property**: LLM, Inference
@@ -64,7 +65,7 @@ my_model.load_state_dict(state_dict)
 
 → ModelClass가 가지고 있는 device(mps 또는 cuda)가 요구하는것보다 더 많은 메모리를 요구하는 경우, OOM이 발생할 수 있음
 
-- RAM(VRAM X)을 많이 차치하지 않은 empty skeleton model을 먼저 load한다. 
+- RAM(VRAM X)을 많이 차치하지 않은 empty skeleton model을 먼저 load한다.
 
 ```python
 from accelerate import init_empty_weights
@@ -92,11 +93,11 @@ model = load_checkpoint_and_dispatch(
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-05-07-how-to-inference-big-llm---using/image_000.png" class="img-fluid rounded z-depth-1" %}
 
-1. Input이 첫번째 layer에 도달하면 hook이 trigger되면 첫번째 layer가 CPU RAM → GPU VRAM으로 이동해서 Forwarding이 진행됨 
+1. Input이 첫번째 layer에 도달하면 hook이 trigger되면 첫번째 layer가 CPU RAM → GPU VRAM으로 이동해서 Forwarding이 진행됨
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-05-07-how-to-inference-big-llm---using/image_001.png" class="img-fluid rounded z-depth-1" %}
 
-1. 2번째 layer에 도달하면 hook이 trigger되고 1번째 layer는 GPU VRAM → CPU RAM으로 이동 & 2번째 layers는 CPU RAM → GPU VRAM으로 이동한 후 Forwarding이 진행됨 
+1. 2번째 layer에 도달하면 hook이 trigger되고 1번째 layer는 GPU VRAM → CPU RAM으로 이동 & 2번째 layers는 CPU RAM → GPU VRAM으로 이동한 후 Forwarding이 진행됨
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-05-07-how-to-inference-big-llm---using/image_002.png" class="img-fluid rounded z-depth-1" %}
 

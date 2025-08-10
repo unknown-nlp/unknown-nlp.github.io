@@ -1,23 +1,24 @@
 ---
 categories:
-- paper-reviews
-date: '2025-01-02 00:00:00'
+  - paper-reviews
+date: "2025-01-02 00:00:00"
 description: 논문 리뷰 - DiffusionLM, Pre-training 관련 연구
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-- bert
-- diffusion
-- diffusionlm
-- language-model
-- paper-review
-- pre-training
+  - bert
+  - diffusion
+  - diffusionlm
+  - language-model
+  - paper-review
+  - pre-training
 thumbnail: assets/img/posts/2025-01-02-diffusion-language-model-mathematical-foundations-inference-optimization/thumbnail.jpg
 title: Diffusion Language Model-Mathematical foundations & inference optimization
 ---
 
 **논문 정보**
+
 - **Date**: 2025-01-02
 - **Reviewer**: 김재희
 - **Property**: DiffusionLM, Pre-training
@@ -44,13 +45,13 @@ title: Diffusion Language Model-Mathematical foundations & inference optimizatio
 
 ## 수식 전개 Discrete Diffusion
 
-\textit{V} =  [사과, 존맛탱, mask]
+\textit{V} = [사과, 존맛탱, mask]
 
 입력문장: 사과 존맛탱
 
 ### forward process: 노이즈를 주입, actual token → mask
 
-q\left(\mathbf{z}_t \mid \mathbf{x}\right)=\operatorname{Cat}\left(\mathbf{z}_t ; \alpha_t \mathbf{x}+\left(1-\alpha_t\right) \boldsymbol{\pi}\right)
+q\left(\mathbf{z}\_t \mid \mathbf{x}\right)=\operatorname{Cat}\left(\mathbf{z}\_t ; \alpha_t \mathbf{x}+\left(1-\alpha_t\right) \boldsymbol{\pi}\right)
 
 - Terms
 
@@ -62,23 +63,23 @@ q\left(\mathbf{z}_t \mid \mathbf{x}\right)=\operatorname{Cat}\left(\mathbf{z}_t 
 
 reverse posterior
 
-q\left(\mathbf{z}_s \mid \mathbf{z}_t, \mathbf{x}\right)=\operatorname{Cat}\left(\mathbf{z}_s ;\frac{\left[\alpha_{t \mid s} \mathbf{z}_t+\left(1-\alpha_{t \mid s}\right) \mathbf{1} \boldsymbol{\pi}^{\top} \mathbf{z}_t\right] \odot\left[\alpha_s \mathbf{x}+\left(1-\alpha_s\right) \boldsymbol{\pi}\right]}{\alpha_t \mathbf{z}_t^{\top} \mathbf{x}+\left(1-\alpha_t\right) \mathbf{z}_t^{\top} \boldsymbol{\pi}}\right)
+q\left(\mathbf{z}_s \mid \mathbf{z}\_t, \mathbf{x}\right)=\operatorname{Cat}\left(\mathbf{z}\_s ;\frac{\left[\alpha_{t \mid s} \mathbf{z}_t+\left(1-\alpha_{t \mid s}\right) \mathbf{1} \boldsymbol{\pi}^{\top} \mathbf{z}\_t\right] \odot\left[\alpha_s \mathbf{x}+\left(1-\alpha_s\right) \boldsymbol{\pi}\right]}{\alpha_t \mathbf{z}\_t^{\top} \mathbf{x}+\left(1-\alpha_t\right) \mathbf{z}\_t^{\top} \boldsymbol{\pi}}\right)
 
-- t step에서 이전 시점 s(<t)까지 노이즈를 복원하기 위한 추정 확률 
+- t step에서 이전 시점 s(<t)까지 노이즈를 복원하기 위한 추정 확률
 
 ## Masked Diffusion
 
 ### forward masking process
 
-q\left(\mathbf{z}_t \mid \mathbf{x}\right)=\operatorname{Cat}\left(\mathbf{z}_t ; \alpha_t \mathbf{x}+\left(1-\alpha_t\right) \boldsymbol{m}\right)
+q\left(\mathbf{z}\_t \mid \mathbf{x}\right)=\operatorname{Cat}\left(\mathbf{z}\_t ; \alpha_t \mathbf{x}+\left(1-\alpha_t\right) \boldsymbol{m}\right)
 
-- discrete diffusion에서 \pi가 m으로 변한 것 외에 차이 없습니다. 
+- discrete diffusion에서 \pi가 m으로 변한 것 외에 차이 없습니다.
 
 ### reverse posterior: 실제 loss 식을 산출하기 위해 필요한 항
 
-q\left(\mathbf{z}_s \mid \mathbf{z}_t, \mathbf{x}\right)= \begin{cases}\operatorname{Cat}\left(\mathbf{z}_s ; \mathbf{z}_t\right) & \mathbf{z}_t \neq \mathbf{m} \\ \operatorname{Cat}\left(\mathbf{z}_s ; \frac{\left(1-\alpha_s\right) \mathbf{m}+\left(\alpha_s-\alpha_t\right) \mathbf{x}}{1-\alpha_t}\right) & \mathbf{z}_t=\mathbf{m}\end{cases}
+q\left(\mathbf{z}\_s \mid \mathbf{z}\_t, \mathbf{x}\right)= \begin{cases}\operatorname{Cat}\left(\mathbf{z}\_s ; \mathbf{z}\_t\right) & \mathbf{z}\_t \neq \mathbf{m} \\ \operatorname{Cat}\left(\mathbf{z}\_s ; \frac{\left(1-\alpha_s\right) \mathbf{m}+\left(\alpha_s-\alpha_t\right) \mathbf{x}}{1-\alpha_t}\right) & \mathbf{z}\_t=\mathbf{m}\end{cases}
 
-- \textbf{z}_t \neq \textbf{m}: step t에서 원본토큰이라면 → 그대로 유지
+- \textbf{z}\_t \neq \textbf{m}: step t에서 원본토큰이라면 → 그대로 유지
 
 - \textbf{z} = \textbf{m}: step t에서 masking token이라면 → step s에서 t 사이에서 masking되었을 확률 산출
 
@@ -116,9 +117,9 @@ diffusion loss를 산출하듯이 본래 학습할 discrete-time diffusion의 lo
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2025-01-02-diffusion-language-model-mathematical-foundations-inference-optimization/image_006.png" class="img-fluid rounded z-depth-1" %}
 
-- \textbf{x}^\textit{l}_\theta(\textbf{z}_t^{1:L}, t): t번째 step에서의 시퀀스에 대한 모델의 예측 문장, masking된 토큰을 예측하여 복원한 문장문
+- \textbf{x}^\textit{l}\_\theta(\textbf{z}\_t^{1:L}, t): t번째 step에서의 시퀀스에 대한 모델의 예측 문장, masking된 토큰을 예측하여 복원한 문장문
 
-- \log<\textbf{x}^\textit{l}_\theta(\textbf{z}_t^{1:L}, t), \textbf{x}^\textit{l}>: loglikelihood, 갑자기요…?!
+- \log<\textbf{x}^\textit{l}\_\theta(\textbf{z}\_t^{1:L}, t), \textbf{x}^\textit{l}>: loglikelihood, 갑자기요…?!
 
 - 이때 \alpha_s 가 사라진 것을 확인할 수 있음
 
@@ -130,7 +131,7 @@ diffusion loss를 산출하듯이 본래 학습할 discrete-time diffusion의 lo
 
 1. step sampling
 
-1. 이전 step 대비 추가적으로 \alpha_t 비율을 masking한  masked input 산출
+1. 이전 step 대비 추가적으로 \alpha_t 비율을 masking한 masked input 산출
 
 1. weighted sum of MLM loss 형식으로 update
 
@@ -140,11 +141,11 @@ diffusion loss를 산출하듯이 본래 학습할 discrete-time diffusion의 lo
 
 해당 수식을 통해 실제 생성이 이루어지게 됨
 
-1. \textbf{z}_t = \textbf{m}: t step에서 mask 토큰으로 입력된 위치에 대해서만 예측 수행
+1. \textbf{z}\_t = \textbf{m}: t step에서 mask 토큰으로 입력된 위치에 대해서만 예측 수행
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2025-01-02-diffusion-language-model-mathematical-foundations-inference-optimization/image_009.png" class="img-fluid rounded z-depth-1" %}
 
-1. \frac{(1-\alpha_s)\textbf{m} + (\alpha_s - \alpha_t)\textbf{x}_\theta(\textbf{z}_t, t)}{1-\alpha_t} = \frac{1-\alpha_s}{1-\alpha_t}\textbf{m} + \frac{\alpha_s-\alpha_t}{1-\alpha_t}\textbf{x}_\theta(\textbf{z}_t, t): 모든 mask 토큰 위치에서 예측된 확률분포 중에서 \frac{1-\alpha_s}{1-\alpha_t} 비율은 다시 masking으로 돌림
+1. \frac{(1-\alpha*s)\textbf{m} + (\alpha_s - \alpha_t)\textbf{x}*\theta(\textbf{z}_t, t)}{1-\alpha_t} = \frac{1-\alpha_s}{1-\alpha_t}\textbf{m} + \frac{\alpha_s-\alpha_t}{1-\alpha_t}\textbf{x}_\theta(\textbf{z}\_t, t): 모든 mask 토큰 위치에서 예측된 확률분포 중에서 \frac{1-\alpha_s}{1-\alpha_t} 비율은 다시 masking으로 돌림
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2025-01-02-diffusion-language-model-mathematical-foundations-inference-optimization/image_010.png" class="img-fluid rounded z-depth-1" %}
 

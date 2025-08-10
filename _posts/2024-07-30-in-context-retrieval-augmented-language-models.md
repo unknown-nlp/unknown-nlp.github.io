@@ -1,25 +1,26 @@
 ---
 categories:
-- paper-reviews
-date: '2024-07-30 00:00:00'
+  - paper-reviews
+date: "2024-07-30 00:00:00"
 description: 논문 리뷰 - Retrieval, ICL, In Context Learning 관련 연구
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-- attention
-- bert
-- icl
-- in context learning
-- language-model
-- llm
-- paper-review
-- retrieval
+  - attention
+  - bert
+  - icl
+  - in context learning
+  - language-model
+  - llm
+  - paper-review
+  - retrieval
 thumbnail: assets/img/posts/2024-07-30-in-context-retrieval-augmented-language-models/thumbnail.jpg
 title: In-Context Retrieval-Augmented Language Models
 ---
 
 **논문 정보**
+
 - **Date**: 2024-07-30
 - **Reviewer**: 김재희
 - **Property**: Retrieval, ICL, In Context Learning
@@ -34,15 +35,15 @@ title: In-Context Retrieval-Augmented Language Models
 
 ## 1-2. TL;DR
 
-1. Off-the-shelf Retriever 역시 Reader 성능 향상에 도움을 준다. 
+1. Off-the-shelf Retriever 역시 Reader 성능 향상에 도움을 준다.
 
-1. Retriever의 종류(sparse, dense)와 관계없이 성능 향상에 도움을 준다. 
+1. Retriever의 종류(sparse, dense)와 관계없이 성능 향상에 도움을 준다.
 
-1. stride는 적절히 짧게, retrieved passage의 수는 많을수록 성능 향상에 도움이 된다. 
+1. stride는 적절히 짧게, retrieved passage의 수는 많을수록 성능 향상에 도움이 된다.
 
-1. Reranker는 당연하게도 도움이 된다. 
+1. Reranker는 당연하게도 도움이 된다.
 
-> RALM의 Design Choice는 초록색 글씨로 표시하였습니다. 
+> RALM의 Design Choice는 초록색 글씨로 표시하였습니다.
 
 # 2. Related Works
 
@@ -96,7 +97,7 @@ title: In-Context Retrieval-Augmented Language Models
 
 ### 3-1-1. Language Modeling
 
-- Prefix(x_{<i})를 바탕으로 현재 시점(i)의 토큰 분포를 생성하는 작업
+- Prefix(x\_{<i})를 바탕으로 현재 시점(i)의 토큰 분포를 생성하는 작업
 
 ### 3-1-2. Naive In-Context RALM
 
@@ -122,7 +123,7 @@ title: In-Context Retrieval-Augmented Language Models
 
 - Naive RALM: 현재까지 생성된 모든 text를 query로 사용
 
-- q_j^{s, \ell}:=x_{s \cdot j-\ell+1}, \ldots, x_{s \cdot j}: 현재까지 생성된 토큰 중 직전 \ell 길이의 토큰만 query로 활용
+- q*j^{s, \ell}:=x*{s \cdot j-\ell+1}, \ldots, x\_{s \cdot j}: 현재까지 생성된 토큰 중 직전 \ell 길이의 토큰만 query로 활용
 
 ## 3-3. Reranking
 
@@ -170,7 +171,7 @@ title: In-Context Retrieval-Augmented Language Models
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-07-30-in-context-retrieval-augmented-language-models/image_003.png" class="img-fluid rounded z-depth-1" %}
 
-***모델 크기와 관계없이 RALM 적용 시 성능이 개선됨***
+**_모델 크기와 관계없이 RALM 적용 시 성능이 개선됨_**
 
 - BM25: RETRO 및 RAG와 다르게 LM과 함께 학습된 Retriever X, Sparse Retriever
 

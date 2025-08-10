@@ -1,24 +1,25 @@
 ---
 categories:
-- paper-reviews
-date: '2024-03-19 00:00:00'
+  - paper-reviews
+date: "2024-03-19 00:00:00"
 description: 논문 리뷰 - ICL, Generalization, Fine-tuning 관련 연구
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-- classification
-- fine-tuning
-- generalization
-- icl
-- language-model
-- llm
-- paper-review
+  - classification
+  - fine-tuning
+  - generalization
+  - icl
+  - language-model
+  - llm
+  - paper-review
 thumbnail: assets/img/posts/2024-03-19-unveiling-the-generalization-power-of-fine-tuned-large/thumbnail.jpg
 title: Unveiling the Generalization Power of Fine-Tuned Large Language Models
 ---
 
 **논문 정보**
+
 - **Date**: 2024-03-19
 - **Reviewer**: 전민진
 - **Property**: ICL, Generalization, Fine-tuning
@@ -89,4 +90,4 @@ title: Unveiling the Generalization Power of Fine-Tuned Large Language Models
 
 - finetuning이 생각보다 generation task에서 일반화가 안되는게 신기했음
 
-- ICL.. 살짝 무시했었는데.. 몇몇  task를 제외하곤 뛰어난 방법론이었다..
+- ICL.. 살짝 무시했었는데.. 몇몇 task를 제외하곤 뛰어난 방법론이었다..

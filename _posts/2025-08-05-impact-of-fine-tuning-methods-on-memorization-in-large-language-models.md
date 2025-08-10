@@ -1,8 +1,8 @@
 ---
 categories: paper-reviews
-date: '2025-08-05 00:00:00'
-description: ' 논문 리뷰 - Impact of Fine-Tuning Methods on Memorization in Large Language
-  Models'
+date: "2025-08-05 00:00:00"
+description: " 논문 리뷰 - Impact of Fine-Tuning Methods on Memorization in Large Language
+  Models"
 giscus_comments: true
 layout: post
 related_posts: false
@@ -11,6 +11,7 @@ title: Impact of Fine-Tuning Methods on Memorization in Large Language Models
 ---
 
 **논문 정보**
+
 - **Date**: 2025-08-05
 - **Reviewer**: hyowon Cho
 
@@ -42,103 +43,103 @@ title: Impact of Fine-Tuning Methods on Memorization in Large Language Models
 
 - Parameter-based fine-tuning
 
-	- Model Head Tuning (FT head): fine-tunes only the final output layer
+  - Model Head Tuning (FT head): fine-tunes only the final output layer
 
-	- Low-Rank Adaptation (LoRA) (Hu et al., 2021)
+  - Low-Rank Adaptation (LoRA) (Hu et al., 2021)
 
-- Prompt-based fine-tuning:  task-specific prompts only
+- Prompt-based fine-tuning: task-specific prompts only
 
-	- **Prefix Tuning**
+  - **Prefix Tuning**
 
-		- 각 attention layer의 key/value에 학습 가능한 prefix 벡터 추가.
+    - 각 attention layer의 key/value에 학습 가능한 prefix 벡터 추가.
 
-	- **Prompt Tuning**
+  - **Prompt Tuning**
 
-		- 모델 입력 임베딩 앞에 학습 가능한 연속형 프롬프트 임베딩 추가.
+    - 모델 입력 임베딩 앞에 학습 가능한 연속형 프롬프트 임베딩 추가.
 
-	- **P-tuning**
+  - **P-tuning**
 
-		- 별도의 신경망으로 학습한 연속형 프롬프트를 입력에 삽입.
+    - 별도의 신경망으로 학습한 연속형 프롬프트를 입력에 삽입.
 
 <br/>
 
 - 사용된 MIA 기법과 점수 계산 방식:
 
-	1. **LOSS** (Yeom et al., 2018)
+  1.  **LOSS** (Yeom et al., 2018)
 
-		- Membership Score = 모델의 손실
+      - Membership Score = 모델의 손실
 
-			$ \text{Score} = L(x, M_t) $
+        $ \text{Score} = L(x, M_t) $
 
-			(손실이 낮을수록 멤버일 가능성 ↑)
+        (손실이 낮을수록 멤버일 가능성 ↑)
 
-	1. **Reference-based (Ref)** (Mireshghallah et al., 2022a)
+  1.  **Reference-based (Ref)** (Mireshghallah et al., 2022a)
 
-		- 기준 모델 MrM_rMr와 비교하여 손실 차이 계산
+      - 기준 모델 MrM_rMr와 비교하여 손실 차이 계산
 
-			$ \text{Score} = L(x, M_t) - L(x, M_r) $
+        $ \text{Score} = L(x, M_t) - L(x, M_r) $
 
-	1. **Zlib Entropy (Zlib)** (Carlini et al., 2021)
+  1.  **Zlib Entropy (Zlib)** (Carlini et al., 2021)
 
-		- 손실을 zlib 엔트로피로 나눈 비율
+      - 손실을 zlib 엔트로피로 나눈 비율
 
-			$ \text{Score} = \frac{L(x, M_t)}{\text{zlib}(x)} $
+        $ \text{Score} = \frac{L(x, M_t)}{\text{zlib}(x)} $
 
-	1. **Min-K%** (Shi et al., 2024)
+  1.  **Min-K%** (Shi et al., 2024)
 
-		- 토큰 확률이 낮은 하위 k% 토큰들의 평균 로그 likelihood
+      - 토큰 확률이 낮은 하위 k% 토큰들의 평균 로그 likelihood
 
-			$ \text{Score} = \frac{1}{E} \sum_{x_i \in \text{Min-}K\%(x)} \log p(x_i | x_{<i}) $
+        $ \text{Score} = \frac{1}{E} \sum*{x_i \in \text{Min-}K\%(x)} \log p(x_i | x*{<i}) $
 
 <br/>
 
 - 데이터
 
-	- Wikitext-2-raw-1
+  - Wikitext-2-raw-1
 
-	- WebNLG
+  - WebNLG
 
-		- triple로 이루어짐  (Subject-Predicate-Object)
+    - triple로 이루어짐 (Subject-Predicate-Object)
 
-	- Xsum: 요약
+  - Xsum: 요약
 
-		- finetuning에 5000개만 사용
+    - finetuning에 5000개만 사용
 
-	<br/>
+  <br/>
 
 - 평가
 
-	- training and test sets에서 샘플링
+  - training and test sets에서 샘플링
 
-	<br/>
+  <br/>
 
 - 모델
 
-	- LLaMA 2-7B (Touvron et al., 2023)
+  - LLaMA 2-7B (Touvron et al., 2023)
 
-	- GPT2-series (Radford et al., 2019)
+  - GPT2-series (Radford et al., 2019)
 
-	- LLaMA 3-1B
+  - LLaMA 3-1B
 
-	→ 2025의 논문이라고 믿기지 않는군여!
+  → 2025의 논문이라고 믿기지 않는군여!
 
-	<br/>
+  <br/>
 
 - Evaluation Metrics
 
-	- PERF: validation PPL as the primary metric
+  - PERF: validation PPL as the primary metric
 
-	- MIA: AUC-ROC
+  - MIA: AUC-ROC
 
 <br/>
 
 - Implementation Details
 
-	- 15 epoch
+  - 15 epoch
 
-	- 모든 세팅은 논문에 나온거 그대로 따라함
+  - 모든 세팅은 논문에 나온거 그대로 따라함
 
-	- 4090이랑 H100 한대 사용
+  - 4090이랑 H100 한대 사용
 
 <br/>
 
@@ -152,7 +153,7 @@ title: Impact of Fine-Tuning Methods on Memorization in Large Language Models
 
 > Observation ♯1: (당연)
 
-	Parameter-based fine-tuning demonstrates a higher tendency to explicitly memorize training data.
+    Parameter-based fine-tuning demonstrates a higher tendency to explicitly memorize training data.
 
 <br/>
 
@@ -164,7 +165,8 @@ title: Impact of Fine-Tuning Methods on Memorization in Large Language Models
 
 > Observation ♯2:
 
-	Parameter-based fine-tuning exhibits increasing memorization over training epochs, while prompt-based fine-tuning maintains consistently low memorization throughout
+    Parameter-based fine-tuning exhibits increasing memorization over training epochs, while prompt-based fine-tuning maintains consistently low memorization throughout
+
 training.
 
 <br/>
@@ -178,15 +180,15 @@ the soft prompt or prefix, rather than altering the attention mechanism itself.
 
 - **Prefix Tuning 수식 (Petrov et al., 2024)**
 
-	 $  t^{pt}_i = A^{pt}_{i0} W_V S_1 + (1 - A^{pt}_{i0})\; t_i $
+  $  t^{pt}_i = A^{pt}_{i0} W*V S_1 + (1 - A^{pt}*{i0})\; t_i $
 
-	- soft-prefix가 어텐션 가중치 $ A^{pt} $를 ‘어디를 볼지’만 재조정, **본래 토큰 간 상대 분포는 그대로**.
+  - soft-prefix가 어텐션 가중치 $ A^{pt} $를 ‘어디를 볼지’만 재조정, **본래 토큰 간 상대 분포는 그대로**.
 
-	- 즉 **새로운 attention 패턴을 학습**하기보다는 **기존 능력을 재활용**.
+  - 즉 **새로운 attention 패턴을 학습**하기보다는 **기존 능력을 재활용**.
 
 - 결과적으로 **표현 공간의 이동(shift) < 적음** → 학습, 비학습 샘플 분포 차이가 작아 MIA가 어렵다.
 
-	- Petrov et al. (2024) prove that the presence of a prefix does not alter the relative distribution of the input but only shifts the attention to different content.
+  - Petrov et al. (2024) prove that the presence of a prefix does not alter the relative distribution of the input but only shifts the attention to different content.
 
 <br/>
 
@@ -240,7 +242,7 @@ prompt-based fine-tuning:
 
 > Observation ♯3
 
-	Model size significantly enhances memorization in parameter-based fine-tuning methods, while prompt-based methods show minimal sensitivity and maintain consistently low memorization.
+    Model size significantly enhances memorization in parameter-based fine-tuning methods, while prompt-based methods show minimal sensitivity and maintain consistently low memorization.
 
 <br/>
 
@@ -271,7 +273,7 @@ LLaMA2-7B vs LLaMA3-1B
 ## Impact of Downstream Tasks
 
 > Observation ♯4
-Prompt-based tuning leads to stronger memorization in structured tasks than in other downstream tasks.
+> Prompt-based tuning leads to stronger memorization in structured tasks than in other downstream tasks.
 
 <br/>
 
@@ -295,21 +297,21 @@ AUC↑ ⇒ 기억(privacy risk)↑
 
 1. **Projection > Attention**
 
-	-  LoRA를 **projection layer**에만 적용할 때, 두 데이터셋 모두 네 가지 MIA 지표에서 **AUC가 일관되게 상승** → 기억이 더 강해짐.
+   - LoRA를 **projection layer**에만 적용할 때, 두 데이터셋 모두 네 가지 MIA 지표에서 **AUC가 일관되게 상승** → 기억이 더 강해짐.
 
 1. **Both layers = 기억 제일 강함**
 
-	- Attention + Projection 동시 적용 시 **가장 높은 AUC** → 최대 수준의 memorization.
+   - Attention + Projection 동시 적용 시 **가장 높은 AUC** → 최대 수준의 memorization.
 
 1. **메커니즘 해석**
 
-	- Projection layer는 **특징 변환, 정보 압축**을 담당 → 학습 데이터의 구체적 패턴을 더 잘 ‘붙잡아 두는’ 위치.
+   - Projection layer는 **특징 변환, 정보 압축**을 담당 → 학습 데이터의 구체적 패턴을 더 잘 ‘붙잡아 두는’ 위치.
 
-	- 결과는 Meng et al. (ROME)의 Transformer 기억은 주로 projection 층에 집중한다는 가설을 재확인.
+   - 결과는 Meng et al. (ROME)의 Transformer 기억은 주로 projection 층에 집중한다는 가설을 재확인.
 
-	<br/>
+   <br/>
 
-	<br/>
+   <br/>
 
 Practical한 관점에서…
 

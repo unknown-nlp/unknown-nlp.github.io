@@ -1,8 +1,8 @@
 ---
 categories: paper-reviews
-date: '2024-05-07 00:00:00'
-description: ' 논문 리뷰 - How to Train LLM? - From Data Parallel To Fully Sharded Data
-  Parallel'
+date: "2024-05-07 00:00:00"
+description: " 논문 리뷰 - How to Train LLM? - From Data Parallel To Fully Sharded Data
+  Parallel"
 giscus_comments: true
 layout: post
 related_posts: false
@@ -11,11 +11,12 @@ title: How to Train LLM? - From Data Parallel To Fully Sharded Data Parallel
 ---
 
 **논문 정보**
+
 - **Date**: 2024-05-07
 - **Reviewer**: 준원 장
 - **Property**: LLM, Pre-Training, torch
 
-[//]: # (table_of_contents is not supported)
+[//]: # "table_of_contents is not supported"
 
 ### ! 본 내용에 잘못된 내용이 있을 수도 있으니, 혹시나 잘못된 부분 있다면 언제든 지적해주시면 감사하겠습니다!
 
@@ -27,19 +28,19 @@ title: How to Train LLM? - From Data Parallel To Fully Sharded Data Parallel
 
 - floating exampling
 
-	- 십진수 -0.5625
+  - 십진수 -0.5625
 
-	- 이진수 -0.1001
+  - 이진수 -0.1001
 
-		- → -1.001 X x 2^(-1)
+    - → -1.001 X x 2^(-1)
 
-	- <span style='color:red'>**Sign**</span>: 1 (음수는 1임)
+  - <span style='color:red'>**Sign**</span>: 1 (음수는 1임)
 
-	- <span style='color:green'>**Exponent**</span>: 127 + (-1) = 126
+  - <span style='color:green'>**Exponent**</span>: 127 + (-1) = 126
 
-	- <span style='color:blue'>**Fraction**</span>: 0010  0…
+  - <span style='color:blue'>**Fraction**</span>: 0010 0…
 
-	- **fp32: **<span style='color:red'>**1 **</span><span style='color:green'>**01111110**</span>** **<span style='color:blue'>**00100000000000000000000**</span>
+  - **fp32: **<span style='color:red'>**1 **</span><span style='color:green'>**01111110**</span>\*\* **<span style='color:blue'>**00100000000000000000000\*\*</span>
 
 <br/>
 
@@ -89,7 +90,7 @@ title: How to Train LLM? - From Data Parallel To Fully Sharded Data Parallel
 
 - fp16으로는 표현할 수 있는 숫자체계가 제한적이기 때문에 gradient update시에 underflow 문제 발생 가능
 
-	→ 빨간선 왼쪽이 fp16으로 표현할 수 없는 범위
+  → 빨간선 왼쪽이 fp16으로 표현할 수 없는 범위
 
 →fp16으로 tensor 연산 시의 문제점
 
@@ -97,37 +98,35 @@ title: How to Train LLM? - From Data Parallel To Fully Sharded Data Parallel
 
 - 위를 해결하기 위해 Precision을 혼합해서 활용하는 Mixed Precision 기법이 나옴
 
-	- BWD-Actv & BWD-Weight 계산 예시
+  - BWD-Actv & BWD-Weight 계산 예시
 
-		<br/>
+  <br/>
 
-- 가정: 우리의 Model은 fp32이다. 해당 모델이 가지고 있는  weights을 Master weights라고 명명.
+- 가정: 우리의 Model은 fp32이다. 해당 모델이 가지고 있는 weights을 Master weights라고 명명.
 
-1. fp32로 표현된 Master weights을 복사하여 fp16 weights로 가져옴
+1.  fp32로 표현된 Master weights을 복사하여 fp16 weights로 가져옴
 
-1. fp16 weights로 forward & loss 계산
+1.  fp16 weights로 forward & loss 계산
 
-1. loss값이 scaling factor를 곱한다.
+1.  loss값이 scaling factor를 곱한다.
 
-	(fp16으로 표현된 상태에서 Gradient을 구하면 backprop 과정 중 underflow 발생 가능)
+    (fp16으로 표현된 상태에서 Gradient을 구하면 backprop 과정 중 underflow 발생 가능)
 
-	**[FROM]**
+    **[FROM]**
 
-		**[To]**
+        **[To]**
 
-	1. fp16으로 표현된 loss에서 backward (loss.backward()) → backpropagate 한다.
+    1. fp16으로 표현된 loss에서 backward (loss.backward()) → backpropagate 한다.
 
-1. upscaling한 gradient(XS)를 optimizer.step()을 위해서 다시 unscale (X1/S)해준다.
+1.  upscaling한 gradient(XS)를 optimizer.step()을 위해서 다시 unscale (X1/S)해준다.
 
-	1. 이때 nan value, 0 되는지 check
+    1. 이때 nan value, 0 되는지 check
 
-	1. Gradient clipping, weight decay 등을 적용
+    1. Gradient clipping, weight decay 등을 적용
 
-	1. **optimizer의 state term등은 전부 fp32 상태로 저장**
+    1. **optimizer의 state term등은 전부 fp32 상태로 저장**
 
-		(optimizer는 state initialization할때 default로 fp32를 사용)
-
-
+       (optimizer는 state initialization할때 default로 fp32를 사용)
 
 ```python
             if len(state) == 0:
@@ -181,9 +180,9 @@ for epoch in epochs:
 
 - 2개의 프로세스간의 통신 패턴을 point-to-point communication(점대점 통신)라고 명명한다면, 여러 개의 프로세스간의 통신을 collective communication(집합 통신)이라고 명명한다.
 
-	→  point-to-point communication는 sender는 데이터를 보내고, receiver는 데이터를 받도록 설계하면 되기 때문에 구현 난이도가 상대적으로 쉬움
+  → point-to-point communication는 sender는 데이터를 보내고, receiver는 데이터를 받도록 설계하면 되기 때문에 구현 난이도가 상대적으로 쉬움
 
-→ multiple senders와 multiple receivers가 있는  collective communication의 경우, topology들이 구성이 매우 다양하기 때문에 (위 그림처럼) 데이터 통신을 최적화하기 매우 어렵다는 한계점이 존재한다.
+→ multiple senders와 multiple receivers가 있는 collective communication의 경우, topology들이 구성이 매우 다양하기 때문에 (위 그림처럼) 데이터 통신을 최적화하기 매우 어렵다는 한계점이 존재한다.
 
 - 조금 더 자세히 말하면, 몇 개의 GPU가 있고, 어떤 GPU가 어떤 GPU와 어떻게 연결(PCIe, NVLink, IB, ethernet 등등) 되어 있는 지와 같은 topology 정보는 통신 최적화에 필수로 고려해야 하는 요소인데, 그 조합이 너무나도 많기에 이것을 다 만족하는 최적화된 솔루션을 찾아 구현하기가 매우 어렵다.
 
@@ -191,11 +190,11 @@ for epoch in epochs:
 
 - 이러한 문제점을 해결하기 위해 'Pitch Patarasuk and Xin Yuan. Bandwidth optimal all-reduce algorithms for clusters of workstations. J. Parallel Distrib. Comput., 69:117–124, 2009.’에서 모든 어떤 topology라도 **Ring(s) topology**로 생각하고 구현할 경우 최적 성능을 달성할 수 있음을 보여줌.
 
-	→ 위는 Broadcast 연산인데 GPU0이 GPU[1:3]에 data를 뿌릴때 순차적으로 (GPU0→ GPU1 이 끝나면 GPU0 → GPU2 …)으로 하는게 아니라 데이터를 작은 조각으로 나누어서 GPU0 → GPU1 & GPU1 → GPU2 & GPU2 → GPU3 이렇게 인접한 모든 프로세스가 데이터를 전송하도록 구현하였음.
+  → 위는 Broadcast 연산인데 GPU0이 GPU[1:3]에 data를 뿌릴때 순차적으로 (GPU0→ GPU1 이 끝나면 GPU0 → GPU2 …)으로 하는게 아니라 데이터를 작은 조각으로 나누어서 GPU0 → GPU1 & GPU1 → GPU2 & GPU2 → GPU3 이렇게 인접한 모든 프로세스가 데이터를 전송하도록 구현하였음.
 
 <br/>
 
-- **NCCL(NVIDIA Collective Communications Library)**은 ***멀티 GPU*** 및 ***멀티 노드 환경***에서 고성능을 제공하는 통신 라이브러리로 다양한 네트워크 topology에서도 최적 성능을 달성하는 것을 목표로 개발되었으며 이전에 언급한 Ring-based 집합통신 알고리즘을 기반으로 최적화된 집합 통신을 구현
+- **NCCL(NVIDIA Collective Communications Library)**은 **_멀티 GPU_** 및 **_멀티 노드 환경_**에서 고성능을 제공하는 통신 라이브러리로 다양한 네트워크 topology에서도 최적 성능을 달성하는 것을 목표로 개발되었으며 이전에 언급한 Ring-based 집합통신 알고리즘을 기반으로 최적화된 집합 통신을 구현
 
 - NCCL은 DL training, inference에서의 다양한 집합 연산(예: All-reduce, All-gather, Broadcast 등)을 최적화하여 각 GPU 사이에 일관되고 효율적인 통신을 제공하여 병렬 처리 성능을 극대화하는것에 목표를 두고 있음.
 
@@ -213,17 +212,17 @@ for epoch in epochs:
 
 - 간단한 용어 정리
 
-		→ Node : 2개
+      → Node : 2개
 
-	→ Global World Size : 4 X 2 = 8
+  → Global World Size : 4 X 2 = 8
 
-	→  Local World Size : 4 X 1 = 4
+  → Local World Size : 4 X 1 = 4
 
-	→ Rank: process_id
+  → Rank: process_id
 
-		 : 일반적으로 DDP에서 1개 node안에서 각 node에서 각 gpu마다 1개 process를 배정함
+       : 일반적으로 DDP에서 1개 node안에서 각 node에서 각 gpu마다 1개 process를 배정함
 
-		 :  Local World Size = # of Rank
+       :  Local World Size = # of Rank
 
 <br/>
 
@@ -231,53 +230,53 @@ for epoch in epochs:
 
 1. **AllReduce**
 
-	1. 모든 GPU(rank)의 데이터를 결합하여 그 결과를 모든 GPU에 다시 배포
+   1. 모든 GPU(rank)의 데이터를 결합하여 그 결과를 모든 GPU에 다시 배포
 
-	1. 예를 들어, 각 GPU가 데이터 조각을 가지고 있을 때, 이 데이터를 합산하여 모든 GPU에 결과를 제공
+   1. 예를 들어, 각 GPU가 데이터 조각을 가지고 있을 때, 이 데이터를 합산하여 모든 GPU에 결과를 제공
 
-	1. mini batch별로 GPU에 forwarding하고 Loss 평균내기 전에 가장 많이 쓰는 operation
+   1. mini batch별로 GPU에 forwarding하고 Loss 평균내기 전에 가장 많이 쓰는 operation
 
-	1. **Broadcast**
+   1. **Broadcast**
 
-	1. 한 GPU에서 다른 모든 GPU로 데이터를 보냄.
+   1. 한 GPU에서 다른 모든 GPU로 데이터를 보냄.
 
-	1. 예를 들어, 첫 번째 GPU의 데이터를 나머지 3개의 GPU와 공유.
+   1. 예를 들어, 첫 번째 GPU의 데이터를 나머지 3개의 GPU와 공유.
 
-	1. **Reduce**
+   1. **Reduce**
 
-	1. 모든 GPU의 데이터를 결합하고 그 결과를 하나의 GPU로 보냄
+   1. 모든 GPU의 데이터를 결합하고 그 결과를 하나의 GPU로 보냄
 
-	1. 예를 들어, 모든 GPU의 데이터를 합산하고 이를 첫 번째 GPU(root)에만 전달.
+   1. 예를 들어, 모든 GPU의 데이터를 합산하고 이를 첫 번째 GPU(root)에만 전달.
 
-	1. **AllGather**
+   1. **AllGather**
 
-	1. 모든 GPU로부터 데이터를 수집하여 모든 GPU에 분배
+   1. 모든 GPU로부터 데이터를 수집하여 모든 GPU에 분배
 
-	1. 각 GPU가 데이터 조각을 가지고 있을 때, 이들을 모두 모아서 모든 GPU에 전달
+   1. 각 GPU가 데이터 조각을 가지고 있을 때, 이들을 모두 모아서 모든 GPU에 전달
 
-	1. Fully Sharded Data Parallel에 사용
+   1. Fully Sharded Data Parallel에 사용
 
-		- 노드 0 : `**[in0[0], in0[1], in0[2]]**`
+      - 노드 0 : `**[in0[0], in0[1], in0[2]]**`
 
-	- target node:  `**out**`에서 `**[out[0], out[1], out[2]]**`에 저장
+   - target node: `**out**`에서 `**[out[0], out[1], out[2]]**`에 저장
 
-	- 여기서 `**Y=0**`, `**count=3**`이므로,
+   - 여기서 `**Y=0**`, `**count=3**`이므로,
 
-		- `**out[0*3+0] = in0[0]**`
+     - `**out[0*3+0] = in0[0]**`
 
-		- `**out[0*3+1] = in0[1]**`
+     - `**out[0*3+1] = in0[1]**`
 
-		- `**out[0*3+2] = in0[2]**`
+     - `**out[0*3+2] = in0[2]**`
 
 <br/>
 
 1. **ReduceScatter**
 
-	1. 모든 GPU의 데이터를 결합하고 그 결과를 모든 GPU에 분산.
+   1. 모든 GPU의 데이터를 결합하고 그 결과를 모든 GPU에 분산.
 
-	1. 데이터를 결합한 후, 이를 여러 조각으로 나누어 각각의 GPU에 할당.
+   1. 데이터를 결합한 후, 이를 여러 조각으로 나누어 각각의 GPU에 할당.
 
-	- **inXY**: 노드 X에서 노드 Y로 보내진 데이터.
+   - **inXY**: 노드 X에서 노드 Y로 보내진 데이터.
 
 - **out[Y]**: 노드 Y에서 모든 입력 데이터를 합산한 결과를 저장하는 배열.
 
@@ -299,13 +298,13 @@ for epoch in epochs:
 
 - `**out0 = sum(in00*4+0, in10*4+0, in20*4+0, in30*4+0)**`
 
-	- 여기서 `**inX0**`는 각 노드 X에서 노드 0으로 보낸 첫 번째 데이터 요소를 의미.
+  - 여기서 `**inX0**`는 각 노드 X에서 노드 0으로 보낸 첫 번째 데이터 요소를 의미.
 
 ## 3. DP (DataParallel) & DDP (DistributedDataParallel)
 
 - 두 방법론 모두 효율적으로 모델을 학습하기 위해 등장한 방법론.
 
-- `DataParallel`은 단일 작업, 멀티쓰레드 방법론으로  GPU에 입력 데이터를 부분적으로 할당(mini-batch를 분할)하고 동일한 신경망 모델을 복제하여 이용하는 방식
+- `DataParallel`은 단일 작업, 멀티쓰레드 방법론으로 GPU에 입력 데이터를 부분적으로 할당(mini-batch를 분할)하고 동일한 신경망 모델을 복제하여 이용하는 방식
 
 - 반면, `DistributedDataParallel`은 다중 작업이며 단일 및 다중 기기 학습을 전부 지원하는 방식
 
@@ -313,7 +312,7 @@ for epoch in epochs:
 
 <br/>
 
-- ***DP와 DDP 모두 (당연히 ) Multi-GPUs training setting을 가정함***
+- **_DP와 DDP 모두 (당연히 ) Multi-GPUs training setting을 가정함_**
 
 <br/>
 
@@ -321,25 +320,25 @@ for epoch in epochs:
 
 1. **Scatter**
 
-	1. mini-batch의 data: 128
+   1. mini-batch의 data: 128
 
-	1. GPU0이 rank_size(4)로 나누어서 GPU[0:3]에 32개씩 전송
+   1. GPU0이 rank_size(4)로 나누어서 GPU[0:3]에 32개씩 전송
 
 1. **Replicate**
 
-	1. GPU0에 처음에 model.paramaters()를
+   1. GPU0에 처음에 model.paramaters()를
 
-	1. model parameter를 GPU[0:3]에 broadcast
+   1. model parameter를 GPU[0:3]에 broadcast
 
-1. **Forward** 
+1. **Forward**
 
-	1. 각 GPU에서 replicate model로 forward 진행
+   1. 각 GPU에서 replicate model로 forward 진행
 
-	1. logit 계산
+   1. logit 계산
 
 1. **Gather**
 
-	1. GPU[0:3]에 있는 logit을 GPU0에 계산해서 loss 계산
+   1. GPU[0:3]에 있는 logit을 GPU0에 계산해서 loss 계산
 
 ```python
 import torch.nn as nn
@@ -364,23 +363,23 @@ def data_parallel(module, inputs, labels, device_ids,
 
 1. **Scatter**
 
-	1. GPU0에 계산된 loss를 각 device에 scatter
+   1. GPU0에 계산된 loss를 각 device에 scatter
 
-1. **Backward** 
+1. **Backward**
 
-	1.  각 device(replicate model)은, 각자 전달받은 loss를 사용하여 각자 gradient 계산
+   1. 각 device(replicate model)은, 각자 전달받은 loss를 사용하여 각자 gradient 계산
 
 1. **Reduce**
 
-	1. 계산된 모든 graidents를 GPU0으로 reduce
+   1. 계산된 모든 graidents를 GPU0으로 reduce
 
 1. **Update**
 
-	1. Gradient를 이용해서 GPU0에 있는 모델을 업데이트
+   1. Gradient를 이용해서 GPU0에 있는 모델을 업데이트
 
-	1. optimizer.step()
+   1. optimizer.step()
 
-	1. 이후 다시 minibatch, model을 broadcast
+   1. 이후 다시 minibatch, model을 broadcast
 
 <br/>
 
@@ -392,11 +391,11 @@ def data_parallel(module, inputs, labels, device_ids,
 
 → Python의 GIL(Global Interpreter Lock)
 
-	: 여러 개의 thread가 동시에 실행되지 못하도록 막는 기능
+    : 여러 개의 thread가 동시에 실행되지 못하도록 막는 기능
 
-	⇒ DDP는 multi-process로 DP의 한계를 극복하고자 함
+    ⇒ DDP는 multi-process로 DP의 한계를 극복하고자 함
 
-	<br/>
+    <br/>
 
 - **DDP (DistributedDataParallel)**
 
@@ -410,9 +409,9 @@ def data_parallel(module, inputs, labels, device_ids,
 
 - **이전에 언급한 Ring 알고리즘 기반 All-reduce으로 **특정 device로 부하가 쏠리지 않는 프로세스 통신이 가능해짐
 
-	[//]: # (video is not supported)
+  [//]: # "video is not supported"
 
-	<br/>
+  <br/>
 
 ```python
 import torch
@@ -446,27 +445,27 @@ rank 3: tensor([[6., 6.],
 
 1. **Scatter**
 
-	1. DistributedSampler을 활용해 각 rank(process)에 mini_batch를 scatter
+   1. DistributedSampler을 활용해 각 rank(process)에 mini_batch를 scatter
 
-	1. 일반적으로 데이터를 메모리에 올릴 때 CPU + DRAM(pageable Memory) → Pinned Memory → VRAM에 올리는데, 속도 향상으로 위해 data load시 바로 Pinned Memory를 통해 VRAM으로 올리는 option을 사용하기도 함. (pin_memory=True)
+   1. 일반적으로 데이터를 메모리에 올릴 때 CPU + DRAM(pageable Memory) → Pinned Memory → VRAM에 올리는데, 속도 향상으로 위해 data load시 바로 Pinned Memory를 통해 VRAM으로 올리는 option을 사용하기도 함. (pin_memory=True)
 
-		1. **Process-wise Forwarding**
+      1. **Process-wise Forwarding**
 
-	1. 각 process마다 mini-batch로 forward 진행
+   1. 각 process마다 mini-batch로 forward 진행
 
-	1. loss 계산
+   1. loss 계산
 
 1. **Process-wise Backward + All Reduce**
 
-	1. `backward()` 연산은 프로세스별로 뒤쪽 레이어부터 순차적으로 이루어지다가 ‘Gradient Bucketing’을 수행함.
+   1. `backward()` 연산은 프로세스별로 뒤쪽 레이어부터 순차적으로 이루어지다가 ‘Gradient Bucketing’을 수행함.
 
-	1. ‘Gradient Bucketing’은 Gradient를 일정한 사이즈의 Bucket에 저장해두고 가득차면 다른 프로세스로 전송하는 방식
+   1. ‘Gradient Bucketing’은 Gradient를 일정한 사이즈의 Bucket에 저장해두고 가득차면 다른 프로세스로 전송하는 방식
 
-	1. 쉽게 말해, 모든 process들이 정해놓은 일정 크기의 layer (bucket) `backward()` 연산이 완료되면, (1) 각 process들의 진행 중인 `backward()` 은 진행시켜놓고 (2)bucket-wise로 All-reduce 를 수행한 후 device개수로 나눠 average gradient를 계산하여 모든 device들의 gradient들을 동기화 시켜놓는것
+   1. 쉽게 말해, 모든 process들이 정해놓은 일정 크기의 layer (bucket) `backward()` 연산이 완료되면, (1) 각 process들의 진행 중인 `backward()` 은 진행시켜놓고 (2)bucket-wise로 All-reduce 를 수행한 후 device개수로 나눠 average gradient를 계산하여 모든 device들의 gradient들을 동기화 시켜놓는것
 
-		1. **Update**
+      1. **Update**
 
-	1. 마스터 process 없이 data parallel이 가능함
+   1. 마스터 process 없이 data parallel이 가능함
 
 ```python
 import torch
@@ -560,63 +559,63 @@ for i, data in enumerate(data_loader):
 
 - **FSDP Unit**
 
-	- Model Structure에서 Split할 대상들
+  - Model Structure에서 Split할 대상들
 
-		(e.g., layers, TransformerBlocks)
+    (e.g., layers, TransformerBlocks)
 
-	- collective communication의 대상
+  - collective communication의 대상
 
-	- FSDP Unit ≠ sharding의 대상이 X
+  - FSDP Unit ≠ sharding의 대상이 X
 
-	- 예시에서 [layer0,3], [layer1,2], [layer4,5]가 각각 FSDP Unit
+  - 예시에서 [layer0,3], [layer1,2], [layer4,5]가 각각 FSDP Unit
 
 - ** Sharding**
 
-	- **FSDP Unit(e.g., a single layer/stage)을 ***FlatParameter*로 저장하는 과정
+  - **FSDP Unit(e.g., a single layer/stage)을 \***FlatParameter\*로 저장하는 과정
 
-	- *FlatParameter*는 1D tensor로 sharding을 통해 각 FSDP unit이 각 rank에 균등하게 분배됨
+  - *FlatParameter*는 1D tensor로 sharding을 통해 각 FSDP unit이 각 rank에 균등하게 분배됨
 
-				→ (16개의 Rank가 있다고 가정) 각 rank에 weight, bias flat parameter하나씩 store하고 15번 device에 padding tensor store해서 균등있게 store되도록 함 (NCCL이 equal하게 input을 뿌려야 성능이 향상된다고 논문에 표 제공)
+        	→ (16개의 Rank가 있다고 가정) 각 rank에 weight, bias flat parameter하나씩 store하고 15번 device에 padding tensor store해서 균등있게 store되도록 함 (NCCL이 equal하게 input을 뿌려야 성능이 향상된다고 논문에 표 제공)
 
-	- 위의 예시로 설명하면,  [layer0,3]가 2개의 device에 sharding
+  - 위의 예시로 설명하면, [layer0,3]가 2개의 device에 sharding
 
 <br/>
 
 - **[Recap] All-Gather | Reduce scatter**
 
-[//]: # (column_list is not supported)
+[//]: # "column_list is not supported"
 
-	[//]: # (column is not supported)
+    [//]: # (column is not supported)
 
-			[//]: # (column is not supported)
+    		[//]: # (column is not supported)
 
-		<br/>
+    	<br/>
 
 - 자 그럼, 용어도 정리했으니 각 FSDP Unit이 어떻게 Forwarding/Backwarding되는지 알아보자.
 
-1. **Forwarding**
+1.  **Forwarding**
 
-	1. All-Gather연산으로 각 device에 sharded 되어 있는 각 FSDP Unit의 shard들 (w1~w4)을 모든 device에 뿌린다.
+    1. All-Gather연산으로 각 device에 sharded 되어 있는 각 FSDP Unit의 shard들 (w1~w4)을 모든 device에 뿌린다.
 
-	1. 결론적으로, FSDP의 memory requirements는 sharded model (w1) & 가장 큰 FSDP unit(아래 예시에는 [w1:w4])이 device에 loaded되었을때에 비례한다.
+    1. 결론적으로, FSDP의 memory requirements는 sharded model (w1) & 가장 큰 FSDP unit(아래 예시에는 [w1:w4])이 device에 loaded되었을때에 비례한다.
 
-	1. 모든 device에 동일한 weight이 있으면 (FSDP Unit이 존재하면) Forwarding 진행
+    1. 모든 device에 동일한 weight이 있으면 (FSDP Unit이 존재하면) Forwarding 진행
 
-	1. 각 shard에 원래 있어야할 weight 제외하고 나머지 weight (Peer Shard) Free
+    1. 각 shard에 원래 있어야할 weight 제외하고 나머지 weight (Peer Shard) Free
 
-1. **Backwarding**
+1.  **Backwarding**
 
-		1. Forwarding과 마찬가지로 All-Gather연산 수행
+        1. Forwarding과 마찬가지로 All-Gather연산 수행
 
-	1. Loss.backward()연산으로 gradient 수행
+    1.  Loss.backward()연산으로 gradient 수행
 
-		1. 각 device(예시에서는 node)에 FSDP unit의 gradient가 존재
+        1.  각 device(예시에서는 node)에 FSDP unit의 gradient가 존재
 
-		1. mini-batch가 sampling되어 올라가는 상황이기에 각 device (예시에서는 node)가 가지고 있는 gradient는 다를 수 밖에 없음
+        1.  mini-batch가 sampling되어 올라가는 상황이기에 각 device (예시에서는 node)가 가지고 있는 gradient는 다를 수 밖에 없음
 
-					1. 따라서 sum한 후 각 shard에 할당하는 reduce-scatter 연산을 통해 gradient를 계산
+                	1. 따라서 sum한 후 각 shard에 할당하는 reduce-scatter 연산을 통해 gradient를 계산
 
-	1. 모든 FSDP unit에 대해서 순차적으로 back propagation
+    1.  모든 FSDP unit에 대해서 순차적으로 back propagation
 
 <br/>
 
@@ -630,25 +629,25 @@ for i, data in enumerate(data_loader):
 
 1. FSDP Unit_0 - [Layer0] Forwarding & FSDP Unit_1 - [Layer1;Layer2] All-Gather
 
-1. FSDP Unit_2 - [Layer4;Layer5] All-Gather & FSDP Unit_1 - [Layer1;Layer2] *Forwarding & FSDP Unit_1 - [Layer1;Layer2] & FSDP Unit_1 Parameter Free (Forwarding 끝) *& FSDP Unit_0 - [Layer3] Forwarding
+1. FSDP Unit_2 - [Layer4;Layer5] All-Gather & FSDP Unit_1 - [Layer1;Layer2] _Forwarding & FSDP Unit_1 - [Layer1;Layer2] & FSDP Unit_1 Parameter Free (Forwarding 끝) _& FSDP Unit_0 - [Layer3] Forwarding
 
-1. FSDP Unit_2 - [Layer4;Layer5] All-Gather (BackProp용) & FSDP Unit_2 - [Layer4;Layer5] Forwarding & *FSDP Unit 2 Parameter Free (Forwarding 끝)*
+1. FSDP Unit_2 - [Layer4;Layer5] All-Gather (BackProp용) & FSDP Unit_2 - [Layer4;Layer5] Forwarding & _FSDP Unit 2 Parameter Free (Forwarding 끝)_
 
 1. (4에서 All-Gather한) FSDP Unit_2 - [Layer4;Laye5] Backward & *FSDP Unit 2 Parameter Free (Backward 끝) & ReduceScatter & *FSDP Unit_0 - [Layer3] BackProp
 
 1. FSDP Unit_1 - [Layer1,2] All-Gather
 
-1. FSDP Unit_1 - [Layer1,2] Backward (Layer 3 Gradient 있기 때문에) & FSDP Unit_1 - [Layer1,2] *ReduceScatter & *FSDP Unit_1 - [Layer1,2] * Parameter Free (Backward 끝) & FSDP Unit 0 *[Layer1] BackProp
+1. FSDP Unit_1 - [Layer1,2] Backward (Layer 3 Gradient 있기 때문에) & FSDP Unit_1 - [Layer1,2] *ReduceScatter & *FSDP Unit_1 - [Layer1,2] _ Parameter Free (Backward 끝) & FSDP Unit 0 _[Layer1] BackProp
 
-1. *FSDP Unit 0 Parameter Free (Layer1까지 Backprop 완료)*
+1. _FSDP Unit 0 Parameter Free (Layer1까지 Backprop 완료)_
 
-1. *FSDP Unit 0 Reduce Scatter*
+1. _FSDP Unit 0 Reduce Scatter_
 
 <br/>
 
 ## 5. Llama2 Recipes - Training Code Review
 
-- Meta에서 제공하는 Llama2 Recipes는 Fine-tuning Recipe를 제공하는데, 기본적으로  llama-recipes/src/llama_recipes.fine-tuning.py가 from llama_recipes.utils.train_utils import train을 호출해서 학습을 진행
+- Meta에서 제공하는 Llama2 Recipes는 Fine-tuning Recipe를 제공하는데, 기본적으로 llama-recipes/src/llama_recipes.fine-tuning.py가 from llama_recipes.utils.train_utils import train을 호출해서 학습을 진행
 
 - [fine-tuning.py](http://fine-tuning.py/) 위주로 간단한 코드 리뷰를 진행
 
@@ -957,7 +956,7 @@ if __name__ == "__main__":
 
 - NVIDIA - AMP
 
-[//]: # (video is not supported)
+[//]: # "video is not supported"
 
 - Mixed Precision Training
 
@@ -965,7 +964,7 @@ if __name__ == "__main__":
 
 - AdamW Source Code
 
-[https://pytorch.org/docs/stable/_modules/torch/optim/adamw.html#AdamW](https://pytorch.org/docs/stable/_modules/torch/optim/adamw.html#AdamW)
+[https://pytorch.org/docs/stable/\_modules/torch/optim/adamw.html#AdamW](https://pytorch.org/docs/stable/_modules/torch/optim/adamw.html#AdamW)
 
 - NCCL Operations
 

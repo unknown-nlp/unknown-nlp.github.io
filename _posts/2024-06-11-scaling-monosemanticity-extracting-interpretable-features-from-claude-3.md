@@ -1,23 +1,24 @@
 ---
 categories:
-- paper-reviews
-date: '2024-06-11 00:00:00'
+  - paper-reviews
+date: "2024-06-11 00:00:00"
 description: 논문 리뷰 - LLM, Interpretability 관련 연구
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-- interpretability
-- language-model
-- llm
-- multimodal
-- paper-review
-- transformer
+  - interpretability
+  - language-model
+  - llm
+  - multimodal
+  - paper-review
+  - transformer
 thumbnail: assets/img/posts/2024-06-11-scaling-monosemanticity-extracting-interpretable-features-from-claude-3/thumbnail.jpg
-title: 'Scaling Monosemanticity: Extracting Interpretable Features from Claude 3 Sonnet'
+title: "Scaling Monosemanticity: Extracting Interpretable Features from Claude 3 Sonnet"
 ---
 
 **논문 정보**
+
 - **Date**: 2024-06-11
 - **Reviewer**: 상엽
 - **Property**: LLM, Interpretability
@@ -26,7 +27,7 @@ title: 'Scaling Monosemanticity: Extracting Interpretable Features from Claude 3
 
 AI safety에 관심이 매우 큰 anthropic
 
-이전 연구 (Towards Monosemanticity: Decomposing Language Models With Dictionary Learning)에서  one-layer transformer에 Sparse AutoEncoder (SAE)를 이용해 monosemanric features를 복구할 수 있다는 사실을  발견
+이전 연구 (Towards Monosemanticity: Decomposing Language Models With Dictionary Learning)에서 one-layer transformer에 Sparse AutoEncoder (SAE)를 이용해 monosemanric features를 복구할 수 있다는 사실을 발견
 
 **이것이 실제로 SOTA transformer 모델에도 적용이 가능할 것인가?**
 
@@ -36,7 +37,7 @@ AI safety에 관심이 매우 큰 anthropic
 
 - Anthropic’s medium-sized production model, Claude 3 Sonnet을 이용
 
-- 기존보다 더 다양하고 큰  Sparse Autoencoder (SAE)를 활용해서 다양한 feature를 탐색
+- 기존보다 더 다양하고 큰 Sparse Autoencoder (SAE)를 활용해서 다양한 feature를 탐색
 
 - Feature의 존재 확인 → Feature를 이용한 모델 행동 제어 확인
 
@@ -68,7 +69,7 @@ example
 
 - **Superposition:** 활성화 공간 내 (제한된 차원)에서 더 많은 의미를 표현하기 위해 여러 의미를 중첩적으로 가짐.
 
-→ 결론적으로 Sparse한 Feature를 이용해 
+→ 결론적으로 Sparse한 Feature를 이용해
 
 ### Dictionary learning
 

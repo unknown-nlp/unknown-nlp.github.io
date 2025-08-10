@@ -1,31 +1,32 @@
 ---
 categories:
-- paper-reviews
-date: '2025-08-13 00:00:00'
+  - paper-reviews
+date: "2025-08-13 00:00:00"
 description: 논문 리뷰 - LM 관련 연구
 giscus_comments: true
 layout: post
 related_posts: false
 slug: 2025-08-13-inferring-from-logits-exploring-best-practices-for-decoding
 tags:
-- embedding
-- gpt
-- llm
-- lm
-- paper-review
-- reasoning
-title: 'Inferring from Logits: Exploring Best Practices for Decoding-Free Generative
-  Candidate Selection'
+  - embedding
+  - gpt
+  - llm
+  - lm
+  - paper-review
+  - reasoning
+title: "Inferring from Logits: Exploring Best Practices for Decoding-Free Generative
+  Candidate Selection"
 ---
 
 **논문 정보**
+
 - **Date**: 2025-01-02
 - **Reviewer**: 조영재
 - **Property**: LM
 
-Evaluation을 할때 많은 벤치 데이터셋들은 multiple choice 형태를 갖추고 있음. 근데 아직까지 작은 모델들은 instruction following이 잘 안돼서 파싱도 맞춰줘야 하고 프롬프트도 모델에 맞게 수정해야함. 혹은 모델의 답변을 gpt 사용해서 다시 mapping 시켜줘야함. → 모델에 따라 다른 프롬프트를 사용하는게 불공평 한 것 아닌가? 모두를 통합할 수 있는 방법은 없을까? logit을 이용해 무조건 mapping 시킬 수는 없을까? 
+Evaluation을 할때 많은 벤치 데이터셋들은 multiple choice 형태를 갖추고 있음. 근데 아직까지 작은 모델들은 instruction following이 잘 안돼서 파싱도 맞춰줘야 하고 프롬프트도 모델에 맞게 수정해야함. 혹은 모델의 답변을 gpt 사용해서 다시 mapping 시켜줘야함. → 모델에 따라 다른 프롬프트를 사용하는게 불공평 한 것 아닌가? 모두를 통합할 수 있는 방법은 없을까? logit을 이용해 무조건 mapping 시킬 수는 없을까?
 
-uncertainty가 조금 문제가 될수도…? 또, A라는 대답이 아니라 As, An apple 등등 A 로 시작하는 단어를 말하려던 것일수도 있겠다..   실제 model의 답변이 첫 token step의 logit과 상관관계가 있을까? logit을 이용해 측정을 하는게 편하긴 할텐데 의미가 있을까? 어쨌든 유저가 보게 되는 것은 text인데 어떻게든 text output 형태를 고수해야 하는가? 이 eval 방식은 cot를 간과하는 것이려나?
+uncertainty가 조금 문제가 될수도…? 또, A라는 대답이 아니라 As, An apple 등등 A 로 시작하는 단어를 말하려던 것일수도 있겠다.. 실제 model의 답변이 첫 token step의 logit과 상관관계가 있을까? logit을 이용해 측정을 하는게 편하긴 할텐데 의미가 있을까? 어쨌든 유저가 보게 되는 것은 text인데 어떻게든 text output 형태를 고수해야 하는가? 이 eval 방식은 cot를 간과하는 것이려나?
 
 ## 1. Introduction
 
@@ -54,7 +55,6 @@ uncertainty가 조금 문제가 될수도…? 또, A라는 대답이 아니라 A
 ![Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/3acbc979-3f43-48f4-8683-229c6104ec76/84ee718f-6c65-4462-bf5a-fe8d85614b0b/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=ASIAZI2LB466U6BIRTW2%2F20250810%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20250810T105952Z&X-Amz-Expires=3600&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEJr%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJGMEQCIDvDyEvct6lch2Jf2s71YpuuHEWXatf9RwWs4TmTNiSVAiAlnOBgVw2MIJrxdBhX4vTZ2PiAbGtLj61n6%2FQv5HNvtSqIBAjT%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAAaDDYzNzQyMzE4MzgwNSIMZaCFi9OrYnbTfY3IKtwD3uTlilIPFaR%2FWfehhZjwSgyXZvtManXbkbYATIkwQMEQz%2BmCC%2FnhY4pwcAqyypZXw4YNjgZuCqKUCMMrf%2Fj6yWsljaNvxIP2J7wKVW%2Byx5jCQpJSJnwQcHYxrxajnWAbewVW6LtNVNCPmkScFepl1oZotKSrQMDSCCE3ue1rAS3YZTW1vtPQIs7kWOuY1%2Fk%2F024%2BkO1N%2BPbGqCYUFDGqGsJjf41GksAjrG68s1y5iO4%2FCvTbLIri%2BjkCsTBSmD9usRkVK5IW1yY0OF336Jw91%2B4%2FFs12EtKAbELxdgRXJMXUyh8nIcFJWNEMOQxe4TkjZk%2BTT10CTeP9dshZtKzQ3I3SGZ4M2coM0elaCucTQ5VPkQVVX8gcPOu0iJQ%2FfLPwMPWqvZfkjfr4jOMjPjPGXbwXWwTlJU%2FwP7PZXPRV%2FNaU%2Fs2yEuTlEG44N9Ona%2BObpmdRohSno0p2wRUZas7aIkX366SeDglTWkc0zmkTIMc5mydtg1Z5qIqKyvun1kRn4iMhe11EoPrOmFBpTtNHrgJecR%2BtBh4Q%2FQAeQ3y0HdnT23vekbnGbYsTQp0afwxx4AArznypfG6PvkGYJiUx2jm41h%2FCdLGhZ%2FXvr8zbFl7oHxhnHSbgt2TAYbMwvdThxAY6pgH0%2FuNgMcMuz9oj50MwciKF4Z7sRQkTgRVHMH6TCKZ3OtYAl%2BLuoN2%2BjKIu%2Bvc%2Bh%2Bo1g%2Fcd9zaxINko%2BY9xsIzTq7WbxDc33Buraq7zgd13bq7pJVw70MEc6inn4SMyhIMhVEafib47l37%2B%2FCMwERjIKE5OUcaiWw6Nm5lvsWKYJJdUs79PCZqYRDA3a0yLY%2BGj5fEovpsoeAZkJChheT4VfqOzXykq&X-Amz-Signature=d89fbe7a3d909326836baf44934843ed44e4adfc675607851fcfc2cb7cde819b&X-Amz-SignedHeaders=host&x-amz-checksum-mode=ENABLED&x-id=GetObject)
 
 - Uses only the raw logits and candidate token representations.
-             
 
 ## 3. Candidate Selection Methods
 
@@ -70,7 +70,7 @@ uncertainty가 조금 문제가 될수도…? 또, A라는 대답이 아니라 A
 
 - **Sample Avg.**: Average logits of sampled tokens (used for long candidates)
 
-logits of k-th token(4)                  Averaged token logits (5)          Sum of token logits (6) 
+logits of k-th token(4) Averaged token logits (5) Sum of token logits (6)
 
 ### 3.2 Baselines
 
@@ -78,7 +78,7 @@ logits of k-th token(4)                  Averaged token logits (5)          Sum 
 
 - **Dense retrieval**: Facebook DPR embeddings with cosine similarity
 
-##  4. Evaluation Settings
+## 4. Evaluation Settings
 
 ### 4.1 Tasks
 
@@ -94,7 +94,7 @@ logits of k-th token(4)                  Averaged token logits (5)          Sum 
 
 - Variants with and without **instruction tuning** used
 
-##  5. Experimental Results
+## 5. Experimental Results
 
 ![Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/3acbc979-3f43-48f4-8683-229c6104ec76/591b8204-0b09-4ad8-be21-3d5164545c5b/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=ASIAZI2LB466U6BIRTW2%2F20250810%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20250810T105952Z&X-Amz-Expires=3600&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEJr%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJGMEQCIDvDyEvct6lch2Jf2s71YpuuHEWXatf9RwWs4TmTNiSVAiAlnOBgVw2MIJrxdBhX4vTZ2PiAbGtLj61n6%2FQv5HNvtSqIBAjT%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAAaDDYzNzQyMzE4MzgwNSIMZaCFi9OrYnbTfY3IKtwD3uTlilIPFaR%2FWfehhZjwSgyXZvtManXbkbYATIkwQMEQz%2BmCC%2FnhY4pwcAqyypZXw4YNjgZuCqKUCMMrf%2Fj6yWsljaNvxIP2J7wKVW%2Byx5jCQpJSJnwQcHYxrxajnWAbewVW6LtNVNCPmkScFepl1oZotKSrQMDSCCE3ue1rAS3YZTW1vtPQIs7kWOuY1%2Fk%2F024%2BkO1N%2BPbGqCYUFDGqGsJjf41GksAjrG68s1y5iO4%2FCvTbLIri%2BjkCsTBSmD9usRkVK5IW1yY0OF336Jw91%2B4%2FFs12EtKAbELxdgRXJMXUyh8nIcFJWNEMOQxe4TkjZk%2BTT10CTeP9dshZtKzQ3I3SGZ4M2coM0elaCucTQ5VPkQVVX8gcPOu0iJQ%2FfLPwMPWqvZfkjfr4jOMjPjPGXbwXWwTlJU%2FwP7PZXPRV%2FNaU%2Fs2yEuTlEG44N9Ona%2BObpmdRohSno0p2wRUZas7aIkX366SeDglTWkc0zmkTIMc5mydtg1Z5qIqKyvun1kRn4iMhe11EoPrOmFBpTtNHrgJecR%2BtBh4Q%2FQAeQ3y0HdnT23vekbnGbYsTQp0afwxx4AArznypfG6PvkGYJiUx2jm41h%2FCdLGhZ%2FXvr8zbFl7oHxhnHSbgt2TAYbMwvdThxAY6pgH0%2FuNgMcMuz9oj50MwciKF4Z7sRQkTgRVHMH6TCKZ3OtYAl%2BLuoN2%2BjKIu%2Bvc%2Bh%2Bo1g%2Fcd9zaxINko%2BY9xsIzTq7WbxDc33Buraq7zgd13bq7pJVw70MEc6inn4SMyhIMhVEafib47l37%2B%2FCMwERjIKE5OUcaiWw6Nm5lvsWKYJJdUs79PCZqYRDA3a0yLY%2BGj5fEovpsoeAZkJChheT4VfqOzXykq&X-Amz-Signature=dddc0cefd7f4dfdd22231fa725b796fa820847fdd41b6997bbf1734fe58636da&X-Amz-SignedHeaders=host&x-amz-checksum-mode=ENABLED&x-id=GetObject)
 
@@ -120,7 +120,7 @@ logits of k-th token(4)                  Averaged token logits (5)          Sum 
 
 - **5.4 Sensitivity**:
 
-##  6. Related Work
+## 6. Related Work
 
 - Classification-based methods require retraining and don’t generalize to dynamic candidates.
 
@@ -128,7 +128,7 @@ logits of k-th token(4)                  Averaged token logits (5)          Sum 
 
 - This is the **first systematic evaluation** of decoding-free methods.
 
-##  7. Conclusion & Future Work
+## 7. Conclusion & Future Work
 
 - **Main findings**:
 

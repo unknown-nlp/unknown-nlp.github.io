@@ -1,21 +1,22 @@
 ---
 categories:
-- paper-reviews
-date: '2025-01-14 00:00:00'
+  - paper-reviews
+date: "2025-01-14 00:00:00"
 description: 논문 리뷰
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-- fine-tuning
-- language-model
-- paper-review
-- vision
+  - fine-tuning
+  - language-model
+  - paper-review
+  - vision
 thumbnail: assets/img/posts/2025-01-14-openvla-an-open-source-vision-language-action-model/thumbnail.jpg
-title: 'OpenVLA: An Open-Source Vision-Language-Action Model'
+title: "OpenVLA: An Open-Source Vision-Language-Action Model"
 ---
 
 **논문 정보**
+
 - **Date**: 2025-01-14
 - **Reviewer**: 전민진
 

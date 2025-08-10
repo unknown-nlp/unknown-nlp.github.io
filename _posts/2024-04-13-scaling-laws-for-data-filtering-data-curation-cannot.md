@@ -1,32 +1,33 @@
 ---
 categories:
-- paper-reviews
-date: '2024-04-13 00:00:00'
+  - paper-reviews
+date: "2024-04-13 00:00:00"
 description: 논문 리뷰 - LM, LLM, Efficient Training, Pre-training 관련 연구
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-- efficient training
-- language-model
-- llm
-- lm
-- neural
-- paper-review
-- pre-training
-- vision
+  - efficient training
+  - language-model
+  - llm
+  - lm
+  - neural
+  - paper-review
+  - pre-training
+  - vision
 thumbnail: assets/img/posts/2024-04-13-scaling-laws-for-data-filtering-data-curation-cannot/thumbnail.jpg
-title: 'Scaling Laws for Data Filtering—
+title: "Scaling Laws for Data Filtering—
 
-  Data Curation cannot be Compute Agnostic'
+  Data Curation cannot be Compute Agnostic"
 ---
 
 **논문 정보**
+
 - **Date**: 2024-04-13
 - **Reviewer**: yukyung lee
 - **Property**: LM, LLM, Efficient Training, Pre-training
 
- https://arxiv.org/abs/2404.07177
+https://arxiv.org/abs/2404.07177
 
 # tl;dr
 
@@ -62,7 +63,7 @@ title: 'Scaling Laws for Data Filtering—
 
 - Web data는 방대하지만 high quality data는 한정되어 있음
 
-- 해당 논문에서는 limited high quality data와 대량으로 활용할 수 있는 low quality data의 trade off를 고려하여 scaling law를 결정 — ***quality-quantity tradeoff (QQT)***
+- 해당 논문에서는 limited high quality data와 대량으로 활용할 수 있는 low quality data의 trade off를 고려하여 scaling law를 결정 — **_quality-quantity tradeoff (QQT)_**
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-04-13-scaling-laws-for-data-filtering-data-curation-cannot/image_001.png" class="img-fluid rounded z-depth-1" %}
 
@@ -122,7 +123,7 @@ title: 'Scaling Laws for Data Filtering—
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-04-13-scaling-laws-for-data-filtering-data-curation-cannot/image_004.png" class="img-fluid rounded z-depth-1" %}
 
--  k번씩 n개 샘플을 본 후의 모델 손실에 대한 closed form은 아래와 같음
+- k번씩 n개 샘플을 본 후의 모델 손실에 대한 closed form은 아래와 같음
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-04-13-scaling-laws-for-data-filtering-data-curation-cannot/image_005.png" class="img-fluid rounded z-depth-1" %}
 
@@ -136,13 +137,13 @@ title: 'Scaling Laws for Data Filtering—
 
 - 대규모 학습은 여러개의 data bucket의 조합에 대해 수행됨
 
-- 어떻게 효과적으로 데이터 믹스의 손실을 추정할 수 있을까? 
+- 어떻게 효과적으로 데이터 믹스의 손실을 추정할 수 있을까?
 
-Theorem 1. 
+Theorem 1.
 
 - p개의 데이터 pool S_1^n . . . S_p^n이 무작위로 균일하게 샘플링되었을 때, 각각의 utility 및 반복 파라미터가 (b_1, τ_1) . . . (b_p, τ_p)로 주어진다면, 각 bucket의 새로운 repetition half-life 는 τ̂ = p · τ
 
-- 추가로 k번째 반복에서 조합된 pool의 utility 값 b_(eff)^((k))는 개별 utility 값의 가중 평균
+- 추가로 k번째 반복에서 조합된 pool의 utility 값 b\_(eff)^((k))는 개별 utility 값의 가중 평균
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-04-13-scaling-laws-for-data-filtering-data-curation-cannot/image_006.png" class="img-fluid rounded z-depth-1" %}
 
@@ -155,6 +156,7 @@ Experiment setting
 - T-MARS, CLIP score를 활용하여 data들의 utility 추정치로 사용하고 이를 기준으로 web 데이터를 순위 매김
 
 ## 6. Results: Estimating the Scaling Laws for
+
 Data Combinations under QQT
 
 - section 5에서는 다양한 quality의 pool에 대해 각각의 parameter를 도출했음
@@ -171,7 +173,7 @@ Data Combinations under QQT
 
 - 따라서 논문의 저자들은 이전 연구의 모델들에 본 논문의 scaling law를 적용하여 성능을 예측하였음
 
-- Figure 6: 
+- Figure 6:
 
 ## 7. Conclusion
 

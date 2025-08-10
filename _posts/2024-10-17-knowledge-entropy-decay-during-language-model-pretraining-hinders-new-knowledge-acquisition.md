@@ -1,26 +1,27 @@
 ---
 categories: paper-reviews
-date: '2024-10-17 00:00:00'
-description: ' 논문 리뷰 - KNOWLEDGE ENTROPY DECAY DURING LANGUAGE MODEL
+date: "2024-10-17 00:00:00"
+description: " 논문 리뷰 - KNOWLEDGE ENTROPY DECAY DURING LANGUAGE MODEL
 
-  PRETRAINING HINDERS NEW KNOWLEDGE ACQUISITION'
+  PRETRAINING HINDERS NEW KNOWLEDGE ACQUISITION"
 giscus_comments: true
 layout: post
 related_posts: false
 tags: llm paper-review
-title: 'KNOWLEDGE ENTROPY DECAY DURING LANGUAGE MODEL
+title: "KNOWLEDGE ENTROPY DECAY DURING LANGUAGE MODEL
 
-  PRETRAINING HINDERS NEW KNOWLEDGE ACQUISITION'
+  PRETRAINING HINDERS NEW KNOWLEDGE ACQUISITION"
 ---
 
 **논문 정보**
+
 - **Date**: 2024-10-17
 - **Reviewer**: hyowon Cho
 - **Property**: Interpretability, Continual Learning
 
 ---
 
-[//]: # (table_of_contents is not supported)
+[//]: # "table_of_contents is not supported"
 
 ---
 
@@ -34,7 +35,7 @@ title: 'KNOWLEDGE ENTROPY DECAY DURING LANGUAGE MODEL
 
 <br/>
 
-우리는 모델의 지식 통합 특성을 측정하기 위해 *knowledge entropy* 개념을 도입한다. 이는 모델이 메모리 벡터를 얼마나 폭넓게 통합하는지를 나타냅니다. 높은 지식 엔트로피는 폭넓은 메모리 벡터를 사용하는 것을, 낮은 엔트로피는 특정 메모리 벡터를 집중적으로 사용하는 것을 의미한다. 사전학습 단계별로 지식 엔트로피를 분석한 결과, 학습 후반부의 모델들은 낮은 지식 엔트로피를 보여, 폭넓은 메모리 벡터를 사용하던 초기와 달리 소수의 메모리 벡터에 집중하는 경향이 나타났다.
+우리는 모델의 지식 통합 특성을 측정하기 위해 _knowledge entropy_ 개념을 도입한다. 이는 모델이 메모리 벡터를 얼마나 폭넓게 통합하는지를 나타냅니다. 높은 지식 엔트로피는 폭넓은 메모리 벡터를 사용하는 것을, 낮은 엔트로피는 특정 메모리 벡터를 집중적으로 사용하는 것을 의미한다. 사전학습 단계별로 지식 엔트로피를 분석한 결과, 학습 후반부의 모델들은 낮은 지식 엔트로피를 보여, 폭넓은 메모리 벡터를 사용하던 초기와 달리 소수의 메모리 벡터에 집중하는 경향이 나타났다.
 
 <br/>
 
@@ -54,7 +55,7 @@ title: 'KNOWLEDGE ENTROPY DECAY DURING LANGUAGE MODEL
 
 - 중기 모델은 균형 잡힌 성능을 보여 새로운 지식을 추가 학습하기에 적합한 것으로 나타났다.
 
--  비활성 메모리 벡터를 인위적으로 활성화하여 새로운 지식을 더 넓은 범위의 메모리 벡터에 저장하도록 유도하면, 지식 습득 및 유지 능력이 향상된다.
+- 비활성 메모리 벡터를 인위적으로 활성화하여 새로운 지식을 더 넓은 범위의 메모리 벡터에 저장하도록 유도하면, 지식 습득 및 유지 능력이 향상된다.
 
 <br/>
 
@@ -68,21 +69,21 @@ title: 'KNOWLEDGE ENTROPY DECAY DURING LANGUAGE MODEL
 
 - 주요 연구:
 
-	- **추론 과정 분석**:
+  - **추론 과정 분석**:
 
-		- Geva et al. (2023): 언어 모델의 각 층의 역할 분석.
+    - Geva et al. (2023): 언어 모델의 각 층의 역할 분석.
 
-		- Allen-Zhu & Li (2024b): 모델 매개변수의 지식 저장 용량의 한계 제시.
+    - Allen-Zhu & Li (2024b): 모델 매개변수의 지식 저장 용량의 한계 제시.
 
-		- Geva et al. (2021), Meng et al. (2022): 모델의 키-값 메모리 구조 연구.
+    - Geva et al. (2021), Meng et al. (2022): 모델의 키-값 메모리 구조 연구.
 
-	- **사전학습 단계 분석**:
+  - **사전학습 단계 분석**:
 
-		- Chang et al. (2024): 모델이 지식을 획득하는 과정 탐구.
+    - Chang et al. (2024): 모델이 지식을 획득하는 과정 탐구.
 
-		- Liu et al. (2021): 모델이 다양한 지식을 학습하는 순서 연구.
+    - Liu et al. (2021): 모델이 다양한 지식을 학습하는 순서 연구.
 
-		- Sun & Dredze (2024): 사전학습과 finetuning의 상호작용 연구.
+    - Sun & Dredze (2024): 사전학습과 finetuning의 상호작용 연구.
 
 - **본 연구의 차별점**: 언어 모델이 사전학습 중 지식을 통합하는 방식의 변화와 이로 인한 지속 학습 시 지식 습득 및 망각에 대한 영향 분석.
 
@@ -92,19 +93,19 @@ title: 'KNOWLEDGE ENTROPY DECAY DURING LANGUAGE MODEL
 
 - **NLP에서 엔트로피의 사용**:
 
-	- Yang (2024): 입력 프롬프트 기반 모델 출력의 엔트로피 분석.
+  - Yang (2024): 입력 프롬프트 기반 모델 출력의 엔트로피 분석.
 
-	- Araujo et al. (2022): 지속 학습 상황에서 각 층의 출력 엔트로피 계산.
+  - Araujo et al. (2022): 지속 학습 상황에서 각 층의 출력 엔트로피 계산.
 
-	- Vazhentsev et al., Geng et al. (2024): 다음 단어 예측을 위한 토큰 확률 엔트로피 분석.
+  - Vazhentsev et al., Geng et al. (2024): 다음 단어 예측을 위한 토큰 확률 엔트로피 분석.
 
-	- Kumar & Sarawagi (2019): 크로스 어텐션 층의 엔트로피로 모델의 불확실성 평가.
+  - Kumar & Sarawagi (2019): 크로스 어텐션 층의 엔트로피로 모델의 불확실성 평가.
 
 - **본 연구에서의 엔트로피**:
 
-	- *Knowledge entropy*: 모델의 매개변수에 저장된 지식 활용의 불확실성을 측정.
+  - _Knowledge entropy_: 모델의 매개변수에 저장된 지식 활용의 불확실성을 측정.
 
-	- 기존 연구들과 달리, 모델의 지식 통합 방식의 변동성을 분석하는 데 중점.
+  - 기존 연구들과 달리, 모델의 지식 통합 방식의 변동성을 분석하는 데 중점.
 
 ## 3. Knowledge Entropy
 
@@ -128,21 +129,21 @@ $ FFN(x) = f(x · K^T) · V $
 
 <br/>
 
- 이때, 첫 번째 projection matrix는 key, 두 번째 projection matrix는 values, 또는 memory vector로 구성된 memories라고 볼 수 있다고 주장한다. 출력값인 FFN(x)는 메모리 벡터 v들의 linear combination이라고 할 수 있으며, coefficient는 C는 f(x · K^T)라고 볼 수 있다. 이는 다시 말해, coefficient가 memory vector를 어떻게 조합할지, 어느 정도의 중요도를 볼 지 결정한다고 볼 수 있다.
+이때, 첫 번째 projection matrix는 key, 두 번째 projection matrix는 values, 또는 memory vector로 구성된 memories라고 볼 수 있다고 주장한다. 출력값인 FFN(x)는 메모리 벡터 v들의 linear combination이라고 할 수 있으며, coefficient는 C는 f(x · K^T)라고 볼 수 있다. 이는 다시 말해, coefficient가 memory vector를 어떻게 조합할지, 어느 정도의 중요도를 볼 지 결정한다고 볼 수 있다.
 
 <br/>
 
-따라서, 우리의  knowledge entropy, $ H(θ) $는 sum of layer-wise entropy로 정의하며, 이는 D라는 데이터셋의 모든 토큰들에 대한 average coefficient $ C¯^l $를 구한 것이라고 할 수 있다.
+따라서, 우리의 knowledge entropy, $ H(θ) $는 sum of layer-wise entropy로 정의하며, 이는 D라는 데이터셋의 모든 토큰들에 대한 average coefficient $ C¯^l $를 구한 것이라고 할 수 있다.
 
-- $ C^{(l)}_{n,j} $ = coefficient of $ j $-th token position of $ n $-th instance at layer $ l $
+- $ C^{(l)}\_{n,j} $ = coefficient of $ j $-th token position of $ n $-th instance at layer $ l $
 
 - $ c¯^l_i $ = i-th element from average coefficient $ C¯^l $
 
-- $ T_n  $ =  sequence length of the n-th instance in the dataset D,
+- $ T_n $ = sequence length of the n-th instance in the dataset D,
 
 - $ m $ is the inner dimension of feed-forward layer
 
--  $ L $ denotes the number of layers in the model.
+- $ L $ denotes the number of layers in the model.
 
 <br/>
 
@@ -152,7 +153,7 @@ OLMo (1B 및 7B) 모델들을 사용해 실험을 진행하며, Dolma 데이터�
 
 모델의 메모리 계수 (C)는 SwiGLU 활성화 함수를 사용해 계산하며, 절대값을 사용해 메모리 벡터의 기여도를 확률 분포로 변환한다.
 
- $ C^{(l)}_{n,j} = abs(SwiGLU(x_j))  $
+$ C^{(l)}\_{n,j} = abs(SwiGLU(x_j)) $
 
 절대값을 사용한 이유는 linear combination을 할 때, 그것의 기여도를 알고싶었기 때문이다 (magnitude).
 
@@ -166,10 +167,11 @@ OLMo (1B 및 7B) 모델들을 사용해 실험을 진행하며, Dolma 데이터�
 
 - Appendix A.1.
 
-		**Does the choice of dataset change the trend?** As expressed in Equation 2, knowledge entropy is dependent on the dataset D. We define D as the dataset used during pretraining, as knowledge entropy reflects how the model integrates the knowledge stored in its memory vectors, learned during pretraining. However, to further explore whether the choice of dataset influences the trend of knowledge entropy, we measure it using PubMed and C4. Figure 6 shows that the trend remains consistent regardless of the dataset used when calculating knowledge entropy.
-**Does the choice of activation function change the trend?** We also explored an alternative where we do
-not take the absolute value of the SwiGLU output. Instead, following the ReLU function (Agarap, 2018),
-another widely used activation function, we replaced all negative values with 0.
+      	**Does the choice of dataset change the trend?** As expressed in Equation 2, knowledge entropy is dependent on the dataset D. We define D as the dataset used during pretraining, as knowledge entropy reflects how the model integrates the knowledge stored in its memory vectors, learned during pretraining. However, to further explore whether the choice of dataset influences the trend of knowledge entropy, we measure it using PubMed and C4. Figure 6 shows that the trend remains consistent regardless of the dataset used when calculating knowledge entropy.
+
+  **Does the choice of activation function change the trend?** We also explored an alternative where we do
+  not take the absolute value of the SwiGLU output. Instead, following the ReLU function (Agarap, 2018),
+  another widely used activation function, we replaced all negative values with 0.
 
 <br/>
 
@@ -181,10 +183,11 @@ another widely used activation function, we replaced all negative values with 0.
 
 - Appendix A.1
 
-		**Layer-wise Knowledge Entropy** Figure 8 shows how knowledge entropy changes during pretraining by
-layer. Knowledge entropy consistently decreases in every layer, with the most significant reduction occuring
-in the last layer, which closely resembles the output distribution right before the token prediction. OLMo-7B
-also shows similar trend with 1B model.
+      	**Layer-wise Knowledge Entropy** Figure 8 shows how knowledge entropy changes during pretraining by
+
+  layer. Knowledge entropy consistently decreases in every layer, with the most significant reduction occuring
+  in the last layer, which closely resembles the output distribution right before the token prediction. OLMo-7B
+  also shows similar trend with 1B model.
 
 ### 3.4 다른 엔트로피 정의에서도 유사한 경향이 관찰됨
 
@@ -202,7 +205,7 @@ also shows similar trend with 1B model.
 
 - **데이터셋**: PubMed는 새로운 지식이 많아 continual learning에 적합하다. 또한, FICTIONAL KNOWLEDGE dataset을 이용해, 모델의 새로운 정보 습득 능력을 평가한다. 학습 후에는 평가용 프롬프트를 이용해 지식 습득을 측정하고, 6개의 다운스트림 태스크를 통해 지식 망각을 평가한다.
 
-- **Metric**: 지식 습득은 주입된 지식을 얼마나 잘 불러내는지, 지곤 지식 C에 대한 각기 다른 paraphrased 혹은 연관된 probing 프롬프트 15개를 이용해 측정한다 (P). 또한, initial model에 비해서 얼마나 좋아졌는지를 A로 표기한다.  지식 망각은 사전학습 단계에서의 성능 감소로 측정한다.
+- **Metric**: 지식 습득은 주입된 지식을 얼마나 잘 불러내는지, 지곤 지식 C에 대한 각기 다른 paraphrased 혹은 연관된 probing 프롬프트 15개를 이용해 측정한다 (P). 또한, initial model에 비해서 얼마나 좋아졌는지를 A로 표기한다. 지식 망각은 사전학습 단계에서의 성능 감소로 측정한다.
 
 ### 4.2 지식 습득 및 유지 능력의 감소
 
@@ -214,19 +217,19 @@ also shows similar trend with 1B model.
 
 이는 사전학습 모델이 새로운 지식을 학습하는 데 어려움을 겪는 이유를 설명하는 연구와 일치한다.
 
- 따라서 중간 단계 체크포인트를 사용하면 학습과 성능의 균형을 맞추기 위한 적절한 선택임을 제안한다.
+따라서 중간 단계 체크포인트를 사용하면 학습과 성능의 균형을 맞추기 위한 적절한 선택임을 제안한다.
 
 이러한 양상은 batch size, learning rate, training corpus, and the number of epochs 등 다양한 하이퍼파라미터 세팅에서 모두 동일하였다.
 
 - Appendix B
 
-	### 4.3 비활성화된 메모리 벡터의 활성화가 지식 습득을 증가시킴
+  ### 4.3 비활성화된 메모리 벡터의 활성화가 지식 습득을 증가시킴
 
 지식 엔트로피 (Figure 2)와 모델의 지식 습득 및 유지 능력(Figure 4a) 사이에 강한 상관관계가 관찰되었다.
 
 모델이 제한된 메모리 벡터에 의존할수록 (decrease in knowledge entropy), 모델의 추가적인 학습 과정에서 해당 벡터들만 업데이트하고, 이것이 새로운 지식 습득이 어려워지고, 망각률이 높아지는 원인이 된다는 가설을 검증하기 위해, 비활성 메모리 벡터를 인위적으로 활성화하는 실험을 수행했다.
 
-비활성 메모리 벡터를 활성화하기 위해, 우리는 메모리 계수 $ C¯ $를 생성하는  up-projection matrix $ K $를 수정한다. 구체적으로, Algorithm 1에 따라  가장 적게 사용되는 p%의 메모리 계수를 찾아내고, 그 부분에 특정 수치 $ m $을 곱해준다. 이 수치는 각 레이어의 평균 계수 값을 해당 위치의 계수 값으로 나눈 후, 증폭 인수 $ q $를 곱하는 방식이다. 이렇게 $ q $의 값을 조정하면, 적게 활성화된 메모리 계수들이 얼마나 되살아나는지를 조절할 수 있고, 이를 통해 파라미터 업데이트의 크기를 조절하게 된다.
+비활성 메모리 벡터를 활성화하기 위해, 우리는 메모리 계수 $ C¯ $를 생성하는 up-projection matrix $ K $를 수정한다. 구체적으로, Algorithm 1에 따라 가장 적게 사용되는 p%의 메모리 계수를 찾아내고, 그 부분에 특정 수치 $ m $을 곱해준다. 이 수치는 각 레이어의 평균 계수 값을 해당 위치의 계수 값으로 나눈 후, 증폭 인수 $ q $를 곱하는 방식이다. 이렇게 $ q $의 값을 조정하면, 적게 활성화된 메모리 계수들이 얼마나 되살아나는지를 조절할 수 있고, 이를 통해 파라미터 업데이트의 크기를 조절하게 된다.
 
 우리의 실험에서는 p=50, q는 변화하면서 실험을 진행한다.
 
@@ -238,19 +241,19 @@ also shows similar trend with 1B model.
 
 - Appendix B.5
 
-	- q was fixed at 1
+  - q was fixed at 1
 
-	다양한 단계의 모델들을 사용했을 때, 모두 비슷한 양상을 보였지만, 학습의 후반부로 갈수록 그 효과가 더욱 두드러졌다.
+  다양한 단계의 모델들을 사용했을 때, 모두 비슷한 양상을 보였지만, 학습의 후반부로 갈수록 그 효과가 더욱 두드러졌다.
 
 - Appendix B.6
 
-	- Figure 14a illustrates the overall performance when q was fixed to 2 and p to 50, across different pretraining stages of the original model.
+  - Figure 14a illustrates the overall performance when q was fixed to 2 and p to 50, across different pretraining stages of the original model.
 
-	- Figure 14b, end performance deteriorates when the beginning model is initial (118k) and mid (369k) stage model, indicating that resuscitation may impair performance when the model’s knowledge entropy is not low enough
+  - Figure 14b, end performance deteriorates when the beginning model is initial (118k) and mid (369k) stage model, indicating that resuscitation may impair performance when the model’s knowledge entropy is not low enough
 
-	-  This trend of the resuscitation showing a more positive effect for models in later stage of pretraining can also be seen in Figure 15, which shows the result when varying q while fixing p as 50:performance deteriorates when running continual learning on model from 369k, while improvement of performance with larger q is observed when model is from 554k
+  - This trend of the resuscitation showing a more positive effect for models in later stage of pretraining can also be seen in Figure 15, which shows the result when varying q while fixing p as 50:performance deteriorates when running continual learning on model from 369k, while improvement of performance with larger q is observed when model is from 554k
 
-	<br/>
+  <br/>
 
 즉, 후반부 사전학습 단계 모델에서 비활성 메모리 벡터를 활성화했을 때, 성능이 개선되었지만 중간 단계 모델만큼의 성능 향상은 아니었다. 이는 모델의 근본적인 행동 변화를 유도하기 위해서는 보다 근본적이고 대체적인 접근이 필요함을 시사하며, 향후 연구에서는 이러한 매개변수 수정 방법에 대한 추가 탐구가 필요하다.
 

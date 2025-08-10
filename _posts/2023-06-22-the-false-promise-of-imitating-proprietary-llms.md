@@ -1,22 +1,23 @@
 ---
 categories:
-- paper-reviews
-date: '2023-06-22 00:00:00'
+  - paper-reviews
+date: "2023-06-22 00:00:00"
 description: 논문 리뷰 - sLLM, LLM, Evaluation Metric 관련 연구
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-- evaluation metric
-- gpt
-- llm
-- paper-review
-- sllm
+  - evaluation metric
+  - gpt
+  - llm
+  - paper-review
+  - sllm
 thumbnail: assets/img/posts/2023-06-22-the-false-promise-of-imitating-proprietary-llms/thumbnail.jpg
 title: The False Promise of Imitating Proprietary LLMs
 ---
 
 **논문 정보**
+
 - **Date**: 2023-06-22
 - **Reviewer**: 김재희
 - **Property**: sLLM, LLM, Evaluation Metric
@@ -37,7 +38,7 @@ title: The False Promise of Imitating Proprietary LLMs
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2023-06-22-the-false-promise-of-imitating-proprietary-llms/image_001.png" class="img-fluid rounded z-depth-1" %}
 
-- 특히 데이터 수집 시 Self Instruct 등의 방법론을 이용하는 것이 일반적 
+- 특히 데이터 수집 시 Self Instruct 등의 방법론을 이용하는 것이 일반적
 
 - Self Instruct는 공개된 LLM 서비스를 이용하여 데이터를 구축하는 방법론
 
@@ -45,7 +46,7 @@ title: The False Promise of Imitating Proprietary LLMs
 
 - 두 방식 모두 결국 LLM의 지식을 Distillation 하는 방향
 
-### False Promise 
+### False Promise
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2023-06-22-the-false-promise-of-imitating-proprietary-llms/image_002.png" class="img-fluid rounded z-depth-1" %}
 
@@ -55,15 +56,15 @@ title: The False Promise of Imitating Proprietary LLMs
 
 ### Contribution
 
-- 본 논문은 이러한 최근 현상을 1) 지적하면서 2) sLLM 학습의 요소들을 분리하여 분석하고 3) 향후 sLLM 개선 연구의 방향에 대해 제안하고 있음  
+- 본 논문은 이러한 최근 현상을 1) 지적하면서 2) sLLM 학습의 요소들을 분리하여 분석하고 3) 향후 sLLM 개선 연구의 방향에 대해 제안하고 있음
 
 ## 2. Evaluation
 
 - 해당 논문에서는 3가지 평가 방식 도입
 
-- Metric : 기존 데이터셋에서 제공하는 Metric을 이용하여 평가 
+- Metric : 기존 데이터셋에서 제공하는 Metric을 이용하여 평가
 
-- GPT-4 : ChatGPT에게 Imitation Model과 ChatGPT가 생성한 문장을 입력하고, 선호도를 출력하도록 Prompt 구성 
+- GPT-4 : ChatGPT에게 Imitation Model과 ChatGPT가 생성한 문장을 입력하고, 선호도를 출력하도록 Prompt 구성
 
 - Human : Amazon Turk를 이용하여 70명의 응답자에게 두 모델이 생성한 문장 중 더 나은 문장을 고르도록 요구
 
@@ -79,7 +80,7 @@ title: The False Promise of Imitating Proprietary LLMs
 
 - SharGPT-Mix의 경우 기존에 연구목적으로 구축되었던 Prompt 데이터셋인 NaturalInstructions 보다 높은 품질을 가지고 있다고 주장
 
-## 5. 모델 
+## 5. 모델
 
 1. Broad-Coverage Imatation
 
@@ -87,7 +88,7 @@ title: The False Promise of Imitating Proprietary LLMs
 
 - 특정 태스크에 대한 성능 측정
 
-- 학습 데이터의 크기와 모델 크기를 늘리는 실험 진행 
+- 학습 데이터의 크기와 모델 크기를 늘리는 실험 진행
 
 - 모델의 크기를 늘리는 실험 진행
 
@@ -97,9 +98,9 @@ title: The False Promise of Imitating Proprietary LLMs
 
 - sLLM은 스타일을 학습
 
-## 6. 결론          
+## 6. 결론
 
-- 요약하면 결국 : 범용 목적의 모델은 아직 sLLM으로 도달할 수 있는지 의문이다. 
+- 요약하면 결국 : 범용 목적의 모델은 아직 sLLM으로 도달할 수 있는지 의문이다.
 
 - Human Evaluation에 대한 문제점을 지적한 점은 좋은 듯
 

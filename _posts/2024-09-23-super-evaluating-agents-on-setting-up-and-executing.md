@@ -1,27 +1,28 @@
 ---
 categories:
-- paper-reviews
-date: '2024-09-23 00:00:00'
+  - paper-reviews
+date: "2024-09-23 00:00:00"
 description: 논문 리뷰 - Autonomous-Agents, Code Generation 관련 연구
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-- autonomous-agents
-- bert
-- code generation
-- fine-tuning
-- gpt
-- llm
-- paper-review
-- transformer
+  - autonomous-agents
+  - bert
+  - code generation
+  - fine-tuning
+  - gpt
+  - llm
+  - paper-review
+  - transformer
 thumbnail: assets/img/posts/2024-09-23-super-evaluating-agents-on-setting-up-and-executing/thumbnail.jpg
-title: 'SUPER: Evaluating Agents on Setting Up and Executing Tasks
+title: "SUPER: Evaluating Agents on Setting Up and Executing Tasks
 
-  from Research Repositories'
+  from Research Repositories"
 ---
 
 **논문 정보**
+
 - **Date**: 2024-09-23
 - **Reviewer**: yukyung lee
 - **Property**: Autonomous-Agents, Code Generation
@@ -70,7 +71,7 @@ title: 'SUPER: Evaluating Agents on Setting Up and Executing Tasks
 
 - Pre-execute existing cells and pass as history - code to be written by model not required to fit “in between” existing cells, can follow sequentially
 
-**Auto**:** **604 auto-generated examples
+**Auto**:\*\* \*\*604 auto-generated examples
 
 - state-of-the-art approaches struggle to solve these problems with the best model (GPT-4o) solving only **16.3% of the end-to-end** set, and **46.1% ofthe scenarios**.
 

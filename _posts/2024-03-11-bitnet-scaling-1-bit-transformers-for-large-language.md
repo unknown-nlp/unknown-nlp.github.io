@@ -1,22 +1,23 @@
 ---
 categories:
-- paper-reviews
-date: '2024-03-11 00:00:00'
+  - paper-reviews
+date: "2024-03-11 00:00:00"
 description: 논문 리뷰 - LLM, Quantization 관련 연구
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-- language-model
-- llm
-- paper-review
-- quantization
-- transformer
+  - language-model
+  - llm
+  - paper-review
+  - quantization
+  - transformer
 thumbnail: assets/img/posts/2024-03-11-bitnet-scaling-1-bit-transformers-for-large-language/thumbnail.jpg
-title: 'BitNet: Scaling 1-bit Transformers for Large Language Models'
+title: "BitNet: Scaling 1-bit Transformers for Large Language Models"
 ---
 
 **논문 정보**
+
 - **Date**: 2024-03-11
 - **Reviewer**: 김재희
 - **Property**: LLM, Quantization
@@ -61,7 +62,7 @@ The Era of 1-bit LLMs: All Large Language Models are in 1.58 Bits
 
 - Pretrain 과정에서 Linear Layer의 연산량을 감소 및 속도 개선 가능
 
-- Distributed Training: 
+- Distributed Training:
 
 - Mixed Precision Training
 
@@ -71,7 +72,7 @@ The Era of 1-bit LLMs: All Large Language Models are in 1.58 Bits
 
 - FP16 Trasnformer와 비교
 
-- Quantization Method와 비교 
+- Quantization Method와 비교
 
 - Energe Consumption 대비 성능 비교 (zero/few shot)
 
@@ -97,10 +98,10 @@ The Era of 1-bit LLMs: All Large Language Models are in 1.58 Bits
 
 - 모델 크기에 따른 Memory 및 Latency 경향
 
-- OpenSource LLM과 비교 
+- OpenSource LLM과 비교
 
 ## 4. Conclusion
 
-- BitNet 
+- BitNet
 
 - 1.58B

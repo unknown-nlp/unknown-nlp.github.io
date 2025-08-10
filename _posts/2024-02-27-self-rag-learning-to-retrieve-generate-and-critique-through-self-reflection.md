@@ -1,16 +1,17 @@
 ---
 categories: paper-reviews
-date: '2024-02-27 00:00:00'
-description: ' 논문 리뷰 - SELF-RAG: LEARNING TO RETRIEVE, GENERATE, AND CRITIQUE THROUGH
-  SELF-REFLECTION'
+date: "2024-02-27 00:00:00"
+description: " 논문 리뷰 - SELF-RAG: LEARNING TO RETRIEVE, GENERATE, AND CRITIQUE THROUGH
+  SELF-REFLECTION"
 giscus_comments: true
 layout: post
 related_posts: false
 tags: paper-review
-title: 'SELF-RAG: LEARNING TO RETRIEVE, GENERATE, AND CRITIQUE THROUGH SELF-REFLECTION'
+title: "SELF-RAG: LEARNING TO RETRIEVE, GENERATE, AND CRITIQUE THROUGH SELF-REFLECTION"
 ---
 
 **논문 정보**
+
 - **Date**: 2024-02-27
 - **Reviewer**: 상엽
 - **Property**: Retrieval, Natural Language Generation
@@ -25,17 +26,17 @@ title: 'SELF-RAG: LEARNING TO RETRIEVE, GENERATE, AND CRITIQUE THROUGH SELF-REFL
 
 - RAG 기술은 LLM의 성능에 악영향을 미칠 가능성이 있음.
 
-	- RAG는 factual grounding 여부를 판단할 수 없어 off-topic passage를 제공할 수 있음.
+  - RAG는 factual grounding 여부를 판단할 수 없어 off-topic passage를 제공할 수 있음.
 
-	-  결과값과 passage의 내용이 일치한다는 보장 역시 없음.
+  - 결과값과 passage의 내용이 일치한다는 보장 역시 없음.
 
 → Self-Reflective Retrieval-augmented Generation (SELF-RAG)
 
 - via on-demand retrieval and self-reflection.
 
-	- gnereation quality 증가 시키겠다.
+  - gnereation quality 증가 시키겠다.
 
-	- factual accuracy도 증가시키겠다.
+  - factual accuracy도 증가시키겠다.
 
 <br/>
 
@@ -45,11 +46,11 @@ title: 'SELF-RAG: LEARNING TO RETRIEVE, GENERATE, AND CRITIQUE THROUGH SELF-REFL
 
 - **Reflection tokens**
 
-	- retrieval token : retrieval o/x
+  - retrieval token : retrieval o/x
 
-	- critique token : generation quality
+  - critique token : generation quality
 
-		절차
+    절차
 
 1. input이 주어지면 생성 시작
 
@@ -65,7 +66,7 @@ title: 'SELF-RAG: LEARNING TO RETRIEVE, GENERATE, AND CRITIQUE THROUGH SELF-REFL
 
 - 항상 고정된 개수의 document를 추출하는 RAG와는 달리 **retrieval을 조절할 수 있음**.
 
-- SELF-RAG는 support에 대한 **self assesment를 진행**하기 때문에 citation을 제공할 수  있음. → fact verification을 쉽게 함.
+- SELF-RAG는 support에 대한 **self assesment를 진행**하기 때문에 citation을 제공할 수 있음. → fact verification을 쉽게 함.
 
 <br/>
 
@@ -83,23 +84,23 @@ title: 'SELF-RAG: LEARNING TO RETRIEVE, GENERATE, AND CRITIQUE THROUGH SELF-REFL
 
 - RLHF (reward 모델과 비교하는 내용을 계속 작성하더라…)
 
-	- Human feedback에 따라 preference 학습 → relevance, support 등 factuality에 큰 영향을 주는 요소들에 대한 모델 결과를 generation 모델에 학습 (SELF-RAG에서 critique의 역할은 일종의 reward 모델로 작용)
+  - Human feedback에 따라 preference 학습 → relevance, support 등 factuality에 큰 영향을 주는 요소들에 대한 모델 결과를 generation 모델에 학습 (SELF-RAG에서 critique의 역할은 일종의 reward 모델로 작용)
 
-	- SELF-RAG는 training cost 절감을 위해 reflection token을 사전에 만든 후 학습 진행
+  - SELF-RAG는 training cost 절감을 위해 reflection token을 사전에 만든 후 학습 진행
 
 - LLM의 결과를 평가해 수정 및 생성하는 이전 논문들
 
-	- Xie et al. (2023) propose a **self-evaluation**- guided decoding framework
+  - Xie et al. (2023) propose a **self-evaluation**- guided decoding framework
 
-		- 오직 reasoning task에만 집중
+    - 오직 reasoning task에만 집중
 
-	- LLM refinement (Dhuliawala et al., 2023; Madaan et al., 2023; Paul et al., 2023)
+  - LLM refinement (Dhuliawala et al., 2023; Madaan et al., 2023; Paul et al., 2023)
 
-		- natural language feedback을 통해 output 수정
+    - natural language feedback을 통해 output 수정
 
-		- 비용이 비쌈.
+    - 비용이 비쌈.
 
-	<br/>
+  <br/>
 
 **Reflection tokens**
 
@@ -119,25 +120,25 @@ $ y $ : textual outputs consisting of multiple segments $ [y_1, ..., y_T] $ (ori
 
 **Inference overview**
 
-x가 주어졌을 때 모든 generation 과정 $ y_{<t} $에 대해서 모델은 retrieval 여부를 판단
+x가 주어졌을 때 모든 generation 과정 $ y\_{<t} $에 대해서 모델은 retrieval 여부를 판단
 
 - retrieval이 필요없을 경우 : standard LM과 똑같이 next output segment prediction 진행
 
 - retrieval이 필요할 경우
 
-	- retrieval 진행 → critique token을 이용해 retrieved passage의 relevance 평가 (IsRel) → next segment 생성 → retrieved passage에 의해 support 되는지 확인 (IsSup) → next segment에 대해 전반적인 utility 평가 (IsUse)
+  - retrieval 진행 → critique token을 이용해 retrieved passage의 relevance 평가 (IsRel) → next segment 생성 → retrieved passage에 의해 support 되는지 확인 (IsSup) → next segment에 대해 전반적인 utility 평가 (IsUse)
 
-	- 위의 작업을 병렬적으로 진행 후 critique token에 의해 평가된 점수의 가중합으로 최종 output 선정.
+  - 위의 작업을 병렬적으로 진행 후 critique token에 의해 평가된 점수의 가중합으로 최종 output 선정.
 
-	- e.g.) Figure 1 예시,  prompt 1 선택
+  - e.g.) Figure 1 예시, prompt 1 선택
 
 <br/>
 
 **Training overview**
 
-- Data collections ($ \mathcal{D_{critic}} $) : GPT-4를 이용해 reflection token을 포함한 데이터 수집
+- Data collections ($ \mathcal{D\_{critic}} $) : GPT-4를 이용해 reflection token을 포함한 데이터 수집
 
-- Learning critic model  $ \mathcal{C} $ : $ \mathcal{D_{critic}} $ 데이터를 이용해 reflection token 생성 학습 (일종의 reward 모델)
+- Learning critic model $ \mathcal{C} $ : $ \mathcal{D\_{critic}} $ 데이터를 이용해 reflection token 생성 학습 (일종의 reward 모델)
 
 - Training generator $ \mathcal{M} $ : critic model을 이용해 input에 reflection token 생성 (offline으로 사전에 진행)한 데이터를 이용해 일반적인 generation task 학습
 
@@ -147,59 +148,59 @@ x가 주어졌을 때 모든 generation 과정 $ y_{<t} $에 대해서 모델은
 
 **TRAINING THE CRITIC MODEL**
 
-- Data collection for critic model : $ \mathcal{D_{critic}} $
+- Data collection for critic model : $ \mathcal{D\_{critic}} $
 
-	- human annotation은 너무 비싸기 때문에 GPT-4를 이용
+  - human annotation은 너무 비싸기 때문에 GPT-4를 이용
 
-	- 특히, 전체 내용을 segment 단위로 나눠서 매번 evaluation을 해야하기 때문에 API 비용 역시 비쌈.
+  - 특히, 전체 내용을 segment 단위로 나눠서 매번 evaluation을 해야하기 때문에 API 비용 역시 비쌈.
 
-	→ GPT-4를 이용해 supervised dataset을 일부 만들고 이를 이용해 critic model을 학습하자.
+  → GPT-4를 이용해 supervised dataset을 일부 만들고 이를 이용해 critic model을 학습하자.
 
-		1. 각 reflection token에 대해 데이터 랜덤 샘플링, $ \{X_{sample}, Y_{sample}\} \sim \{X, Y\} $
+      1. 각 reflection token에 대해 데이터 랜덤 샘플링, $ \{X_{sample}, Y_{sample}\} \sim \{X, Y\} $
 
-		1. 각 token의 정의에 맞는 prompt 구성 후, few-shot example 제공해서 학습 데이터 생성
+      1. 각 token의 정의에 맞는 prompt 구성 후, few-shot example 제공해서 학습 데이터 생성
 
-		1. critic model을 이용해 $ P(r|I, x, y) $ 학습
+      1. critic model을 이용해 $ P(r|I, x, y) $ 학습
 
-	- 4k ~ 20k supervised training data 수집
+  - 4k ~ 20k supervised training data 수집
 
-	- 실제 휴먼 annotation과 상당히 높은 일치율을 보였음.
+  - 실제 휴먼 annotation과 상당히 높은 일치율을 보였음.
 
-	- 학습 데이터 예시
+  - 학습 데이터 예시
 
-		<br/>
+  <br/>
 
 - Critic learning
 
-	$$ \max _{\mathcal{C}} \mathbb{E}_{((x, y), r) \sim \mathcal{D}_{\text {critic }}} \log p_{\mathcal{C}}(r \mid x, y) $$
+  $$ \max _{\mathcal{C}} \mathbb{E}_{((x, y), r) \sim \mathcal{D}_{\text {critic }}} \log p_{\mathcal{C}}(r \mid x, y) $$
 
-	- generator와 동일한 모델 사용
+  - generator와 동일한 모델 사용
 
-	- critic 모델은  GPT-4와 상당히 높은 일치율을 보임.
+  - critic 모델은 GPT-4와 상당히 높은 일치율을 보임.
 
-		<br/>
+  <br/>
 
 **TRAINING THE GENERATOR MODEL**
 
-- **Data collection for generator : **$ \mathcal{D_{gen}} $
+- **Data collection for generator : **$ \mathcal{D\_{gen}} $
 
-	- critic 모델을 이용해 output $ y $에 대해 reflection token을 추가한 데이터를 생성
+  - critic 모델을 이용해 output $ y $에 대해 reflection token을 추가한 데이터를 생성
 
-		- retrieval이 필요한가 아닌가? → Yes
+    - retrieval이 필요한가 아닌가? → Yes
 
-		- Retrieve=Yes special token 추가 →  top-k passage retrieval
+    - Retrieve=Yes special token 추가 → top-k passage retrieval
 
-		- 각각의 passage segment에 대해 critic model을 이용해 IsRel, IsSUP 평가, 마지막 segment 이후 IsUse 평가
+    - 각각의 passage segment에 대해 critic model을 이용해 IsRel, IsSUP 평가, 마지막 segment 이후 IsUse 평가
 
 <br/>
 
 - **Generator learning**
 
-	- reflection token을 포함한 generation 학습
+  - reflection token을 포함한 generation 학습
 
-		$$ \max _{\mathcal{M}} \mathbb{E}_{(x, y, r) \sim \mathcal{D}_{g e n}} \log p_{\mathcal{M}}(y, r \mid x) $$
+    $$ \max _{\mathcal{M}} \mathbb{E}_{(x, y, r) \sim \mathcal{D}_{g e n}} \log p_{\mathcal{M}}(y, r \mid x) $$
 
-			- training 동안 <p>, </p>로 쌓인 retrieved text chunk는 masking해서 진행
+        - training 동안 <p>, </p>로 쌓인 retrieved text chunk는 masking해서 진행
 
 <br/>
 
@@ -209,17 +210,17 @@ x가 주어졌을 때 모든 generation 과정 $ y_{<t} $에 대해서 모델은
 
 - task의 특징에 맞춰 retireval의 빈도를 조절할 수 있음.
 
-	- factuality가 중요하다면 검색 빈도를 증가시키고 open-ended task에서는 검색 빈도를 줄인다. (뒤에서도 언급.)
+  - factuality가 중요하다면 검색 빈도를 증가시키고 open-ended task에서는 검색 빈도를 줄인다. (뒤에서도 언급.)
 
-	<br/>
+  <br/>
 
 **Adaptive retrieval with threshold**
 
 - retrieval 여부에 대한 threshold를 설정
 
-	-  모든 output 토큰에 대해서 normalized 된 Retrieve score를 계산, 값을 넘을 경우 retrieval 적용
+  - 모든 output 토큰에 대해서 normalized 된 Retrieve score를 계산, 값을 넘을 경우 retrieval 적용
 
-		<br/>
+  <br/>
 
 **Tree-decoding with critique tokens**
 
@@ -229,45 +230,45 @@ x가 주어졌을 때 모든 generation 과정 $ y_{<t} $에 대해서 모델은
 
 - 각 segment의 score는 다음과 같이 계산
 
-		- linear weighted sum of the normalized probability of each
+      - linear weighted sum of the normalized probability of each
 
-		$ w^G $ : weight hyperparameter
+      $ w^G $ : weight hyperparameter
 
-		$ s_t^G=\frac{p_t(\hat{r})}{\sum_{i=1}^{N^G} p_t\left(r_i\right)} $
+      $ s_t^G=\frac{p_t(\hat{r})}{\sum_{i=1}^{N^G} p_t\left(r_i\right)} $
 
-		$ G $ : critique token type
+      $ G $ : critique token type
 
-		$ \hat{r} $ : desriable reflection token
+      $ \hat{r} $ : desriable reflection token
 
-		$ N^G $ : different possible values for $ G $
+      $ N^G $ : different possible values for $ G $
 
-	- $ w^G $를 조절함으로써 재학습없이 inference 단계에서 모델 조절 가능
+  - $ w^G $를 조절함으로써 재학습없이 inference 단계에서 모델 조절 가능
 
 <br/>
 
 ### Task and Datasets
 
-다양한 모델과 downstream task 비교  overall correctness, factuality, and fluency.
+다양한 모델과 downstream task 비교 overall correctness, factuality, and fluency.
 
 zero-shot evaluations 진행
 
-	- experiment details
+    - experiment details
 
-		training: 4 Nvidia A100 with 80GB memory
+    	training: 4 Nvidia A100 with 80GB memory
 
-		epochs: 3
+    	epochs: 3
 
-		batch size: 128
+    	batch size: 128
 
-		learning rate: 2e-5 (3% warmup steps, and linear decay afterward)
+    	learning rate: 2e-5 (3% warmup steps, and linear decay afterward)
 
-		max token: 2,048 for the 7B model, and 1,524 for the 13B model
+    	max token: 2,048 for the 7B model, and 1,524 for the 13B model
 
-		**Deepspeed stage 3 **(Rajbhandari et al., 2020) to conduct multi-GPU distributed training, with training precision Bfloat16 enabled.
+    	**Deepspeed stage 3 **(Rajbhandari et al., 2020) to conduct multi-GPU distributed training, with training precision Bfloat16 enabled.
 
-		**FlashAttention** (Dao et al., 2022) is used to make the long-context training more efficient.
+    	**FlashAttention** (Dao et al., 2022) is used to make the long-context training more efficient.
 
-		inference: 1-2 Quadro RTX 6000 GPUs with 24GB memory.
+    	inference: 1-2 Quadro RTX 6000 GPUs with 24GB memory.
 
 <br/>
 
@@ -287,11 +288,11 @@ two open-domain question answering (QA) datasets (factual knowledge에 대한 �
 
 - PopQA (Mallen et al., 2023)
 
-	- long-tail subset 이용 : wikipedia 조회수가 100회 미만인 1399개 쿼리
+  - long-tail subset 이용 : wikipedia 조회수가 100회 미만인 1399개 쿼리
 
 - TriviaQA-unfiltered (Joshi et al., 2017)
 
-	- 11,313 test queries : Min et al., 2019; Guu et al., 2020의 연구와 동일
+  - 11,313 test queries : Min et al., 2019; Guu et al., 2020의 연구와 동일
 
 → gold answer가 생성한 정답에 포함되어 있는지 여부로 평가 (following Mallen et al. (2023); Schick et al. (2023).)
 
@@ -323,15 +324,15 @@ long-form QA task
 
 - standard RAG baselines
 
-	- 위의 LLM 모델, LLaMA-FT
+  - 위의 LLM 모델, LLaMA-FT
 
-	- Ret-ChatGPT and Ret-Llama2-chat, [perplexity.ai](http://perplexity.ai/) (private data로 train)
+  - Ret-ChatGPT and Ret-Llama2-chat, [perplexity.ai](http://perplexity.ai/) (private data로 train)
 
 - concurrent methods
 
-	- retrieved passage와 함께 학습
+  - retrieved passage와 함께 학습
 
-	- SAIL, Toolformer (pre-trained an LM with API calls (e.g., Wikipedia APIs))
+  - SAIL, Toolformer (pre-trained an LM with API calls (e.g., Wikipedia APIs))
 
 ### EXPERIMENTAL SETTINGS
 
@@ -339,15 +340,15 @@ Training data and settings.
 
 - Training data
 
-	- Open-Instruct processed data (Wang et al., 2023) and knowledge-intensive datasets (Petroni et al., 2021; Stelmakh et al., 2022; Mihaylov et al., 2018)에서 sampling을 통해 **15만개** 추출
+  - Open-Instruct processed data (Wang et al., 2023) and knowledge-intensive datasets (Petroni et al., 2021; Stelmakh et al., 2022; Mihaylov et al., 2018)에서 sampling을 통해 **15만개** 추출
 
 - model
 
-	- generator : Llama2 7B and 13B
+  - generator : Llama2 7B and 13B
 
-	- critic : Llama2 7B
+  - critic : Llama2 7B
 
-	- retriever model : Contriever-MS MARCO (Izacard et al., 2022a), 각 input에 대해 10개까지 retrieval
+  - retriever model : Contriever-MS MARCO (Izacard et al., 2022a), 각 input에 대해 10개까지 retrieval
 
 <br/>
 
@@ -371,21 +372,21 @@ Training data and settings.
 
 - without retrieval 모델
 
-	- 제안 모델이 월등히 뛰어난 성능
+  - 제안 모델이 월등히 뛰어난 성능
 
-	- ChatGPT보다 뛰어난 성능을 보이는 경우도 있음. (PubHealth, PopQA, biography generations, and ASQA (Rouge and MAUVE))
+  - ChatGPT보다 뛰어난 성능을 보이는 경우도 있음. (PubHealth, PopQA, biography generations, and ASQA (Rouge and MAUVE))
 
-	- CoVE보다도 압도적으로 좋음. (iterative prompt engineering)
+  - CoVE보다도 압도적으로 좋음. (iterative prompt engineering)
 
 - with retrieval 모델
 
-	- RAG를 이용한 모델보다는 모든 task에서 뛰어난 성능
+  - RAG를 이용한 모델보다는 모든 task에서 뛰어난 성능
 
-	- PopQA, Bio에서는 모든 모델 통틀어 최고 성능
+  - PopQA, Bio에서는 모든 모델 통틀어 최고 성능
 
-	- On ASQA, citation accuracy 측면에서 다른 retrieval 성능이 떨어지는 것과 대비해 높은 성능을 보임.
+  - On ASQA, citation accuracy 측면에서 다른 retrieval 성능이 떨어지는 것과 대비해 높은 성능을 보임.
 
-	- Llama2-FT 7B는 SELF-RAG와 동일한 데이터셋으로 학습함에도 큰 성능 차이가 남을 확인할 수 있음. → 이것은 SELF-RAG framework가 효과가 있음을 의미함.
+  - Llama2-FT 7B는 SELF-RAG와 동일한 데이터셋으로 학습함에도 큰 성능 차이가 남을 확인할 수 있음. → 이것은 SELF-RAG framework가 효과가 있음을 의미함.
 
 <br/>
 
@@ -449,7 +450,7 @@ Training data and settings.
 
 - 데이터셋의 크기가 모델의 성능에 미치는 영향을 평가
 
-- SELF-RAG 7B  모델 이용, randomly sampleed 5k, 10k, 20k, and 50k개의 데이터셋 이용
+- SELF-RAG 7B 모델 이용, randomly sampleed 5k, 10k, 20k, and 50k개의 데이터셋 이용
 
 - PopQA, PubHealth, and ASQA (citation precision) 데이터에 대해 평가
 
@@ -463,7 +464,7 @@ Training data and settings.
 
 - 높은 정확도를 보임.
 
-- IsUse의 경우  two highest cases (5 and 4)에서 사람 역시 구별을 어려워 함.
+- IsUse의 경우 two highest cases (5 and 4)에서 사람 역시 구별을 어려워 함.
 
 <br/>
 

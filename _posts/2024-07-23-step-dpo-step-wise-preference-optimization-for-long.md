@@ -1,22 +1,23 @@
 ---
 categories:
-- paper-reviews
-date: '2024-07-23 00:00:00'
+  - paper-reviews
+date: "2024-07-23 00:00:00"
 description: 논문 리뷰 - Reasoning, Reinforcement Learning 관련 연구
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-- alignment
-- llm
-- paper-review
-- reasoning
-- reinforcement learning
+  - alignment
+  - llm
+  - paper-review
+  - reasoning
+  - reinforcement learning
 thumbnail: assets/img/posts/2024-07-23-step-dpo-step-wise-preference-optimization-for-long/thumbnail.jpg
-title: 'Step-DPO : Step-wise preference optimization for long-chain reasoning of LLMs'
+title: "Step-DPO : Step-wise preference optimization for long-chain reasoning of LLMs"
 ---
 
 **논문 정보**
+
 - **Date**: 2024-07-23
 - **Reviewer**: 전민진
 - **Property**: Reasoning, Reinforcement Learning

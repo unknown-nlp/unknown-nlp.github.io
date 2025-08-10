@@ -1,22 +1,23 @@
 ---
 categories:
-- paper-reviews
-date: '2024-01-23 00:00:00'
+  - paper-reviews
+date: "2024-01-23 00:00:00"
 description: 논문 리뷰 - ICL, LLM, In Context Learning 관련 연구
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-- icl
-- in context learning
-- language-model
-- llm
-- paper-review
+  - icl
+  - in context learning
+  - language-model
+  - llm
+  - paper-review
 thumbnail: assets/img/posts/2024-01-23-in-context-pretraining-language-modeling-beyond-document-boundaries/thumbnail.jpg
-title: 'IN-CONTEXT PRETRAINING: LANGUAGE MODELING BEYOND DOCUMENT BOUNDARIES'
+title: "IN-CONTEXT PRETRAINING: LANGUAGE MODELING BEYOND DOCUMENT BOUNDARIES"
 ---
 
 **논문 정보**
+
 - **Date**: 2024-01-23
 - **Reviewer**: 김재희
 - **Property**: ICL, LLM, In Context Learning
@@ -79,11 +80,11 @@ title: 'IN-CONTEXT PRETRAINING: LANGUAGE MODELING BEYOND DOCUMENT BOUNDARIES'
 
 - 3가지 조건에 따라 Scratch부터 Pretrain 진행
 
-- Search 
+- Search
 
 ### Results
 
-1) Language Modeling : LM의 기본적인 성능 평가 (PPL)
+1. Language Modeling : LM의 기본적인 성능 평가 (PPL)
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-01-23-in-context-pretraining-language-modeling-beyond-document-boundaries/image_001.png" class="img-fluid rounded z-depth-1" %}
 
@@ -93,13 +94,13 @@ title: 'IN-CONTEXT PRETRAINING: LANGUAGE MODELING BEYOND DOCUMENT BOUNDARIES'
 
 - 이와 대조적으로 ICLM은 성능 개선 관찰
 
-2) In Context Learning
+2. In Context Learning
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-01-23-in-context-pretraining-language-modeling-beyond-document-boundaries/image_002.png" class="img-fluid rounded z-depth-1" %}
 
 - 두가지 태스크에 대한 ICL 능력 평가
 
-3) Retrieval-Augmentation
+3. Retrieval-Augmentation
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-01-23-in-context-pretraining-language-modeling-beyond-document-boundaries/image_003.png" class="img-fluid rounded z-depth-1" %}
 
@@ -109,7 +110,7 @@ title: 'IN-CONTEXT PRETRAINING: LANGUAGE MODELING BEYOND DOCUMENT BOUNDARIES'
 
 - Open : 뚜렷한 성능 개선 관찰 가능
 
-4) Factuality
+4. Factuality
 
 ## 4. Analysis
 
@@ -125,7 +126,7 @@ title: 'IN-CONTEXT PRETRAINING: LANGUAGE MODELING BEYOND DOCUMENT BOUNDARIES'
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-01-23-in-context-pretraining-language-modeling-beyond-document-boundaries/image_005.png" class="img-fluid rounded z-depth-1" %}
 
-- Ablation Study : 
+- Ablation Study :
 
 - K-Shot
 
@@ -135,7 +136,7 @@ title: 'IN-CONTEXT PRETRAINING: LANGUAGE MODELING BEYOND DOCUMENT BOUNDARIES'
 
 - Pretrain 시 비용이 (상대적으로) 매우 적은 Input 구성 방법론 제안
 
-- ICLM의 In-Context Learning/RAG/Document 필요 태스크(QA) 등에서 높은 성능 
+- ICLM의 In-Context Learning/RAG/Document 필요 태스크(QA) 등에서 높은 성능
 
 - 모델 크기 및 태스크와 관계없이 꾸준히 높은 성능 리포팅
 

@@ -1,34 +1,35 @@
 ---
 categories:
-- paper-reviews
-date: '2023-05-25 00:00:00'
+  - paper-reviews
+date: "2023-05-25 00:00:00"
 description: 논문 리뷰 - LLM, ICL 관련 연구
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-- icl
-- language-model
-- llm
-- paper-review
+  - icl
+  - language-model
+  - llm
+  - paper-review
 thumbnail: assets/img/posts/2023-05-25-rethinking-the-role-of-demonstrations-what-makes-in/thumbnail.jpg
-title: 'Rethinking the Role of Demonstrations: What Makes In-Context Learning Work?'
+title: "Rethinking the Role of Demonstrations: What Makes In-Context Learning Work?"
 ---
 
 **논문 정보**
+
 - **Date**: 2023-05-25
 - **Reviewer**: 건우 김
 - **Property**: LLM, ICL
 
 # Abstract
 
-Large language models (LLMs)들이 in-context learning을 통해 downstream task에서 좋은 성능을 보인다는 사실은 유명하지만, model이 ***어떻게 ***학습을 하고 ***어떤 점***을 통해 성능을 내는지 확인하는 연구는 거의 없다. 본 논문에서 다양한 실험을 통해 처음으로 LLMs의 in-context learning이 ***어떻게 ***그리고 ***왜*** 작동을 하는 지에 대해서 수많은 실험을 통해 보여준다.
+Large language models (LLMs)들이 in-context learning을 통해 downstream task에서 좋은 성능을 보인다는 사실은 유명하지만, model이 **_어떻게 _**학습을 하고 **_어떤 점_**을 통해 성능을 내는지 확인하는 연구는 거의 없다. 본 논문에서 다양한 실험을 통해 처음으로 LLMs의 in-context learning이 **_어떻게 _**그리고 **_왜_** 작동을 하는 지에 대해서 수많은 실험을 통해 보여준다.
 
 - **Key Aspects**
 
 # Introduction
 
-- LLMs은 few input-label pairs를 가지고 In-contex learning (ICL)을 통해 downstream tasks에서 꽤나 높은 성능을 보여줬지만, ***ICL이 왜 작동하고 어떻게 작동을 하는 지***에 대한 연구는 거의 없다.
+- LLMs은 few input-label pairs를 가지고 In-contex learning (ICL)을 통해 downstream tasks에서 꽤나 높은 성능을 보여줬지만, **_ICL이 왜 작동하고 어떻게 작동을 하는 지_**에 대한 연구는 거의 없다.
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2023-05-25-rethinking-the-role-of-demonstrations-what-makes-in/image_000.png" class="img-fluid rounded z-depth-1" %}
 
@@ -38,7 +39,7 @@ Large language models (LLMs)들이 in-context learning을 통해 downstream task
 
 - Demonstations의 어느 부분이 performance에 직접적인 기여를 하는지 알아보는 실험을 진행
 
-- 본 논문에서 ICL에 사용되는 ***demonstration***의 역할에 대해 이해하는 분석을 제시함.
+- 본 논문에서 ICL에 사용되는 **_demonstration_**의 역할에 대해 이해하는 분석을 제시함.
 
 # Related works
 
@@ -48,7 +49,7 @@ Large language models (LLMs)들이 in-context learning을 통해 downstream task
 
 # Experimental Setup
 
-- **Models**:  6 종류의 LM을 사용함 (only-decoder model)
+- **Models**: 6 종류의 LM을 사용함 (only-decoder model)
 
 # 1. Ground Truth Matters Little
 
@@ -58,7 +59,7 @@ Large language models (LLMs)들이 in-context learning을 통해 downstream task
 
 - **Demonstrations w/ gold labels**: ICL with *k *labeled examples
 
-- **Demonstrations w/ ranodm lables**: ICL with *k* labeled examples (gold → random labels), 여기서 사용한 random labels이란 gold label과 동일한 set을 공유하고 있음. (완전 random 아님x)
+- **Demonstrations w/ ranodm lables**: ICL with _k_ labeled examples (gold → random labels), 여기서 사용한 random labels이란 gold label과 동일한 set을 공유하고 있음. (완전 random 아님x)
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2023-05-25-rethinking-the-role-of-demonstrations-what-makes-in/image_002.png" class="img-fluid rounded z-depth-1" %}
 
@@ -88,7 +89,7 @@ Large language models (LLMs)들이 in-context learning을 통해 downstream task
 
 ### Impact of the label space
 
-- k개의 labels을 random한 English word를 사용해서 실험을 진행함. 
+- k개의 labels을 random한 English word를 사용해서 실험을 진행함.
 
 - **Results**
 
@@ -112,7 +113,7 @@ Large language models (LLMs)들이 in-context learning을 통해 downstream task
 
 ### Capacity of LMs
 
-- model은 input-label demonstration에 의존하지 않으며 downstream task를 수행한 것을 실험에서 보임. 이를 통해 input-label correspondence 자체를 langauge modeling (pretraining)할 때 학습을 한 것으로 볼 수 있음. 
+- model은 input-label demonstration에 의존하지 않으며 downstream task를 수행한 것을 실험에서 보임. 이를 통해 input-label correspondence 자체를 langauge modeling (pretraining)할 때 학습을 한 것으로 볼 수 있음.
 
 ### Connection to instruction-following models
 

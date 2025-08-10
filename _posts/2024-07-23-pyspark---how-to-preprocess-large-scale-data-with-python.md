@@ -1,7 +1,7 @@
 ---
 categories: paper-reviews
-date: '2024-07-23 00:00:00'
-description: ' 논문 리뷰 - Pyspark - How to preprocess Large Scale Data with Python'
+date: "2024-07-23 00:00:00"
+description: " 논문 리뷰 - Pyspark - How to preprocess Large Scale Data with Python"
 giscus_comments: true
 layout: post
 related_posts: false
@@ -10,23 +10,24 @@ title: Pyspark - How to preprocess Large Scale Data with Python
 ---
 
 **논문 정보**
+
 - **Date**: 2024-07-23
 - **Reviewer**: 준원 장
 - **Property**: spark
 
-[//]: # (table_of_contents is not supported)
+[//]: # "table_of_contents is not supported"
 
 ## 0. Prerequisites For Practice
 
 - Spark runs on Java 8, 11, or 17.
 
-	-
+  -
 
 - Install Apache Spark (Framework that powered the pyspark)
 
-	-
+  -
 
-	- Latest Version의 Pre-built for Apache Hadoop 3.3 and later download
+  - Latest Version의 Pre-built for Apache Hadoop 3.3 and later download
 
 - Spark runs on Python 3.7+
 
@@ -45,8 +46,7 @@ conda install jupyter
 - Launch jupyter lab in python
 
 ```javascript
-jupyter-lab
-
+jupyter - lab;
 ```
 
 ## 1. Introduction to Spark
@@ -61,9 +61,9 @@ jupyter-lab
 
 - 사용하기 쉬움
 
-	- Write applications quickly in Java, Scala, Python, R,and SQL.
+  - Write applications quickly in Java, Scala, Python, R,and SQL.
 
-	<br/>
+  <br/>
 
 ### MapReduce란?
 
@@ -73,35 +73,35 @@ jupyter-lab
 
 - 이름에도 명시되어 있듯이, 해당 모델은 두 가지 주요 단계, 즉 `Map` 단계와 `Reduce` 단계로 구성
 
-	1. **Map**:
+  1.  **Map**:
 
-		- 입력 데이터를 키-값 쌍으로 변환하고, 각 데이터 조각에 지정된 Map 함수를 적용
+      - 입력 데이터를 키-값 쌍으로 변환하고, 각 데이터 조각에 지정된 Map 함수를 적용
 
-			(예시)
+        (예시)
 
-			- 각 단어를 `(단어, 1)`의 키-값 쌍으로 변환
+        - 각 단어를 `(단어, 1)`의 키-값 쌍으로 변환
 
-			- "hello world hello"라는 텍스트가 있다면, 이는 `[(hello, 1), (world, 1), (hello, 1)]`으로 변환
+        - "hello world hello"라는 텍스트가 있다면, 이는 `[(hello, 1), (world, 1), (hello, 1)]`으로 변환
 
-	1. **Reduce**:
+  1.  **Reduce**:
 
-		- 맵 단계에서 생성된 키-값 쌍을 키에 따라 그룹화 → 그룹화된 각 키에 대해 리듀스 함수를 적용하여 최종 결과를 생성
+      - 맵 단계에서 생성된 키-값 쌍을 키에 따라 그룹화 → 그룹화된 각 키에 대해 리듀스 함수를 적용하여 최종 결과를 생성
 
-			(예시)
+        (예시)
 
-			- `[(hello, 1), (hello, 1)]` 및 `[(world, 1)]`로 그룹화 → `hello`는 2번, `world`는 1번 출현
+        - `[(hello, 1), (hello, 1)]` 및 `[(world, 1)]`로 그룹화 → `hello`는 2번, `world`는 1번 출현
 
-<u>*⇒ MapReduce 모델은 하둡(Hadoop)과 같은 시스템에서 널리 사용됨. 데이터를 디스크에 저장하고, 중간 결과도 디스크에 쓰기 때문에 대량의 데이터 처리에 적합하지만, 입출력 작업으로 인해 속도가 느려짐.*</u>
+<u>_⇒ MapReduce 모델은 하둡(Hadoop)과 같은 시스템에서 널리 사용됨. 데이터를 디스크에 저장하고, 중간 결과도 디스크에 쓰기 때문에 대량의 데이터 처리에 적합하지만, 입출력 작업으로 인해 속도가 느려짐._</u>
 
 ⇒ MapReduce는 YARN (Hadoop에서 사용되는 resource manager - CPU나 메모리 등의 계산 리소스가 관리되며, 아래 그림에서 어떤 호스트에 컨테이너를 어떻게 할당할 것인가를 결정)상에서 동작하는 분산 애플리케이션 중 하나며, 분산 시스템에서 데이터를 처리하는 데 사용됨.
 
-⇒  또한, SQL 같은 쿼리 언어를 위해  Apache Hive라는 쿼리 엔진을 사용할 수 있는데, 이들은 입력한 쿼리를 자동으로 MapReduce 프로그램으로 변환 해주기에 <span style='color:red'>**아래 그림에서 확인할 수 있듯이 위 2개의 애플리케이션 (Hadoop, YARN) 모두 대량의 데이터를 배치 처리에 적합하지만, 애드 훅 쿼리를 여러 번 실행하는 복잡한 쿼리에는 부적합하며데이터 처리의 스테이지가 바꿜 때마다 약간의 대기 시간이 필요**</span> (이건 Hive on Tez같은 기술적인 해결책이 존재)
+⇒ 또한, SQL 같은 쿼리 언어를 위해 Apache Hive라는 쿼리 엔진을 사용할 수 있는데, 이들은 입력한 쿼리를 자동으로 MapReduce 프로그램으로 변환 해주기에 <span style='color:red'>**아래 그림에서 확인할 수 있듯이 위 2개의 애플리케이션 (Hadoop, YARN) 모두 대량의 데이터를 배치 처리에 적합하지만, 애드 훅 쿼리를 여러 번 실행하는 복잡한 쿼리에는 부적합하며데이터 처리의 스테이지가 바꿜 때마다 약간의 대기 시간이 필요**</span> (이건 Hive on Tez같은 기술적인 해결책이 존재)
 
 ⇒ 하지만 점점 RAM 가격이 저렴해졌고, (Disk IO로 빠질것을) In-Memory에서 돌아가는 SPARK 등장!
 
 <br/>
 
-## 2.  Spark (How Spark Work & Spark Session)
+## 2. Spark (How Spark Work & Spark Session)
 
 ### How Spark Work
 
@@ -123,65 +123,65 @@ jupyter-lab
 
 **#### Spark Context **
 
-	- Represents the connection to a Spark cluster (기억하자! Spark는 멀티노드가 디폴트 환경이다)
+    - Represents the connection to a Spark cluster (기억하자! Spark는 멀티노드가 디폴트 환경이다)
 
-		- Spark 애플리케이션과 Spark 클러스터 간의 연결을 담당. 즉 Spark functionality의 가장 큰 Entry Point!
+    	- Spark 애플리케이션과 Spark 클러스터 간의 연결을 담당. 즉 Spark functionality의 가장 큰 Entry Point!
 
-	- Coordinates task execution across the cluster
+    - Coordinates task execution across the cluster
 
-		- 클러스터 전반에 걸쳐 태스크를 조정하고 실행을 관리
+    	- 클러스터 전반에 걸쳐 태스크를 조정하고 실행을 관리
 
-		-  데이터를 파티션으로 나누거나, 각 노드에 작업을 분배, 실행 중인 작업의 상태를 모니터링 역할
+    	-  데이터를 파티션으로 나누거나, 각 노드에 작업을 분배, 실행 중인 작업의 상태를 모니터링 역할
 
-	- Entry point in earlier versions of Spark (1.x)
+    - Entry point in earlier versions of Spark (1.x)
 
-	- ***Functionalities***
+    - ***Functionalities***
 
-		- Core functionality for low-level programming and cluster interaction
+    	- Core functionality for low-level programming and cluster interaction
 
-		- Creates RDDs (Resilient Distributed Datasets)
+    	- Creates RDDs (Resilient Distributed Datasets)
 
-			- RDD는 Spark의 기본 데이터 구조로, 데이터를 클러스터의 여러 노드에 걸쳐 분산시켜 처리할 수 있도록 설계된 불변성 분산 컬렉션.
+    		- RDD는 Spark의 기본 데이터 구조로, 데이터를 클러스터의 여러 노드에 걸쳐 분산시켜 처리할 수 있도록 설계된 불변성 분산 컬렉션.
 
-			- RDD는 데이터의 장애 허용성과 병렬 처리를 지원
+    		- RDD는 데이터의 장애 허용성과 병렬 처리를 지원
 
-		- Performs transformations and defines actions
+    	- Performs transformations and defines actions
 
-			- RDD에 대한 다양한 변환(예: `map`, `filter`, `reduceByKey` 등)을 수행하고, 액션(예: `collect`, `count`, `saveAsTextFile` 등)을 정의하여 실제 연산 수행
+    		- RDD에 대한 다양한 변환(예: `map`, `filter`, `reduceByKey` 등)을 수행하고, 액션(예: `collect`, `count`, `saveAsTextFile` 등)을 정의하여 실제 연산 수행
 
-	- Fully supported for backward compatibility
+    - Fully supported for backward compatibility
 
-		- SparkContext는 이전 버전과의 완벽한 호환성을 제공. 예를 들어, 기존에 Spark 1.x 버전에서 작성된 애플리케이션이 Spark의 최신 버전에서도 계속 작동할 수 있음
+    	- SparkContext는 이전 버전과의 완벽한 호환성을 제공. 예를 들어, 기존에 Spark 1.x 버전에서 작성된 애플리케이션이 Spark의 최신 버전에서도 계속 작동할 수 있음
 
-	- Use in specific scenarios or with libraries/APIs reliant on it
+    - Use in specific scenarios or with libraries/APIs reliant on it
 
-		- 특정 라이브러리나 API가 여전히 SparkContext를 필요로 하는 경우가 있음 (e.g., 일부 low-level API나 특수한 작업을 수행하는 라이브러리는 SparkContext를 직접 사용)
+    	- 특정 라이브러리나 API가 여전히 SparkContext를 필요로 하는 경우가 있음 (e.g., 일부 low-level API나 특수한 작업을 수행하는 라이브러리는 SparkContext를 직접 사용)
 
 <br/>
 
 **#### Spark Session**
 
-	- Introduced in Spark 2.0
+    - Introduced in Spark 2.0
 
-	- Unified entry point for interacting with Spark
+    - Unified entry point for interacting with Spark
 
-		- 다양한 기능(SQL 쿼리, DataFrame 작업, 스트리밍 작업 등)을 하나의 인터페이스에서 사용할 수 있게 됨
+    	- 다양한 기능(SQL 쿼리, DataFrame 작업, 스트리밍 작업 등)을 하나의 인터페이스에서 사용할 수 있게 됨
 
-	- Combines functionalities of SparkContext, SQLContext, HiveContext, and StreamingContext
+    - Combines functionalities of SparkContext, SQLContext, HiveContext, and StreamingContext
 
-		- SQLContext의 SQL 작업, HiveContext의 Hive 작업, 그리고 StreamingContext의 스트리밍 작업 등을 SparkSession 하나로 처리할 수 있게 되었음 → 사용자의 편의성 증대
+    	- SQLContext의 SQL 작업, HiveContext의 Hive 작업, 그리고 StreamingContext의 스트리밍 작업 등을 SparkSession 하나로 처리할 수 있게 되었음 → 사용자의 편의성 증대
 
-	- Supports multiple programming languages (Scala, Java, Python, R)
+    - Supports multiple programming languages (Scala, Java, Python, R)
 
-	- ***Functionalities***
+    - ***Functionalities***
 
-		- Extends SparkContext functionality
+    	- Extends SparkContext functionality
 
-			- SparkSession은 SparkContext의 모든 기능을 포함하며, 추가적인 기능을 제공
+    		- SparkSession은 SparkContext의 모든 기능을 포함하며, 추가적인 기능을 제공
 
-		- Higher-level abstractions like DataFrames and Datasets
+    	- Higher-level abstractions like DataFrames and Datasets
 
-		- Provides data source APIs, machine learning algorithms, and streaming capabilities
+    	- Provides data source APIs, machine learning algorithms, and streaming capabilities
 
 <br/>
 
@@ -197,61 +197,59 @@ Spark 2.0 이후 도입된 SparkSession은 DataFrame과 같은 high-level API를
 
 → ([https://www.notion.so/a9cd823fd7fd45abaeb10a9a7a89436d](https://www.notion.so/a9cd823fd7fd45abaeb10a9a7a89436d]) 에서 어떻게 Spark가 구동되는지 간단히 알아보았으니, Spark가 작동되는 Cluster, 즉 multi-node 환경에서 실제로 앞서 설명한 노드들이 어떤 구조로 이루어져있는지, SparkSession과의 관계성도 고려해서 유기적으로 설명해보겠습니다.
 
-1. **Master Node와 클러스터 매니저**
+1.  **Master Node와 클러스터 매니저**
 
-		- Hadoop HDFS 구조
+        - Hadoop HDFS 구조
 
-		- **Master 노드 (NameNode)**:
+        - **Master 노드 (NameNode)**:
 
-			- HDFS에서 NameNode은 메타데이터를 관리. 이 메타데이터에는 파일 시스템의 디렉토리 구조, 파일 위치 정보 등이 포함되어 있어, 클러스터의 데이터 노드에서 데이터를 어디에서 찾을 수 있는지를 알려주는 역할을 수행
+        	- HDFS에서 NameNode은 메타데이터를 관리. 이 메타데이터에는 파일 시스템의 디렉토리 구조, 파일 위치 정보 등이 포함되어 있어, 클러스터의 데이터 노드에서 데이터를 어디에서 찾을 수 있는지를 알려주는 역할을 수행
 
-			- Master 노드는 시스템의 중앙 집중식 관리 노드로서, 전체 파일 시스템의 구조와 상태를 관리
+        	- Master 노드는 시스템의 중앙 집중식 관리 노드로서, 전체 파일 시스템의 구조와 상태를 관리
 
-		- **Slave 노드 (DataNode)**:
+        - **Slave 노드 (DataNode)**:
 
-			- 실제 데이터 파일은 DataNode에 분산 저장.
+        	- 실제 데이터 파일은 DataNode에 분산 저장.
 
-			- 해당 노드들은 NameNode의 지시에 따라 데이터를 저장하고, 데이터 요청에 응답
+        	- 해당 노드들은 NameNode의 지시에 따라 데이터를 저장하고, 데이터 요청에 응답
 
-			- 데이터 노드는 클러스터 내에서 파일 데이터의 실제 저장과 처리를 담당
+        	- 데이터 노드는 클러스터 내에서 파일 데이터의 실제 저장과 처리를 담당
 
-		- **Secondary NameNode (위의 그림에는 표기 X)**:
+        - **Secondary NameNode (위의 그림에는 표기 X)**:
 
-		- 주로  NameNode의 메타데이터를 주기적으로 백업하는 역할을 수행
+        - 주로  NameNode의 메타데이터를 주기적으로 백업하는 역할을 수행
 
-	- **클러스터 구조**
+    - **클러스터 구조**
 
-		- **Master 노드**:
+      - **Master 노드**:
 
-			- Spark에서는 Master 노드가 [클러스터 매니저](/1f7345e855b7412d9922776e3e5e1139#56ee4c6eb92e4f2ab93329bb3ce02afc) 역할을 수행
+        - Spark에서는 Master 노드가 [클러스터 매니저](/1f7345e855b7412d9922776e3e5e1139#56ee4c6eb92e4f2ab93329bb3ce02afc) 역할을 수행
 
-		- **Worker 노드**:
+      - **Worker 노드**:
 
-			- Worker 노드는 실제 데이터 처리 작업을 수행하는 노드
+        - Worker 노드는 실제 데이터 처리 작업을 수행하는 노드
 
-			- Master 노드로부터 할당받은 태스크를 수행하며, Spark의 연산과 데이터 저장을 처리
+        - Master 노드로부터 할당받은 태스크를 수행하며, Spark의 연산과 데이터 저장을 처리
 
-		- **클러스터 매니저(위의 그림의 하단 3개 상자)**: Spark에서 클러스터 매니저는 클러스터의 리소스(메모리, CPU 등)를 관리
+      - **클러스터 매니저(위의 그림의 하단 3개 상자)**: Spark에서 클러스터 매니저는 클러스터의 리소스(메모리, CPU 등)를 관리
 
-		- 클러스터 매니저에는 여러 유형이 있으며(Standalone, YARN, Mesos 등), 이들은 클러스터의 리소스 할당 및 태스크 관리를 담당
+      - 클러스터 매니저에는 여러 유형이 있으며(Standalone, YARN, Mesos 등), 이들은 클러스터의 리소스 할당 및 태스크 관리를 담당
 
-	**⇒ 어?! 로컬/서버 1대에서는 클러스터라는 개념이 성립이 될 수 없는데라는 의문이 들었다면 아래를 계속 읽어주세요!**
+    **⇒ 어?! 로컬/서버 1대에서는 클러스터라는 개념이 성립이 될 수 없는데라는 의문이 들었다면 아래를 계속 읽어주세요!**
 
-1. ([https://www.notion.so/29f09ded8c3741cdba7291e8e7c444ce](https://www.notion.so/29f09ded8c3741cdba7291e8e7c444ce])
+1.  ([https://www.notion.so/29f09ded8c3741cdba7291e8e7c444ce](https://www.notion.so/29f09ded8c3741cdba7291e8e7c444ce])
 
-	- `SparkSession`은 사용자가 Spark와 상호작용하기 위한 Entry Point. (i.e., 해당 세션을 통해 사용자는 데이터 로드, 처리, 저장 등의 작업을 제출) 하지만, SparkSession은 Local모드. Cluster모드 2가지에서 각각 다르게 동작
+    - `SparkSession`은 사용자가 Spark와 상호작용하기 위한 Entry Point. (i.e., 해당 세션을 통해 사용자는 데이터 로드, 처리, 저장 등의 작업을 제출) 하지만, SparkSession은 Local모드. Cluster모드 2가지에서 각각 다르게 동작
 
-		- **Local 모드 (싱글 머신)**
+      - **Local 모드 (싱글 머신)**
 
-			-  `SparkSession`이 `.master("local[*]")`로 설정된 경우, **Master 노드**와 **Worker 노드** 모두 로컬 컴퓨터에서 실행. 이 경우, 단일 컴퓨터에서 모든 Spark 작업이 처리. 클러스터 매니저는 내부적으로 이를 관리하지만, <u>*별도의 물리적 *</u><u>***Master 노드***</u><u>*와 *</u><u>***Worker 노드***</u><u>*는 존재하지 않음 (싱글머신에 컨테이너 N대 띄우고 클러스터모드로 돌리는 환경을 많이 사용하는것 같습니다,,!)*</u>.
+        - `SparkSession`이 `.master("local[*]")`로 설정된 경우, **Master 노드**와 **Worker 노드** 모두 로컬 컴퓨터에서 실행. 이 경우, 단일 컴퓨터에서 모든 Spark 작업이 처리. 클러스터 매니저는 내부적으로 이를 관리하지만, <u>_별도의 물리적 _</u><u>**_Master 노드_**</u><u>_와 _</u><u>**_Worker 노드_**</u><u>_는 존재하지 않음 (싱글머신에 컨테이너 N대 띄우고 클러스터모드로 돌리는 환경을 많이 사용하는것 같습니다,,!)_</u>.
 
-			- **Local 모드**에서 <span style='color:red'>Spark는 싱글 머신에서 실행되며, 사용 가능한 CPU 코어들을 Worker 노드로 간주. </span>각 코어는 병렬 처리를 수행하는 하나의 "논리적" 워커로 작동
+        - **Local 모드**에서 <span style='color:red'>Spark는 싱글 머신에서 실행되며, 사용 가능한 CPU 코어들을 Worker 노드로 간주. </span>각 코어는 병렬 처리를 수행하는 하나의 "논리적" 워커로 작동
 
-			- **Local 모드**는 주로 개발과 테스팅을 목적으로 사용되며, 실제 클러스터 환경에서의 실행을 모의하기 위한 방법으로 사용
+        - **Local 모드**는 주로 개발과 테스팅을 목적으로 사용되며, 실제 클러스터 환경에서의 실행을 모의하기 위한 방법으로 사용
 
-			- **Executor**: 로컬 모드에서는 <span style='color:red'>*전체 JVM(Spark Session은 JVM으로 돌아감)이 하나의 큰 실행자(executor)로 볼 수 있으며, 여러 스레드가 데이터를 처리*</span>
-
-
+        - **Executor**: 로컬 모드에서는 <span style='color:red'>_전체 JVM(Spark Session은 JVM으로 돌아감)이 하나의 큰 실행자(executor)로 볼 수 있으며, 여러 스레드가 데이터를 처리_</span>
 
 ```python
 from pyspark.sql import SparkSession
@@ -264,19 +262,17 @@ spark = SparkSession.builder \
 
 ```
 
-		- **CLUSTER 모드 (멀티 머신)**
+    	- **CLUSTER 모드 (멀티 머신)**
 
-			- **CLUSTER 모드**에서는 **Master 노드**가 하나의 서버(또는 컴퓨터)에서 실행되고, 여러 워커 노드가 다른 서버에서 실행. 이 경우, **Master 노드**는 클러스터 매니저를 통해 클러스터 전체의 리소스를 관리하고 워커 노드에게 작업을 할당
+    		- **CLUSTER 모드**에서는 **Master 노드**가 하나의 서버(또는 컴퓨터)에서 실행되고, 여러 워커 노드가 다른 서버에서 실행. 이 경우, **Master 노드**는 클러스터 매니저를 통해 클러스터 전체의 리소스를 관리하고 워커 노드에게 작업을 할당
 
-			- **CLUSTER 모드**에서는 <span style='color:red'>*여러 물리적 머신이 Worker 노드로 구성되어 각기 다른 데이터 세트의 처리를 담당*</span>. 이 각 머신은 독립적인 리소스(CPU, 메모리)를 장착
+    		- **CLUSTER 모드**에서는 <span style='color:red'>*여러 물리적 머신이 Worker 노드로 구성되어 각기 다른 데이터 세트의 처리를 담당*</span>. 이 각 머신은 독립적인 리소스(CPU, 메모리)를 장착
 
-			- **CLUSTER 모드**에서 Spark는 다수의 Worker Node를 통해 데이터를 분산 처리하며, <u>*각 Worker Node는 하나 이상의 executor를 가질 수 있음*</u>
+    		- **CLUSTER 모드**에서 Spark는 다수의 Worker Node를 통해 데이터를 분산 처리하며, <u>*각 Worker Node는 하나 이상의 executor를 가질 수 있음*</u>
 
-				- 이 <u>*executor*</u>들이 실제 데이터 처리 작업을 담당하며, 각 <u>*executor*</u>는 Worker 노드의 리소스를 할당받아 독립적으로 작업을 수행
+    			- 이 <u>*executor*</u>들이 실제 데이터 처리 작업을 담당하며, 각 <u>*executor*</u>는 Worker 노드의 리소스를 할당받아 독립적으로 작업을 수행
 
-			- 클러스터 매니저(예: YARN, Mesos, Spark 자체의 Standalone 클러스터 매니저)가 전체 자원을 관리하고 워커 노드에 작업을 할당
-
-
+    		- 클러스터 매니저(예: YARN, Mesos, Spark 자체의 Standalone 클러스터 매니저)가 전체 자원을 관리하고 워커 노드에 작업을 할당
 
 ```python
 from pyspark.sql import SparkSession
@@ -298,45 +294,45 @@ spark = SparkSession.builder \
 
 - SPARK라는 생태계의 가장 low-level의 데이터 처리 단위라고 필자는 이해하였다.
 
-	(하지만 element(요소)단위로 실질적인 transformation이 적용되는거 같음)
+  (하지만 element(요소)단위로 실질적인 transformation이 적용되는거 같음)
 
 ### About RDDs
 
 1. **Backbone of data processing in Spark**
 
-	- RDD는 Spark에서 데이터 처리 작업의 기본 단위로 사용
+   - RDD는 Spark에서 데이터 처리 작업의 기본 단위로 사용
 
-	- 데이터는 클러스터 전체의 여러 노드에 분산 저장되며, 각 노드는 할당된 데이터 부분에 대한 작업을 병렬로 수행할 수 있음
+   - 데이터는 클러스터 전체의 여러 노드에 분산 저장되며, 각 노드는 할당된 데이터 부분에 대한 작업을 병렬로 수행할 수 있음
 
 1. **Distributed, fault-tolerant, parallelizable data structure, and in-memory**
 
-	- **분산(Distributed)**: 데이터는 네트워크상의 여러 컴퓨터(노드)에 걸쳐 분산되어 저장. 이 구조는 데이터를 여러 노드에 나누어 처리함으로써, 처리 속도를 높이고, 한 노드의 실패가 전체 시스템에 미치는 영향을 최소화
+   - **분산(Distributed)**: 데이터는 네트워크상의 여러 컴퓨터(노드)에 걸쳐 분산되어 저장. 이 구조는 데이터를 여러 노드에 나누어 처리함으로써, 처리 속도를 높이고, 한 노드의 실패가 전체 시스템에 미치는 영향을 최소화
 
-	- **내결함성(Fault-tolerant)**: RDD는 데이터의 파티션을 여러 노드에 복제하거나, 데이터의 메타데이터(예: tranformation 연산 기록)를 사용하여 실패한 노드의 데이터를 다시 계산할 수 있게 만듦. 이를 통해 데이터 손실 없이 시스템의 장애를 극복할 수 있음
+   - **내결함성(Fault-tolerant)**: RDD는 데이터의 파티션을 여러 노드에 복제하거나, 데이터의 메타데이터(예: tranformation 연산 기록)를 사용하여 실패한 노드의 데이터를 다시 계산할 수 있게 만듦. 이를 통해 데이터 손실 없이 시스템의 장애를 극복할 수 있음
 
-	- **병렬 처리 가능(Parallelizable)**: 데이터의 각 파티션은 독립적으로 처리될 수 있어, 여러 처리 작업을 동시에 수행
+   - **병렬 처리 가능(Parallelizable)**: 데이터의 각 파티션은 독립적으로 처리될 수 있어, 여러 처리 작업을 동시에 수행
 
-	- <span style='color:red'>**메모리 저장(In-Memory)**</span><span style='color:red'>: RDD는 데이터를 메모리에 저장하고, 여러 연산을 메모리 상에서 직접 수행함으로써 데이터 접근 시간을 단축</span>
+   - <span style='color:red'>**메모리 저장(In-Memory)**</span><span style='color:red'>: RDD는 데이터를 메모리에 저장하고, 여러 연산을 메모리 상에서 직접 수행함으로써 데이터 접근 시간을 단축</span>
 
 1. **Efficiently processes large datasets across a cluster**
 
-	- RDD를 사용하면 매우 큰 데이터셋을 효율적으로 처리. 데이터는 파티션 단위로 분할되고, 각 파티션은 클러스터의 다양한 노드에서 동시에 처리.
+   - RDD를 사용하면 매우 큰 데이터셋을 효율적으로 처리. 데이터는 파티션 단위로 분할되고, 각 파티션은 클러스터의 다양한 노드에서 동시에 처리.
 
 1. **Key characteristics: immutable, distributed, resilient, lazily evaluated, fault-tolerant**:
 
-	- **불변성(Immutable)**: 한 번 생성된 RDD는 변경할 수 없음. 데이터에 transformation을 가하려면, 새로운 RDD를 생성하는 transformation 연산을 적용해야 함. 이는 데이터의 일관성을 보장하고, 복잡한 데이터 파이프라인을 안정적으로 관리할 수 있게 함
+   - **불변성(Immutable)**: 한 번 생성된 RDD는 변경할 수 없음. 데이터에 transformation을 가하려면, 새로운 RDD를 생성하는 transformation 연산을 적용해야 함. 이는 데이터의 일관성을 보장하고, 복잡한 데이터 파이프라인을 안정적으로 관리할 수 있게 함
 
-	- **Distributed**: 데이터를 여러 노드에 나누어 (partitioned) 분산처리되도록 함
+   - **Distributed**: 데이터를 여러 노드에 나누어 (partitioned) 분산처리되도록 함
 
-	- <span style='color:red'>**Lazily evaluated**</span><span style='color:red'>: RDD 연산은 실제로 액션(action)이 호출될 때까지 실행되지 않음. 불필요한 계산을 피하고 최적화된 방식으로 데이터를 처리</span>
+   - <span style='color:red'>**Lazily evaluated**</span><span style='color:red'>: RDD 연산은 실제로 액션(action)이 호출될 때까지 실행되지 않음. 불필요한 계산을 피하고 최적화된 방식으로 데이터를 처리</span>
 
-	- **Fault-tolerant:  **`map`, `filter`, `reduce`, `collect`, `count`, `save` 등의 연산을 지원하며, 해당 연산들은 모두 내결함성을 갖음. 예를 들어, 하나의 워커 노드가 위의 연산을 처리하는 도중에 문제가 발생해도 해당 노드의 처리가 필요한 RDD 파티션은 다른 노드에서 재처리가 가능함
+   - **Fault-tolerant: **`map`, `filter`, `reduce`, `collect`, `count`, `save` 등의 연산을 지원하며, 해당 연산들은 모두 내결함성을 갖음. 예를 들어, 하나의 워커 노드가 위의 연산을 처리하는 도중에 문제가 발생해도 해당 노드의 처리가 필요한 RDD 파티션은 다른 노드에서 재처리가 가능함
 
 <br/>
 
 ### How to Make RDDs?
 
-**#### **([https://www.notion.so/fb84785de42b4495ac8a26cac7c7dbf0](https://www.notion.so/fb84785de42b4495ac8a26cac7c7dbf0])** **
+**#### **([https://www.notion.so/fb84785de42b4495ac8a26cac7c7dbf0](https://www.notion.so/fb84785de42b4495ac8a26cac7c7dbf0])\*\* \*\*
 
 ```python
 
@@ -398,7 +394,7 @@ rdd.collect()
 
 ```
 
-**#### **([https://www.notion.so/f64e61864c3d414d9de7780e4fddd5ad](https://www.notion.so/f64e61864c3d414d9de7780e4fddd5ad])** **
+**#### **([https://www.notion.so/f64e61864c3d414d9de7780e4fddd5ad](https://www.notion.so/f64e61864c3d414d9de7780e4fddd5ad])\*\* \*\*
 
 ```python
 from pyspark.sql import SparkSession
@@ -444,7 +440,7 @@ Partition 5: [19, 20]
 
 **#### Transformations**
 
-- **개념**: Transformations은 RDD에 적용되는 연산으로, <span style='color:red'>새로운 RDD를 생성</span>. <span style='color:red'>*Transformations은 '지연 평가(lazy evaluation)' 모델을 따르기 때문에, 실제 연산은 관련된 동작(Action)이 호출될 때까지 실행X*</span>
+- **개념**: Transformations은 RDD에 적용되는 연산으로, <span style='color:red'>새로운 RDD를 생성</span>. <span style='color:red'>_Transformations은 '지연 평가(lazy evaluation)' 모델을 따르기 때문에, 실제 연산은 관련된 동작(Action)이 호출될 때까지 실행X_</span>
 
 - **특성**: Transformations을 통해 생성된 새 RDD는 원본 RDD의 변경 불가능한(immutable) 특성을 유지하며, 원본 데이터를 수정하지 않고 새로운 데이터셋을 생성
 
@@ -454,7 +450,7 @@ Partition 5: [19, 20]
 
 - **개념**: Actions은 RDD에 적용되며, 변환된 데이터에 대해 계산을 실행하고 결과를 반환. <span style='color:red'>Actions은 '적극적 평가(eager evaluation)'을 통해 즉시 결과를 도출</span>
 
-- **특성**: <span style='color:red'>Actions은 Spark의 연산 과정에서 </span><span style='color:red'>*lazy evaluation*</span><span style='color:red'>된 transformations들을 trigger</span>하고, <span style='color:red'>최종 결과를 계산하기 위해 데이터를 드라이버 프로그램으로 가져오거나 외부 시스템에 저장</span>
+- **특성**: <span style='color:red'>Actions은 Spark의 연산 과정에서 </span><span style='color:red'>_lazy evaluation_</span><span style='color:red'>된 transformations들을 trigger</span>하고, <span style='color:red'>최종 결과를 계산하기 위해 데이터를 드라이버 프로그램으로 가져오거나 외부 시스템에 저장</span>
 
 - **예시**: `collect`, `count`, `first`, `take`, `save`, `foreach` → `collect` 동작은 RDD의 모든 요소를 드라이버 프로그램으로 반환하여 사용하도록 함
 
@@ -464,20 +460,16 @@ Partition 5: [19, 20]
 
 1. **Transformation**:
 
-	**#### Big Picture**
-
-
+   **#### Big Picture**
 
 ```python
 filtered_customers = customers_rdd.filter(lambda x: x['age'] > 30)
 
 ```
 
-	- 즉시 실행 X (i.e., lazy evaluation). 대신, 필요한 계산을 정의하고, 실행 계획을 준비
+    - 즉시 실행 X (i.e., lazy evaluation). 대신, 필요한 계산을 정의하고, 실행 계획을 준비
 
-	- action을 통해서 실행시켜줘야 결과물 확인 가능
-
-
+    - action을 통해서 실행시켜줘야 결과물 확인 가능
 
 ```python
 ### LOCAL 노드 환경 가정
@@ -504,44 +496,40 @@ sorted_rdd.collect()
 
 ```
 
-	1. `map()`
+    1. `map()`
 
-		- `map()`  RDD의 각 요소에 주어진 함수를 적용, <u>그 결과로 새로운 RDD를 생성</u>
+    	- `map()`  RDD의 각 요소에 주어진 함수를 적용, <u>그 결과로 새로운 RDD를 생성</u>
 
-	1.  `filter()`
+    1.  `filter()`
 
-		- `filter()` 주어진 조건 함수를 만족하는 요소들만을 포함하는 <u>새로운 RDD를 생성</u>
+    	- `filter()` 주어진 조건 함수를 만족하는 요소들만을 포함하는 <u>새로운 RDD를 생성</u>
 
-		- 예시 코드에서는 나이가 30 초과인 사람들만 필터링
+    	- 예시 코드에서는 나이가 30 초과인 사람들만 필터링
 
-	1. `reduceByKey()`
+    1. `reduceByKey()`
 
-		- `reduceByKey()`키-값 쌍(pair)을 가진 RDD에 사용되며, 같은 키를 가진 값들을 주어진 reduce()함수로 합쳐서 <u>새로운 RDD를 생성</u>
+    	- `reduceByKey()`키-값 쌍(pair)을 가진 RDD에 사용되며, 같은 키를 가진 값들을 주어진 reduce()함수로 합쳐서 <u>새로운 RDD를 생성</u>
 
-		- 예시 코드에서는 이름을 키로 하여 나이를 합산
+    	- 예시 코드에서는 이름을 키로 하여 나이를 합산
 
-	1.  `sortBy()`
+    1.  `sortBy()`
 
-		-  `sortBy()`  주어진 키 함수의 결과에 따라 요소를 정렬한 <u>새로운 RDD를 생성 </u>
+    	-  `sortBy()`  주어진 키 함수의 결과에 따라 요소를 정렬한 <u>새로운 RDD를 생성 </u>
 
-		- 예시 코드에서는 나이를 기준으로 내림차순 정렬
+    	- 예시 코드에서는 나이를 기준으로 내림차순 정렬
 
-	<br/>
+    <br/>
 
 1. **Action**:
 
-	**#### Big Picture**
-
-
+   **#### Big Picture**
 
 ```python
 result = filtered_customers.collect()
 
 ```
 
-	이제 `collect()` 동작이 호출되면서, `filter` 변환에 의해 정의된 모든 ‘***tranformation’ ***연산이 실행, 이후 그 결과가 반환
-
-
+    이제 `collect()` 동작이 호출되면서, `filter` 변환에 의해 정의된 모든 ‘***tranformation’ ***연산이 실행, 이후 그 결과가 반환
 
 ```python
 ### LOCAL 노드 환경 가정
@@ -565,53 +553,51 @@ rdd.foreach(lambda x: print(x))
 
 ```
 
-	1. `collect()`
+    1. `collect()`
 
-		- `collect()`  RDD에 포함된 모든 요소를 드라이버 프로그램(여기서는 사용자의 Local 머신)으로 반환
+    	- `collect()`  RDD에 포함된 모든 요소를 드라이버 프로그램(여기서는 사용자의 Local 머신)으로 반환
 
-		-  collect()는 RDD 전체를 메모리에 로드하므로, 큰 데이터셋에서는 메모리 오버플로를 발생 가능
+    	-  collect()는 RDD 전체를 메모리에 로드하므로, 큰 데이터셋에서는 메모리 오버플로를 발생 가능
 
-	1.  `count()`
+    1.  `count()`
 
-		- `count()` 함수는 RDD에 포함된 요소의 총 수를 count해서 반환
+    	- `count()` 함수는 RDD에 포함된 요소의 총 수를 count해서 반환
 
-		- 예시 코드에서는 `rdd.count()`를 호출하여 데이터의 총 수를 계산하고 그 결과를 출력
+    	- 예시 코드에서는 `rdd.count()`를 호출하여 데이터의 총 수를 계산하고 그 결과를 출력
 
-	1.  `first()`
+    1.  `first()`
 
-		- `first()` 함수는 RDD의 첫 번째 요소를 반환
+    	- `first()` 함수는 RDD의 첫 번째 요소를 반환
 
-		- 예시 코드에서는 `rdd.first()`를 사용하여 첫 번째 데이터 요소를 검색하고 그 결과를 출력
+    	- 예시 코드에서는 `rdd.first()`를 사용하여 첫 번째 데이터 요소를 검색하고 그 결과를 출력
 
-	1. `take(n)`
+    1. `take(n)`
 
-		- `take(n)` 함수는 RDD에서 처음 `n`개의 요소를 반환 (상위 `n`개 데이터 샘플을 보고자 할 때 사용)
+    	- `take(n)` 함수는 RDD에서 처음 `n`개의 요소를 반환 (상위 `n`개 데이터 샘플을 보고자 할 때 사용)
 
-		- 예시 코드에서는 `rdd.take(2)`를 호출하여 상위 2개 데이터 요소를 반환
+    	- 예시 코드에서는 `rdd.take(2)`를 호출하여 상위 2개 데이터 요소를 반환
 
-	1. `foreach()`
+    1. `foreach()`
 
-		- `foreach()` 함수는 RDD의 각 요소에 대해 지정된 함수를 실행 (RDD의 각 요소에 대해 부작용(side effect)를 가진 작업을 수행할 때 사용 (예: 데이터베이스에 저장, 출력 등))
+    	- `foreach()` 함수는 RDD의 각 요소에 대해 지정된 함수를 실행 (RDD의 각 요소에 대해 부작용(side effect)를 가진 작업을 수행할 때 사용 (예: 데이터베이스에 저장, 출력 등))
 
-		- 예시 코드에서는 `rdd.foreach(lambda x: print(x))`를 사용하여 RDD의 모든 요소를 출력
+    	- 예시 코드에서는 `rdd.foreach(lambda x: print(x))`를 사용하여 RDD의 모든 요소를 출력
 
-	<br/>
+    <br/>
 
 ### Additional Operations
 
 - `saveAsTextFile()`
 
-	- `saveAsTextFile("output.txt")` RDD의 내용을 외부 파일 시스템에 텍스트 파일 형식으로 저장
+  - `saveAsTextFile("output.txt")` RDD의 내용을 외부 파일 시스템에 텍스트 파일 형식으로 저장
 
-	- 로컬 파일 시스템, HDFS(Hadoop Distributed File System), S3 같은 클라우드 스토리지 등 다양한 파일 시스템을 지원
+  - 로컬 파일 시스템, HDFS(Hadoop Distributed File System), S3 같은 클라우드 스토리지 등 다양한 파일 시스템을 지원
 
-	- `output.txt`라는 이름으로 저장하면, 실제로는 `output.txt/part-00000`, `output.txt/part-00001` 등의 형태로 여러 파일에 걸쳐 저장 (RDD가 분산되어 처리되기 때문)
+  - `output.txt`라는 이름으로 저장하면, 실제로는 `output.txt/part-00000`, `output.txt/part-00001` 등의 형태로 여러 파일에 걸쳐 저장 (RDD가 분산되어 처리되기 때문)
 
--  `textFile()`
+- `textFile()`
 
-	- `spark.sparkContext.textFile("output.txt")`  텍스트 파일로부터 새로운 RDD를 생성. 파일의 각 라인을 RDD의 한 요소로 로드
-
-
+  - `spark.sparkContext.textFile("output.txt")` 텍스트 파일로부터 새로운 RDD를 생성. 파일의 각 라인을 RDD의 한 요소로 로드
 
 ```python
 rdd_text = spark.sparkContext.textFile("output.txt")
@@ -653,39 +639,39 @@ rdd_text.collect()
 
 - Optimized Execution
 
-	- **Schema Information**
+  - **Schema Information**
 
-		- DataFrames의 형태이기에 각 컬럼의 데이터 유형을 미리 알고 있음. <u>*따라서 더 효율적인 데이터 처리와 쿼리 최적화가 가능. 스키마 정보는 query planner에 의해 사용되어 더 빠르고 효율적인 실행 계획을 생성.*</u>
+    - DataFrames의 형태이기에 각 컬럼의 데이터 유형을 미리 알고 있음. <u>_따라서 더 효율적인 데이터 처리와 쿼리 최적화가 가능. 스키마 정보는 query planner에 의해 사용되어 더 빠르고 효율적인 실행 계획을 생성._</u>
 
-	- **Predicate Pushdown**
+  - **Predicate Pushdown**
 
-		- 쿼리의 필터링 조건을 가능한 한 데이터 소스에 가깝게 적용하여 불필요한 데이터의 처리와 이동을 줄이는 최적화도 가능하게 함. 예를 들어, 데이터베이스에서 데이터를 가져올 때 필요한 데이터만 추출하여 전송량을 줄이고 처리 속도를 높임.
+    - 쿼리의 필터링 조건을 가능한 한 데이터 소스에 가깝게 적용하여 불필요한 데이터의 처리와 이동을 줄이는 최적화도 가능하게 함. 예를 들어, 데이터베이스에서 데이터를 가져올 때 필요한 데이터만 추출하여 전송량을 줄이고 처리 속도를 높임.
 
 - Ease of Use
 
-	- **SQL-like Interface (사용편의성)**
+  - **SQL-like Interface (사용편의성)**
 
-	- **Simplified API**
+  - **Simplified API**
 
-		- **API 단순화**: 복잡한 RDD 변환과 액션 대신, DataFrames API는 직관적이고 선언적인 데이터 조작을 지원 → 사실상 사용자 입장에서 가장 큰 장점 중 하나
+    - **API 단순화**: 복잡한 RDD 변환과 액션 대신, DataFrames API는 직관적이고 선언적인 데이터 조작을 지원 → 사실상 사용자 입장에서 가장 큰 장점 중 하나
 
 - Integration with Ecosystem
 
-	- <span style='color:red'>**Seamless Integration**</span>
+  - <span style='color:red'>**Seamless Integration**</span>
 
-		- Spark SQL, MLLib, GraphX 등 Spark의 다른 라이브러리들과의 원활한 통합을 통해, 복잡한 데이터 파이프라인을 구축할 때 일관된 API를 사용 가능 → 마찬가지로 사용자 입장에서 가장 큰 장점 중 하나
+    - Spark SQL, MLLib, GraphX 등 Spark의 다른 라이브러리들과의 원활한 통합을 통해, 복잡한 데이터 파이프라인을 구축할 때 일관된 API를 사용 가능 → 마찬가지로 사용자 입장에서 가장 큰 장점 중 하나
 
 - Built-in Optimization
 
-	- **Catalyst Optimizer**
+  - **Catalyst Optimizer**
 
-		- Spark의 고급 최적화 엔진인 Catalyst는 실행 계획을 동적으로 컴파일하고 최적화하여 실행 성능을 크게 향상.
+    - Spark의 고급 최적화 엔진인 Catalyst는 실행 계획을 동적으로 컴파일하고 최적화하여 실행 성능을 크게 향상.
 
 - Interoperability
 
-	- <span style='color:red'>**Data Format Conversion**</span>
+  - <span style='color:red'>**Data Format Conversion**</span>
 
-		- DataFrames는 다양한 데이터 소스와 포맷(Pandas DataFrames, Parquet, JSON 등)으로부터 쉽게 데이터를 읽고 쓸 수 있으며, 다른 데이터 처리 도구와의 연동이 용이 → 전처리하는  입장에서 가장 큰 장점 중 하나
+    - DataFrames는 다양한 데이터 소스와 포맷(Pandas DataFrames, Parquet, JSON 등)으로부터 쉽게 데이터를 읽고 쓸 수 있으며, 다른 데이터 처리 도구와의 연동이 용이 → 전처리하는 입장에서 가장 큰 장점 중 하나
 
 <br/>
 
@@ -695,13 +681,11 @@ rdd_text.collect()
 
 - **pandas DataFrame**
 
-	- pandas에서의 DataFrame은 mutable(가변)
+  - pandas에서의 DataFrame은 mutable(가변)
 
-	- 즉, 데이터 프레임 내의 데이터를 직접 변경할 수 있음, 대부분의 사용자가 경험해보았듯이 데이터를 조작하고 업데이트할 때 매우 유연한 구조를 가지고 있음
+  - 즉, 데이터 프레임 내의 데이터를 직접 변경할 수 있음, 대부분의 사용자가 경험해보았듯이 데이터를 조작하고 업데이트할 때 매우 유연한 구조를 가지고 있음
 
-	- method에 `inplace` 매개변수를 제공하여, 원본 데이터 프레임을 직접 수정할지 여부를 사용자가 선택할  수 있음
-
-
+  - method에 `inplace` 매개변수를 제공하여, 원본 데이터 프레임을 직접 수정할지 여부를 사용자가 선택할 수 있음
 
 ```python
 import pandas as pd
@@ -728,11 +712,9 @@ print(df_pandas)
 
 - **Spark DataFrame**
 
-	- Spark에서의 DataFrame은 immutable(불변)
+  - Spark에서의 DataFrame은 immutable(불변)
 
-	- <u>즉, 한 번 생성되면 그 내용을 변경할 수 없으며, 데이터에 변형을 가하고자 할 때는 새로운 DataFrame이 생성 </u>
-
-
+  - <u>즉, 한 번 생성되면 그 내용을 변경할 수 없으며, 데이터에 변형을 가하고자 할 때는 새로운 DataFrame이 생성 </u>
 
 ```python
 from pyspark.sql import SparkSession
@@ -1034,7 +1016,7 @@ Grouped and Aggregated Data:
 
 <br/>
 
-… 이외에도 `**join**`** , **`**orderBy**`** **등의 transformation 적용 가능
+… 이외에도 `**join**`** , **`**orderBy**`\*\* \*\*등의 transformation 적용 가능
 
 <br/>
 
@@ -1042,9 +1024,9 @@ Grouped and Aggregated Data:
 
 - LLM Training을 위해서는 대용량 Corpus 수집 후 전처리가 필수적
 
-	(실제로 NLP Researcher들이 Spark를 가장 많이 활용할 부분)
+  (실제로 NLP Researcher들이 Spark를 가장 많이 활용할 부분)
 
-- polyglot 모델 학습시에 Deduplication, 전처리코드 활용되었던  레포지토리내의 Deduplication 코드를 상세하게 리뷰해보면서 PySpark가 어떻게 사용되는지 이해를 높혀보고자 한다!
+- polyglot 모델 학습시에 Deduplication, 전처리코드 활용되었던 레포지토리내의 Deduplication 코드를 상세하게 리뷰해보면서 PySpark가 어떻게 사용되는지 이해를 높혀보고자 한다!
 
 - 아래는 dps/spark/jobs/dedup_job.py 전문
 
@@ -1162,7 +1144,7 @@ def expand_instances_by_minhash(
 
 - `generate_minhash`: 분할된 data로부터 MinHash 값을 생성
 
-	- 실제로 저 함수는 hash_values = np.array([])라는 것을 반환
+  - 실제로 저 함수는 hash_values = np.array([])라는 것을 반환
 
 - `expand_instances_by_minhash`: 를 거치면 각 데이터는 하나의 min_hash value로 mapping됨 (yield (str(mh), [dict(**data, shingles=shingles, hashvalues=minhashes)]))
 
@@ -1199,7 +1181,7 @@ def explore_dedup_instance(hash_groups, threshold: float = 0.8):
 
 - `combinations`: 가능한 모든 텍스트 쌍을 생성
 
-	- 이때 ([https://www.notion.so/ab77c70d558e4dbbade6bf99de13c937](https://www.notion.so/ab77c70d558e4dbbade6bf99de13c937]) 에서 생성한 str(mh)끼리만 combinations를 생성 (그룹 내의 모든 데이터 쌍의 조합을 생성)
+  - 이때 ([https://www.notion.so/ab77c70d558e4dbbade6bf99de13c937](https://www.notion.so/ab77c70d558e4dbbade6bf99de13c937]) 에서 생성한 str(mh)끼리만 combinations를 생성 (그룹 내의 모든 데이터 쌍의 조합을 생성)
 
 - `jaccard_by_hashvalues`: 위에서 생성한 combinations 텍스트 사이의 유사도를 계산
 
@@ -1261,7 +1243,7 @@ overlap_kv_rdd: RDD = (
 
 - `map`: 각 결과에 대한 추가적인 데이터 구조를 생성
 
-	(예시: [("apple", {'text': 'apple'}), ("banana", {'text': 'banana'}), ("cherry", {'text': 'cherry'})])
+  (예시: [("apple", {'text': 'apple'}), ("banana", {'text': 'banana'}), ("cherry", {'text': 'cherry'})])
 
 ⇒ 위 코드는 중복된 instance/RDD를 찾아내는 함수
 
@@ -1288,10 +1270,7 @@ proc_rdd.map(lambda x: (x["text"], x)).subtractByKey(overlap_kv_rdd).map(
 
 ## 6. References
 
-
-
-[//]: # (link_preview is not supported)
-
-[//]: # (link_preview is not supported)
+[//]: # "link_preview is not supported"
+[//]: # "link_preview is not supported"
 
 <br/>

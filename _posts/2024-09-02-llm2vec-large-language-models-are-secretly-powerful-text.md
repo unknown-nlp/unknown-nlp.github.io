@@ -1,26 +1,27 @@
 ---
 categories:
-- paper-reviews
-date: '2024-09-02 00:00:00'
+  - paper-reviews
+date: "2024-09-02 00:00:00"
 description: 논문 리뷰 - Embeddings, LLM 관련 연구
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-- attention
-- bert
-- classification
-- embedding
-- embeddings
-- gpt
-- language-model
-- llm
-- paper-review
+  - attention
+  - bert
+  - classification
+  - embedding
+  - embeddings
+  - gpt
+  - language-model
+  - llm
+  - paper-review
 thumbnail: assets/img/posts/2024-09-02-llm2vec-large-language-models-are-secretly-powerful-text/thumbnail.jpg
-title: 'LLM2Vec: Large Language Models Are Secretly Powerful Text Encoders'
+title: "LLM2Vec: Large Language Models Are Secretly Powerful Text Encoders"
 ---
 
 **논문 정보**
+
 - **Date**: 2024-09-02
 - **Reviewer**: 김재희
 - **Property**: Embeddings, LLM
@@ -57,11 +58,11 @@ title: 'LLM2Vec: Large Language Models Are Secretly Powerful Text Encoders'
 
 ## 3. Experimental Setup
 
-### Masking Token: “_”
+### Masking Token: “\_”
 
 - Decoder model은 masking token이 없음
 
-- 나는 바보가 아니다. → 나는 _ 아니다. 
+- 나는 바보가 아니다. → 나는 \_ 아니다.
 
 ### training step (1 A100)
 
@@ -73,7 +74,7 @@ title: 'LLM2Vec: Large Language Models Are Secretly Powerful Text Encoders'
 
 ### Training Dataset
 
-Wikipedia 데이터 이용: 모든 LLM의 사전학습에 포함 
+Wikipedia 데이터 이용: 모든 LLM의 사전학습에 포함
 
 - MNTP: Wikitext-103
 
@@ -113,7 +114,7 @@ MTEB 벤치마크 내 15개 태스크에 대한 평균값
 
 - Bi + Mean: Decoder 모델에 대해 Bi Attn만 적용하고 모든 token에 대한 Mean pooling 이용
 
-- LLM2Vec(w/o SimCSE): 거의 모든 태스크에서 Uni + Mean 대비 높은 성능 도출 
+- LLM2Vec(w/o SimCSE): 거의 모든 태스크에서 Uni + Mean 대비 높은 성능 도출
 
 - LLM2Vec: 매우 높은 성능 도출
 
@@ -129,7 +130,7 @@ MTEB 벤치마크 내 15개 태스크에 대한 평균값
 
 - A 문장의 토큰에서 pooling하여 representation을 산출
 
-- 모델 크기에 관계없이 MNTP 이후 pos와 Neg 간 거리가 벌어짐 
+- 모델 크기에 관계없이 MNTP 이후 pos와 Neg 간 거리가 벌어짐
 
 ### 4-5. Analysis 2(why Mistral works)
 

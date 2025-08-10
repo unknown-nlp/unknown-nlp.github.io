@@ -1,7 +1,7 @@
 ---
 categories: paper-reviews
-date: '2024-05-07 00:00:00'
-description: ' 논문 리뷰 - How to Inference Big LLM? - Using Accelerate Library'
+date: "2024-05-07 00:00:00"
+description: " 논문 리뷰 - How to Inference Big LLM? - Using Accelerate Library"
 giscus_comments: true
 layout: post
 related_posts: false
@@ -10,6 +10,7 @@ title: How to Inference Big LLM? - Using Accelerate Library
 ---
 
 **논문 정보**
+
 - **Date**: 2024-05-07
 - **Reviewer**: 준원 장
 - **Property**: LLM, Inference
@@ -78,7 +79,7 @@ with init_empty_weights():
 
 - Instantiate한 Model이 ‘Parameterless’하기 때문에  [load_checkpoint_and_dispatch()](https://huggingface.co/docs/accelerate/v0.29.2/en/package_reference/big_modeling#accelerate.load_checkpoint_and_dispatch)라는 함수를 통해서 checkpoint를 empty model에 load하고, 모든 device(GPU/MPS 및 CPU RAM)에 걸쳐 weight를 보낸다.
 
-	[`device_map="auto"` 로 설정하면 GPU → CPU → RAM → DISK 순서로 자동적으로 weight를 보냄]
+  [`device_map="auto"` 로 설정하면 GPU → CPU → RAM → DISK 순서로 자동적으로 weight를 보냄]
 
 ```python
 from accelerate import load_checkpoint_and_dispatch

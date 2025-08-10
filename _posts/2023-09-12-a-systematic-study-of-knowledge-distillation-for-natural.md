@@ -1,23 +1,24 @@
 ---
 categories:
-- paper-reviews
-date: '2023-09-12 00:00:00'
+  - paper-reviews
+date: "2023-09-12 00:00:00"
 description: 논문 리뷰 - Knowledge Distillation 관련 연구
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-- gpt
-- knowledge distillation
-- language-model
-- paper-review
+  - gpt
+  - knowledge distillation
+  - language-model
+  - paper-review
 thumbnail: assets/img/posts/2023-09-12-a-systematic-study-of-knowledge-distillation-for-natural/thumbnail.jpg
-title: 'A Systematic Study of Knowledge Distillation for Natural Language
+title: "A Systematic Study of Knowledge Distillation for Natural Language
 
-  Generation with Pseudo-Target Training'
+  Generation with Pseudo-Target Training"
 ---
 
 **논문 정보**
+
 - **Date**: 2023-09-12
 - **Reviewer**: 전민진
 - **Property**: Knowledge Distillation
@@ -122,7 +123,7 @@ title: 'A Systematic Study of Knowledge Distillation for Natural Language
 
 ### Conclusion
 
-- decoder가 pruning된 ED모델을 student로, Logit KD와 sampling한 PT를 활용한 Joint-Teaching방법이 성능이 어느 정도 방어되면서 가장 좋은 compression rate를 보여줌 
+- decoder가 pruning된 ED모델을 student로, Logit KD와 sampling한 PT를 활용한 Joint-Teaching방법이 성능이 어느 정도 방어되면서 가장 좋은 compression rate를 보여줌
 
 ### Limitation
 

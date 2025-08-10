@@ -1,23 +1,24 @@
 ---
 categories:
-- paper-reviews
-date: '2023-09-12 00:00:00'
+  - paper-reviews
+date: "2023-09-12 00:00:00"
 description: "논문 리뷰 - LM, Retrieval, \bDomain Adaptation 관련 연구"
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-- "\bdomain adaptation"
-- language-model
-- llm
-- lm
-- paper-review
-- retrieval
+  - "\bdomain adaptation"
+  - language-model
+  - llm
+  - lm
+  - paper-review
+  - retrieval
 thumbnail: assets/img/posts/2023-09-12-silo-language-models-isolating-legal-risk-in-a/thumbnail.jpg
-title: 'SILO LANGUAGE MODELS: ISOLATING LEGAL RISK IN A NONPARAMETRIC DATASTORE'
+title: "SILO LANGUAGE MODELS: ISOLATING LEGAL RISK IN A NONPARAMETRIC DATASTORE"
 ---
 
 **논문 정보**
+
 - **Date**: 2023-09-12
 - **Reviewer**: 김재희
 - **Property**: LM, Retrieval, Domain Adaptation
@@ -28,7 +29,7 @@ title: 'SILO LANGUAGE MODELS: ISOLATING LEGAL RISK IN A NONPARAMETRIC DATASTORE'
 
 - 학습 데이터 및 Retrieve-and-Augment 방법론에 따라 Domain 별 성능 평가 진행
 
-- 논문에서 제기하는 RQ : 저작권, 보안 이슈에서 자유로운 LLM을 학습/이용하는 상황을 가정할 때, Inference 성능 극대화할 수 있는 방법은 무엇일까? 
+- 논문에서 제기하는 RQ : 저작권, 보안 이슈에서 자유로운 LLM을 학습/이용하는 상황을 가정할 때, Inference 성능 극대화할 수 있는 방법은 무엇일까?
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2023-09-12-silo-language-models-isolating-legal-risk-in-a/image_000.png" class="img-fluid rounded z-depth-1" %}
 
@@ -90,7 +91,7 @@ title: 'SILO LANGUAGE MODELS: ISOLATING LEGAL RISK IN A NONPARAMETRIC DATASTORE'
 
 ## 4. Augmented Methods
 
-- OOD 도메인의 성능을 높이기 위해 KNN-LM과 Retrieval-In-Context LM (Augmented-LM, RIC LM) 두가지 방법론 이용 
+- OOD 도메인의 성능을 높이기 위해 KNN-LM과 Retrieval-In-Context LM (Augmented-LM, RIC LM) 두가지 방법론 이용
 
 ### KNN-LM
 
@@ -116,7 +117,7 @@ Retrieval의 확률 변환 과정
 
 - test 도메인의 훈련 데이터를 datastore로 설정하고, Retrieve된 text를 In-Context Learning으로서 활용하는 방법론
 
-- Retriever : BM25, OOD Retrieval 시 가장 안정적인 성능을 보이는 방법론이기 때문에 선택한듯. 
+- Retriever : BM25, OOD Retrieval 시 가장 안정적인 성능을 보이는 방법론이기 때문에 선택한듯.
 
 - ICL 시 사용되는 모든 M개의 Retrieved Text는 단순 concat을 통해 활용
 
@@ -160,13 +161,13 @@ Retrieval의 확률 변환 과정
 
 - 1번 (Pythia, Pythia) : Retrieval와 LM 모두 In-Domain인 경우에도 성능 향상을 보임
 
-- 2번 (Pythia, Ours) : Retrieval는 OOD인 경우 
+- 2번 (Pythia, Ours) : Retrieval는 OOD인 경우
 
 - 3번 (Ours, Pythia) : LM만 OOD인 경우
 
 - 4번 (Ours, Ours) : Retrieval와 LM 모두 OOD 인 경우
 
-⇒ LM의 In-Domain 여부가 매우 중요한 요소 
+⇒ LM의 In-Domain 여부가 매우 중요한 요소
 
 ⇒ Retrieval 적용을 통한 성능 개선 역시 매우 뚜렷
 

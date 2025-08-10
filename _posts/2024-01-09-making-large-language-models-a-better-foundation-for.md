@@ -1,24 +1,25 @@
 ---
 categories:
-- paper-reviews
-date: '2024-01-09 00:00:00'
+  - paper-reviews
+date: "2024-01-09 00:00:00"
 description: 논문 리뷰 - LLM, Retrieval 관련 연구
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-- embedding
-- generative
-- language-model
-- llm
-- paper-review
-- pre-training
-- retrieval
+  - embedding
+  - generative
+  - language-model
+  - llm
+  - paper-review
+  - pre-training
+  - retrieval
 thumbnail: assets/img/posts/2024-01-09-making-large-language-models-a-better-foundation-for/thumbnail.jpg
 title: Making Large Language Models A Better Foundation For Dense Retrieval
 ---
 
 **논문 정보**
+
 - **Date**: 2024-01-09
 - **Reviewer**: 상엽
 - **Property**: LLM, Retrieval
@@ -55,7 +56,7 @@ title: Making Large Language Models A Better Foundation For Dense Retrieval
 
 - InfoNCE loss를 이용해 학습.
 
-# LLaRA 
+# LLaRA
 
 - **LL**M **a**datpeted for dense **R**etriv**A**l (LLaRA)
 
@@ -97,7 +98,7 @@ title: Making Large Language Models A Better Foundation For Dense Retrieval
 
 - RepLLaMA + RankLLaMA는 retrieval + rerank까지 다 포함한 전체적인 IR 내용을 다뤘다면 여기는 Retrieval만 다루고 있음.
 
-- objective 2를 달성하기 위해 next sentence prediction을 활용하는 것에 대한 가정 “query → document (passage)로 이뤄진 문장 구조”가 얼마나 현실적인지는 모르겠다. 
+- objective 2를 달성하기 위해 next sentence prediction을 활용하는 것에 대한 가정 “query → document (passage)로 이뤄진 문장 구조”가 얼마나 현실적인지는 모르겠다.
 
 - document retrieval로써 next sentence prediction의 효용은?
 

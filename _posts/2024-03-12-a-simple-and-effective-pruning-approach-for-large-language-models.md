@@ -1,8 +1,8 @@
 ---
 categories: paper-reviews
-date: '2024-03-12 00:00:00'
-description: ' 논문 리뷰 - A Simple and Effective Pruning Approach for Large Language
-  Models'
+date: "2024-03-12 00:00:00"
+description: " 논문 리뷰 - A Simple and Effective Pruning Approach for Large Language
+  Models"
 giscus_comments: true
 layout: post
 related_posts: false
@@ -11,6 +11,7 @@ title: A Simple and Effective Pruning Approach for Large Language Models
 ---
 
 **논문 정보**
+
 - **Date**: 2024-03-12
 - **Reviewer**: hyowon Cho
 - **Property**: Pruning
@@ -37,11 +38,11 @@ title: A Simple and Effective Pruning Approach for Large Language Models
 
 - Magnitude Pruning
 
-	- magnitude를 기준으로 (abs value) 모델의 weight를 삭제하는 방법론. globally하게도 할 수 있지만 each layer에 대해 locally하게 적용하는 것이 일반적이다.
+  - magnitude를 기준으로 (abs value) 모델의 weight를 삭제하는 방법론. globally하게도 할 수 있지만 each layer에 대해 locally하게 적용하는 것이 일반적이다.
 
 - Emergent Large Magnitude Features
 
-	- Dettmers et al. (2022)에 따르면 LLM이 6B 이상의 크기를 가질 때, 아주 적은 hidden state feature들이 다른 것들보다 magnitude가 '훨씬' 커진다는 것을 관측했다. (100배 이상). 이들을 zeroing하면 성능에 아주 큰 결함이 생긴다.
+  - Dettmers et al. (2022)에 따르면 LLM이 6B 이상의 크기를 가질 때, 아주 적은 hidden state feature들이 다른 것들보다 magnitude가 '훨씬' 커진다는 것을 관측했다. (100배 이상). 이들을 zeroing하면 성능에 아주 큰 결함이 생긴다.
 
 Consider a neuron with two inputs and corresponding weights: $ y = w_1x_1 + w_2x_2 $, where $ |w_1| ≤ |w_2| $. 우리의 목표는 최종 output에 영향을 가장 덜 주는 weight를 삭제하는 것이다. 이때, $ x $의 크기가 같거나 거의 차이가 없다면 더 작은 Magnitude를 가지는 $ w_1 $을 삭제하는 것이 당연하겠지만, 아쉽게도 input들끼리도 scale이 굉장히 다르다. 즉, $ |x_1| ≫ |x_2| $, and as a result, $ |w_1x_1| ≫ |w_2x_2|. $ 이 경우에는 $ w_2 $를 삭제하는 것이 output에 가장 적은 차이를 가져온다.
 
@@ -89,44 +90,44 @@ Structured N:M Sparsity란 N개의 contiguous weights 중 M개가 non-zero인 �
 
 지금까지의 정리를 하자면 다음과 같다:
 
-1. It maintains the ***simplicity*** of magnitude pruning in the pre-LLM era, requiring no gradient computation via back-propagation or any second-order Hessian inverses, but is also*** highly effective ***in discovering sparse networks in pretrained LLMs.
+1. It maintains the **_simplicity_** of magnitude pruning in the pre-LLM era, requiring no gradient computation via back-propagation or any second-order Hessian inverses, but is also**_ highly effective _**in discovering sparse networks in pretrained LLMs.
 
-1. Wanda can be done with ***a single forward pass*** of the LLM. At each layer, the pruned weights can be decided in one shot without an iterative procedure. In practice, computing the pruning metric of Wanda can be ***300 times faster in pruning LLMs compared with SparseGPT.***
+1. Wanda can be done with **_a single forward pass_** of the LLM. At each layer, the pruned weights can be decided in one shot without an iterative procedure. In practice, computing the pruning metric of Wanda can be **_300 times faster in pruning LLMs compared with SparseGPT._**
 
-1. Unlike SparseGPT, our approach entails ***no weight update ***on pruned networks, suggesting
-that ***LLMs have effective sparse sub-networks that are exact***, instead of them merely existing in the neighborhood of the original weights.
+1. Unlike SparseGPT, our approach entails **_no weight update _**on pruned networks, suggesting
+   that **_LLMs have effective sparse sub-networks that are exact_**, instead of them merely existing in the neighborhood of the original weights.
 
 ## EXPERIMENTS
 
 - model
 
-	- LLaMA 7B/13B/30B/65B
+  - LLaMA 7B/13B/30B/65B
 
-	- LLaMA-2 7B/13B/70B
+  - LLaMA-2 7B/13B/70B
 
-	- OPT-13B/BLOOM family/Pythia-12B
+  - OPT-13B/BLOOM family/Pythia-12B
 
 - Eval:
 
-	- ppl
+  - ppl
 
-		- WikiText
+    - WikiText
 
-	- zero-shot
+  - zero-shot
 
-		- seven tasks from EleutherAI LM Harness
+    - seven tasks from EleutherAI LM Harness
 
 - Baselines
 
-	- Magnitude pruning
+  - Magnitude pruning
 
-	- SparseGPT
+  - SparseGPT
 
-		- 엄밀한 비교를 위해 calibration data는 여기서 사용했던 128개의 text data from C4
+    - 엄밀한 비교를 위해 calibration data는 여기서 사용했던 128개의 text data from C4
 
 - Sparsity
 
-	- skip the first embedding layer and the final classification head
+  - skip the first embedding layer and the final classification head
 
 ## ZERO-SHOT TASKS
 
@@ -136,11 +137,11 @@ that ***LLMs have effective sparse sub-networks that are exact***, instead of th
 
 - Large Sparse vs. Small Dense.
 
-	- sparsity 타입에 따라 다른 양상
+  - sparsity 타입에 따라 다른 양상
 
-	1. unstructured sparsity: large sparse LLMs > small dense LLMs
+  1.  unstructured sparsity: large sparse LLMs > small dense LLMs
 
-	1. reverse
+  1.  reverse
 
 ## LANGUAGE MODELING
 
@@ -183,11 +184,11 @@ weight update의 선택지는 다음과 같다
 
 1. sequential
 
-	- 각 레이어에 대해 prune mask가 먼저 연산이 되고, 그 이후 남아있는 weigth들에 대해 update가 일어난다.
+   - 각 레이어에 대해 prune mask가 먼저 연산이 되고, 그 이후 남아있는 weigth들에 대해 update가 일어난다.
 
 1. iterative
 
-	- pruning과 weight update가 한 레이어에 대해 반복적으로 일어난다.
+   - pruning과 weight update가 한 레이어에 대해 반복적으로 일어난다.
 
 sparesGPT의 경우, 128개의 input channel에 대해 iterative하게 update을 진행한다.
 

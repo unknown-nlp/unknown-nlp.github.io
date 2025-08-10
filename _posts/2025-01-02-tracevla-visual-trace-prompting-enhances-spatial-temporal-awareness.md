@@ -1,24 +1,25 @@
 ---
 categories:
-- paper-reviews
-date: '2025-01-02 00:00:00'
+  - paper-reviews
+date: "2025-01-02 00:00:00"
 description: 논문 리뷰 - Robotics, Evaluation Metric 관련 연구
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-- evaluation metric
-- multimodal
-- paper-review
-- robotics
-- transformer
-- vision
+  - evaluation metric
+  - multimodal
+  - paper-review
+  - robotics
+  - transformer
+  - vision
 thumbnail: assets/img/posts/2025-01-02-tracevla-visual-trace-prompting-enhances-spatial-temporal-awareness/thumbnail.jpg
-title: 'TraceVLA: Visual Trace Prompting Enhances Spatial-Temporal Awareness for Generalist
-  Robotic Policies'
+title: "TraceVLA: Visual Trace Prompting Enhances Spatial-Temporal Awareness for Generalist
+  Robotic Policies"
 ---
 
 **논문 정보**
+
 - **Date**: 2025-01-02
 - **Reviewer**: 전민진
 - **Property**: Robotics, Evaluation Metric
@@ -65,7 +66,7 @@ title: 'TraceVLA: Visual Trace Prompting Enhances Spatial-Temporal Awareness for
 
 **[Visual trace를 생성하는 방법]**
 
-- timestep t, time window budget N이 주어질 때, 우선 historical image observations h_t = (o_{t-N},...,o_t)에서 dense point trajectories 집합을 추출
+- timestep t, time window budget N이 주어질 때, 우선 historical image observations h*t = (o*{t-N},...,o_t)에서 dense point trajectories 집합을 추출
 
 - K x K개의 tracking point가 만들어진 후, 그 중에서 active point만 식별하기 위해서 pixel location에서의 change를 계산
 
@@ -75,7 +76,7 @@ title: 'TraceVLA: Visual Trace Prompting Enhances Spatial-Temporal Awareness for
 
 - 위에서 만든 visual prompt와 original observation을 모델의 input으로 사용
 
--  test시 visual trace를 사용하지 못하는 상황이 발생할 수 있으므로, 학습 동안에 dropout mechanism을 구현
+- test시 visual trace를 사용하지 못하는 상황이 발생할 수 있으므로, 학습 동안에 dropout mechanism을 구현
 
 ### Implementation Details
 

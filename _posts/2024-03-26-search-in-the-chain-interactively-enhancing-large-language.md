@@ -1,23 +1,24 @@
 ---
 categories:
-- paper-reviews
-date: '2024-03-26 00:00:00'
+  - paper-reviews
+date: "2024-03-26 00:00:00"
 description: 논문 리뷰 - Retrieval 관련 연구
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-- language-model
-- llm
-- paper-review
-- reasoning
-- retrieval
+  - language-model
+  - llm
+  - paper-review
+  - reasoning
+  - retrieval
 thumbnail: assets/img/posts/2024-03-26-search-in-the-chain-interactively-enhancing-large-language/thumbnail.jpg
-title: 'Search-in-the-Chain: Interactively Enhancing Large Language Models with Search
-  for Knowledge-intensive Tasks'
+title: "Search-in-the-Chain: Interactively Enhancing Large Language Models with Search
+  for Knowledge-intensive Tasks"
 ---
 
 **논문 정보**
+
 - **Date**: 2024-03-26
 - **Reviewer**: 상엽
 - **Property**: Retrieval
@@ -68,7 +69,7 @@ Search-in-the-Chain (SearChain) 제안
 
 - Interaction with IR in **SearChain forms a novel reasoning path: node-identify Depth-first Search on a tree**, which enables LLM to dynamically modify the direction of reasoning.
 
-- Experiment shows that SearChain **outperforms state-of-the- art baselines** on complex knowledge-intensive tasks including multi- hop Q&A, slot filling,  fact checking and long-form Q&A. → SOTA
+- Experiment shows that SearChain **outperforms state-of-the- art baselines** on complex knowledge-intensive tasks including multi- hop Q&A, slot filling, fact checking and long-form Q&A. → SOTA
 
 # Related work
 
@@ -104,7 +105,7 @@ Search-in-the-Chain (SearChain) 제안
 
 1. a_i와 g 비교
 
-1. a_i와 g의 결과가 일치하지 않음  &  f > \theta (IR로 인한 성능 감소를 막기 위한 threshold)
+1. a_i와 g의 결과가 일치하지 않음 & f > \theta (IR로 인한 성능 감소를 막기 위한 threshold)
 
 **Completion**
 
@@ -114,7 +115,7 @@ Search-in-the-Chain (SearChain) 제안
 
 - f값에 관계없이 다음 prompt 실행
 
-- a_i → a^{\star}_{i} 변경 후, (q_i, a^{\star}_{i})를 root 노드로 하여 새로운 CoQ 진행
+- a*i → a^{\star}*{i} 변경 후, (q*i, a^{\star}*{i})를 root 노드로 하여 새로운 CoQ 진행
 
 **Tracing**
 
@@ -182,7 +183,7 @@ Search-in-the-Chain (SearChain) 제안
 
 SearChain과 New bing search를 아래 두 가지 측면에서 비교
 
-- Scope of Knowledge Coverage (SKC) [0, +]: 
+- Scope of Knowledge Coverage (SKC) [0, +]:
 
 - Accuracy of Marking Position (AMP) [0, 1]
 

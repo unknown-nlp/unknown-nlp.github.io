@@ -1,24 +1,25 @@
 ---
 categories:
-- paper-reviews
-date: '2023-10-03 00:00:00'
+  - paper-reviews
+date: "2023-10-03 00:00:00"
 description: 논문 리뷰 - Factual Consistency, LLM, Calibrating 관련 연구
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-- calibrating
-- factual consistency
-- language-model
-- llm
-- paper-review
-- transformer
+  - calibrating
+  - factual consistency
+  - language-model
+  - llm
+  - paper-review
+  - transformer
 thumbnail: assets/img/posts/2023-10-03-dola-decoding-by-contrasting-layers-improves-factuality-in/thumbnail.jpg
-title: 'DoLa: Decoding by Contrasting Layers Improves Factuality in Large Language
-  Models'
+title: "DoLa: Decoding by Contrasting Layers Improves Factuality in Large Language
+  Models"
 ---
 
 **논문 정보**
+
 - **Date**: 2023-10-03
 - **Reviewer**: 김재희
 - **Property**: Factual Consistency, LLM, Calibrating
@@ -35,7 +36,7 @@ title: 'DoLa: Decoding by Contrasting Layers Improves Factuality in Large Langua
 
 ## 2. Method
 
-- 해당 논문의 기본 아이디어 : 
+- 해당 논문의 기본 아이디어 :
 
 - 분포를 비교하는 것은 아래와 같은 수식을 통해 전개됨
 
@@ -63,7 +64,7 @@ title: 'DoLa: Decoding by Contrasting Layers Improves Factuality in Large Langua
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2023-10-03-dola-decoding-by-contrasting-layers-improves-factuality-in/image_002.png" class="img-fluid rounded z-depth-1" %}
 
-- DoLA 적용 여부에 다른 속도 
+- DoLA 적용 여부에 다른 속도
 
 ## 7. Conclusion
 

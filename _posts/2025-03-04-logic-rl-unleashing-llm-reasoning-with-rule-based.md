@@ -1,22 +1,23 @@
 ---
 categories:
-- paper-reviews
-date: '2025-03-04 00:00:00'
+  - paper-reviews
+date: "2025-03-04 00:00:00"
 description: 논문 리뷰 - RL 관련 연구
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-- llm
-- paper-review
-- reasoning
-- reinforcement-learning
-- rl
+  - llm
+  - paper-review
+  - reasoning
+  - reinforcement-learning
+  - rl
 thumbnail: assets/img/posts/2025-03-04-logic-rl-unleashing-llm-reasoning-with-rule-based/thumbnail.jpg
-title: 'Logic-RL: Unleashing LLM Reasoning with Rule-Based Reinforcement Learning'
+title: "Logic-RL: Unleashing LLM Reasoning with Rule-Based Reinforcement Learning"
 ---
 
 **논문 정보**
+
 - **Date**: 2025-03-04
 - **Reviewer**: 전민진
 - **Property**: RL
@@ -53,7 +54,7 @@ title: 'Logic-RL: Unleashing LLM Reasoning with Rule-Based Reinforcement Learnin
 
 - Knights and Knaves (K&K) puzzle은 추리? 느낌의 퀴즈
 
-1. Procedural Generation :  퍼즐은 logic template를 사용해서 생성됨 ⇒ consistency와 무한한 variability를 보장
+1. Procedural Generation : 퍼즐은 logic template를 사용해서 생성됨 ⇒ consistency와 무한한 variability를 보장
 
 1. Controlled Difficulty Levels : 퍼즐의 난이도는 등장인물의 수와, logical operation(1-4 combination of Boolean operators)으로 조절 가능
 
@@ -65,8 +66,8 @@ title: 'Logic-RL: Unleashing LLM Reasoning with Rule-Based Reinforcement Learnin
 
 - reward은 학습에 필요한 핵심 시그널
 
-- 하지만 저자들은 모델의 output에서 hacking behavior를 관찰했고, reward design을 계속 바꿈 
-⇒ 아래가 이제 거의 unhackable한 rule-based reward system. 
+- 하지만 저자들은 모델의 output에서 hacking behavior를 관찰했고, reward design을 계속 바꿈
+  ⇒ 아래가 이제 거의 unhackable한 rule-based reward system.
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2025-03-04-logic-rl-unleashing-llm-reasoning-with-rule-based/image_002.png" class="img-fluid rounded z-depth-1" %}
 
@@ -86,7 +87,7 @@ title: 'Logic-RL: Unleashing LLM Reasoning with Rule-Based Reinforcement Learnin
 
 **Training Schedule**
 
-- 3600 step 학습, 4*10^-7의 learning rate, temperature 0.7로 사용
+- 3600 step 학습, 4\*10^-7의 learning rate, temperature 0.7로 사용
 
 - 학습 동안에, logic puzzle의 등장 인물은 3-7명
 

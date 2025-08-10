@@ -1,27 +1,28 @@
 ---
 categories:
-- paper-reviews
-date: '2025-08-22 00:00:00'
+  - paper-reviews
+date: "2025-08-22 00:00:00"
 description: 논문 리뷰 - Text Generation, DiffusionLM 관련 연구
 giscus_comments: true
 layout: post
 related_posts: false
 slug: 2025-08-22-diffusion-of-thought-chain-of-thought-reasoning-in
 tags:
-- diffusion
-- diffusionlm
-- fine-tuning
-- gpt
-- language-model
-- llm
-- paper-review
-- reasoning
-- text generation
-- transformer
-title: 'Diffusion of Thought: Chain-of-Thought Reasoning in Diffusion Language Models'
+  - diffusion
+  - diffusionlm
+  - fine-tuning
+  - gpt
+  - language-model
+  - llm
+  - paper-review
+  - reasoning
+  - text generation
+  - transformer
+title: "Diffusion of Thought: Chain-of-Thought Reasoning in Diffusion Language Models"
 ---
 
 **논문 정보**
+
 - **Date**: 2025-06-17
 - **Reviewer**: 상엽
 - **Property**: Text Generation, DiffusionLM
@@ -76,15 +77,15 @@ https://huggingface.co/blog/ProCreations/diffusion-language-model?utm_source=cha
 
 ## Diffusion-of-Thoughts
 
-- Notation: s (problem statement), a (answer), p_{\theta}^{LM} (language model)
+- Notation: s (problem statement), a (answer), p\_{\theta}^{LM} (language model)
 
-- Answer-only generation model: \mathbf{a}\sim p_\theta^{\textit{LM}}(\mathbf{a}|\mathbf{s})
+- Answer-only generation model: \mathbf{a}\sim p\_\theta^{\textit{LM}}(\mathbf{a}|\mathbf{s})
 
-- CoT: \mathbf{a}\sim p_\theta^{\textit{LM}}(\mathbf{a}|\mathbf{s}, \mathbf{r}_{1\dots n})
+- CoT: \mathbf{a}\sim p*\theta^{\textit{LM}}(\mathbf{a}|\mathbf{s}, \mathbf{r}*{1\dots n})
 
-- implicit CoT: \mathbf{a}\sim p_\theta^{\textit{iCoT}}(\mathbf{a}|\mathbf{s}, \mathbf{z}_{1\dots n})
+- implicit CoT: \mathbf{a}\sim p*\theta^{\textit{iCoT}}(\mathbf{a}|\mathbf{s}, \mathbf{z}*{1\dots n})
 
-- DoT: \mathbf{a}\sim p_\theta^{\textit{DoT}}(\mathbf{a}|\mathbf{s}, \mathbf{z}_t)
+- DoT: \mathbf{a}\sim p\_\theta^{\textit{DoT}}(\mathbf{a}|\mathbf{s}, \mathbf{z}\_t)
 
 ![Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/3acbc979-3f43-48f4-8683-229c6104ec76/7bde22d3-df55-4fed-824e-ed43cf2b175e/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=ASIAZI2LB4667W7SH7ZO%2F20250810%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20250810T110005Z&X-Amz-Expires=3600&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEJr%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJGMEQCIGrKdUh4zK2PX%2BlUfCZE7SG5hQLJjq%2FJ%2FAgVDjh6e%2FkPAiAHK52zT6h7%2BHjfxOzGpameGmLebn3crDOu9ZOtb2zCCCqIBAjT%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAAaDDYzNzQyMzE4MzgwNSIMciuMO0ESAebMPDngKtwDI361zBDNI2XgLi7Y6aoMJQED00tySwcDLItmtnOIwodADBrm7Tnt5KV29ZwoZUceDoSeT0dPdPd9vGDrJGHQ7O6KlMwBdKRzArx%2B1oggvTLmcKpfTRhbZUnNXzSLwoBResdUgPWY1lPRro5IqVG9aZjoBhM6U%2FinCnuQW%2FvY84%2FsYx86yznr4FNt2TfR6zk3SynXKrxxNt4yPjd3Oj3dRmxwjAxYskX%2B7%2BiiKkY0e0m3CH%2Bp1e%2FdVsUGYBkovT1y7PQompQvyutw2LTmsnC9vdMfwAtJfEIoCPTEjMEY3XAyaLlcu6U42dMivMFkuADP4bSqR4iI5xt2yQI82vM4PaW1vbc4%2FkctgjK4yEq4D7tRweSHzP6vS9ROevvL8mMmhZPwYhdZNIZqFNfC%2FdiVBuBrx5F4ytfKIYFuAFEjnAgmFXwAw%2B6Xb7qL%2Bl%2FuPbDmXzAOANcYnu4OYNC2DWsl5n0kp24kfWOcj3ydVYQ%2Fa9uc0AmiYnx4WmF9%2Bwlcm21dxHpy48EMUV6z0Prqt4emENCqLVbMw0NjADRCD%2FvZWSL8Erw%2FX7p%2FXtx36CHqsPBfJcxBTdrpwhaxV0WuU0TFKweFjvbT%2BWiafzcetOmuhJ63WR6CiSM%2BTKZr8OswhNThxAY6pgEeGc1T%2FV319yhlHIpB%2BPNgObRCRff%2Fsuf%2FETRdGiPJNcDW4Iw15%2BiJrAAnSo%2FApp8dcMjYuKRSTX%2FqhScf%2FP%2BX1KRcBuq4%2BvmWoyah3Zonhqsz9mAgLTKqItnr%2BNMPvZVtUk83wv3wckpEln2pSDjw95rY%2BTRoh2nM8GebmWcVHEI1gu%2FRRkpgMCk6jGFLkevjMlQfWM4sLPCUsfZQUYAXjGUuZBfQ&X-Amz-Signature=59654f966a6a1d26f7bf497c375fc334ce532e08a7198d64f95e9e1d3d6b22c1&X-Amz-SignedHeaders=host&x-amz-checksum-mode=ENABLED&x-id=GetObject)
 
@@ -154,7 +155,7 @@ DoT 모델에 대해 두 가지 학습 방법을 사용
 
 - Multiple sampling을 통한 다양한 reasoning pathway 생성
 
-- 동일 문제 s에 대해 다양한 (r_{i;1...n}, a_i)를 구함. (Diffusion 모델의 강점: noise seed만 다르게 해도 됨!)
+- 동일 문제 s에 대해 다양한 (r\_{i;1...n}, a_i)를 구함. (Diffusion 모델의 강점: noise seed만 다르게 해도 됨!)
 
 - Majority vote:
 

@@ -1,23 +1,24 @@
 ---
 categories:
-- paper-reviews
-date: '2025-06-10 00:00:00'
+  - paper-reviews
+date: "2025-06-10 00:00:00"
 description: 논문 리뷰 - Robotics 관련 연구
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-- alignment
-- attention
-- diffusion
-- paper-review
-- robotics
-- vision
+  - alignment
+  - attention
+  - diffusion
+  - paper-review
+  - robotics
+  - vision
 thumbnail: assets/img/posts/2025-06-10-towards-a-generalizable-bimanual-foundation-policy-via-flow/thumbnail.jpg
 title: Towards a Generalizable Bimanual Foundation Policy via Flow-based Video Prediction
 ---
 
 **논문 정보**
+
 - **Date**: 2025-06-10
 - **Reviewer**: 전민진
 - **Property**: Robotics
@@ -88,9 +89,9 @@ title: Towards a Generalizable Bimanual Foundation Policy via Flow-based Video P
 
 - 해당 그림을 보면, language-only model의 경우(그냥 SFT) meaningful region을 식별하는데 실패하는 것을 볼 수 있음
 
-- flow video를 중간에 생성, 이를 기반으로  detailed vidoe를 생성함으로써, intruction과 visual input사이의 더 나은 alignment를 달성
+- flow video를 중간에 생성, 이를 기반으로 detailed vidoe를 생성함으로써, intruction과 visual input사이의 더 나은 alignment를 달성
 
-- 첫번째 단계에서 생성한 flow video를 잘 활용하여 detailed video를 생성할 수 있도록, flow video와 RGB vidoe를 channel dimension에 따라서 concat하는 방법론을 제안 
+- 첫번째 단계에서 생성한 flow video를 잘 활용하여 detailed video를 생성할 수 있도록, flow video와 RGB vidoe를 channel dimension에 따라서 concat하는 방법론을 제안
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2025-06-10-towards-a-generalizable-bimanual-foundation-policy-via-flow/image_002.png" class="img-fluid rounded z-depth-1" %}
 

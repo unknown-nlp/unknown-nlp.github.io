@@ -1,26 +1,27 @@
 ---
 categories:
-- paper-reviews
-date: '2024-02-06 00:00:00'
+  - paper-reviews
+date: "2024-02-06 00:00:00"
 description: 논문 리뷰 - Instruction Tuning 관련 연구
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-- alignment
-- fine-tuning
-- instruction tuning
-- language-model
-- llm
-- paper-review
-- reasoning
-- reinforcement-learning
-- rlhf
+  - alignment
+  - fine-tuning
+  - instruction tuning
+  - language-model
+  - llm
+  - paper-review
+  - reasoning
+  - reinforcement-learning
+  - rlhf
 thumbnail: assets/img/posts/2024-02-06-self-rewarding-language-models/thumbnail.jpg
 title: Self-Rewarding Language Models
 ---
 
 **논문 정보**
+
 - **Date**: 2024-02-06
 - **Reviewer**: 상엽
 - **Property**: Instruction Tuning
@@ -31,11 +32,11 @@ title: Self-Rewarding Language Models
 
 - LLM 자체가 reward를 계산하는 LLM-as-a-Judge 모델
 
-human preference와 LLM을 align 시키는 것은 instruction following performance를 큰 폭으로 향상시킬 수 있음. 
+human preference와 LLM을 align 시키는 것은 instruction following performance를 큰 폭으로 향상시킬 수 있음.
 
 아래는 대표적은 예시
 
-- RLHF (Reinforcement Learning from Human Feedback) : 
+- RLHF (Reinforcement Learning from Human Feedback) :
 
 - DPO (Direct Preference Optimization)
 
@@ -97,9 +98,9 @@ Iterative DPO procss를 이용해 학습
 
 1. **Generate a new prompt** : IFT 데이터 샘플링을 통해 few-shot example 제공, 새로운 prompt x_i 생성
 
-1. **Generate candidate responses** : N개의 candidate response 생성 \{y_{i}^{1},...,y_{i}^{N}\}
+1. **Generate candidate responses** : N개의 candidate response 생성 \{y*{i}^{1},...,y*{i}^{N}\}
 
-1. Evaluate candidate responses: 동일 모델에서 LLM-as-a-Judge ability 이용 N개의 candiate에 대해 reward 평가 진행. (r_{i}^{n} \in [0, 5])
+1. Evaluate candidate responses: 동일 모델에서 LLM-as-a-Judge ability 이용 N개의 candiate에 대해 reward 평가 진행. (r\_{i}^{n} \in [0, 5])
 
 ### Instruction Following Training
 
@@ -127,7 +128,7 @@ M2 : Initialized with M1, then trained with AIFT(M1) data using DPO.
 
 M3 : Initialized with M2, then trained with AIFT(M2) data using DPO.
 
-(This iterative training resembles the procedure used in Pairwise Cringe Optimization and Iterative DPO introduced in Xu et al. [2023]; however, an external fixed reward model was used in that work.) 
+(This iterative training resembles the procedure used in Pairwise Cringe Optimization and Iterative DPO introduced in Xu et al. [2023]; however, an external fixed reward model was used in that work.)
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-02-06-self-rewarding-language-models/image_001.png" class="img-fluid rounded z-depth-1" %}
 
@@ -159,7 +160,7 @@ Llama 2 70B를 base 모델로 이용.
 
 - Generation of new prompts : fixed Llama 2-Chat 70B with 8-shot prompting
 
-- the other parts of the creation pipeline (generating the response, and evaluating it) use the model being trained. 
+- the other parts of the creation pipeline (generating the response, and evaluating it) use the model being trained.
 
 # Results
 
@@ -177,13 +178,13 @@ Llama 2 70B를 base 모델로 이용.
 
 - Iteration 2 (M2) vs Iteration 1 (M1)
 
-- Iteration 2 (M2) vs  SFT baseline
+- Iteration 2 (M2) vs SFT baseline
 
 M2에서부턴 명확한 성능 향상을 확인할 수 있음.
 
 **Iteration 3 (M3) improves over Iteration 2 (M2) **
 
-- Iteration 3 (M3) vs Iteration 2 (M2) 
+- Iteration 3 (M3) vs Iteration 2 (M2)
 
 - Iteration 3 (M3) vs SFT baseline
 

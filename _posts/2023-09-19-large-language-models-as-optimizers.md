@@ -1,22 +1,23 @@
 ---
 categories:
-- paper-reviews
-date: '2023-09-19 00:00:00'
+  - paper-reviews
+date: "2023-09-19 00:00:00"
 description: 논문 리뷰 - LLM, Instruction Tuning 관련 연구
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-- gpt
-- instruction tuning
-- language-model
-- llm
-- paper-review
+  - gpt
+  - instruction tuning
+  - language-model
+  - llm
+  - paper-review
 thumbnail: assets/img/posts/2023-09-19-large-language-models-as-optimizers/thumbnail.jpg
 title: LARGE LANGUAGE MODELS AS OPTIMIZERS
 ---
 
 **논문 정보**
+
 - **Date**: 2023-09-19
 - **Reviewer**: hyowon Cho
 - **Property**: LLM, Instruction Tuning
@@ -82,12 +83,12 @@ TSP (Traveling Salesman Problem) 작업은 시작 노드에서 출발하여 모�
 optimality gap은 평가된 방법에 의해 구성된 솔루션의 거리와 오라클 솔루션에서 달성한 거리의 차이를 오라클 솔루션의 거리로 나눈 것으로 정의.
 
 - Nearest Neighbor (NN)
-greedy
+  greedy
 
 - Farthest Insertion (FI)
-FI는 각 단계에서 새로운 노드를 부분 솔루션에 삽입하는 비용을 최적화. 새로운 노드 k를 추가하는 최소 삽입 비용은 다음과 같이 정의:
-c(k) = min(i,j) d(i, k) + d(k, j) − d(i, j)
-여기서 i와 j는 현재 경로에서 인접한 노드이고, d(·, ·)는 두 노드 사이의 거리를 나타낸다. 각 단계에서 FI는 최소 삽입 비용을 최대화하는 새로운 노드를 추가함.
+  FI는 각 단계에서 새로운 노드를 부분 솔루션에 삽입하는 비용을 최적화. 새로운 노드 k를 추가하는 최소 삽입 비용은 다음과 같이 정의:
+  c(k) = min(i,j) d(i, k) + d(k, j) − d(i, j)
+  여기서 i와 j는 현재 경로에서 인접한 노드이고, d(·, ·)는 두 노드 사이의 거리를 나타낸다. 각 단계에서 FI는 최소 삽입 비용을 최대화하는 새로운 노드를 추가함.
 
 gpt-4가 모든 경우, gpt-3.5-turbo와 text-bison을 능가함.
 
@@ -105,7 +106,7 @@ gpt-4가 모든 경우, gpt-3.5-turbo와 text-bison을 능가함.
 
 ## PROBLEM SETUP
 
-objective function evaluator는 최적화된 프롬프트가 적용될 LLM이며, 최적화를 위한 LLM과 동일하거나 다를 수 있다.  목적 함수 평가를 위한 LLM을 scorer LLM,이라고 표시하고 최적화를 위한 LLM을 optimizer LLM이라고 한다.
+objective function evaluator는 최적화된 프롬프트가 적용될 LLM이며, 최적화를 위한 LLM과 동일하거나 다를 수 있다. 목적 함수 평가를 위한 LLM을 scorer LLM,이라고 표시하고 최적화를 위한 LLM을 optimizer LLM이라고 한다.
 
 optimizer LLM의 출력은 instruction으로, 모든 예시의 질문 부분에 연결되어 scorer LLM에 instruction을 제공한다. 구체적으로 다음 위치들을 고려한다.
 
@@ -138,7 +139,7 @@ For prompt optimization, we randomly sample 3.5% examples from the GSM8K trainin
 ## SEMANTICALLY SIMILAR INSTRUCTIONS MAY ACHIEVE DRASTICALLY DIFFERENT ACCURACIES
 
 - Although the instructions are semantically similar, a paraphrase by the optimizer LLM offers a
-notable accuracy improvement
+  notable accuracy improvement
 
 - “Let’s think step by step.” achieves accuracy 71.8, “Let’s solve the problem together.” has accuracy 60.5, while the accuracy of “Let’s work together to solve this problem step by step.” is only 49.4, although it is the semantic combination of the two upper instructions
 

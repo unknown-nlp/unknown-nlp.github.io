@@ -1,27 +1,28 @@
 ---
 categories:
-- paper-reviews
-date: '2024-02-20 00:00:00'
+  - paper-reviews
+date: "2024-02-20 00:00:00"
 description: 논문 리뷰 - Retrieval, ICL, QA, Knowledge 관련 연구
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-- bert
-- gpt
-- icl
-- knowledge
-- language-model
-- llm
-- paper-review
-- qa
-- retrieval
+  - bert
+  - gpt
+  - icl
+  - knowledge
+  - language-model
+  - llm
+  - paper-review
+  - qa
+  - retrieval
 thumbnail: assets/img/posts/2024-02-20-wikichat-stopping-the-hallucination-of-large-language-model/thumbnail.jpg
-title: 'WikiChat: Stopping the Hallucination of Large Language Model Chatbots by Few-Shot
-  Grounding on Wikipedia'
+title: "WikiChat: Stopping the Hallucination of Large Language Model Chatbots by Few-Shot
+  Grounding on Wikipedia"
 ---
 
 **논문 정보**
+
 - **Date**: 2024-02-20
 - **Reviewer**: 김재희
 - **Property**: Retrieval, ICL, QA, Knowledge
@@ -32,15 +33,14 @@ title: 'WikiChat: Stopping the Hallucination of Large Language Model Chatbots by
 
 - LLM : Hallucination 현상이 매우 심함
 
-- RALM : Query 관련 정보를 Retrieval하여 추가 정보로 입력하자. 
+- RALM : Query 관련 정보를 Retrieval하여 추가 정보로 입력하자.
 
-- ROME : 모델의 내부 파라미터를 수정하여 지식을 업데이트하자. 
+- ROME : 모델의 내부 파라미터를 수정하여 지식을 업데이트하자.
 
 - Knowledge Grounded Task 평가 방식
 
 > **Contribution
-**1. 광범위한 지식, 그 중에서도 모델 학습 이후 발생하는 지식을 이용한 효과적인 대화 모델 프레임워크 및 평가 방법론 제안
-2. Knowledge Base 변경을 통해 개인정보 및 기업 내부 정보에 대해서도 활용 가능
+> **1. 광범위한 지식, 그 중에서도 모델 학습 이후 발생하는 지식을 이용한 효과적인 대화 모델 프레임워크 및 평가 방법론 제안 2. Knowledge Base 변경을 통해 개인정보 및 기업 내부 정보에 대해서도 활용 가능
 
 ## 2. Method
 
@@ -56,7 +56,7 @@ title: 'WikiChat: Stopping the Hallucination of Large Language Model Chatbots by
 
 - Input : User Query + history → 특히 입력 정보의 시점을 함께 Prompting
 
-- Retriever가 N_{IR}개의 Passage 반환
+- Retriever가 N\_{IR}개의 Passage 반환
 
 ### 2단계 Passage 내 필요 정보 추출
 
@@ -72,7 +72,7 @@ title: 'WikiChat: Stopping the Hallucination of Large Language Model Chatbots by
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-02-20-wikichat-stopping-the-hallucination-of-large-language-model/image_001.png" class="img-fluid rounded z-depth-1" %}
 
-### 4단계 Response 분해 
+### 4단계 Response 분해
 
 - 3단계에서 생성된 Response 초안을 Claim 단위로 분해
 
@@ -86,7 +86,7 @@ title: 'WikiChat: Stopping the Hallucination of Large Language Model Chatbots by
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-02-20-wikichat-stopping-the-hallucination-of-large-language-model/image_003.png" class="img-fluid rounded z-depth-1" %}
 
-- 각각의 Claim에 대해 Retriever을 이용하여 N_{evidence}개의 Passage 탐색
+- 각각의 Claim에 대해 Retriever을 이용하여 N\_{evidence}개의 Passage 탐색
 
 ### 5단계 Claim 검증
 
@@ -104,7 +104,7 @@ title: 'WikiChat: Stopping the Hallucination of Large Language Model Chatbots by
 
 - 6단계에서 생성한 Response를 다시 Prompting하여 Feedback 작성 → 반영
 
-- Feedback 기준 
+- Feedback 기준
 
 - Feedback: 각 기준에 대해 0-100점
 
@@ -126,7 +126,7 @@ title: 'WikiChat: Stopping the Hallucination of Large Language Model Chatbots by
 
 ## 3. Evaluation
 
-### Factuality 
+### Factuality
 
 - 답변이 정말 사실 정보를 바탕으로 생성되었는지 평가
 
@@ -142,11 +142,11 @@ title: 'WikiChat: Stopping the Hallucination of Large Language Model Chatbots by
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-02-20-wikichat-stopping-the-hallucination-of-large-language-model/image_004.png" class="img-fluid rounded z-depth-1" %}
 
-- All 
+- All
 
 - Head vs Tail
 
-- Recent 
+- Recent
 
 ### Latency
 
@@ -172,7 +172,7 @@ title: 'WikiChat: Stopping the Hallucination of Large Language Model Chatbots by
 
 ## 7. Conclusion
 
-- 숫자로 보면 매우 좋은 방법론처럼 보임. 
+- 숫자로 보면 매우 좋은 방법론처럼 보임.
 
 - Prompting과 Retrieval을 극단으로 결합한 프레임워크
 

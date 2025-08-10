@@ -1,21 +1,22 @@
 ---
 categories:
-- paper-reviews
-date: '2023-04-13 00:00:00'
+  - paper-reviews
+date: "2023-04-13 00:00:00"
 description: 논문 리뷰 - Parameter Efficiency 관련 연구
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-- fine-tuning
-- paper-review
-- parameter efficiency
+  - fine-tuning
+  - paper-review
+  - parameter efficiency
 thumbnail: assets/img/posts/2023-04-13-p-tuning-v2-prompt-tuning-can-be-comparable/thumbnail.jpg
-title: 'P-Tuning v2: Prompt Tuning Can Be Comparable to Fine-tuning Universally Across
-  Scales and Tasks'
+title: "P-Tuning v2: Prompt Tuning Can Be Comparable to Fine-tuning Universally Across
+  Scales and Tasks"
 ---
 
 **논문 정보**
+
 - **Date**: 2023-04-13
 - **Reviewer**: 건우 김
 - **Property**: Parameter Efficiency
@@ -32,7 +33,7 @@ title: 'P-Tuning v2: Prompt Tuning Can Be Comparable to Fine-tuning Universally 
 
 (생략)
 
-### 3. P-Tuning v2: 
+### 3. P-Tuning v2:
 
 - **Lack of universality**
 

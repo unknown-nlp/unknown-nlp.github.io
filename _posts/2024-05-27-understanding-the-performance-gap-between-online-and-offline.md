@@ -1,23 +1,24 @@
 ---
 categories:
-- paper-reviews
-date: '2024-05-27 00:00:00'
+  - paper-reviews
+date: "2024-05-27 00:00:00"
 description: 논문 리뷰 - RLHF 관련 연구
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-- alignment
-- classification
-- fine-tuning
-- llm
-- paper-review
-- rlhf
+  - alignment
+  - classification
+  - fine-tuning
+  - llm
+  - paper-review
+  - rlhf
 thumbnail: assets/img/posts/2024-05-27-understanding-the-performance-gap-between-online-and-offline/thumbnail.jpg
 title: Understanding the performance gap between online and offline alignment algorithms
 ---
 
 **논문 정보**
+
 - **Date**: 2024-05-27
 - **Reviewer**: 전민진
 - **Property**: RLHF
@@ -34,7 +35,7 @@ title: Understanding the performance gap between online and offline alignment al
 
 ## Introduction
 
-> ***Is online RL necessary for AI alignment?***
+> **_Is online RL necessary for AI alignment?_**
 
 - offline RL(DPO)같은 방법론의 경우 online RLHF에 비해서 훨씬 간단하고 연산량도 적음
 
@@ -46,7 +47,7 @@ title: Understanding the performance gap between online and offline alignment al
 
 - 우선 online과 offline alignment method가 성능 차이가 나는지를 확인
 
-- 면밀한 비교를 위해 둘다 IPO loss 사용, 차이는 \mu = \pi_\theta(online), \mu = D(offline)
+- 면밀한 비교를 위해 둘다 IPO loss 사용, 차이는 \mu = \pi\_\theta(online), \mu = D(offline)
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-05-27-understanding-the-performance-gap-between-online-and-offline/image_000.png" class="img-fluid rounded z-depth-1" %}
 
@@ -66,7 +67,7 @@ title: Understanding the performance gap between online and offline alignment al
 
 - Hypothesis 5 : Scaling policy is all you need
 
-**** 실험 세팅**
+\***\* 실험 세팅**
 
 - controlled setting to study KL vs. performance trade-off
 
@@ -80,7 +81,7 @@ title: Understanding the performance gap between online and offline alignment al
 
 ### Hypothesis 1 : Data coverage
 
-: on, off의 성능 차는 데이터의 다양성에서 기인할 것 
+: on, off의 성능 차는 데이터의 다양성에서 기인할 것
 
 ⇒ online 학습에서 사용되는 데이터셋을 shuffle, 이를 바탕으로 offline 학습을 해보자
 
@@ -110,13 +111,13 @@ title: Understanding the performance gap between online and offline alignment al
 
     2) online과 offline의 성능 차이는 이러한 classification accuracy의 차이에서 기인했을 수도 있다
 
-** policy는 preference classifier라고 볼 수 있음 
+\*\* policy는 preference classifier라고 볼 수 있음
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-05-27-understanding-the-performance-gap-between-online-and-offline/image_003.png" class="img-fluid rounded z-depth-1" %}
 
-**preference model은 policy를 classifier로 쓰는거보다 더 expressive version이라고 볼 수 있음
+\*\*preference model은 policy를 classifier로 쓰는거보다 더 expressive version이라고 볼 수 있음
 
->> 왜지??? 그냥 likelihood가 아니라 score를 학습하도록 해서? 잘 모르겠다…
+> > 왜지??? 그냥 likelihood가 아니라 score를 학습하도록 해서? 잘 모르겠다…
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-05-27-understanding-the-performance-gap-between-online-and-offline/image_004.png" class="img-fluid rounded z-depth-1" %}
 
@@ -134,7 +135,7 @@ title: Understanding the performance gap between online and offline alignment al
 
 - 각 방법론의 학습 정도에 따른 classifier 성능과, D_golden에서 y_w의 relative log probs를 측정
 
-- (figure 8, top row) online의  classification accuracy가 낮은 것을 확인할 수 있음
+- (figure 8, top row) online의 classification accuracy가 낮은 것을 확인할 수 있음
 
 - (figure 8, bottom row) offline방식의 경우 winning response의 logit을 높이는 방식이 아니라 둘다 logit을 낮추되, losing response의 logit을 훨씬 크게 낮추는 방식으로 학습
 
@@ -152,7 +153,7 @@ title: Understanding the performance gap between online and offline alignment al
 
 - Bo2에서도 on,offline의 성능 차이는 비슷
 
-- chat arena sxs에서는 Bo2를 사용한 on, off성능이 유사 
+- chat arena sxs에서는 Bo2를 사용한 on, off성능이 유사
 
 ### Hypothesis 5 : Non-contrastive loss function
 

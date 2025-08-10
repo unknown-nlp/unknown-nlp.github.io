@@ -1,22 +1,23 @@
 ---
 categories:
-- paper-reviews
-date: '2025-08-17 00:00:00'
+  - paper-reviews
+date: "2025-08-17 00:00:00"
 description: 논문 리뷰
 giscus_comments: true
 layout: post
 related_posts: false
 slug: 2025-08-17-scaling-reasoning-losing-control-evaluating-instruction-following-in
 tags:
-- attention
-- llm
-- paper-review
-- reasoning
-title: 'Scaling Reasoning, Losing Control: Evaluating Instruction Following in Large
-  Reasoning Models'
+  - attention
+  - llm
+  - paper-review
+  - reasoning
+title: "Scaling Reasoning, Losing Control: Evaluating Instruction Following in Large
+  Reasoning Models"
 ---
 
 **논문 정보**
+
 - **Date**: 2025-07-15
 - **Reviewer**: 전민진
 
