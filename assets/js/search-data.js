@@ -51,7 +51,29 @@ ninja.data = [{
               handler: () => {
                 window.location.href = "/al-folio/blog/";
               },
-            },{id: "post-impact-of-fine-tuning-methods-on-memorization-in-large-language-models",
+            },{id: "post-block-diffusion-interpolating-between-autoregressive-and-diffusion-language-models",
+        
+          title: "BLOCK DIFFUSION: INTERPOLATING BETWEEN AUTOREGRESSIVE AND DIFFUSION LANGUAGE MODELS",
+        
+        description: "논문 리뷰 - DiffusionLM, LLM 관련 연구",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/al-folio/blog/2025/2025-08-10-block-diffusion-interpolating-between-autoregressive-and-diffusion-language/";
+          
+        },
+      },{id: "post-impact-of-fine-tuning-methods-on-memorization-in-large-language-models",
+        
+          title: "Impact of Fine-Tuning Methods on Memorization in Large Language Models",
+        
+        description: "논문 리뷰",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/al-folio/blog/2025/impact-of-fine-tuning-methods-on-memorization-in/";
+          
+        },
+      },{id: "post-impact-of-fine-tuning-methods-on-memorization-in-large-language-models",
         
           title: "Impact of Fine-Tuning Methods on Memorization in Large Language Models",
         
@@ -60,6 +82,17 @@ ninja.data = [{
         handler: () => {
           
             window.location.href = "/al-folio/blog/2025/impact-of-fine-tuning-methods-on-memorization-in-large-language-models/";
+          
+        },
+      },{id: "post-block-diffusion-interpolating-between-autoregressive-and-diffusion-language-models",
+        
+          title: "BLOCK DIFFUSION: INTERPOLATING BETWEEN AUTOREGRESSIVE AND DIFFUSION LANGUAGE MODELS",
+        
+        description: "논문 리뷰 - DiffusionLM, LLM 관련 연구",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/al-folio/blog/2025/block-diffusion-interpolating-between-autoregressive-and-diffusion-language/";
           
         },
       },{id: "post-block-diffusion-interpolating-between-autoregressive-and-diffusion-language-models",
@@ -77,11 +110,33 @@ ninja.data = [{
         
           title: "Search-R1: Training LLMs to Reason and Leverage Search Engines with Reinforcement Learning",
         
+        description: "논문 리뷰 - Reinforcement Learning 관련 연구",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/al-folio/blog/2025/search-r1-training-llms-to-reason-and-leverage/";
+          
+        },
+      },{id: "post-search-r1-training-llms-to-reason-and-leverage-search-engines-with-reinforcement-learning",
+        
+          title: "Search-R1: Training LLMs to Reason and Leverage Search Engines with Reinforcement Learning",
+        
         description: "논문 리뷰 - Search-R1: Training LLMs to Reason and Leverage Search Engines with Reinforcement Learning",
         section: "Posts",
         handler: () => {
           
             window.location.href = "/al-folio/blog/2025/search-r1-training-llms-to-reason-and-leverage-search-engines-with-reinforcement-learning/";
+          
+        },
+      },{id: "post-scaling-reasoning-losing-control-evaluating-instruction-following-in-large-reasoning-models",
+        
+          title: "Scaling Reasoning, Losing Control: Evaluating Instruction Following in Large Reasoning Models",
+        
+        description: "논문 리뷰",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/al-folio/blog/2025/scaling-reasoning-losing-control-evaluating-instruction-following-in/";
           
         },
       },{id: "post-scaling-reasoning-losing-control-evaluating-instruction-following-in-large-reasoning-models",
@@ -99,6 +154,17 @@ ninja.data = [{
         
           title: "Reasoning Model is Stubborn: Diagnosing Instruction Overriding in Reasoning Models",
         
+        description: "논문 리뷰",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/al-folio/blog/2025/reasoning-model-is-stubborn-diagnosing-instruction-overriding-in/";
+          
+        },
+      },{id: "post-reasoning-model-is-stubborn-diagnosing-instruction-overriding-in-reasoning-models",
+        
+          title: "Reasoning Model is Stubborn: Diagnosing Instruction Overriding in Reasoning Models",
+        
         description: "논문 리뷰 - Reasoning Model is Stubborn: Diagnosing Instruction Overriding in Reasoning Models",
         section: "Posts",
         handler: () => {
@@ -110,11 +176,22 @@ ninja.data = [{
         
           title: "Reasoning Models Can Be Effective Without Thinking",
         
-        description: "논문 리뷰 - Reasoning Models Can Be Effective Without Thinking",
+        description: "논문 리뷰",
         section: "Posts",
         handler: () => {
           
             window.location.href = "/al-folio/blog/2025/reasoning-models-can-be-effective-without-thinking/";
+          
+        },
+      },{id: "post-between-underthinking-and-overthinking-an-empirical-study-of-reasoning-length-and-correctness-in-llms",
+        
+          title: "Between Underthinking and Overthinking: An Empirical Study of Reasoning Length and correctness in...",
+        
+        description: "논문 리뷰 - Reasoning 관련 연구",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/al-folio/blog/2025/between-underthinking-and-overthinking-an-empirical-study-of/";
           
         },
       },{id: "post-between-underthinking-and-overthinking-an-empirical-study-of-reasoning-length-and-correctness-in-llms",
@@ -132,11 +209,33 @@ ninja.data = [{
         
           title: "See What You Are Told: Visual Attention Sink in Large Multimodal Models",
         
+        description: "논문 리뷰 - Multimodal 관련 연구",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/al-folio/blog/2025/see-what-you-are-told-visual-attention-sink/";
+          
+        },
+      },{id: "post-see-what-you-are-told-visual-attention-sink-in-large-multimodal-models",
+        
+          title: "See What You Are Told: Visual Attention Sink in Large Multimodal Models",
+        
         description: "논문 리뷰 - See What You Are Told: Visual Attention Sink in Large Multimodal Models",
         section: "Posts",
         handler: () => {
           
             window.location.href = "/al-folio/blog/2025/see-what-you-are-told-visual-attention-sink-in-large-multimodal-models/";
+          
+        },
+      },{id: "post-diffusion-of-thought-chain-of-thought-reasoning-in-diffusion-language-models",
+        
+          title: "Diffusion of Thought: Chain-of-Thought Reasoning in Diffusion Language Models",
+        
+        description: "논문 리뷰 - Text Generation, DiffusionLM 관련 연구",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/al-folio/blog/2025/diffusion-of-thought-chain-of-thought-reasoning-in/";
           
         },
       },{id: "post-diffusion-of-thought-chain-of-thought-reasoning-in-diffusion-language-models",
@@ -154,11 +253,33 @@ ninja.data = [{
         
           title: "Towards a Generalizable Bimanual Foundation Policy via Flow-based Video Prediction",
         
+        description: "논문 리뷰 - Robotics 관련 연구",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/al-folio/blog/2025/towards-a-generalizable-bimanual-foundation-policy-via-flow/";
+          
+        },
+      },{id: "post-towards-a-generalizable-bimanual-foundation-policy-via-flow-based-video-prediction",
+        
+          title: "Towards a Generalizable Bimanual Foundation Policy via Flow-based Video Prediction",
+        
         description: "논문 리뷰 - Towards a Generalizable Bimanual Foundation Policy via Flow-based Video Prediction",
         section: "Posts",
         handler: () => {
           
             window.location.href = "/al-folio/blog/2025/towards-a-generalizable-bimanual-foundation-policy-via-flow-based-video-prediction/";
+          
+        },
+      },{id: "post-dra-grpo-exploring-diversity-aware-reward-adjustment-for-r1-zero-like-training-of-large-language-models",
+        
+          title: "DRA-GRPO: Exploring Diversity-Aware Reward Adjustment for R1-Zero-Like Training of Large Language Models",
+        
+        description: "논문 리뷰",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/al-folio/blog/2025/dra-grpo-exploring-diversity-aware-reward-adjustment-for/";
           
         },
       },{id: "post-dra-grpo-exploring-diversity-aware-reward-adjustment-for-r1-zero-like-training-of-large-language-models",
@@ -176,11 +297,22 @@ ninja.data = [{
         
           title: "Textgrad:  Automatic “Differentiation” via Text",
         
-        description: "논문 리뷰 - Textgrad:  Automatic “Differentiation” via Text",
+        description: "논문 리뷰",
         section: "Posts",
         handler: () => {
           
             window.location.href = "/al-folio/blog/2025/textgrad-automatic-differentiation-via-text/";
+          
+        },
+      },{id: "post-reinforcement-learning-finetunes-small-subnetworks-in-large-language-models",
+        
+          title: "Reinforcement Learning Finetunes Small Subnetworks in Large Language Models",
+        
+        description: "논문 리뷰 - Reinforcement Learning 관련 연구",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/al-folio/blog/2025/reinforcement-learning-finetunes-small-subnetworks-in-large-language/";
           
         },
       },{id: "post-reinforcement-learning-finetunes-small-subnetworks-in-large-language-models",
@@ -198,11 +330,33 @@ ninja.data = [{
         
           title: "Fine-tuning Vision-Language-Action Models: Optimizing Speed and Success",
         
+        description: "논문 리뷰",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/al-folio/blog/2025/fine-tuning-vision-language-action-models-optimizing-speed/";
+          
+        },
+      },{id: "post-fine-tuning-vision-language-action-models-optimizing-speed-and-success",
+        
+          title: "Fine-tuning Vision-Language-Action Models: Optimizing Speed and Success",
+        
         description: "논문 리뷰 - Fine-tuning Vision-Language-Action Models: Optimizing Speed and Success",
         section: "Posts",
         handler: () => {
           
             window.location.href = "/al-folio/blog/2025/fine-tuning-vision-language-action-models-optimizing-speed-and-success/";
+          
+        },
+      },{id: "post-universal-and-transferable-adversarial-attacks-on-aligned-language-models",
+        
+          title: "Universal and Transferable Adversarial Attacks on Aligned Language Models",
+        
+        description: "논문 리뷰",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/al-folio/blog/2025/universal-and-transferable-adversarial-attacks-on-aligned-language/";
           
         },
       },{id: "post-universal-and-transferable-adversarial-attacks-on-aligned-language-models",
@@ -220,7 +374,7 @@ ninja.data = [{
         
           title: "Model Context Protocol (MCP) - provided by Antrophic",
         
-        description: "논문 리뷰 - Model Context Protocol (MCP) - provided by Antrophic",
+        description: "논문 리뷰",
         section: "Posts",
         handler: () => {
           
@@ -231,7 +385,7 @@ ninja.data = [{
         
           title: "Reasoning Models Don’t Always Say What They Think",
         
-        description: "논문 리뷰 - Reasoning Models Don’t Always Say What They Think",
+        description: "논문 리뷰",
         section: "Posts",
         handler: () => {
           
@@ -242,7 +396,7 @@ ninja.data = [{
         
           title: "On the Biology of a Large Language Model",
         
-        description: "논문 리뷰 - On the Biology of a Large Language Model",
+        description: "논문 리뷰",
         section: "Posts",
         handler: () => {
           
@@ -264,11 +418,22 @@ ninja.data = [{
         
           title: "ReFT: Reasoning with Reinforced Fine-Tuning",
         
-        description: "논문 리뷰 - ReFT: Reasoning with Reinforced Fine-Tuning",
+        description: "논문 리뷰 - Reinforcement Learning, SFT 관련 연구",
         section: "Posts",
         handler: () => {
           
             window.location.href = "/al-folio/blog/2025/reft-reasoning-with-reinforced-fine-tuning/";
+          
+        },
+      },{id: "post-when-is-task-vector-provably-effective-for-model-editing-a-generalization-analysis-of-nonlinear-transformers",
+        
+          title: "WHEN IS TASK VECTOR Provably EFFECTIVE FOR MODEL EDITING? A GENERALIZATION ANALYSIS OF...",
+        
+        description: "논문 리뷰",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/al-folio/blog/2025/when-is-task-vector-provably-effective-for-model/";
           
         },
       },{id: "post-when-is-task-vector-provably-effective-for-model-editing-a-generalization-analysis-of-nonlinear-transformers",
@@ -286,11 +451,33 @@ ninja.data = [{
         
           title: "Cognitive Behaviors that Enable Self-Improving Reasoners, or, Four Habits of Highly Effective STaRs...",
         
+        description: "논문 리뷰 - RL, Reasoning 관련 연구",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/al-folio/blog/2025/cognitive-behaviors-that-enable-self-improving-reasoners-or/";
+          
+        },
+      },{id: "post-cognitive-behaviors-that-enable-self-improving-reasoners-or-four-habits-of-highly-effective-stars",
+        
+          title: "Cognitive Behaviors that Enable Self-Improving Reasoners, or, Four Habits of Highly Effective STaRs...",
+        
         description: "논문 리뷰 - Cognitive Behaviors that Enable Self-Improving Reasoners, or, Four Habits of Highly Effective STaRs",
         section: "Posts",
         handler: () => {
           
             window.location.href = "/al-folio/blog/2025/cognitive-behaviors-that-enable-self-improving-reasoners-or-four-habits-of-highly-effective-stars/";
+          
+        },
+      },{id: "post-swe-rl-advancing-llm-reasoning-via-reinforcement-learning-on-open-software-evolution",
+        
+          title: "SWE-RL: Advancing LLM Reasoning via Reinforcement Learning on Open Software Evolution",
+        
+        description: "논문 리뷰 - RL 관련 연구",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/al-folio/blog/2025/swe-rl-advancing-llm-reasoning-via-reinforcement-learning/";
           
         },
       },{id: "post-swe-rl-advancing-llm-reasoning-via-reinforcement-learning-on-open-software-evolution",
@@ -308,6 +495,17 @@ ninja.data = [{
         
           title: "Logic-RL: Unleashing LLM Reasoning with Rule-Based Reinforcement Learning",
         
+        description: "논문 리뷰 - RL 관련 연구",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/al-folio/blog/2025/logic-rl-unleashing-llm-reasoning-with-rule-based/";
+          
+        },
+      },{id: "post-logic-rl-unleashing-llm-reasoning-with-rule-based-reinforcement-learning",
+        
+          title: "Logic-RL: Unleashing LLM Reasoning with Rule-Based Reinforcement Learning",
+        
         description: "논문 리뷰 - Logic-RL: Unleashing LLM Reasoning with Rule-Based Reinforcement Learning",
         section: "Posts",
         handler: () => {
@@ -319,7 +517,7 @@ ninja.data = [{
         
           title: "Contextual Document Embeddings",
         
-        description: "논문 리뷰 - Contextual Document Embeddings",
+        description: "논문 리뷰 - Retrieval, Embeddings 관련 연구",
         section: "Posts",
         handler: () => {
           
@@ -330,7 +528,7 @@ ninja.data = [{
         
           title: "DeepSeek v3",
         
-        description: "논문 리뷰 - DeepSeek v3",
+        description: "논문 리뷰 - LLM, Pre-Training, MoE 관련 연구",
         section: "Posts",
         handler: () => {
           
@@ -396,6 +594,17 @@ ninja.data = [{
         
           title: "TraceVLA: Visual Trace Prompting Enhances Spatial-Temporal Awareness for Generalist Robotic Policies",
         
+        description: "논문 리뷰 - Robotics, Evaluation Metric 관련 연구",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/al-folio/blog/2025/tracevla-visual-trace-prompting-enhances-spatial-temporal-awareness/";
+          
+        },
+      },{id: "post-tracevla-visual-trace-prompting-enhances-spatial-temporal-awareness-for-generalist-robotic-policies",
+        
+          title: "TraceVLA: Visual Trace Prompting Enhances Spatial-Temporal Awareness for Generalist Robotic Policies",
+        
         description: "논문 리뷰 - TraceVLA: Visual Trace Prompting Enhances Spatial-Temporal Awareness for Generalist Robotic Policies",
         section: "Posts",
         handler: () => {
@@ -418,6 +627,17 @@ ninja.data = [{
         
           title: "Inferring from Logits: Exploring Best Practices for Decoding-Free Generative Candidate Selection",
         
+        description: "논문 리뷰 - LM 관련 연구",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/al-folio/blog/2025/inferring-from-logits-exploring-best-practices-for-decoding/";
+          
+        },
+      },{id: "post-inferring-from-logits-exploring-best-practices-for-decoding-free-generative-candidate-selection",
+        
+          title: "Inferring from Logits: Exploring Best Practices for Decoding-Free Generative Candidate Selection",
+        
         description: "논문 리뷰 - Inferring from Logits: Exploring Best Practices for Decoding-Free Generative Candidate Selection",
         section: "Posts",
         handler: () => {
@@ -429,7 +649,7 @@ ninja.data = [{
         
           title: "Diffusion Language Model-Mathematical foundations &amp; inference optimization",
         
-        description: "논문 리뷰 - Diffusion Language Model-Mathematical foundations &amp; inference optimization",
+        description: "논문 리뷰 - DiffusionLM, Pre-training 관련 연구",
         section: "Posts",
         handler: () => {
           
@@ -440,11 +660,22 @@ ninja.data = [{
         
           title: "DeepSeek R1",
         
-        description: "논문 리뷰 - DeepSeek R1",
+        description: "논문 리뷰",
         section: "Posts",
         handler: () => {
           
             window.location.href = "/al-folio/blog/2025/deepseek-r1/";
+          
+        },
+      },{id: "post-d1-scaling-reasoning-in-diffusion-large-language-models-via-reinforcement-learning",
+        
+          title: "d1: Scaling Reasoning in Diffusion Large Language Models via Reinforcement Learning",
+        
+        description: "논문 리뷰 - DiffusionLM, SFT, Reinforcement Learning, Reasoning 관련 연구",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/al-folio/blog/2025/d1-scaling-reasoning-in-diffusion-large-language-models/";
           
         },
       },{id: "post-d1-scaling-reasoning-in-diffusion-large-language-models-via-reinforcement-learning",

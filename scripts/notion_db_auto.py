@@ -52,6 +52,7 @@ class NotionDatabaseProcessor:
         
         self.notion = Client(auth=token)
         self.token = token
+        self.downloaded_images = {}  # URL -> 로컬 파일명 매핑
     
     def extract_database_id_from_url(self, url):
         """
@@ -192,34 +193,37 @@ class NotionDatabaseProcessor:
         
         return metadata
     
-    def get_page_content(self, page_id):
+    def get_page_content(self, page_id, slug=None):
         """
         페이지 내용을 마크다운으로 변환
         
         Args:
             page_id (str): 페이지 ID
+            slug (str): 포스트 슬러그 (이미지 다운로드용)
             
         Returns:
             str: 마크다운 내용
         """
         try:
             blocks = self.notion.blocks.children.list(block_id=page_id)
-            return self.blocks_to_markdown(blocks["results"])
+            return self.blocks_to_markdown(blocks["results"], slug)
         except Exception as e:
             print(f"   ❌ 페이지 내용 가져오기 실패: {e}")
             return ""
     
-    def blocks_to_markdown(self, blocks):
+    def blocks_to_markdown(self, blocks, slug=None):
         """
         노션 블록을 마크다운으로 변환 (기본적인 변환)
         
         Args:
             blocks (list): 노션 블록 리스트
+            slug (str): 포스트 슬러그 (이미지 다운로드용)
             
         Returns:
             str: 마크다운 텍스트
         """
         markdown_content = []
+        image_counter = 0
         
         for block in blocks:
             block_type = block["type"]
@@ -260,8 +264,26 @@ class NotionDatabaseProcessor:
             
             elif block_type == "image":
                 image_url = block["image"].get("file", {}).get("url", "")
-                if image_url:
-                    # 이미지 다운로드 및 로컬 저장 로직은 나중에 구현
+                if image_url and slug:
+                    # 이미지 다운로드 및 경로 변환
+                    filename = self.download_image(image_url, slug, image_counter)
+                    if filename:
+                        if filename.startswith("external:"):
+                            # 외부 URL인 경우 원본 URL 사용
+                            actual_url = filename[9:]  # "external:" 제거
+                            print(f"   ⚠️  외부 URL 사용: {actual_url[:50]}...")
+                            markdown_content.append(f"![Image]({actual_url})\n")
+                        else:
+                            # 로컬 파일인 경우 al-folio 형식으로 변환
+                            al_folio_tag = f'{{% include figure.liquid loading="eager" path="assets/img/posts/{slug}/{filename}" class="img-fluid rounded z-depth-1" %}}'
+                            markdown_content.append(f"{al_folio_tag}\n")
+                        image_counter += 1
+                    else:
+                        # 다운로드 실패시 원본 URL 유지
+                        print(f"   ⚠️  이미지 다운로드 실패, 원본 URL 사용")
+                        markdown_content.append(f"![Image]({image_url})\n")
+                elif image_url:
+                    # slug가 없는 경우 원본 URL 사용
                     markdown_content.append(f"![Image]({image_url})\n")
             
             # 다른 블록 타입들은 필요에 따라 추가
@@ -294,13 +316,148 @@ class NotionDatabaseProcessor:
         
         return "".join(text_parts)
     
+    def get_image_from_notion_block(self, block):
+        """
+        노션 블록에서 이미지 정보를 추출
+        
+        Args:
+            block (dict): 노션 이미지 블록
+            
+        Returns:
+            dict: 이미지 정보 (url, caption 등)
+        """
+        image_info = {}
+        
+        if block["type"] == "image":
+            image_data = block["image"]
+            
+            # 파일 URL 추출
+            if image_data.get("file"):
+                image_info["url"] = image_data["file"]["url"]
+                image_info["type"] = "file"
+            elif image_data.get("external"):
+                image_info["url"] = image_data["external"]["url"]
+                image_info["type"] = "external"
+            
+            # 캡션 추출
+            caption_parts = []
+            for caption in image_data.get("caption", []):
+                caption_parts.append(caption.get("plain_text", ""))
+            image_info["caption"] = " ".join(caption_parts)
+            
+        return image_info
+    
+    def download_image(self, image_url, slug, image_index=0):
+        """
+        노션 이미지를 다운로드하여 로컬에 저장
+        
+        Args:
+            image_url (str): 노션 이미지 URL
+            slug (str): 포스트 슬러그
+            image_index (int): 이미지 인덱스 (같은 포스트 내 순서)
+            
+        Returns:
+            str: 로컬 이미지 파일명 (실패시 None)
+        """
+        try:
+            # 이미지 폴더 생성
+            image_dir = Path(f"assets/img/posts/{slug}")
+            image_dir.mkdir(parents=True, exist_ok=True)
+            
+            # 노션 이미지 URL은 특별한 처리가 필요함
+            # 노션 S3 URL의 경우 Authorization 헤더 없이 요청
+            headers = {
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
+            }
+            
+            # 노션 파일 URL인지 확인
+            if 'prod-files-secure.s3' in image_url or 'notion.so' in image_url:
+                # 노션 파일의 경우 Authorization 헤더 제거
+                print(f"   🔗 노션 파일 URL 감지: {image_url[:50]}...")
+                response = requests.get(image_url, headers=headers, stream=True, timeout=30)
+            else:
+                # 일반 이미지 URL의 경우 노션 API 헤더 사용
+                headers['Authorization'] = f'Bearer {self.token}'
+                headers['Notion-Version'] = '2022-06-28'
+                response = requests.get(image_url, headers=headers, stream=True, timeout=30)
+            
+            response.raise_for_status()
+            
+            # 파일 확장자 추출
+            content_type = response.headers.get('content-type', '')
+            url_ext = ''
+            
+            # URL에서 확장자 추출 시도
+            import urllib.parse
+            parsed_url = urllib.parse.urlparse(image_url)
+            url_path = parsed_url.path.lower()
+            
+            if url_path.endswith('.jpg') or url_path.endswith('.jpeg'):
+                url_ext = '.jpg'
+            elif url_path.endswith('.png'):
+                url_ext = '.png'
+            elif url_path.endswith('.gif'):
+                url_ext = '.gif'
+            elif url_path.endswith('.webp'):
+                url_ext = '.webp'
+            elif url_path.endswith('.svg'):
+                url_ext = '.svg'
+            
+            # Content-Type에서 확장자 추출
+            if not url_ext:
+                if 'jpeg' in content_type or 'jpg' in content_type:
+                    url_ext = '.jpg'
+                elif 'png' in content_type:
+                    url_ext = '.png'
+                elif 'gif' in content_type:
+                    url_ext = '.gif'
+                elif 'webp' in content_type:
+                    url_ext = '.webp'
+                elif 'svg' in content_type:
+                    url_ext = '.svg'
+                else:
+                    url_ext = '.jpg'  # 기본값을 jpg로 변경
+            
+            # 파일명 생성
+            filename = f"image_{image_index:03d}{url_ext}"
+            file_path = image_dir / filename
+            
+            # 파일 저장
+            with open(file_path, 'wb') as f:
+                for chunk in response.iter_content(chunk_size=8192):
+                    if chunk:  # 빈 청크 필터링
+                        f.write(chunk)
+            
+            # 파일 크기 확인
+            file_size = file_path.stat().st_size
+            if file_size == 0:
+                print(f"   ⚠️  빈 파일이 다운로드됨: {filename}")
+                file_path.unlink()  # 빈 파일 삭제
+                return None
+            
+            print(f"   📷 다운로드 완료: {filename} ({file_size:,} bytes)")
+            return filename
+            
+        except requests.exceptions.HTTPError as e:
+            if e.response.status_code == 400:
+                print(f"   ⚠️  이미지 URL 접근 불가 (400 Bad Request)")
+                print(f"      노션 이미지는 임시 URL일 수 있습니다: {image_url[:80]}...")
+                # 400 에러의 경우 원본 URL을 그대로 사용하도록 반환
+                return f"external:{image_url}"
+            else:
+                print(f"   ❌ HTTP 에러: {e}")
+                return None
+        except Exception as e:
+            print(f"   ❌ 이미지 다운로드 실패: {e}")
+            return None
+    
     def convert_page_to_blog(self, page, output_date):
         """
         노션 페이지를 ai-folio 블로그 포스트로 변환
         
         Args:
             page (dict): 노션 페이지
-            output_date (str): 출력 날짜
+            output_date (str): 출력 날짜 - 메타데이터에 날짜가 없을 때 사용
             
         Returns:
             tuple: (생성된 파일 경로, 성공 여부)
@@ -311,22 +468,38 @@ class NotionDatabaseProcessor:
         
         print(f"   📝 제목: {title}")
         
-        # 페이지 내용 가져오기
-        content = self.get_page_content(page["id"])
+        # 날짜 결정 (메타데이터 우선, 없으면 제공된 날짜 사용)
+        final_date = output_date
+        if metadata.get("date") and metadata["date"].strip():
+            meta_date = metadata["date"].strip()
+            try:
+                # 간단한 날짜 파싱 (YYYY-MM-DD 형식 위주)
+                if re.match(r'\d{4}-\d{2}-\d{2}', meta_date):
+                    final_date = meta_date[:10]  # YYYY-MM-DD 부분만 추출
+                    print(f"   📅 메타데이터 날짜 사용: {final_date}")
+                else:
+                    print(f"   ⚠️  메타데이터 날짜 형식 인식 불가 ({meta_date}), 제공된 날짜 사용: {output_date}")
+            except Exception:
+                print(f"   ⚠️  메타데이터 날짜 처리 실패, 제공된 날짜 사용: {output_date}")
+        else:
+            print(f"   📅 제공된 날짜 사용: {final_date}")
+        
+        # 슬러그 생성
+        slug = generate_slug_from_title(title, final_date)
+        print(f"   🔗 슬러그: {slug}")
+        
+        # 페이지 내용 가져오기 (슬러그 전달)
+        content = self.get_page_content(page["id"], slug)
         if not content.strip():
             print(f"   ⚠️  내용이 없는 페이지입니다.")
             return None, False
-        
-        # 슬러그 생성
-        slug = generate_slug_from_title(title, output_date)
-        print(f"   🔗 슬러그: {slug}")
         
         # 태그 생성
         tags = generate_tags_from_content(title, content, metadata)
         print(f"   🏷️  태그: {', '.join(tags)}")
         
         # Front matter 생성
-        front_matter = create_front_matter(title, output_date, tags, metadata, slug)
+        front_matter = create_front_matter(title, final_date, tags, metadata, slug)
         
         # 메타데이터 섹션 생성
         metadata_section = create_metadata_section(metadata)
@@ -341,10 +514,6 @@ class NotionDatabaseProcessor:
             f.write(final_content)
         
         print(f"   ✅ 변환 완료: {output_file}")
-        
-        # 이미지 폴더 생성 (나중에 이미지 다운로드용)
-        image_dir = Path(f"assets/img/posts/{slug}")
-        image_dir.mkdir(parents=True, exist_ok=True)
         
         return str(output_file), True
 
@@ -384,10 +553,11 @@ def process_notion_database(database_url, token, start_date=None):
     
     for i, page in enumerate(pages):
         try:
-            # 날짜를 하루씩 증가시켜서 순서 유지
-            current_date = datetime.strptime(start_date, "%Y-%m-%d")
-            current_date = current_date.replace(day=current_date.day + i)
-            date_str = current_date.strftime("%Y-%m-%d")
+            # 날짜를 하루씩 증가시켜서 순서 유지 (안전한 방법)
+            from datetime import timedelta
+            start_dt = datetime.strptime(start_date, "%Y-%m-%d")
+            current_dt = start_dt + timedelta(days=i)
+            date_str = current_dt.strftime("%Y-%m-%d")
             
             print(f"\n📖 [{i+1}/{len(pages)}] 페이지 처리 중...")
             

@@ -30,8 +30,73 @@ from markdown_utils import (
     generate_tags_from_content,
     create_front_matter,
     create_metadata_section,
-    generate_slug_from_title
+    generate_slug_from_title,
+    convert_image_references_with_slug,
+    calculate_future_date
 )
+
+# notion_to_blog.py에서만 사용하는 날짜 파싱 함수
+def parse_metadata_date(date_str):
+    """
+    메타데이터에서 추출한 날짜 문자열을 파싱
+    
+    Args:
+        date_str (str): 날짜 문자열
+        
+    Returns:
+        datetime: 파싱된 날짜 객체
+        
+    Raises:
+        ValueError: 파싱할 수 없는 날짜 형식
+    """
+    # 노션에서 나올 수 있는 다양한 날짜 형식들
+    date_formats = [
+        "%Y-%m-%d",           # 2025-01-02
+        "%Y/%m/%d",           # 2025/01/02
+        "%Y.%m.%d",           # 2025.01.02
+        "%m/%d/%Y",           # 01/02/2025
+        "%d/%m/%Y",           # 02/01/2025
+        "%B %d, %Y",          # January 2, 2025
+        "%b %d, %Y",          # Jan 2, 2025
+        "%Y-%m-%dT%H:%M:%S.%fZ",  # ISO format
+        "%Y-%m-%dT%H:%M:%SZ",     # ISO format without microseconds
+        "%Y-%m-%d %H:%M:%S",      # 2025-01-02 10:30:00
+    ]
+    
+    # 날짜 문자열 정리
+    clean_date = date_str.strip()
+    
+    # 각 형식으로 시도
+    for fmt in date_formats:
+        try:
+            return datetime.strptime(clean_date, fmt)
+        except ValueError:
+            continue
+    
+    # 특수 처리: "2025년 1월 2일" 같은 한글 형식
+    korean_pattern = r'(\d{4})년\s*(\d{1,2})월\s*(\d{1,2})일'
+    korean_match = re.search(korean_pattern, clean_date)
+    if korean_match:
+        year, month, day = korean_match.groups()
+        return datetime(int(year), int(month), int(day))
+    
+    # 특수 처리: "Jan 2025" 같은 월/년만 있는 경우
+    month_year_pattern = r'([A-Za-z]+)\s+(\d{4})'
+    month_year_match = re.search(month_year_pattern, clean_date)
+    if month_year_match:
+        month_str, year = month_year_match.groups()
+        try:
+            parsed = datetime.strptime(f"{month_str} 1, {year}", "%b %d, %Y")
+            return parsed
+        except ValueError:
+            try:
+                parsed = datetime.strptime(f"{month_str} 1, {year}", "%B %d, %Y")
+                return parsed
+            except ValueError:
+                pass
+    
+    # 모든 시도가 실패한 경우
+    raise ValueError(f"날짜 형식을 인식할 수 없습니다: {date_str}")
 
 def find_notion_files(base_path):
     """
@@ -123,41 +188,13 @@ def copy_images_to_blog(images, target_slug):
     
     return copied_count, str(image_dir)
 
-def update_image_paths_in_content(content, target_slug):
-    """
-    마크다운 내용의 이미지 경로를 ai-folio 형식으로 업데이트
-    
-    Args:
-        content (str): 마크다운 내용
-        target_slug (str): 타겟 슬러그
-        
-    Returns:
-        str: 업데이트된 마크다운 내용
-    """
-    def replace_image_path(match):
-        filename = match.group(1)
-        # 파일명 정리
-        clean_filename = filename.strip()
-        return f'{{% include figure.liquid loading="eager" path="assets/img/posts/{target_slug}/{clean_filename}" class="img-fluid rounded z-depth-1" %}}'
-    
-    # 다양한 이미지 참조 패턴 처리
-    patterns = [
-        r'!\[.*?\]\(([^)]+\.(?:png|jpg|jpeg|gif|webp))\)',  # ![alt](image.png)
-        r'!\[\]\(([^)]+\.(?:png|jpg|jpeg|gif|webp))\)',     # ![](image.png)
-    ]
-    
-    for pattern in patterns:
-        content = re.sub(pattern, replace_image_path, content, flags=re.IGNORECASE)
-    
-    return content
-
 def convert_notion_to_blog(md_file, output_date, custom_title=None):
     """
     노션 마크다운 파일을 ai-folio 블로그 포스트로 변환
     
     Args:
         md_file (str): 노션 마크다운 파일 경로
-        output_date (str): 블로그 포스트 날짜 (YYYY-MM-DD)
+        output_date (str): 블로그 포스트 날짜 (YYYY-MM-DD) - 메타데이터에 날짜가 없을 때 사용
         custom_title (str, optional): 커스텀 제목
         
     Returns:
@@ -181,7 +218,23 @@ def convert_notion_to_blog(md_file, output_date, custom_title=None):
     metadata = extract_metadata_from_content(content)
     print(f"   📋 메타데이터 추출 완료")
     
-    # 3. 제목 결정
+    # 3. 날짜 결정 (메타데이터 우선, 없으면 제공된 날짜 사용)
+    if metadata.get("date") and metadata["date"].strip():
+        # 메타데이터에서 날짜 파싱
+        meta_date = metadata["date"].strip()
+        try:
+            # 다양한 날짜 형식 처리
+            parsed_date = parse_metadata_date(meta_date)
+            final_date = parsed_date.strftime("%Y-%m-%d")
+            print(f"   📅 메타데이터 날짜 사용: {final_date}")
+        except ValueError:
+            print(f"   ⚠️  메타데이터 날짜 파싱 실패 ({meta_date}), 제공된 날짜 사용: {output_date}")
+            final_date = output_date
+    else:
+        final_date = output_date
+        print(f"   📅 제공된 날짜 사용: {final_date}")
+    
+    # 4. 제목 결정
     if custom_title:
         title = custom_title
     else:
@@ -197,11 +250,11 @@ def convert_notion_to_blog(md_file, output_date, custom_title=None):
     
     print(f"   📝 제목: {title}")
     
-    # 4. 슬러그 생성
-    slug = generate_slug_from_title(title, output_date)
+    # 5. 슬러그 생성
+    slug = generate_slug_from_title(title, final_date)
     print(f"   🔗 슬러그: {slug}")
     
-    # 5. 이미지 찾기 및 복사
+    # 6. 이미지 찾기 및 복사
     images = find_images_for_paper(md_path)
     print(f"   🔍 이미지 발견: {len(images)}개")
     
@@ -209,27 +262,28 @@ def convert_notion_to_blog(md_file, output_date, custom_title=None):
     if copied_count > 0:
         print(f"   ✅ 이미지 복사 완료: {copied_count}개")
     
-    # 6. 마크다운 내용 개선
+    # 7. 마크다운 내용 개선
     improved_content = improve_markdown_readability(content)
     
-    # 7. 이미지 경로 업데이트
-    improved_content = update_image_paths_in_content(improved_content, slug)
+    # 8. 이미지 경로 업데이트
+    # improved_content = update_image_paths_in_content(improved_content, slug) # 이 부분은 제거됨
+    improved_content = convert_image_references_with_slug(improved_content, slug)
     
-    # 8. 태그 생성
+    # 9. 태그 생성
     tags = generate_tags_from_content(title, improved_content, metadata)
     print(f"   🏷️  태그: {', '.join(tags)}")
     
-    # 9. Front matter 생성
-    front_matter = create_front_matter(title, output_date, tags, metadata, slug)
+    # 10. Front matter 생성
+    front_matter = create_front_matter(title, final_date, tags, metadata, slug)
     
-    # 10. 메타데이터 섹션 생성
+    # 11. 메타데이터 섹션 생성
     metadata_section = create_metadata_section(metadata)
     
-    # 11. 최종 내용 구성
+    # 12. 최종 내용 구성
     yaml_front_matter = "---\n" + yaml.dump(front_matter, default_flow_style=False, allow_unicode=True) + "---\n"
     final_content = yaml_front_matter + metadata_section + "\n" + improved_content
     
-    # 12. 블로그 포스트 파일 생성
+    # 13. 블로그 포스트 파일 생성
     output_file = Path(f"_posts/{slug}.md")
     with open(output_file, 'w', encoding='utf-8') as f:
         f.write(final_content)
@@ -266,9 +320,7 @@ def batch_convert_notion_files(notion_path, start_date=None):
     for i, md_file in enumerate(md_files):
         try:
             # 날짜를 하루씩 증가시켜서 순서 유지
-            current_date = datetime.strptime(start_date, "%Y-%m-%d")
-            current_date = current_date.replace(day=current_date.day + i)
-            date_str = current_date.strftime("%Y-%m-%d")
+            date_str = calculate_future_date(start_date, i)
             
             print(f"\n📖 [{i+1}/{len(md_files)}] 변환 중...")
             convert_notion_to_blog(md_file, date_str)
