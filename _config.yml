@@ -174,7 +174,7 @@ include: ["_pages", "_scripts"]
 exclude:
   - _projects/
   - _repositories/
-  - _teaching
+  - _teaching/
   - bin/
   - CONTRIBUTING.md
   - CUSTOMIZE.md
