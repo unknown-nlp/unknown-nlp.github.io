@@ -51,18 +51,7 @@ ninja.data = [{
               handler: () => {
                 window.location.href = "/blog/";
               },
-            },{id: "post-block-diffusion-interpolating-between-autoregressive-and-diffusion-language-models",
-        
-          title: "BLOCK DIFFUSION: INTERPOLATING BETWEEN AUTOREGRESSIVE AND DIFFUSION LANGUAGE MODELS",
-        
-        description: "논문 리뷰 - DiffusionLM, LLM 관련 연구",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2025/2025-08-10-block-diffusion-interpolating-between-autoregressive-and-diffusion-language/";
-          
-        },
-      },{id: "post-impact-of-fine-tuning-methods-on-memorization-in-large-language-models",
+            },{id: "post-impact-of-fine-tuning-methods-on-memorization-in-large-language-models",
         
           title: "Impact of Fine-Tuning Methods on Memorization in Large Language Models",
         
@@ -71,17 +60,6 @@ ninja.data = [{
         handler: () => {
           
             window.location.href = "/blog/2025/impact-of-fine-tuning-methods-on-memorization-in/";
-          
-        },
-      },{id: "post-impact-of-fine-tuning-methods-on-memorization-in-large-language-models",
-        
-          title: "Impact of Fine-Tuning Methods on Memorization in Large Language Models",
-        
-        description: "논문 리뷰 - Impact of Fine-Tuning Methods on Memorization in Large Language Models",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2025/impact-of-fine-tuning-methods-on-memorization-in-large-language-models/";
           
         },
       },{id: "post-block-diffusion-interpolating-between-autoregressive-and-diffusion-language-models",
@@ -95,17 +73,6 @@ ninja.data = [{
             window.location.href = "/blog/2025/block-diffusion-interpolating-between-autoregressive-and-diffusion-language/";
           
         },
-      },{id: "post-block-diffusion-interpolating-between-autoregressive-and-diffusion-language-models",
-        
-          title: "BLOCK DIFFUSION: INTERPOLATING BETWEEN AUTOREGRESSIVE AND DIFFUSION LANGUAGE MODELS",
-        
-        description: "논문 리뷰 - BLOCK DIFFUSION: INTERPOLATING BETWEEN AUTOREGRESSIVE AND DIFFUSION LANGUAGE MODELS",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2025/block-diffusion-interpolating-between-autoregressive-and-diffusion-language-models/";
-          
-        },
       },{id: "post-search-r1-training-llms-to-reason-and-leverage-search-engines-with-reinforcement-learning",
         
           title: "Search-R1: Training LLMs to Reason and Leverage Search Engines with Reinforcement Learning",
@@ -115,17 +82,6 @@ ninja.data = [{
         handler: () => {
           
             window.location.href = "/blog/2025/search-r1-training-llms-to-reason-and-leverage/";
-          
-        },
-      },{id: "post-search-r1-training-llms-to-reason-and-leverage-search-engines-with-reinforcement-learning",
-        
-          title: "Search-R1: Training LLMs to Reason and Leverage Search Engines with Reinforcement Learning",
-        
-        description: "논문 리뷰 - Search-R1: Training LLMs to Reason and Leverage Search Engines with Reinforcement Learning",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2025/search-r1-training-llms-to-reason-and-leverage-search-engines-with-reinforcement-learning/";
           
         },
       },{id: "post-scaling-reasoning-losing-control-evaluating-instruction-following-in-large-reasoning-models",
@@ -139,17 +95,6 @@ ninja.data = [{
             window.location.href = "/blog/2025/scaling-reasoning-losing-control-evaluating-instruction-following-in/";
           
         },
-      },{id: "post-scaling-reasoning-losing-control-evaluating-instruction-following-in-large-reasoning-models",
-        
-          title: "Scaling Reasoning, Losing Control: Evaluating Instruction Following in Large Reasoning Models",
-        
-        description: "논문 리뷰 - Scaling Reasoning, Losing Control: Evaluating Instruction Following in Large Reasoning Models",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2025/scaling-reasoning-losing-control-evaluating-instruction-following-in-large-reasoning-models/";
-          
-        },
       },{id: "post-reasoning-model-is-stubborn-diagnosing-instruction-overriding-in-reasoning-models",
         
           title: "Reasoning Model is Stubborn: Diagnosing Instruction Overriding in Reasoning Models",
@@ -159,17 +104,6 @@ ninja.data = [{
         handler: () => {
           
             window.location.href = "/blog/2025/reasoning-model-is-stubborn-diagnosing-instruction-overriding-in/";
-          
-        },
-      },{id: "post-reasoning-model-is-stubborn-diagnosing-instruction-overriding-in-reasoning-models",
-        
-          title: "Reasoning Model is Stubborn: Diagnosing Instruction Overriding in Reasoning Models",
-        
-        description: "논문 리뷰 - Reasoning Model is Stubborn: Diagnosing Instruction Overriding in Reasoning Models",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2025/reasoning-model-is-stubborn-diagnosing-instruction-overriding-in-reasoning-models/";
           
         },
       },{id: "post-reasoning-models-can-be-effective-without-thinking",
@@ -194,17 +128,6 @@ ninja.data = [{
             window.location.href = "/blog/2025/between-underthinking-and-overthinking-an-empirical-study-of/";
           
         },
-      },{id: "post-between-underthinking-and-overthinking-an-empirical-study-of-reasoning-length-and-correctness-in-llms",
-        
-          title: "Between Underthinking and Overthinking: An Empirical Study of Reasoning Length and correctness in...",
-        
-        description: "논문 리뷰 - Between Underthinking and Overthinking: An Empirical Study of Reasoning Length and correctness in LLMs",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2025/between-underthinking-and-overthinking-an-empirical-study-of-reasoning-length-and-correctness-in-llms/";
-          
-        },
       },{id: "post-see-what-you-are-told-visual-attention-sink-in-large-multimodal-models",
         
           title: "See What You Are Told: Visual Attention Sink in Large Multimodal Models",
@@ -214,17 +137,6 @@ ninja.data = [{
         handler: () => {
           
             window.location.href = "/blog/2025/see-what-you-are-told-visual-attention-sink/";
-          
-        },
-      },{id: "post-see-what-you-are-told-visual-attention-sink-in-large-multimodal-models",
-        
-          title: "See What You Are Told: Visual Attention Sink in Large Multimodal Models",
-        
-        description: "논문 리뷰 - See What You Are Told: Visual Attention Sink in Large Multimodal Models",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2025/see-what-you-are-told-visual-attention-sink-in-large-multimodal-models/";
           
         },
       },{id: "post-diffusion-of-thought-chain-of-thought-reasoning-in-diffusion-language-models",
@@ -238,17 +150,6 @@ ninja.data = [{
             window.location.href = "/blog/2025/diffusion-of-thought-chain-of-thought-reasoning-in/";
           
         },
-      },{id: "post-diffusion-of-thought-chain-of-thought-reasoning-in-diffusion-language-models",
-        
-          title: "Diffusion of Thought: Chain-of-Thought Reasoning in Diffusion Language Models",
-        
-        description: "논문 리뷰 - Diffusion of Thought: Chain-of-Thought Reasoning in Diffusion Language Models",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2025/diffusion-of-thought-chain-of-thought-reasoning-in-diffusion-language-models/";
-          
-        },
       },{id: "post-towards-a-generalizable-bimanual-foundation-policy-via-flow-based-video-prediction",
         
           title: "Towards a Generalizable Bimanual Foundation Policy via Flow-based Video Prediction",
@@ -260,17 +161,6 @@ ninja.data = [{
             window.location.href = "/blog/2025/towards-a-generalizable-bimanual-foundation-policy-via-flow/";
           
         },
-      },{id: "post-towards-a-generalizable-bimanual-foundation-policy-via-flow-based-video-prediction",
-        
-          title: "Towards a Generalizable Bimanual Foundation Policy via Flow-based Video Prediction",
-        
-        description: "논문 리뷰 - Towards a Generalizable Bimanual Foundation Policy via Flow-based Video Prediction",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2025/towards-a-generalizable-bimanual-foundation-policy-via-flow-based-video-prediction/";
-          
-        },
       },{id: "post-dra-grpo-exploring-diversity-aware-reward-adjustment-for-r1-zero-like-training-of-large-language-models",
         
           title: "DRA-GRPO: Exploring Diversity-Aware Reward Adjustment for R1-Zero-Like Training of Large Language Models",
@@ -280,17 +170,6 @@ ninja.data = [{
         handler: () => {
           
             window.location.href = "/blog/2025/dra-grpo-exploring-diversity-aware-reward-adjustment-for/";
-          
-        },
-      },{id: "post-dra-grpo-exploring-diversity-aware-reward-adjustment-for-r1-zero-like-training-of-large-language-models",
-        
-          title: "DRA-GRPO: Exploring Diversity-Aware Reward Adjustment for R1-Zero-Like Training of Large Language Models",
-        
-        description: "논문 리뷰 - DRA-GRPO: Exploring Diversity-Aware Reward Adjustment for R1-Zero-Like Training of Large Language Models",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2025/dra-grpo-exploring-diversity-aware-reward-adjustment-for-r1-zero-like-training-of-large-language-models/";
           
         },
       },{id: "post-textgrad-automatic-differentiation-via-text",
@@ -315,17 +194,6 @@ ninja.data = [{
             window.location.href = "/blog/2025/reinforcement-learning-finetunes-small-subnetworks-in-large-language/";
           
         },
-      },{id: "post-reinforcement-learning-finetunes-small-subnetworks-in-large-language-models",
-        
-          title: "Reinforcement Learning Finetunes Small Subnetworks in Large Language Models",
-        
-        description: "논문 리뷰 - Reinforcement Learning Finetunes Small Subnetworks in Large Language Models",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2025/reinforcement-learning-finetunes-small-subnetworks-in-large-language-models/";
-          
-        },
       },{id: "post-fine-tuning-vision-language-action-models-optimizing-speed-and-success",
         
           title: "Fine-tuning Vision-Language-Action Models: Optimizing Speed and Success",
@@ -337,17 +205,6 @@ ninja.data = [{
             window.location.href = "/blog/2025/fine-tuning-vision-language-action-models-optimizing-speed/";
           
         },
-      },{id: "post-fine-tuning-vision-language-action-models-optimizing-speed-and-success",
-        
-          title: "Fine-tuning Vision-Language-Action Models: Optimizing Speed and Success",
-        
-        description: "논문 리뷰 - Fine-tuning Vision-Language-Action Models: Optimizing Speed and Success",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2025/fine-tuning-vision-language-action-models-optimizing-speed-and-success/";
-          
-        },
       },{id: "post-universal-and-transferable-adversarial-attacks-on-aligned-language-models",
         
           title: "Universal and Transferable Adversarial Attacks on Aligned Language Models",
@@ -357,17 +214,6 @@ ninja.data = [{
         handler: () => {
           
             window.location.href = "/blog/2025/universal-and-transferable-adversarial-attacks-on-aligned-language/";
-          
-        },
-      },{id: "post-universal-and-transferable-adversarial-attacks-on-aligned-language-models",
-        
-          title: "Universal and Transferable Adversarial Attacks on Aligned Language Models",
-        
-        description: "논문 리뷰 - Universal and Transferable Adversarial Attacks on Aligned Language Models",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2025/universal-and-transferable-adversarial-attacks-on-aligned-language-models/";
           
         },
       },{id: "post-model-context-protocol-mcp-provided-by-antrophic",
@@ -403,17 +249,6 @@ ninja.data = [{
             window.location.href = "/blog/2025/on-the-biology-of-a-large-language-model/";
           
         },
-      },{id: "post-a-post-with-plotly-js",
-        
-          title: "a post with plotly.js",
-        
-        description: "this is what included plotly.js code could look like",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2025/plotly/";
-          
-        },
       },{id: "post-reft-reasoning-with-reinforced-fine-tuning",
         
           title: "ReFT: Reasoning with Reinforced Fine-Tuning",
@@ -436,17 +271,6 @@ ninja.data = [{
             window.location.href = "/blog/2025/when-is-task-vector-provably-effective-for-model/";
           
         },
-      },{id: "post-when-is-task-vector-provably-effective-for-model-editing-a-generalization-analysis-of-nonlinear-transformers",
-        
-          title: "WHEN IS TASK VECTOR Provably EFFECTIVE FOR MODEL EDITING? A GENERALIZATION ANALYSIS OF...",
-        
-        description: "논문 리뷰 - WHEN IS TASK VECTOR Provably EFFECTIVE FOR MODEL EDITING? A GENERALIZATION ANALYSIS OFNONLINEAR TRANSFORMERS",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2025/when-is-task-vector-provably-effective-for-model-editing-a-generalization-analysis-of-nonlinear-transformers/";
-          
-        },
       },{id: "post-cognitive-behaviors-that-enable-self-improving-reasoners-or-four-habits-of-highly-effective-stars",
         
           title: "Cognitive Behaviors that Enable Self-Improving Reasoners, or, Four Habits of Highly Effective STaRs...",
@@ -456,17 +280,6 @@ ninja.data = [{
         handler: () => {
           
             window.location.href = "/blog/2025/cognitive-behaviors-that-enable-self-improving-reasoners-or/";
-          
-        },
-      },{id: "post-cognitive-behaviors-that-enable-self-improving-reasoners-or-four-habits-of-highly-effective-stars",
-        
-          title: "Cognitive Behaviors that Enable Self-Improving Reasoners, or, Four Habits of Highly Effective STaRs...",
-        
-        description: "논문 리뷰 - Cognitive Behaviors that Enable Self-Improving Reasoners, or, Four Habits of Highly Effective STaRs",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2025/cognitive-behaviors-that-enable-self-improving-reasoners-or-four-habits-of-highly-effective-stars/";
           
         },
       },{id: "post-swe-rl-advancing-llm-reasoning-via-reinforcement-learning-on-open-software-evolution",
@@ -480,17 +293,6 @@ ninja.data = [{
             window.location.href = "/blog/2025/swe-rl-advancing-llm-reasoning-via-reinforcement-learning/";
           
         },
-      },{id: "post-swe-rl-advancing-llm-reasoning-via-reinforcement-learning-on-open-software-evolution",
-        
-          title: "SWE-RL: Advancing LLM Reasoning via Reinforcement Learning on Open Software Evolution",
-        
-        description: "논문 리뷰 - SWE-RL: Advancing LLM Reasoning via Reinforcement Learning on Open Software Evolution",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2025/swe-rl-advancing-llm-reasoning-via-reinforcement-learning-on-open-software-evolution/";
-          
-        },
       },{id: "post-logic-rl-unleashing-llm-reasoning-with-rule-based-reinforcement-learning",
         
           title: "Logic-RL: Unleashing LLM Reasoning with Rule-Based Reinforcement Learning",
@@ -500,17 +302,6 @@ ninja.data = [{
         handler: () => {
           
             window.location.href = "/blog/2025/logic-rl-unleashing-llm-reasoning-with-rule-based/";
-          
-        },
-      },{id: "post-logic-rl-unleashing-llm-reasoning-with-rule-based-reinforcement-learning",
-        
-          title: "Logic-RL: Unleashing LLM Reasoning with Rule-Based Reinforcement Learning",
-        
-        description: "논문 리뷰 - Logic-RL: Unleashing LLM Reasoning with Rule-Based Reinforcement Learning",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2025/logic-rl-unleashing-llm-reasoning-with-rule-based-reinforcement-learning/";
           
         },
       },{id: "post-contextual-document-embeddings",
@@ -568,17 +359,6 @@ ninja.data = [{
             window.location.href = "/blog/2025/agent-laboratory-using-llm-agents-as-research-assistants/";
           
         },
-      },{id: "post-training-large-language-models-to-reason-in-a-continuous-latent-space",
-        
-          title: "Training Large Language Models to Reason in a Continuous Latent Space",
-        
-        description: "논문 리뷰 - Training Large Language Models to Reason in a Continuous Latent Space",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2025/training-large-language-models-to-reason-in-a-continuous-latent-space/";
-          
-        },
       },{id: "post-openvla-an-open-source-vision-language-action-model",
         
           title: "OpenVLA: An Open-Source Vision-Language-Action Model",
@@ -601,28 +381,6 @@ ninja.data = [{
             window.location.href = "/blog/2025/tracevla-visual-trace-prompting-enhances-spatial-temporal-awareness/";
           
         },
-      },{id: "post-tracevla-visual-trace-prompting-enhances-spatial-temporal-awareness-for-generalist-robotic-policies",
-        
-          title: "TraceVLA: Visual Trace Prompting Enhances Spatial-Temporal Awareness for Generalist Robotic Policies",
-        
-        description: "논문 리뷰 - TraceVLA: Visual Trace Prompting Enhances Spatial-Temporal Awareness for Generalist Robotic Policies",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2025/tracevla-visual-trace-prompting-enhances-spatial-temporal-awareness-for-generalist-robotic-policies/";
-          
-        },
-      },{id: "post-inferring-from-logits-exploring-best-practices-for-decoding-free-generative-candidate-selection",
-        
-          title: "Inferring from Logits: Exploring Best Practices for Decoding-Free Generative Candidate Selection",
-        
-        description: "ACL 논문 리뷰 - Logit 기반의 디코딩 없는 생성 모델 후보 선택 방법론에 대한 연구",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2025/logits-decoding/";
-          
-        },
       },{id: "post-inferring-from-logits-exploring-best-practices-for-decoding-free-generative-candidate-selection",
         
           title: "Inferring from Logits: Exploring Best Practices for Decoding-Free Generative Candidate Selection",
@@ -632,17 +390,6 @@ ninja.data = [{
         handler: () => {
           
             window.location.href = "/blog/2025/inferring-from-logits-exploring-best-practices-for-decoding/";
-          
-        },
-      },{id: "post-inferring-from-logits-exploring-best-practices-for-decoding-free-generative-candidate-selection",
-        
-          title: "Inferring from Logits: Exploring Best Practices for Decoding-Free Generative Candidate Selection",
-        
-        description: "논문 리뷰 - Inferring from Logits: Exploring Best Practices for Decoding-Free Generative Candidate Selection",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2025/inferring-from-logits-exploring-best-practices-for-decoding-free-generative-candidate-selection/";
           
         },
       },{id: "post-diffusion-language-model-mathematical-foundations-amp-inference-optimization",
@@ -678,28 +425,6 @@ ninja.data = [{
             window.location.href = "/blog/2025/d1-scaling-reasoning-in-diffusion-large-language-models/";
           
         },
-      },{id: "post-d1-scaling-reasoning-in-diffusion-large-language-models-via-reinforcement-learning",
-        
-          title: "d1: Scaling Reasoning in Diffusion Large Language Models via Reinforcement Learning",
-        
-        description: "논문 리뷰 - d1: Scaling Reasoning in Diffusion Large Language Models via Reinforcement Learning",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2025/d1-scaling-reasoning-in-diffusion-large-language-models-via-reinforcement-learning/";
-          
-        },
-      },{id: "post-a-post-with-image-galleries",
-        
-          title: "a post with image galleries",
-        
-        description: "this is what included image galleries could look like",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2024/photo-gallery/";
-          
-        },
       },{id: "post-rule-based-rewards-for-language-model-safety",
         
           title: "Rule Based Rewards for Language Model Safety",
@@ -723,18 +448,6 @@ PRETRAINING HINDERS NEW KNOWLEDGE ACQUISITION",
             window.location.href = "/blog/2024/knowledge-entropy-decay-during-language-model-pretraining-hinders/";
           
         },
-      },{id: "post-knowledge-entropy-decay-during-language-model-pretraining-hinders-new-knowledge-acquisition",
-        
-          title: "KNOWLEDGE ENTROPY DECAY DURING LANGUAGE MODEL
-PRETRAINING HINDERS NEW KNOWLEDGE ACQUISITION",
-        
-        description: "논문 리뷰 - KNOWLEDGE ENTROPY DECAY DURING LANGUAGE MODELPRETRAINING HINDERS NEW KNOWLEDGE ACQUISITION",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2024/knowledge-entropy-decay-during-language-model-pretraining-hinders-new-knowledge-acquisition/";
-          
-        },
       },{id: "post-faitheval-can-your-language-model-stay-faithful-to-context-even-if-the-moon-is-made-of-marshmallows",
         
           title: "FAITHEVAL: CAN YOUR LANGUAGE MODEL STAY FAITHFUL TO CONTEXT, EVEN IF “THE MOON...",
@@ -744,17 +457,6 @@ PRETRAINING HINDERS NEW KNOWLEDGE ACQUISITION",
         handler: () => {
           
             window.location.href = "/blog/2024/faitheval-can-your-language-model-stay-faithful-to/";
-          
-        },
-      },{id: "post-faitheval-can-your-language-model-stay-faithful-to-context-even-if-the-moon-is-made-of-marshmallows",
-        
-          title: "FAITHEVAL: CAN YOUR LANGUAGE MODEL STAY FAITHFUL TO CONTEXT, EVEN IF “THE MOON...",
-        
-        description: "논문 리뷰 - FAITHEVAL: CAN YOUR LANGUAGE MODEL STAY FAITHFUL TO CONTEXT, EVEN IF “THE MOON IS MADE OF MARSHMALLOWS”",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2024/faitheval-can-your-language-model-stay-faithful-to-context-even-if-the-moon-is-made-of-marshmallows/";
           
         },
       },{id: "post-qcrd-quality-guided-contrastive-rationale-distillation-for-large-lanauge-models",
@@ -768,17 +470,6 @@ PRETRAINING HINDERS NEW KNOWLEDGE ACQUISITION",
             window.location.href = "/blog/2024/qcrd-quality-guided-contrastive-rationale-distillation-for-large/";
           
         },
-      },{id: "post-qcrd-quality-guided-contrastive-rationale-distillation-for-large-lanauge-models",
-        
-          title: "QCRD: Quality-guided Contrastive Rationale Distillation for Large Lanauge Models",
-        
-        description: "논문 리뷰 - QCRD: Quality-guided Contrastive Rationale Distillation for Large Lanauge Models",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2024/qcrd-quality-guided-contrastive-rationale-distillation-for-large-lanauge-models/";
-          
-        },
       },{id: "post-training-language-models-to-self-correct-via-reinforcement-learning",
         
           title: "Training Language Models to Self-Correct via Reinforcement Learning",
@@ -788,17 +479,6 @@ PRETRAINING HINDERS NEW KNOWLEDGE ACQUISITION",
         handler: () => {
           
             window.location.href = "/blog/2024/training-language-models-to-self-correct-via-reinforcement/";
-          
-        },
-      },{id: "post-training-language-models-to-self-correct-via-reinforcement-learning",
-        
-          title: "Training Language Models to Self-Correct via Reinforcement Learning",
-        
-        description: "논문 리뷰 - Training Language Models to Self-Correct via Reinforcement Learning",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2024/training-language-models-to-self-correct-via-reinforcement-learning/";
           
         },
       },{id: "post-super-evaluating-agents-on-setting-up-and-executing-tasks-from-research-repositories",
@@ -813,18 +493,6 @@ from Research Repositories",
             window.location.href = "/blog/2024/super-evaluating-agents-on-setting-up-and-executing/";
           
         },
-      },{id: "post-super-evaluating-agents-on-setting-up-and-executing-tasks-from-research-repositories",
-        
-          title: "SUPER: Evaluating Agents on Setting Up and Executing Tasks
-from Research Repositories",
-        
-        description: "논문 리뷰 - SUPER: Evaluating Agents on Setting Up and Executing Tasksfrom Research Repositories",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2024/super-evaluating-agents-on-setting-up-and-executing-tasks-from-research-repositories/";
-          
-        },
       },{id: "post-smaller-weaker-yet-better-training-llm-reasoners-via-compute-optimal-sampling",
         
           title: "Smaller, Weaker, Yet Better: Training LLM Reasoners via Compute-Optimal Sampling",
@@ -836,17 +504,6 @@ from Research Repositories",
             window.location.href = "/blog/2024/smaller-weaker-yet-better-training-llm-reasoners-via/";
           
         },
-      },{id: "post-smaller-weaker-yet-better-training-llm-reasoners-via-compute-optimal-sampling",
-        
-          title: "Smaller, Weaker, Yet Better: Training LLM Reasoners via Compute-Optimal Sampling",
-        
-        description: "논문 리뷰 - Smaller, Weaker, Yet Better: Training LLM Reasoners via Compute-Optimal Sampling",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2024/smaller-weaker-yet-better-training-llm-reasoners-via-compute-optimal-sampling/";
-          
-        },
       },{id: "post-jailbreak-in-pieces-compositional-adversarial-attacks-on-multi-modal-language-models",
         
           title: "Jailbreak in pieces: Compositional Adversarial Attacks on Multi-Modal Language Models",
@@ -856,17 +513,6 @@ from Research Repositories",
         handler: () => {
           
             window.location.href = "/blog/2024/jailbreak-in-pieces-compositional-adversarial-attacks-on-multi/";
-          
-        },
-      },{id: "post-jailbreak-in-pieces-compositional-adversarial-attacks-on-multi-modal-language-models",
-        
-          title: "Jailbreak in pieces: Compositional Adversarial Attacks on Multi-Modal Language Models",
-        
-        description: "논문 리뷰 - Jailbreak in pieces: Compositional Adversarial Attacks on Multi-Modal Language Models",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2024/jailbreak-in-pieces-compositional-adversarial-attacks-on-multi-modal-language-models/";
           
         },
       },{id: "post-many-shot-jailbreaking",
@@ -891,17 +537,6 @@ from Research Repositories",
             window.location.href = "/blog/2024/llm2vec-large-language-models-are-secretly-powerful-text/";
           
         },
-      },{id: "post-llm2vec-large-language-models-are-secretly-powerful-text-encoders",
-        
-          title: "LLM2Vec: Large Language Models Are Secretly Powerful Text Encoders",
-        
-        description: "논문 리뷰 - LLM2Vec: Large Language Models Are Secretly Powerful Text Encoders",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2024/llm2vec-large-language-models-are-secretly-powerful-text-encoders/";
-          
-        },
       },{id: "post-knowledge-augmented-reasoning-distillation-for-small-language-models-in-knowledge-intensive-tasks-kard",
         
           title: "Knowledge-Augmented Reasoning distillation for Small Language Models in Knowledge-Intensive Tasks (KARD)",
@@ -913,17 +548,6 @@ from Research Repositories",
             window.location.href = "/blog/2024/knowledge-augmented-reasoning-distillation-for-small-language-models/";
           
         },
-      },{id: "post-knowledge-augmented-reasoning-distillation-for-small-language-models-in-knowledge-intensive-tasks-kard",
-        
-          title: "Knowledge-Augmented Reasoning distillation for Small Language Models in Knowledge-Intensive Tasks (KARD)",
-        
-        description: "논문 리뷰 - Knowledge-Augmented Reasoning distillation for Small Language Models in Knowledge-Intensive Tasks (KARD)",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2024/knowledge-augmented-reasoning-distillation-for-small-language-models-in-knowledge-intensive-tasks-kard/";
-          
-        },
       },{id: "post-physics-of-language-models-part-2-1-grade-school-math-and-the-hidden-reasoning-process",
         
           title: "Physics of Language Models: Part 2.1, Grade-School Math and the Hidden Reasoning Process...",
@@ -933,17 +557,6 @@ from Research Repositories",
         handler: () => {
           
             window.location.href = "/blog/2024/physics-of-language-models-part-21-grade-school/";
-          
-        },
-      },{id: "post-physics-of-language-models-part-2-1-grade-school-math-and-the-hidden-reasoning-process",
-        
-          title: "Physics of Language Models: Part 2.1, Grade-School Math and the Hidden Reasoning Process...",
-        
-        description: "논문 리뷰 - Physics of Language Models: Part 2.1, Grade-School Math and the Hidden Reasoning Process",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2024/physics-of-language-models-part-21-grade-school-math-and-the-hidden-reasoning-process/";
           
         },
       },{id: "post-knowledge-conflict-survey",
@@ -979,17 +592,6 @@ from Research Repositories",
             window.location.href = "/blog/2024/training-large-language-models-for-reasoning-through-reverse/";
           
         },
-      },{id: "post-training-large-language-models-for-reasoning-through-reverse-curriculum-reinforcement-learning",
-        
-          title: "Training Large Language Models for Reasoning through Reverse Curriculum Reinforcement Learning",
-        
-        description: "논문 리뷰 - Training Large Language Models for Reasoning through Reverse Curriculum Reinforcement Learning",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2024/training-large-language-models-for-reasoning-through-reverse-curriculum-reinforcement-learning/";
-          
-        },
       },{id: "post-step-dpo-step-wise-preference-optimization-for-long-chain-reasoning-of-llms",
         
           title: "Step-DPO : Step-wise preference optimization for long-chain reasoning of LLMs",
@@ -1001,17 +603,6 @@ from Research Repositories",
             window.location.href = "/blog/2024/step-dpo-step-wise-preference-optimization-for-long/";
           
         },
-      },{id: "post-step-dpo-step-wise-preference-optimization-for-long-chain-reasoning-of-llms",
-        
-          title: "Step-DPO : Step-wise preference optimization for long-chain reasoning of LLMs",
-        
-        description: "논문 리뷰 - Step-DPO : Step-wise preference optimization for long-chain reasoning of LLMs",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2024/step-dpo-step-wise-preference-optimization-for-long-chain-reasoning-of-llms/";
-          
-        },
       },{id: "post-pyspark-how-to-preprocess-large-scale-data-with-python",
         
           title: "Pyspark - How to preprocess Large Scale Data with Python",
@@ -1021,17 +612,6 @@ from Research Repositories",
         handler: () => {
           
             window.location.href = "/blog/2024/pyspark-how-to-preprocess-large-scale/";
-          
-        },
-      },{id: "post-pyspark-how-to-preprocess-large-scale-data-with-python",
-        
-          title: "Pyspark - How to preprocess Large Scale Data with Python",
-        
-        description: "논문 리뷰 - Pyspark - How to preprocess Large Scale Data with Python",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2024/pyspark-how-to-preprocess-large-scale-data-with-python/";
           
         },
       },{id: "post-llava-visual-instruction-tuning",
@@ -1057,18 +637,6 @@ Jailbreaking Attack against LLMs",
             window.location.href = "/blog/2024/rl-jack-reinforcement-learning-powered-black-box-jailbreaking/";
           
         },
-      },{id: "post-rl-jack-reinforcement-learning-powered-black-box-jailbreaking-attack-against-llms",
-        
-          title: "RL-JACK: Reinforcement Learning-powered Black-box
-Jailbreaking Attack against LLMs",
-        
-        description: "논문 리뷰 - RL-JACK: Reinforcement Learning-powered Black-boxJailbreaking Attack against LLMs",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2024/rl-jack-reinforcement-learning-powered-black-box-jailbreaking-attack-against-llms/";
-          
-        },
       },{id: "post-llama3-tokenizer",
         
           title: "Llama3 Tokenizer",
@@ -1078,17 +646,6 @@ Jailbreaking Attack against LLMs",
         handler: () => {
           
             window.location.href = "/blog/2024/llama3-tokenizer/";
-          
-        },
-      },{id: "post-gecko-versatile-text-embeddings-distilled-from-large-language-models",
-        
-          title: "Gecko: Versatile Text Embeddings Distilled from Large Language Models",
-        
-        description: "논문 리뷰 - Gecko: Versatile Text Embeddings Distilled from Large Language Models",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2024/gecko-versatile-text-embeddings-distilled-from-large-language-models/";
           
         },
       },{id: "post-scaling-monosemanticity-extracting-interpretable-features-from-claude-3-sonnet",
@@ -1102,17 +659,6 @@ Jailbreaking Attack against LLMs",
             window.location.href = "/blog/2024/scaling-monosemanticity-extracting-interpretable-features-from-claude-3/";
           
         },
-      },{id: "post-scaling-monosemanticity-extracting-interpretable-features-from-claude-3-sonnet",
-        
-          title: "Scaling Monosemanticity: Extracting Interpretable Features from Claude 3 Sonnet",
-        
-        description: "논문 리뷰 - Scaling Monosemanticity: Extracting Interpretable Features from Claude 3 Sonnet",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2024/scaling-monosemanticity-extracting-interpretable-features-from-claude-3-sonnet/";
-          
-        },
       },{id: "post-does-fine-tuning-llms-on-new-knowledge-encourage-hallucinations",
         
           title: "Does Fine-Tuning LLMs on New Knowledge Encourage Hallucinations?",
@@ -1122,17 +668,6 @@ Jailbreaking Attack against LLMs",
         handler: () => {
           
             window.location.href = "/blog/2024/does-fine-tuning-llms-on-new-knowledge-encourage/";
-          
-        },
-      },{id: "post-does-fine-tuning-llms-on-new-knowledge-encourage-hallucinations",
-        
-          title: "Does Fine-Tuning LLMs on New Knowledge Encourage Hallucinations?",
-        
-        description: "논문 리뷰 - Does Fine-Tuning LLMs on New Knowledge Encourage Hallucinations?",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2024/does-fine-tuning-llms-on-new-knowledge-encourage-hallucinations/";
           
         },
       },{id: "post-contextual-position-encoding-learning-to-count-what-s-important",
@@ -1157,17 +692,6 @@ Jailbreaking Attack against LLMs",
             window.location.href = "/blog/2024/stacking-your-transformers-a-closer-look-at-model/";
           
         },
-      },{id: "post-stacking-your-transformers-a-closer-look-at-model-growth-for-efficient-llm-pre-training",
-        
-          title: "Stacking Your Transformers: A Closer Look at Model Growth for Efficient LLM Pre-Training...",
-        
-        description: "논문 리뷰 - Stacking Your Transformers: A Closer Look at Model Growth for Efficient LLM Pre-Training",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2024/stacking-your-transformers-a-closer-look-at-model-growth-for-efficient-llm-pre-training/";
-          
-        },
       },{id: "post-simpo-simple-preference-optimization-with-a-reference-free-reward",
         
           title: "SimPO: Simple Preference Optimization with a Reference-Free Reward",
@@ -1179,17 +703,6 @@ Jailbreaking Attack against LLMs",
             window.location.href = "/blog/2024/simpo-simple-preference-optimization-with-a-reference-free/";
           
         },
-      },{id: "post-simpo-simple-preference-optimization-with-a-reference-free-reward",
-        
-          title: "SimPO: Simple Preference Optimization with a Reference-Free Reward",
-        
-        description: "논문 리뷰 - SimPO: Simple Preference Optimization with a Reference-Free Reward",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2024/simpo-simple-preference-optimization-with-a-reference-free-reward/";
-          
-        },
       },{id: "post-understanding-the-performance-gap-between-online-and-offline-alignment-algorithms",
         
           title: "Understanding the performance gap between online and offline alignment algorithms",
@@ -1199,28 +712,6 @@ Jailbreaking Attack against LLMs",
         handler: () => {
           
             window.location.href = "/blog/2024/understanding-the-performance-gap-between-online-and-offline/";
-          
-        },
-      },{id: "post-understanding-the-performance-gap-between-online-and-offline-alignment-algorithms",
-        
-          title: "Understanding the performance gap between online and offline alignment algorithms",
-        
-        description: "논문 리뷰 - Understanding the performance gap between online and offline alignment algorithms",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2024/understanding-the-performance-gap-between-online-and-offline-alignment-algorithms/";
-          
-        },
-      },{id: "post-simpo-simple-preference-optimization-with-a-reference-free-reward",
-        
-          title: "SimPO: Simple Preference Optimization with a Reference-Free Reward",
-        
-        description: "논문 리뷰 - SimPO: Simple Preference Optimization with a Reference-Free Reward",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2024/simpo-simple-preference-optimization-with-a-reference-free-reward/";
           
         },
       },{id: "post-llama-pro-progressive-llama-with-block-expansion",
@@ -1245,17 +736,6 @@ Jailbreaking Attack against LLMs",
             window.location.href = "/blog/2024/how-to-train-llm-from-data/";
           
         },
-      },{id: "post-how-to-train-llm-from-data-parallel-to-fully-sharded-data-parallel",
-        
-          title: "How to Train LLM? - From Data Parallel To Fully Sharded Data Parallel...",
-        
-        description: "논문 리뷰 - How to Train LLM? - From Data Parallel To Fully Sharded Data Parallel",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2024/how-to-train-llm-from-data-parallel-to-fully-sharded-data-parallel/";
-          
-        },
       },{id: "post-how-to-inference-big-llm-using-accelerate-library",
         
           title: "How to Inference Big LLM? - Using Accelerate Library",
@@ -1265,28 +745,6 @@ Jailbreaking Attack against LLMs",
         handler: () => {
           
             window.location.href = "/blog/2024/how-to-inference-big-llm-using/";
-          
-        },
-      },{id: "post-how-to-inference-big-llm-using-accelerate-library",
-        
-          title: "How to Inference Big LLM? - Using Accelerate Library",
-        
-        description: "논문 리뷰 - How to Inference Big LLM? - Using Accelerate Library",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2024/how-to-inference-big-llm-using-accelerate-library/";
-          
-        },
-      },{id: "post-a-post-with-tabs",
-        
-          title: "a post with tabs",
-        
-        description: "this is what included tabs in a post could look like",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2024/tabs/";
           
         },
       },{id: "post-training-diffusion-modelse-with-reinforcement-learning",
@@ -1311,28 +769,6 @@ Jailbreaking Attack against LLMs",
             window.location.href = "/blog/2024/many-shot-in-context-learning/";
           
         },
-      },{id: "post-a-post-with-typograms",
-        
-          title: "a post with typograms",
-        
-        description: "this is what included typograms code could look like",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2024/typograms/";
-          
-        },
-      },{id: "post-a-post-that-can-be-cited",
-        
-          title: "a post that can be cited",
-        
-        description: "this is what a post that can be cited looks like",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2024/post-citation/";
-          
-        },
       },{id: "post-orpo-monolithic-preference-optimization-without-reference-model",
         
           title: "ORPO: Monolithic Preference Optimization without Reference Model",
@@ -1355,17 +791,6 @@ Jailbreaking Attack against LLMs",
             window.location.href = "/blog/2024/exploring-concept-depth-how-large-language-models-acquire/";
           
         },
-      },{id: "post-exploring-concept-depth-how-large-language-models-acquire-knowledge-at-different-layers",
-        
-          title: "Exploring Concept Depth: How Large Language Models Acquire Knowledge at Different Layers?",
-        
-        description: "논문 리뷰 - Exploring Concept Depth: How Large Language Models Acquire Knowledge at Different Layers?",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2024/exploring-concept-depth-how-large-language-models-acquire-knowledge-at-different-layers/";
-          
-        },
       },{id: "post-understanding-emergent-abilities-of-language-models-from-the-loss-perspective",
         
           title: "Understanding Emergent Abilities of Language Models from the Loss Perspective",
@@ -1375,28 +800,6 @@ Jailbreaking Attack against LLMs",
         handler: () => {
           
             window.location.href = "/blog/2024/understanding-emergent-abilities-of-language-models-from-the/";
-          
-        },
-      },{id: "post-understanding-emergent-abilities-of-language-models-from-the-loss-perspective",
-        
-          title: "Understanding Emergent Abilities of Language Models from the Loss Perspective",
-        
-        description: "논문 리뷰 - Understanding Emergent Abilities of Language Models from the Loss Perspective",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2024/understanding-emergent-abilities-of-language-models-from-the-loss-perspective/";
-          
-        },
-      },{id: "post-a-post-with-pseudo-code",
-        
-          title: "a post with pseudo code",
-        
-        description: "this is what included pseudo code could look like",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2024/pseudocode/";
           
         },
       },{id: "post-scaling-laws-for-data-filtering-data-curation-cannot-be-compute-agnostic",
@@ -1409,18 +812,6 @@ Data Curation cannot be Compute Agnostic",
         handler: () => {
           
             window.location.href = "/blog/2024/scaling-laws-for-data-filtering-data-curation-cannot/";
-          
-        },
-      },{id: "post-scaling-laws-for-data-filtering-data-curation-cannot-be-compute-agnostic",
-        
-          title: "Scaling Laws for Data Filtering—
-Data Curation cannot be Compute Agnostic",
-        
-        description: "논문 리뷰 - Scaling Laws for Data Filtering—Data Curation cannot be Compute Agnostic",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2024/scaling-laws-for-data-filtering-data-curation-cannot-be-compute-agnostic/";
           
         },
       },{id: "post-preference-free-alignment-learning-with-regularized-relevance-reward",
@@ -1445,17 +836,6 @@ Data Curation cannot be Compute Agnostic",
             window.location.href = "/blog/2024/search-in-the-chain-interactively-enhancing-large-language/";
           
         },
-      },{id: "post-search-in-the-chain-interactively-enhancing-large-language-models-with-search-for-knowledge-intensive-tasks",
-        
-          title: "Search-in-the-Chain: Interactively Enhancing Large Language Models with Search for Knowledge-intensive Tasks",
-        
-        description: "논문 리뷰 - Search-in-the-Chain: Interactively Enhancing Large Language Models with Search for Knowledge-intensive Tasks",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2024/search-in-the-chain-interactively-enhancing-large-language-models-with-search-for-knowledge-intensive-tasks/";
-          
-        },
       },{id: "post-unveiling-the-generalization-power-of-fine-tuned-large-language-models",
         
           title: "Unveiling the Generalization Power of Fine-Tuned Large Language Models",
@@ -1465,28 +845,6 @@ Data Curation cannot be Compute Agnostic",
         handler: () => {
           
             window.location.href = "/blog/2024/unveiling-the-generalization-power-of-fine-tuned-large/";
-          
-        },
-      },{id: "post-unveiling-the-generalization-power-of-fine-tuned-large-language-models",
-        
-          title: "Unveiling the Generalization Power of Fine-Tuned Large Language Models",
-        
-        description: "논문 리뷰 - Unveiling the Generalization Power of Fine-Tuned Large Language Models",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2024/unveiling-the-generalization-power-of-fine-tuned-large-language-models/";
-          
-        },
-      },{id: "post-mm1-methods-analysis-amp-insights-from-multimodal-llm-pre-training",
-        
-          title: "MM1: Methods, Analysis &amp; Insights from Multimodal LLM Pre-training",
-        
-        description: "논문 리뷰 - MM1: Methods, Analysis &amp; Insights from Multimodal LLM Pre-training",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2024/mm1-methods-analysis-insights-from-multimodal-llm-pre-training/";
           
         },
       },{id: "post-a-simple-and-effective-pruning-approach-for-large-language-models",
@@ -1500,17 +858,6 @@ Data Curation cannot be Compute Agnostic",
             window.location.href = "/blog/2024/a-simple-and-effective-pruning-approach-for-large/";
           
         },
-      },{id: "post-a-simple-and-effective-pruning-approach-for-large-language-models",
-        
-          title: "A Simple and Effective Pruning Approach for Large Language Models",
-        
-        description: "논문 리뷰 - A Simple and Effective Pruning Approach for Large Language Models",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2024/a-simple-and-effective-pruning-approach-for-large-language-models/";
-          
-        },
       },{id: "post-bitnet-scaling-1-bit-transformers-for-large-language-models",
         
           title: "BitNet: Scaling 1-bit Transformers for Large Language Models",
@@ -1520,17 +867,6 @@ Data Curation cannot be Compute Agnostic",
         handler: () => {
           
             window.location.href = "/blog/2024/bitnet-scaling-1-bit-transformers-for-large-language/";
-          
-        },
-      },{id: "post-bitnet-scaling-1-bit-transformers-for-large-language-models",
-        
-          title: "BitNet: Scaling 1-bit Transformers for Large Language Models",
-        
-        description: "논문 리뷰 - BitNet: Scaling 1-bit Transformers for Large Language Models",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2024/bitnet-scaling-1-bit-transformers-for-large-language-models/";
           
         },
       },{id: "post-beyond-memorization-violating-privacy-via-inferencing-with-llms",
@@ -1555,17 +891,6 @@ Data Curation cannot be Compute Agnostic",
             window.location.href = "/blog/2024/self-rag-learning-to-retrieve-generate-and-critique/";
           
         },
-      },{id: "post-self-rag-learning-to-retrieve-generate-and-critique-through-self-reflection",
-        
-          title: "SELF-RAG: LEARNING TO RETRIEVE, GENERATE, AND CRITIQUE THROUGH SELF-REFLECTION",
-        
-        description: "논문 리뷰 - SELF-RAG: LEARNING TO RETRIEVE, GENERATE, AND CRITIQUE THROUGH SELF-REFLECTION",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2024/self-rag-learning-to-retrieve-generate-and-critique-through-self-reflection/";
-          
-        },
       },{id: "post-wikichat-stopping-the-hallucination-of-large-language-model-chatbots-by-few-shot-grounding-on-wikipedia",
         
           title: "WikiChat: Stopping the Hallucination of Large Language Model Chatbots by Few-Shot Grounding on...",
@@ -1577,17 +902,6 @@ Data Curation cannot be Compute Agnostic",
             window.location.href = "/blog/2024/wikichat-stopping-the-hallucination-of-large-language-model/";
           
         },
-      },{id: "post-wikichat-stopping-the-hallucination-of-large-language-model-chatbots-by-few-shot-grounding-on-wikipedia",
-        
-          title: "WikiChat: Stopping the Hallucination of Large Language Model Chatbots by Few-Shot Grounding on...",
-        
-        description: "논문 리뷰 - WikiChat: Stopping the Hallucination of Large Language Model Chatbots by Few-Shot Grounding on Wikipedia",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2024/wikichat-stopping-the-hallucination-of-large-language-model-chatbots-by-few-shot-grounding-on-wikipedia/";
-          
-        },
       },{id: "post-knowledge-card-filling-llms-knowledge-gaps-with-plug-in-specialized-language-models",
         
           title: "KNOWLEDGE CARD: FILLING LLMS’ KNOWLEDGE GAPS WITH PLUG-IN SPECIALIZED LANGUAGE MODELS",
@@ -1597,17 +911,6 @@ Data Curation cannot be Compute Agnostic",
         handler: () => {
           
             window.location.href = "/blog/2024/knowledge-card-filling-llms-knowledge-gaps-with-plug/";
-          
-        },
-      },{id: "post-knowledge-card-filling-llms-knowledge-gaps-with-plug-in-specialized-language-models",
-        
-          title: "KNOWLEDGE CARD: FILLING LLMS’ KNOWLEDGE GAPS WITH PLUG-IN SPECIALIZED LANGUAGE MODELS",
-        
-        description: "논문 리뷰 - KNOWLEDGE CARD: FILLING LLMS’ KNOWLEDGE GAPS WITH PLUG-IN SPECIALIZED LANGUAGE MODELS",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2024/knowledge-card-filling-llms-knowledge-gaps-with-plug-in-specialized-language-models/";
           
         },
       },{id: "post-llm-augmented-llms-expanding-capabilities-through-composition",
@@ -1653,72 +956,6 @@ EXPANDING CAPABILITIES THROUGH COMPOSITION",
         handler: () => {
           
             window.location.href = "/blog/2024/lion-adversarial-distillation-of-proprietary-large-language-models/";
-          
-        },
-      },{id: "post-a-post-with-code-diff",
-        
-          title: "a post with code diff",
-        
-        description: "this is how you can display code diffs",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2024/code-diff/";
-          
-        },
-      },{id: "post-a-post-with-advanced-image-components",
-        
-          title: "a post with advanced image components",
-        
-        description: "this is what advanced image components could look like",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2024/advanced-images/";
-          
-        },
-      },{id: "post-a-post-with-vega-lite",
-        
-          title: "a post with vega lite",
-        
-        description: "this is what included vega lite code could look like",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2024/vega-lite/";
-          
-        },
-      },{id: "post-a-post-with-geojson",
-        
-          title: "a post with geojson",
-        
-        description: "this is what included geojson code could look like",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2024/geojson-map/";
-          
-        },
-      },{id: "post-a-post-with-echarts",
-        
-          title: "a post with echarts",
-        
-        description: "this is what included echarts code could look like",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2024/echarts/";
-          
-        },
-      },{id: "post-a-post-with-chart-js",
-        
-          title: "a post with chart.js",
-        
-        description: "this is what included chart.js code could look like",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2024/chartjs/";
           
         },
       },{id: "post-overthinking-the-truth-understanding-how-language-models-process-false-demonstrations",
@@ -1829,17 +1066,6 @@ EXPANDING CAPABILITIES THROUGH COMPOSITION",
         handler: () => {
           
             window.location.href = "/blog/2023/break-the-sequential-dependency-of-llm-inference-using/";
-          
-        },
-      },{id: "post-a-post-with-tikzjax",
-        
-          title: "a post with TikZJax",
-        
-        description: "this is what included TikZ code could look like",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2023/tikzjax/";
           
         },
       },{id: "post-label-words-are-anchors-an-information-flow-perspective-for-understanding-in-context-learning",
@@ -1974,28 +1200,6 @@ EXPANDING CAPABILITIES THROUGH COMPOSITION",
             window.location.href = "/blog/2023/code-llama-open-foundation-models-for-code/";
           
         },
-      },{id: "post-a-post-with-bibliography",
-        
-          title: "a post with bibliography",
-        
-        description: "an example of a blog post with bibliography",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2023/post-bibliography/";
-          
-        },
-      },{id: "post-a-post-with-jupyter-notebook",
-        
-          title: "a post with jupyter notebook",
-        
-        description: "an example of a blog post with jupyter notebook",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2023/jupyter-notebook/";
-          
-        },
       },{id: "post-qlora-eficient-finetuning-of-quantized-llms",
         
           title: "QLoRA: Eficient Finetuning of Quantized LLMs",
@@ -2040,17 +1244,6 @@ EXPANDING CAPABILITIES THROUGH COMPOSITION",
             window.location.href = "/blog/2023/rethinking-the-role-of-demonstrations-what-makes-in/";
           
         },
-      },{id: "post-a-post-with-custom-blockquotes",
-        
-          title: "a post with custom blockquotes",
-        
-        description: "an example of a blog post with custom blockquotes",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2023/custom-blockquotes/";
-          
-        },
       },{id: "post-measuring-association-between-labels-and-free-text-rationales",
         
           title: "Measuring Association Between Labels and Free-Text Rationales",
@@ -2071,50 +1264,6 @@ EXPANDING CAPABILITIES THROUGH COMPOSITION",
         handler: () => {
           
             window.location.href = "/blog/2023/automatic-chain-of-thought-prompting-in-large-language/";
-          
-        },
-      },{id: "post-automatic-chain-of-thought-prompting-in-large-language-models",
-        
-          title: "Automatic chain of thought prompting in large language models",
-        
-        description: "논문 리뷰 - Automatic chain of thought prompting in large language models",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2023/automatic-chain-of-thought-prompting-in-large-language-models/";
-          
-        },
-      },{id: "post-a-post-with-table-of-contents-on-a-sidebar",
-        
-          title: "a post with table of contents on a sidebar",
-        
-        description: "an example of a blog post with table of contents on a sidebar",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2023/sidebar-table-of-contents/";
-          
-        },
-      },{id: "post-a-post-with-audios",
-        
-          title: "a post with audios",
-        
-        description: "this is what included audios could look like",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2023/audios/";
-          
-        },
-      },{id: "post-a-post-with-videos",
-        
-          title: "a post with videos",
-        
-        description: "this is what included videos could look like",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2023/videos/";
           
         },
       },{id: "post-falsesum-generating-document-level-nli-examples-for-recognizing-factual-inconsistency-in-summarization",
@@ -2159,28 +1308,6 @@ EXPANDING CAPABILITIES THROUGH COMPOSITION",
         handler: () => {
           
             window.location.href = "/blog/2023/gpt-understands-too/";
-          
-        },
-      },{id: "post-displaying-beautiful-tables-with-bootstrap-tables",
-        
-          title: "displaying beautiful tables with Bootstrap Tables",
-        
-        description: "an example of how to use Bootstrap Tables",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2023/tables/";
-          
-        },
-      },{id: "post-a-post-with-table-of-contents",
-        
-          title: "a post with table of contents",
-        
-        description: "an example of a blog post with table of contents",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2023/table-of-contents/";
           
         },
       },{id: "post-calibrating-factual-knowledge-in-pretrained-language-models",
@@ -2247,116 +1374,6 @@ EXPANDING CAPABILITIES THROUGH COMPOSITION",
         handler: () => {
           
             window.location.href = "/blog/2023/a-survey-for-in-context-learning/";
-          
-        },
-      },{id: "post-a-post-with-giscus-comments",
-        
-          title: "a post with giscus comments",
-        
-        description: "an example of a blog post with giscus comments",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2022/giscus-comments/";
-          
-        },
-      },{id: "post-a-post-with-redirect",
-        
-          title: "a post with redirect",
-        
-        description: "you can also redirect to assets like pdf",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/assets/pdf/example_pdf.pdf";
-          
-        },
-      },{id: "post-a-post-with-diagrams",
-        
-          title: "a post with diagrams",
-        
-        description: "an example of a blog post with diagrams",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2021/diagrams/";
-          
-        },
-      },{id: "post-a-distill-style-blog-post",
-        
-          title: "a distill-style blog post",
-        
-        description: "an example of a distill-style blog post and main elements",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2021/distill/";
-          
-        },
-      },{id: "post-a-post-with-twitter",
-        
-          title: "a post with twitter",
-        
-        description: "an example of a blog post with twitter",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2020/twitter/";
-          
-        },
-      },{id: "post-a-post-with-disqus-comments",
-        
-          title: "a post with disqus comments",
-        
-        description: "an example of a blog post with disqus comments",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2015/disqus-comments/";
-          
-        },
-      },{id: "post-a-post-with-math",
-        
-          title: "a post with math",
-        
-        description: "an example of a blog post with some math",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2015/math/";
-          
-        },
-      },{id: "post-a-post-with-code",
-        
-          title: "a post with code",
-        
-        description: "an example of a blog post with some code",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2015/code/";
-          
-        },
-      },{id: "post-a-post-with-images",
-        
-          title: "a post with images",
-        
-        description: "this is what included images could look like",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2015/images/";
-          
-        },
-      },{id: "post-a-post-with-formatting-and-links",
-        
-          title: "a post with formatting and links",
-        
-        description: "march &amp; april, looking forward to summer",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2015/formatting-and-links/";
           
         },
       },{id: "books-the-godfather",
