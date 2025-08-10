@@ -111,6 +111,9 @@ pagination:
 
     {% for post in postlist %}
 
+    {% comment %} Skip featured posts to avoid duplication {% endcomment %}
+    {% unless post.featured == true %}
+
     {% if post.external_source == blank %}
       {% assign read_time = post.content | number_of_words | divided_by: 180 | plus: 1 %}
     {% else %}
@@ -185,6 +188,7 @@ pagination:
 {% endif %}
     </li>
 
+    {% endunless %}
     {% endfor %}
 
   </ul>
