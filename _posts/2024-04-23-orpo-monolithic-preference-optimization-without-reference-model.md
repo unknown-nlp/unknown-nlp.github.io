@@ -1,32 +1,33 @@
 ---
 categories:
-- paper-reviews
-date: '2024-04-23 00:00:00'
+  - paper-reviews
+date: "2024-04-23 00:00:00"
 description: 논문 리뷰 - Alignment 관련 연구
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-- alignment
-- fine-tuning
-- language-model
-- llm
-- paper-review
-- reasoning
-- reinforcement-learning
-- rlhf
+  - alignment
+  - fine-tuning
+  - language-model
+  - llm
+  - paper-review
+  - reasoning
+  - reinforcement-learning
+  - rlhf
 thumbnail: assets/img/posts/2024-04-23-orpo-monolithic-preference-optimization-without-reference-model/thumbnail.jpg
-title: 'ORPO: Monolithic Preference Optimization without Reference Model'
+title: "ORPO: Monolithic Preference Optimization without Reference Model"
 ---
 
 **논문 정보**
+
 - **Date**: 2024-04-23
 - **Reviewer**: 건우 김
 - **Property**: Alignment
 
 # Abstract
 
-최근에 LM에 preference alignment에 supervised fine-tuning (SFT)가 많이 활용되고 있음. 본 연구에서 minor한 disfavored generations style로 SFT 중에 penalty를 주는 것이 preference-alignment에 다다르기에 충분하다는 것을 보여줌. 
+최근에 LM에 preference alignment에 supervised fine-tuning (SFT)가 많이 활용되고 있음. 본 연구에서 minor한 disfavored generations style로 SFT 중에 penalty를 주는 것이 preference-alignment에 다다르기에 충분하다는 것을 보여줌.
 
 - ORPO algorithm은 기존 방법론과 달리 preference alignment tuning 단계 및 reference model이 별도로 필요하지 않음
 
@@ -34,17 +35,17 @@ title: 'ORPO: Monolithic Preference Optimization without Reference Model'
 
 # Introduction
 
-Large corpus로 학습한 PLMs이 general-domain applications에 사용되기 위해서는 instruction tuning 혹은 preference alignment 과정이 필요함. 
+Large corpus로 학습한 PLMs이 general-domain applications에 사용되기 위해서는 instruction tuning 혹은 preference alignment 과정이 필요함.
 
 - Instruction tuning: 자연어로 되어 있는 task description을 이해하며 unseen task도 수행할 수 있게 학습시키는 방법
 
 → instruction을 잘 따르긴 하지만, harmful / unethical outputs을 생성하는 문제가 존재함
 
-- Preference alignment: human values와 model 간의 align을 형성시켜주는 학습 방법 
+- Preference alignment: human values와 model 간의 align을 형성시켜주는 학습 방법
 
 → pairwise preference data가 있으면 RLHF / DPO로 학습 가능 (multi-stage train, reference model 필요)
 
-본 연구에서 pairwise preference dataset이 model alignment에 있어 SFT에 어떤 영향을 주는지 확인하고, 새로운 효과적인 preference alignment algorithm을 제안함. 
+본 연구에서 pairwise preference dataset이 model alignment에 있어 SFT에 어떤 영향을 주는지 확인하고, 새로운 효과적인 preference alignment algorithm을 제안함.
 
 - ORPO (odds ratio preference optimization): SFT에서 model로 하여금 undesired generation style을 학습하는데 있어 penalty를 줌
 
@@ -90,7 +91,7 @@ Reward modeling 단계를 preference learning에 포함시켜 별도의 reward m
 
 1. **DPO Training**
 
-Reward model이 학습에 사용한 preference dataset을 직접 학습에 사용. 
+Reward model이 학습에 사용한 preference dataset을 직접 학습에 사용.
 
 Chosen response에 대한 SFT model과 학습 하고자 하는 model의 ratio가 unchosen case의 ratio보다 커지게 학습
 
@@ -122,7 +123,7 @@ SFT는 PLM을 특정 domain에 맞춰 학습 시킬때 주요 역할을 담당�
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-04-23-orpo-monolithic-preference-optimization-without-reference-model/image_005.png" class="img-fluid rounded z-depth-1" %}
 
-위 figure에서 Rejected response에 대한 log probability 값이 (unwanted generation에 대한 penalty 부재로 인해) 학습할 수록 계속 커지는 것이 관찰됨. 
+위 figure에서 Rejected response에 대한 log probability 값이 (unwanted generation에 대한 penalty 부재로 인해) 학습할 수록 계속 커지는 것이 관찰됨.
 
 → 따라서, SFT의 domain adaptaion을 유지하며 unwanted generation styles을 완화시키는 방법이 필요함
 
@@ -130,7 +131,7 @@ SFT는 PLM을 특정 domain에 맞춰 학습 시킬때 주요 역할을 담당�
 
   - LLM이 유행하기 전에 2019, 2020년도에 unlikelihood penalty를 loss function에 적용하여 unwanted token에 대해 model에게 penalty를 주는 연구도 존재함 (e.g. repetitions issue: previous contexts ‘k’)
 
-→ rejected token에 High probability 주는 것에 영감을 받아 각 query당 disfavored response에 대해 penalty를 주는 monolithic preference alignment method (ORPO) 제안 
+→ rejected token에 High probability 주는 것에 영감을 받아 각 query당 disfavored response에 대해 penalty를 주는 monolithic preference alignment method (ORPO) 제안
 
 ### Odds Ratio Preference Optimization (ORPO)
 
@@ -164,7 +165,7 @@ Odds ratio 기반의 penalty를 기존 CE Loss와 결합하여 Favored response�
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-04-23-orpo-monolithic-preference-optimization-without-reference-model/image_011.png" class="img-fluid rounded z-depth-1" %}
 
-  - **유도2**
+- **유도2**
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-04-23-orpo-monolithic-preference-optimization-without-reference-model/image_012.png" class="img-fluid rounded z-depth-1" %}
 
@@ -210,9 +211,9 @@ Odds ratio 기반의 penalty를 기존 CE Loss와 결합하여 Favored response�
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-04-23-orpo-monolithic-preference-optimization-without-reference-model/image_014.png" class="img-fluid rounded z-depth-1" %}
 
-  - Mistral-alpha: orig version
+- Mistral-alpha: orig version
 
-  - Mistral-beta: cleaned version in UltraFeedback
+- Mistral-beta: cleaned version in UltraFeedback
 
 → model type과 크기에 관계 없이 ORPO를 적용한 것이 다른 alignment preference method 대비 우수한 것을 볼 수 있으며, data quality를 높이면 성능이 개선되는 것을 확인함.
 
@@ -230,7 +231,7 @@ Odds ratio 기반의 penalty를 기존 CE Loss와 결합하여 Favored response�
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-04-23-orpo-monolithic-preference-optimization-without-reference-model/image_016.png" class="img-fluid rounded z-depth-1" %}
 
-  - UltraFeedback
+- UltraFeedback
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-04-23-orpo-monolithic-preference-optimization-without-reference-model/image_017.png" class="img-fluid rounded z-depth-1" %}
 

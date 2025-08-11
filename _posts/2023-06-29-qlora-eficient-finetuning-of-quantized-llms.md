@@ -1,26 +1,27 @@
 ---
 categories:
-- paper-reviews
-date: '2023-06-29 00:00:00'
+  - paper-reviews
+date: "2023-06-29 00:00:00"
 description: 논문 리뷰 - LLM, Efficient Training 관련 연구
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-- bert
-- efficient training
-- gpt
-- llm
-- neural
-- paper-review
-- reasoning
-- rlhf
-- transformer
+  - bert
+  - efficient training
+  - gpt
+  - llm
+  - neural
+  - paper-review
+  - reasoning
+  - rlhf
+  - transformer
 thumbnail: assets/img/posts/2023-06-29-qlora-eficient-finetuning-of-quantized-llms/thumbnail.jpg
-title: 'QLoRA: Eficient Finetuning of Quantized LLMs'
+title: "QLoRA: Eficient Finetuning of Quantized LLMs"
 ---
 
 **논문 정보**
+
 - **Date**: 2023-06-29
 - **Reviewer**: 건우 김
 - **Property**: LLM, Efficient Training
@@ -33,9 +34,9 @@ title: 'QLoRA: Eficient Finetuning of Quantized LLMs'
 
   - 16-bit finetuning LLaMA 65B: >780GB GPU memory
 
-    - Recent quantization methods can reduce the memory, but only work for inference 
+    - Recent quantization methods can reduce the memory, but only work for inference
 
-- **QLoRA**: quantize PLM to 4-bit, and add learnable params LoRA weights (updated using quantized weigths) → *performance degradation x*
+- **QLoRA**: quantize PLM to 4-bit, and add learnable params LoRA weights (updated using quantized weigths) → _performance degradation x_
 
   - LLaMA 65B: >780GB → <48GB (no degradation)
 
@@ -45,13 +46,13 @@ title: 'QLoRA: Eficient Finetuning of Quantized LLMs'
 
   - **QLoRA main components**
 
-    1. **4-bit NormalFloat**: 4-bit Integer/Float보다 더 좋은 성능을 보이는 데이터 타입. 
+    1. **4-bit NormalFloat**: 4-bit Integer/Float보다 더 좋은 성능을 보이는 데이터 타입.
 
-      1. PLMs의 weights는 주로 정규분포를 따르는데, 이에 맞는 데이터 타입 사용(이론적으로 가장 optimal한 quantization data type)
+    1. PLMs의 weights는 주로 정규분포를 따르는데, 이에 맞는 데이터 타입 사용(이론적으로 가장 optimal한 quantization data type)
 
     1. **Double Quantization**: quantization constant를 quantize하는 기법.
 
-      1. parameter 당 0.37 bits 크기 save 
+    1. parameter 당 0.37 bits 크기 save
 
     1. **Paged Optimizer: **GPU memory가 최대치에 도달할 때, 일반 memory에 data를 저장시켜 연산에 필요한 memory를 확보하는 기법
 
@@ -61,17 +62,17 @@ title: 'QLoRA: Eficient Finetuning of Quantized LLMs'
 
 → regular finetuning으로는 분석할 수 없었던 실험들을, quantization을 통해 in-depth study of instruction finetuning과 chatbot performance를 model의 scale에 따라 실험 진행
 
-  - ***Data quality**** is far more important than ****dataset size.***
+- **\*Data quality\*\*** is far more important than \***_dataset size._**
 
-    - 9k sample dataset (OASST1) outperformed a 450k sample dataset (FLAN v2) on chatbot performance
+  - 9k sample dataset (OASST1) outperformed a 450k sample dataset (FLAN v2) on chatbot performance
 
-  - *MMLU benchmark performance does not imply strong Vicuna chatbot benchmark performance and vice versa*
+- _MMLU benchmark performance does not imply strong Vicuna chatbot benchmark performance and vice versa_
 
-    - dataset suitability matters more than size for a given task
+  - dataset suitability matters more than size for a given task
 
 ## Background
 
-- ****Basic Knowledge****
+- \***\*Basic Knowledge\*\***
 
   - BLOOM-176B
 
@@ -81,17 +82,17 @@ title: 'QLoRA: Eficient Finetuning of Quantized LLMs'
 
     - Finetuning: 72x GPUs
 
-  - **Floating Point Formats**
+- **Floating Point Formats**
 
-    - Floating point example
+  - Floating point example
 
-      - (10진법) 5.6875 → (2진법) 101.1011 → (정규화) 1.011011 x 2^2
+    - (10진법) 5.6875 → (2진법) 101.1011 → (정규화) 1.011011 x 2^2
 
-        - sign: 0 (positive)
+      - sign: 0 (positive)
 
-        - exponent (unadjusted): 2
+      - exponent (unadjusted): 2
 
-        - mantissa (unnormalized): 1.011011 
+      - mantissa (unnormalized): 1.011011
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2023-06-29-qlora-eficient-finetuning-of-quantized-llms/image_001.png" class="img-fluid rounded z-depth-1" %}
 
@@ -101,7 +102,7 @@ title: 'QLoRA: Eficient Finetuning of Quantized LLMs'
 
       - 8 bits: exponent (지수)
 
-      - 23 bits: mantissa 
+      - 23 bits: mantissa
 
       - FP16은 underflow/overflow 문제 有
 
@@ -188,7 +189,7 @@ for batch_idx, (inputs, labels) in enumerate(data_loader):
 
         - backward, optimization, weight update → scaler를 통해 진행
 
-        - batch size 2배 사용 가능 + OOM 해결 가능 
+        - batch size 2배 사용 가능 + OOM 해결 가능
 
     - BLOOM-176B
 
@@ -218,11 +219,11 @@ for batch_idx, (inputs, labels) in enumerate(data_loader):
 
       - **Zero-point quantization**
 
-        - Range: -1.0~1.0 (float) → Range: -127~127 (int8) 
+        - Range: -1.0~1.0 (float) → Range: -127~127 (int8)
 
           - 원래의 값을 다시 얻으려면, int8 value를 quantization factor (127)로 나눔
 
-          - Example) ‘0.3’은 0.3*127 = ‘38.1’이므로, 반올림 하면 ‘38’로 mapping 됨
+          - Example) ‘0.3’은 0.3\*127 = ‘38.1’이므로, 반올림 하면 ‘38’로 mapping 됨
 
             - 원래의 값을 얻으려면, 38/127 = ‘0.2992’를 얻게 되서, ‘0.008’ qunatization error 발생 → 누적되면 성능 저하의 원인
 
@@ -234,15 +235,15 @@ for batch_idx, (inputs, labels) in enumerate(data_loader):
 
         - Example
 
-23.5 = 127/5.4
+  23.5 = 127/5.4
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2023-06-29-qlora-eficient-finetuning-of-quantized-llms/image_004.png" class="img-fluid rounded z-depth-1" %}
 
-  -  quantizaing FP32 into Int8 [-127,127]
+- quantizaing FP32 into Int8 [-127,127]
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2023-06-29-qlora-eficient-finetuning-of-quantized-llms/image_005.png" class="img-fluid rounded z-depth-1" %}
 
-  - dequantizing
+- dequantizing
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2023-06-29-qlora-eficient-finetuning-of-quantized-llms/image_006.png" class="img-fluid rounded z-depth-1" %}
 
@@ -254,7 +255,7 @@ for batch_idx, (inputs, labels) in enumerate(data_loader):
 
 - **Memory Requirement of Parameter-Efficeint Finetuning**
 
-  - LoRA가 PEFT로 소개가 (small memory footprint) 되긴 했지만, LLM을 finetuning할 때 발생되는 대부분의 memroy footprint는 LoRA params가 아닌 ***Activation Gradients***** **이다.
+  - LoRA가 PEFT로 소개가 (small memory footprint) 되긴 했지만, LLM을 finetuning할 때 발생되는 대부분의 memroy footprint는 LoRA params가 아닌 **\*Activation Gradients\*\*\*** \*\*이다.
 
     - LLaMA-7B
 
@@ -264,13 +265,13 @@ for batch_idx, (inputs, labels) in enumerate(data_loader):
 
     - Gradient checkpointing(GC)을 사용하면, input gradients는 18 MB로 줄어들 수 있다.
 
-      - ****Gradient checkpointing (GC)****
+      - \***\*Gradient checkpointing (GC)\*\***
 
         - classic backpropagation: 당장 사용하지 않는 node의 값이라도 다 저장함. 연산 속도가 빠르다는 장점이 있지만, 저장해야할 weight가 늘어나 memory 사용량이 늘어나는 단점 존재
 
         - weight를 저장하지 않는 backpropagation: 연산 속도를 생각하지 않으면, node의 weight를 저장할 필요 없음. 하지만 forward process가 2번씩 일어나서 O(N^2) 시간 복잡도 발생하는 단점 존재.
 
-        - GC: classic backpropagtaaion과 weight를 저장하지 않는 방식의 절충안. 일부 node만 선택하고 그 node의 gradient만 저장하는 방식. checkpoint 이후의 node까지 forward process를 빠르게 할 수 있음 O(N^{1/2}) 
+        - GC: classic backpropagtaaion과 weight를 저장하지 않는 방식의 절충안. 일부 node만 선택하고 그 node의 gradient만 저장하는 방식. checkpoint 이후의 node까지 forward process를 빠르게 할 수 있음 O(N^{1/2})
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2023-06-29-qlora-eficient-finetuning-of-quantized-llms/image_008.png" class="img-fluid rounded z-depth-1" %}
 
@@ -288,7 +289,7 @@ for batch_idx, (inputs, labels) in enumerate(data_loader):
 
   - NF data type은 이론적으로 가장 이상적인 data type이며 Quantile Quantization 기법에 사용
 
-    - Quantile Quantization: data를 동일한 크기의 quantile로 분류하는 방법. Empirical cumulative distribution function을 통해 tensor의 quantile을 추정하는 식으로 작동. 
+    - Quantile Quantization: data를 동일한 크기의 quantile로 분류하는 방법. Empirical cumulative distribution function을 통해 tensor의 quantile을 추정하는 식으로 작동.
 
 (각 quantization bin에는 동일한 input tensor의 개수가 존재)
 
@@ -296,27 +297,27 @@ for batch_idx, (inputs, labels) in enumerate(data_loader):
 
       - Input tensor들이 고정된 quantization constant의 분포로부터 나오면 앞선 문제들 해결 가능 → input tensors have the same quantiles (동일한 분포를 갖는다)
 
-  - Pretrained neural network weights follow zero-centered normal distribtuion with standard deivation \sigma  
+- Pretrained neural network weights follow zero-centered normal distribtuion with standard deivation \sigma
 
-    - \sigma  scaling을 통해 모든 weight를 single fixed distribution으로 변형 가능 → data type과 weights에 대응하는 quantiles들이 동일한 range [-1,1] 갖게끔 정규화 적용
+  - \sigma scaling을 통해 모든 weight를 single fixed distribution으로 변형 가능 → data type과 weights에 대응하는 quantiles들이 동일한 range [-1,1] 갖게끔 정규화 적용
 
-  - zero-mean normal-dist를 위한 data type을 구하는 Process
+- zero-mean normal-dist를 위한 data type을 구하는 Process
 
-    1. estimate 2^k+1 quantiles of a N(0,1) distribtuion to obtain a *k*-bit quantile quantization data type for norm-dist
+  1. estimate 2^k+1 quantiles of a N(0,1) distribtuion to obtain a _k_-bit quantile quantization data type for norm-dist
 
-    1. Take this data type and normalize its values into [-1,1] range
+  1. Take this data type and normalize its values into [-1,1] range
 
-    1. **quantize an input weight tensor by normalizing it into [-1,1] through absolute maximum rescaling**
+  1. **quantize an input weight tensor by normalizing it into [-1,1] through absolute maximum rescaling**
 
-  - weight range와 data type range를 맞춘후, data type의 q_i 값들에 대한 quantize 진행 (2^k)
+- weight range와 data type range를 맞춘후, data type의 q_i 값들에 대한 quantize 진행 (2^k)
 
-    - 위에 (3) 과정이 ‘\sigma  scaling을 통해 모든 weight를 single fixed distribution으로 변형’하는 역할 수행
+  - 위에 (3) 과정이 ‘\sigma scaling을 통해 모든 weight를 single fixed distribution으로 변형’하는 역할 수행
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2023-06-29-qlora-eficient-finetuning-of-quantized-llms/image_010.png" class="img-fluid rounded z-depth-1" %}
 
 - **Double Quantization**
 
-  - 추가적인 memory 사용량을 아끼기 위해 소개된 Quantization constant를 quantizing하는 방법 
+  - 추가적인 memory 사용량을 아끼기 위해 소개된 Quantization constant를 quantizing하는 방법
 
 - **Paged Optimzier**
 
@@ -328,11 +329,11 @@ for batch_idx, (inputs, labels) in enumerate(data_loader):
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2023-06-29-qlora-eficient-finetuning-of-quantized-llms/image_012.png" class="img-fluid rounded z-depth-1" %}
 
-  - One storage data type (4-bit NF)
+- One storage data type (4-bit NF)
 
-  - One computation data type (16-bit BF)
+- One computation data type (16-bit BF)
 
-    - forward/backward process를 진행할 때, data type에 대해 dequantize를 수행
+  - forward/backward process를 진행할 때, data type에 대해 dequantize를 수행
 
 ## QLoRA vs Standard Finetuning
 
@@ -340,7 +341,7 @@ for batch_idx, (inputs, labels) in enumerate(data_loader):
 
   - Alpaca (ours): full-finetuning → QLoRA-All과 비슷한 성능 보임
 
-    - Standford-Alpaca역시 full-finetuning인데 hyperparameters 조합에 대해 undertuned 되어 있음을 발견.  
+    - Standford-Alpaca역시 full-finetuning인데 hyperparameters 조합에 대해 undertuned 되어 있음을 발견.
 
   - Hyperparameters 중에 adapter의 개수만 성능에 영향을 미치고, LoRA의 projection dimension과 같은 다른 hyperparameter는 중요하지 않음
 
@@ -358,7 +359,7 @@ for batch_idx, (inputs, labels) in enumerate(data_loader):
 
 - **k-bit QLoRA matches 16-bit full finetuning and 16-bit LoRA performance**
 
-  - 최근까지 4-bit quantization에 대한 연구에서는, *inference*는* *가능 하지만 16-bit에 비해 performance degradation이 있다는 결과가 있음
+  - 최근까지 4-bit quantization에 대한 연구에서는, *inference*는\* \*가능 하지만 16-bit에 비해 performance degradation이 있다는 결과가 있음
 
 → 그러면 4-bit adatper finetuning을 하면 Loss performance를 되찾을 수 있나?
 
@@ -434,7 +435,7 @@ for batch_idx, (inputs, labels) in enumerate(data_loader):
 
           - model의 performance는 ChatGPT대비 얼만큼 나왔는지 percentage
 
-          - GPT-4의 ordering effect가 존재: prompt 초반에 있는 response에게 더 높은 점수를 부여하는 경향이 있음 → 모든 orders를 고려해서 평균 
+          - GPT-4의 ordering effect가 존재: prompt 초반에 있는 response에게 더 높은 점수를 부여하는 경향이 있음 → 모든 orders를 고려해서 평균
 
         - Direct comparisons between system outputs: win / tie / lose 를 GPT-4가 정하게 시킴
 
@@ -446,13 +447,13 @@ for batch_idx, (inputs, labels) in enumerate(data_loader):
 
           - human과 automated pairwise comparison을 토대로 Elo rating 진행
 
-  - **Results**
+- **Results**
 
-    - GPT-4 다음으로 Guannaco-65B이 높은 성능을 보임
+  - GPT-4 다음으로 Guannaco-65B이 높은 성능을 보임
 
-    - Guannaco-7B는 ALpaca 13B보다 20%p 높음 (5GB 용량으로 핸드폰에 들어갈 크기)
+  - Guannaco-7B는 ALpaca 13B보다 20%p 높음 (5GB 용량으로 핸드폰에 들어갈 크기)
 
-    - Confidence Interval is wide: model 성능이 서로 overlapping하는 경우가 많음
+  - Confidence Interval is wide: model 성능이 서로 overlapping하는 경우가 많음
 
 → Elo 기반으로 평가 진행
 
@@ -486,11 +487,11 @@ for batch_idx, (inputs, labels) in enumerate(data_loader):
 
 - Evaluation of instruction finetuning models
 
-  - BigBench, RAFT, HELM과 같은 benchmark에 대해서 평가를 진행하지 않아, 앞에서 진행한 실험들이 generalize될지 모름 
+  - BigBench, RAFT, HELM과 같은 benchmark에 대해서 평가를 진행하지 않아, 앞에서 진행한 실험들이 generalize될지 모름
 
   - finetuning data와 benchmark dataset이 similar한 정도에 성능이 dependent
 
-- 다른 bit-precision (e.g 3-bit) base models 혹은 다른 adapter 방법론에 대한 실험 부재 
+- 다른 bit-precision (e.g 3-bit) base models 혹은 다른 adapter 방법론에 대한 실험 부재
 
 ### Implementation
 
@@ -518,10 +519,10 @@ accelerate library를 사용하기 때문에, 지원하는 models은 모두 사�
 - Llama, OPT, GPT-Neo, GPT-NeoX
 
 [
-    'bigbird_pegasus', 'blip_2', 'bloom', 'bridgetower', 'codegen', 'deit', 'esm', 
-    'gpt2', 'gpt_bigcode', 'gpt_neo', 'gpt_neox', 'gpt_neox_japanese', 'gptj', 'gptsan_japanese', 
-    'lilt', 'llama', 'longformer', 'longt5', 'luke', 'm2m_100', 'mbart', 'mega', 'mt5', 'nllb_moe', 
-    'open_llama', 'opt', 'owlvit', 'plbart', 'roberta', 'roberta_prelayernorm', 'rwkv', 'switch_transformers', 
+    'bigbird_pegasus', 'blip_2', 'bloom', 'bridgetower', 'codegen', 'deit', 'esm',
+    'gpt2', 'gpt_bigcode', 'gpt_neo', 'gpt_neox', 'gpt_neox_japanese', 'gptj', 'gptsan_japanese',
+    'lilt', 'llama', 'longformer', 'longt5', 'luke', 'm2m_100', 'mbart', 'mega', 'mt5', 'nllb_moe',
+    'open_llama', 'opt', 'owlvit', 'plbart', 'roberta', 'roberta_prelayernorm', 'rwkv', 'switch_transformers',
     't5', 'vilt', 'vit', 'vit_hybrid', 'whisper', 'xglm', 'xlm_roberta'
 ]
 ```

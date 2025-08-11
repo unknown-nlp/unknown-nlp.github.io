@@ -1,23 +1,24 @@
 ---
 categories:
-- paper-reviews
-date: '2025-06-03 00:00:00'
+  - paper-reviews
+date: "2025-06-03 00:00:00"
 description: 논문 리뷰 - Reinforcement Learning 관련 연구
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-- language-model
-- llm
-- paper-review
-- reinforcement learning
-- reinforcement-learning
-- transformer
+  - language-model
+  - llm
+  - paper-review
+  - reinforcement learning
+  - reinforcement-learning
+  - transformer
 thumbnail: assets/img/posts/2025-06-03-reinforcement-learning-finetunes-small-subnetworks-in-large-language/thumbnail.jpg
 title: Reinforcement Learning Finetunes Small Subnetworks in Large Language Models
 ---
 
 **논문 정보**
+
 - **Date**: 2025-06-03
 - **Reviewer**: 준원 장
 - **Property**: Reinforcement Learning
@@ -40,17 +41,17 @@ title: Reinforcement Learning Finetunes Small Subnetworks in Large Language Mode
 
 > **CONJECTURE**: RL 학습 종료 시점에서 식별된 나머지 파라미터는 frozen시키고 특정 subnetwork를 finetuning할 경우와, 전체 파라미터를 finetuning 모델과 거의 동일한 성능과 파라미터 값을 갖는 모델을 생성할 수 있다.
 
-- θ_{init}
+- θ\_{init}
 
-- θ_{full}: parameters after full RL finetuning from the initial model
+- θ\_{full}: parameters after full RL finetuning from the initial model
 
--  m ∈ {0,1}^{|θ_{init}|}
+- m ∈ {0,1}^{|θ\_{init}|}
 
-- m_i = 1 \rightarrow (θ_{init} - θ_{full})_i ≠ 0
+- m*i = 1 \rightarrow (θ*{init} - θ\_{full})\_i ≠ 0
 
--  m ⊙ ∇θ L(θ) : θ_{full}을 학습했을때와 같은 데이터로 θ_{init}때와 똑같이 학습
+- m ⊙ ∇θ L(θ) : θ*{full}을 학습했을때와 같은 데이터로 θ*{init}때와 똑같이 학습
 
-**⇒ ****θ_{sub} ≈ θ_{full}** 
+**⇒ \*\***θ*{sub} ≈ θ*{full}\*\*
 
 > **VS. LoRA**
 
@@ -86,13 +87,13 @@ title: Reinforcement Learning Finetunes Small Subnetworks in Large Language Mode
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2025-06-03-reinforcement-learning-finetunes-small-subnetworks-in-large-language/image_001.png" class="img-fluid rounded z-depth-1" %}
 
-- θ_{0}: ft 이전의 파라미터
+- θ\_{0}: ft 이전의 파라미터
 
-- θ_{1}: ft 이후의 파라미터
+- θ\_{1}: ft 이후의 파라미터
 
-- ||\cdot ||_{0}: non-zero 원소의 개수
+- ||\cdot ||\_{0}: non-zero 원소의 개수
 
-***  bfloat16 값이 절대 차이 10⁻⁵ 이하일 경우 동일한 값으로 간주 *** 
+**_ bfloat16 값이 절대 차이 10⁻⁵ 이하일 경우 동일한 값으로 간주 _**
 
 **⇒ 파라미터 전후 차이가 거의 없어야 sparsity가 높음**
 
@@ -102,7 +103,7 @@ title: Reinforcement Learning Finetunes Small Subnetworks in Large Language Mode
 
   - on-policy RL (PPO, GRPO, and PRIME)은 ‘in-distribution’ 변화하는 policy에서 계속 데이터를 수집함으로 ‘in-distribution’을 보장
 
-  - off-policy RL (DPO, KTO)은 RL에서 사용되는 data로 SFT함으로 ‘in-distribution’이 가능하게 파라미터 분포를 바꿔놓음 
+  - off-policy RL (DPO, KTO)은 RL에서 사용되는 data로 SFT함으로 ‘in-distribution’이 가능하게 파라미터 분포를 바꿔놓음
 
 **⇒ 논문에서 SFT가 RL의 update sparsity의 원인임을 규명**
 
@@ -126,7 +127,7 @@ title: Reinforcement Learning Finetunes Small Subnetworks in Large Language Mode
 
   - Eurus 7B
 
-  - DeepSeek Math 7B 
+  - DeepSeek Math 7B
 
 ### Result
 
@@ -142,11 +143,11 @@ title: Reinforcement Learning Finetunes Small Subnetworks in Large Language Mode
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2025-06-03-reinforcement-learning-finetunes-small-subnetworks-in-large-language/image_003.png" class="img-fluid rounded z-depth-1" %}
 
-- (accumulated gradients로 측정이 살짝 다르긴 하지만)  SFT는 6%-15% sparsity를 보임
+- (accumulated gradients로 측정이 살짝 다르긴 하지만) SFT는 6%-15% sparsity를 보임
 
 - 이전 연구들에서 밝혀낸 바와 동일한 결론에 이름
 
-⇒  RL이 사전학습된 능력을 SFT보다 더 잘 보존한다. 그 이유는 **RL이 훨씬 적은 수의 파라미터만을 업데이트**하기 때문일 수 있다.
+⇒ RL이 사전학습된 능력을 SFT보다 더 잘 보존한다. 그 이유는 **RL이 훨씬 적은 수의 파라미터만을 업데이트**하기 때문일 수 있다.
 
 > **Takeaway-1:**
 
@@ -184,9 +185,9 @@ RL은 일관되게 희소한 파라미터 업데이트를 유도한다(대개 70
 
 - θ: Tulu
 
-- θ_{full}: parameters after full RL finetuning from the initial model
+- θ\_{full}: parameters after full RL finetuning from the initial model
 
-- θ_{sub}: parameters after subnetwork RL finetuning from the initial model
+- θ\_{sub}: parameters after subnetwork RL finetuning from the initial model
 
 - RL
 
@@ -196,9 +197,9 @@ RL은 일관되게 희소한 파라미터 업데이트를 유도한다(대개 70
 
 ### Result
 
-- DPO → θ_{full} & θ_{sub} : **94.0% 파라미터 동일**
+- DPO → θ*{full} & θ*{sub} : **94.0% 파라미터 동일**
 
-- PRIME → θ_{full} & θ_{sub} : **90.5% 파라미터 동일**
+- PRIME → θ*{full} & θ*{sub} : **90.5% 파라미터 동일**
 
 - 허용 오차 기준을 10⁻⁴로 완화할 경우, 두 모델은 **100% 동일한 파라미터 값을 가짐**
 
@@ -206,11 +207,11 @@ RL은 일관되게 희소한 파라미터 업데이트를 유도한다(대개 70
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2025-06-03-reinforcement-learning-finetunes-small-subnetworks-in-large-language/image_006.png" class="img-fluid rounded z-depth-1" %}
 
-> **θ_{sub}****는 모든 task에서 ****θ_{full}****과 동등하거나 더 우수한 성능을 보임.** 이는 subnetwork외 파라미터가 최적화 과정에서 거의 기여하지 않으며, 오히려 고정함으로써 성능이 개선될 여지도 있음을 시사.
+> **θ\_{sub}\*\***는 모든 task에서 \***\*θ\_{full}\*\***과 동등하거나 더 우수한 성능을 보임.\*\* 이는 subnetwork외 파라미터가 최적화 과정에서 거의 기여하지 않으며, 오히려 고정함으로써 성능이 개선될 여지도 있음을 시사.
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2025-06-03-reinforcement-learning-finetunes-small-subnetworks-in-large-language/image_007.png" class="img-fluid rounded z-depth-1" %}
 
-⇒ 논문 서두에서 언급한 conjecture를 실험적으로 완벽하게 증명하며, RL 훈련에서의 sparse update을 명시적으로 활용한 **효율적인 학습 전략**에 대한 가능성을 열어둠. 
+⇒ 논문 서두에서 언급한 conjecture를 실험적으로 완벽하게 증명하며, RL 훈련에서의 sparse update을 명시적으로 활용한 **효율적인 학습 전략**에 대한 가능성을 열어둠.
 
 (post hoc으로 찾아낸 sparse parameter를 미리 알아내는건 future work!)
 
@@ -226,11 +227,11 @@ RL은 일관되게 희소한 파라미터 업데이트를 유도한다(대개 70
 
 - o_1​=\frac{∣I_1​ \cap I_2​∣}{∣I_1​∣}​=\frac{∣I_1​ \cap I_2​∣}{1-s_1}: I_1의 업데이트된 파라미터 중에서, I_2도 함께 업데이트한 비율
 
-- o_2​=\frac{∣I_1​ \cap I_2​∣}{∣I_2​∣}​=\frac{∣I_1​ \cap I_2​∣}{1-s_2}:  I_2의 업데이트된 파라미터 중에서, I_1도 함께 업데이트한 비율
+- o_2​=\frac{∣I_1​ \cap I_2​∣}{∣I_2​∣}​=\frac{∣I_1​ \cap I_2​∣}{1-s_2}: I_2의 업데이트된 파라미터 중에서, I_1도 함께 업데이트한 비율
 
 - Tulu-3-8B, Enrus-2-7B-SFT 사용
 
-⇒  RL에서 학습된 모델들이 **어떤 특정 파라미터만 반복적으로 업데이트한다면**, **일종의 구조적 sparsity**를 가진 중요한 subnetwork이 존재한다는 것
+⇒ RL에서 학습된 모델들이 **어떤 특정 파라미터만 반복적으로 업데이트한다면**, **일종의 구조적 sparsity**를 가진 중요한 subnetwork이 존재한다는 것
 
 (이를 무작위로 동일 수의 파라미터를 선택하는 경우의 랜덤 베이스라인도 포함해서 비교)
 
@@ -245,7 +246,7 @@ RL은 일관되게 희소한 파라미터 업데이트를 유도한다(대개 70
 - **training data만 변화**
 
 - **seed, training data, RL algorithm 모두 변화 (stress test)
-**
+  **
 
 → seed, data, RL이 서로 달라졌음에도 불구하고, subnetwork**는 무작위 baseline을 상회하는 유의미한 중첩도**를 보인다.
 
@@ -255,7 +256,7 @@ RL은 일관되게 희소한 파라미터 업데이트를 유도한다(대개 70
 
 동일한 사전학습 모델에 대해, seed, data, RL 알고리즘이 서로 다른 경우에도, RL로 학습된 subnetwork는 무작위 추정보다 훨씬 높은 중첩도를 보인다. 이는 **다양한 훈련 조건에 걸쳐 일관적이고 부분적으로 전이 가능한 subnetwork 구조가 (적어도 transformer에서는) 존재함**을 시사한다.
 
-*** overlap이 100%에 도달하지는 않았으나, partial reuse만으로도 충분히 실용적 이점을 제공. 예를 들어, **하이퍼파라미터 탐색이나 ablation 연구와 같이 반복적으로 수행되는 RL 학습 과정 (실제로 optimal 조합찾는데 대부분의 시간이 소요)에서, 이전 실험에서 도출된 subnetwork의 일부를 재사용함으로써 중복 계산을 줄일 수 있음**. 또한, DPO와 같은 계산 비용이 적은 알고리즘으로 subnetwork를 도출한 뒤, 이를 PPO와 같은 고비용 알고리즘에 전이하여 사용할 경우, 성능을 손상시키지 않으면서 학습 비용을 대폭 절감할 수 있다. ***
+**\* overlap이 100%에 도달하지는 않았으나, partial reuse만으로도 충분히 실용적 이점을 제공. 예를 들어, **하이퍼파라미터 탐색이나 ablation 연구와 같이 반복적으로 수행되는 RL 학습 과정 (실제로 optimal 조합찾는데 대부분의 시간이 소요)에서, 이전 실험에서 도출된 subnetwork의 일부를 재사용함으로써 중복 계산을 줄일 수 있음**. 또한, DPO와 같은 계산 비용이 적은 알고리즘으로 subnetwork를 도출한 뒤, 이를 PPO와 같은 고비용 알고리즘에 전이하여 사용할 경우, 성능을 손상시키지 않으면서 학습 비용을 대폭 절감할 수 있다. \***
 
 ## 6. Why Do the Subnetworks Emerge?
 
@@ -271,7 +272,7 @@ RL은 일관되게 희소한 파라미터 업데이트를 유도한다(대개 70
 
 1. 총 RL 업데이트 스텝 수
 
-⇒ 결론부터 말하면, update sparsity의 가장 지배적인 요인은 **학습 데이터 분포가 current policy와 얼마나 유사한지**이다. 
+⇒ 결론부터 말하면, update sparsity의 가장 지배적인 요인은 **학습 데이터 분포가 current policy와 얼마나 유사한지**이다.
 
 - **Gradient clipping and KL regularization**
 
@@ -279,7 +280,7 @@ RL은 일관되게 희소한 파라미터 업데이트를 유도한다(대개 70
 
   - Qwen-2.5-7B-Instruct에 GRPO variant를 적용한 결과
 
-    - (w/ KL) 69.8% vs.  68.8% (w/o KL)
+    - (w/ KL) 69.8% vs. 68.8% (w/o KL)
 
 - **Performing SFT before RL**
 
@@ -299,7 +300,7 @@ RL은 일관되게 희소한 파라미터 업데이트를 유도한다(대개 70
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2025-06-03-reinforcement-learning-finetunes-small-subnetworks-in-large-language/image_010.png" class="img-fluid rounded z-depth-1" %}
 
-  - 학습 초기에는 파이널 subnetwork 외부의 파라미터도 일부 업데이트되나, 시간이 지나면서 대부분 사라짐
+- 학습 초기에는 파이널 subnetwork 외부의 파라미터도 일부 업데이트되나, 시간이 지나면서 대부분 사라짐
 
 ⇒ (실험했던 PRIME이겠지?) 최종적으로 전체 파라미터 중 약 8.5%가 학습 중 일시적으로 업데이트되었으나 최종 subnetwork 포함 X (+ grad → -grad → no change weight)
 
@@ -311,23 +312,25 @@ RL은 일관되게 희소한 파라미터 업데이트를 유도한다(대개 70
 
 직관적으로, policy가 이미 높은 확률을 부여하는 sequence에 대해 그래디언트가 계산되면, 파라미터에 대한 변화가 거의 필요 없다.
 
-  1. **rejection sampling을 통해 생성된 in-distribution 데이터에 대한 SFT**
+1. **rejection sampling을 통해 생성된 in-distribution 데이터에 대한 SFT**
+
 
     - section03에서 SFT data는 out-of-distribution이었는데 강제로 in-distribution으로 맞춰줌
 
-  1. **SFT 없이 out-of-distribution 데이터에 대해 수행된 DPO**
+1. **SFT 없이 out-of-distribution 데이터에 대해 수행된 DPO**
+
 
     - SFT없이 DPO하면 out-of-distribution
 
-*** 학습방법론이 아닌 데이터 분포 차이에 의해서 sparsity가 발현되는지 검증하기 위함 ***
+**_ 학습방법론이 아닌 데이터 분포 차이에 의해서 sparsity가 발현되는지 검증하기 위함 _**
 
 > **In-Distribution vs Out-of-Distribution**
 
 in-distribution 데이터에서의 SFT는 sparse update를 생성하며, 반대로 out-of-distribution 데이터에서의 DPO는 dense update를 생성
 
-  - Qwen2.5-Math-7B에서 rejection sampling 기반 in-distribution 데이터로 수행한 SFT(RFT)는 약 91.2%의 sparsity, RAFT++는 69.4%.
+- Qwen2.5-Math-7B에서 rejection sampling 기반 in-distribution 데이터로 수행한 SFT(RFT)는 약 91.2%의 sparsity, RAFT++는 69.4%.
 
-  - out-of-distribution 데이터에서 수행된 DPO는 Zephyr-7B-Beta는 **7.7% **dense update
+- out-of-distribution 데이터에서 수행된 DPO는 Zephyr-7B-Beta는 **7.7% **dense update
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2025-06-03-reinforcement-learning-finetunes-small-subnetworks-in-large-language/image_012.png" class="img-fluid rounded z-depth-1" %}
 

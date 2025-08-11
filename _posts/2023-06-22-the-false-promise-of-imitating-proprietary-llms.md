@@ -1,30 +1,29 @@
 ---
 categories:
-- paper-reviews
-date: '2023-06-22 00:00:00'
+  - paper-reviews
+date: "2023-06-22 00:00:00"
 description: 논문 리뷰 - sLLM, LLM, Evaluation Metric 관련 연구
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-- evaluation metric
-- gpt
-- llm
-- paper-review
-- rlhf
-- sllm
+  - evaluation metric
+  - gpt
+  - llm
+  - paper-review
+  - rlhf
+  - sllm
 thumbnail: assets/img/posts/2023-06-22-the-false-promise-of-imitating-proprietary-llms/thumbnail.jpg
 title: The False Promise of Imitating Proprietary LLMs
 ---
 
 **논문 정보**
+
 - **Date**: 2023-06-22
 - **Reviewer**: 김재희
 - **Property**: sLLM, LLM, Evaluation Metric
 
-
 ---
-
 
 ---
 
@@ -52,23 +51,23 @@ title: The False Promise of Imitating Proprietary LLMs
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2023-06-22-the-false-promise-of-imitating-proprietary-llms/image_001.png" class="img-fluid rounded z-depth-1" %}
 
-- 특히 데이터 수집 시 Self Instruct 등의 방법론을 이용하는 것이 일반적 
+- 특히 데이터 수집 시 Self Instruct 등의 방법론을 이용하는 것이 일반적
 
 - Self Instruct는 공개된 LLM 서비스를 이용하여 데이터를 구축하는 방법론
 
 - Self Instruct 기반 방법론을 분류하면 크게 두가지 흐름
 
-  1. 저자들이 직접 작성한 초기 Prompt를 기반으로 LLM이 Prompt와 Output을 생성하는 방식 
+  1. 저자들이 직접 작성한 초기 Prompt를 기반으로 LLM이 Prompt와 Output을 생성하는 방식
 
   1. 사용자들이 본인이 작성한 Prompt와 LLM이 작성한 Output을 공개한 플랫폼에서 데이터를 수집하는 방식
 
 - 두 방식 모두 결국 LLM의 지식을 Distillation 하는 방향
 
-⇒ LLM의 Output을 모방하도록 학습하기 때문 
+⇒ LLM의 Output을 모방하도록 학습하기 때문
 
 ⇒ 본 논문에서는 sLLM을 Imitation Model이라고 부름
 
-### False Promise 
+### False Promise
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2023-06-22-the-false-promise-of-imitating-proprietary-llms/image_002.png" class="img-fluid rounded z-depth-1" %}
 
@@ -78,21 +77,21 @@ title: The False Promise of Imitating Proprietary LLMs
 
   - 성능 : 위 그림에서도 볼 수 있듯이 sLLM은 LLM의 생성 스타일은 쉽게 모방하지만 실제 지식은 전혀 따라잡지 못하고 있음 (녹색 : 옳바른 생성, 노란색 : 애매한 생성, 빨간색 : 잘못된 생성)
 
-  - 평가 방식 : 실제 Human Evaluation 시 사람들은 생성된 문장의 Factual Knowledge를 검증할 수 없음 
+  - 평가 방식 : 실제 Human Evaluation 시 사람들은 생성된 문장의 Factual Knowledge를 검증할 수 없음
 
 ### Contribution
 
-- 본 논문은 이러한 최근 현상을 1) 지적하면서 2) sLLM 학습의 요소들을 분리하여 분석하고 3) 향후 sLLM 개선 연구의 방향에 대해 제안하고 있음  
+- 본 논문은 이러한 최근 현상을 1) 지적하면서 2) sLLM 학습의 요소들을 분리하여 분석하고 3) 향후 sLLM 개선 연구의 방향에 대해 제안하고 있음
 
-  - 숫자로 보이는 성능에 열광할 것이 아니라 분위기를 가라앉히고 다시 시작하자. 
+  - 숫자로 보이는 성능에 열광할 것이 아니라 분위기를 가라앉히고 다시 시작하자.
 
 ## 2. Evaluation
 
 - 해당 논문에서는 3가지 평가 방식 도입
 
-- Metric : 기존 데이터셋에서 제공하는 Metric을 이용하여 평가 
+- Metric : 기존 데이터셋에서 제공하는 Metric을 이용하여 평가
 
-- GPT-4 : ChatGPT에게 Imitation Model과 ChatGPT가 생성한 문장을 입력하고, 선호도를 출력하도록 Prompt 구성 
+- GPT-4 : ChatGPT에게 Imitation Model과 ChatGPT가 생성한 문장을 입력하고, 선호도를 출력하도록 Prompt 구성
 
 - Human : Amazon Turk를 이용하여 70명의 응답자에게 두 모델이 생성한 문장 중 더 나은 문장을 고르도록 요구
 
@@ -108,24 +107,23 @@ title: The False Promise of Imitating Proprietary LLMs
 
 1. Task-Speicific Imitation : 특정 태스트에 대해서 sLLM이 LLM의 성능을 따라잡도록 학습하기 위한 데이터셋 구축
 
-  1. Self Instruct와 비슷하게 ChatGPT에게 In-Context 방식으로 Natural Questions 데이터에 대한 답변을 생성하여 구축
+1. Self Instruct와 비슷하게 ChatGPT에게 In-Context 방식으로 Natural Questions 데이터에 대한 답변을 생성하여 구축
 
 1. Broad-coverage Imitation : 실제 LLM 서비스처럼 광범위한 태스크들을 수행할 수 있는 범용적 목적의 sLLM 학습을 위한 데이터셋 구축
 
-  1. ShareGPT, HC3, Discord ChatGPT 채널 등 공개된 다양한 데이터셋 수집
+1. ShareGPT, HC3, Discord ChatGPT 채널 등 공개된 다양한 데이터셋 수집
 
-  1. 기존에 사용자들과 ChatGPT가 나눈 대화를 수집한 것
+1. 기존에 사용자들과 ChatGPT가 나눈 대화를 수집한 것
 
-  1. 해당 데이터를 모두 묶어 SharGPT-Mix라고 말함
+1. 해당 데이터를 모두 묶어 SharGPT-Mix라고 말함
 
 - SharGPT-Mix의 경우 기존에 연구목적으로 구축되었던 Prompt 데이터셋인 NaturalInstructions 보다 높은 품질을 가지고 있다고 주장
 
 ⇒ 사용자 입력의 평균 BLEU 유사도가 8%에 불과
 
-
 ---
 
-## 5. 모델 
+## 5. 모델
 
 1. Broad-Coverage Imatation
 
@@ -133,19 +131,19 @@ title: The False Promise of Imitating Proprietary LLMs
 
 - 특정 태스크에 대한 성능 측정
 
-- 학습 데이터의 크기와 모델 크기를 늘리는 실험 진행 
+- 학습 데이터의 크기와 모델 크기를 늘리는 실험 진행
 
   - 학습 데이터의 크기를 늘렸을 때(위) : 놀랍게도 SFT 학습 데이터 크기를 늘린다고 성능이 개선되지 않았다.
 
-  - 오히려 ShareGPT-Mix로 훈련되지 않은 기본 모델의 성능이 대부분의 경우 좋은 모습을 보이고 있다. 
+  - 오히려 ShareGPT-Mix로 훈련되지 않은 기본 모델의 성능이 대부분의 경우 좋은 모습을 보이고 있다.
 
 ⇒ ChatGPT 모델에 비해 턱없이 작은 크기의 모델로 인해 발생하는 문제로 추측
 
-⇒ ChatGPT 모델이 훨씬 더 많은 Knowledge를 내부 파라미터로 가지고 있기 때문에, 소수의 ShareGPT-Mix 데이터로 이러한 성능을 따라잡는 것은 불가능하다. 
+⇒ ChatGPT 모델이 훨씬 더 많은 Knowledge를 내부 파라미터로 가지고 있기 때문에, 소수의 ShareGPT-Mix 데이터로 이러한 성능을 따라잡는 것은 불가능하다.
 
 - 모델의 크기를 늘리는 실험 진행
 
-  -  모델 크기가 커지면서 점차 성능이 나아지는 모습 관찰 가능
+  - 모델 크기가 커지면서 점차 성능이 나아지는 모습 관찰 가능
 
 ⇒ 학습 데이터 실험 결과와 맥락을 같이하는 결과
 
@@ -155,17 +153,17 @@ title: The False Promise of Imitating Proprietary LLMs
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2023-06-22-the-false-promise-of-imitating-proprietary-llms/image_004.png" class="img-fluid rounded z-depth-1" %}
 
-  - General한 태스크에 대해 성능을 측정하기 위해 SharGPT-Mix 데이터셋의 일부를 평가 데이터로 사용
+- General한 태스크에 대해 성능을 측정하기 위해 SharGPT-Mix 데이터셋의 일부를 평가 데이터로 사용
 
-  - 학습 데이터 실험(좌)
+- 학습 데이터 실험(좌)
 
-    - 학습 데이터셋의 크기가 늘어난다고 성능이 향상 되지는 않음
+  - 학습 데이터셋의 크기가 늘어난다고 성능이 향상 되지는 않음
 
-    - 다만, SFT를 이용한 Prompt 데이터에 대한 학습 여부는 성능에 큰 영향을 미침
+  - 다만, SFT를 이용한 Prompt 데이터에 대한 학습 여부는 성능에 큰 영향을 미침
 
-  - 모델 크기 실험(우)
+- 모델 크기 실험(우)
 
-    - 모델 크기가 커질수록 더 높은 성능을 달성하는 
+  - 모델 크기가 커질수록 더 높은 성능을 달성하는
 
 ⇒ base 모델의 성능이 보장되어야 충분한 학습 효율을 달성할 수 있음
 
@@ -173,11 +171,11 @@ title: The False Promise of Imitating Proprietary LLMs
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2023-06-22-the-false-promise-of-imitating-proprietary-llms/image_005.png" class="img-fluid rounded z-depth-1" %}
 
-  - Taget 데이터와 범용(ShareGPT) 데이터로 학습한 실험 결과 
+- Taget 데이터와 범용(ShareGPT) 데이터로 학습한 실험 결과
 
-    - ShareGPT 데이터로 학습한 모델보다 NQ 데이터로 학습된 모델이 훨씬 높은 성능을 보이고 있음 
+  - ShareGPT 데이터로 학습한 모델보다 NQ 데이터로 학습된 모델이 훨씬 높은 성능을 보이고 있음
 
-    - 1번 실험과 함께 생각해보면, 결국 범용적 목적의 모델로서 SFT는 좋은 선택지는 아니지만, 특정 태스크에 대한 모델로서 SFT를 이용한 sLLM은 좋은 선택지가 될 수 있음
+  - 1번 실험과 함께 생각해보면, 결국 범용적 목적의 모델로서 SFT는 좋은 선택지는 아니지만, 특정 태스크에 대한 모델로서 SFT를 이용한 sLLM은 좋은 선택지가 될 수 있음
 
 - sLLM은 스타일을 학습
 
@@ -193,11 +191,11 @@ title: The False Promise of Imitating Proprietary LLMs
 
     - 특히 학습 데이터가 커질수록 이러한 스타일은 지속적으로 학습하는 모습을 보이고 있음
 
-## 6. 결론          
+## 6. 결론
 
-- 요약하면 결국 : 범용 목적의 모델은 아직 sLLM으로 도달할 수 있는지 의문이다. 
+- 요약하면 결국 : 범용 목적의 모델은 아직 sLLM으로 도달할 수 있는지 의문이다.
 
-⇒ 하지만 특정 태스크를 위한 모델은 충분히 sLLM으로 개발이 가능하다. 
+⇒ 하지만 특정 태스크를 위한 모델은 충분히 sLLM으로 개발이 가능하다.
 
 - Human Evaluation에 대한 문제점을 지적한 점은 좋은 듯
 

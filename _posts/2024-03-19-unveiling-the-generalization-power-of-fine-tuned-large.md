@@ -1,26 +1,27 @@
 ---
 categories:
-- paper-reviews
-date: '2024-03-19 00:00:00'
+  - paper-reviews
+date: "2024-03-19 00:00:00"
 description: 논문 리뷰 - ICL, Generalization, Fine-tuning 관련 연구
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-- classification
-- detection
-- fine-tuning
-- generalization
-- gpt
-- icl
-- language-model
-- llm
-- paper-review
+  - classification
+  - detection
+  - fine-tuning
+  - generalization
+  - gpt
+  - icl
+  - language-model
+  - llm
+  - paper-review
 thumbnail: assets/img/posts/2024-03-19-unveiling-the-generalization-power-of-fine-tuned-large/thumbnail.jpg
 title: Unveiling the Generalization Power of Fine-Tuned Large Language Models
 ---
 
 **논문 정보**
+
 - **Date**: 2024-03-19
 - **Reviewer**: 전민진
 - **Property**: ICL, Generalization, Fine-tuning
@@ -165,65 +166,65 @@ title: Unveiling the Generalization Power of Fine-Tuned Large Language Models
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-03-19-unveiling-the-generalization-power-of-fine-tuned-large/image_001.png" class="img-fluid rounded z-depth-1" %}
 
-  - 전반적으로 ICL보다 finetuning 모델의 성능이 좋음
+- 전반적으로 ICL보다 finetuning 모델의 성능이 좋음
 
-    - 단, Amazon과 AmazonFood 제외
+  - 단, Amazon과 AmazonFood 제외
 
-      - 이미 Llama-2 모델이 sentiment analysis를 잘하기 때문에, 오히려  fine-tuning이 overfitting 혹은 conflicting training data의 효과를 일으켜 해가 되는 것으로 추정
+    - 이미 Llama-2 모델이 sentiment analysis를 잘하기 때문에, 오히려 fine-tuning이 overfitting 혹은 conflicting training data의 효과를 일으켜 해가 되는 것으로 추정
 
-  -  fine-tuned LLM에 In-context example을 주는 것의 무의미한 경우가 많음
+- fine-tuned LLM에 In-context example을 주는 것의 무의미한 경우가 많음
 
-    - 저자들은 “fine-tuning이 모델의 0-shot in-domain generalization을 강화”한다고 봄
+- 저자들은 “fine-tuning이 모델의 0-shot in-domain generalization을 강화”한다고 봄
 
-    - 단, ICL example을 inference시 큰 도움이 안되는 것으로 보았을 때, large set fine-tuning은 모델의 ICL능력을 제한한다고 봄
+- 단, ICL example을 inference시 큰 도움이 안되는 것으로 보았을 때, large set fine-tuning은 모델의 ICL능력을 제한한다고 봄
 
-  - fine-tuning시 사용한 학습 데이터의 수가 성능에 직결되진 않음
+- fine-tuning시 사용한 학습 데이터의 수가 성능에 직결되진 않음
 
-  - (뇌피셜) just ICL로 잘 풀리는 task와 안 풀리는 task 차이가 큰듯
+- (뇌피셜) just ICL로 잘 풀리는 task와 안 풀리는 task 차이가 큰듯
 
-    - NLI, Paraphrase Detection, Question generation
+  - NLI, Paraphrase Detection, Question generation
 
 - Same Task, Out-of-domain Datasets
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-03-19-unveiling-the-generalization-power-of-fine-tuned-large/image_002.png" class="img-fluid rounded z-depth-1" %}
 
-  - In generation task, ICL > fine-tuning (a,b,c,d)
+- In generation task, ICL > fine-tuning (a,b,c,d)
 
-  - In classification task, ICL < fine-tuning (e,f,g,h,i,j)
+- In classification task, ICL < fine-tuning (e,f,g,h,i,j)
 
-  - **classification에선 finetuned model의 generalization 성능이 좋지만, generation에선 좋지 못함**
+- **classification에선 finetuned model의 generalization 성능이 좋지만, generation에선 좋지 못함**
 
-    - 이는 output space의 제약 여부에서 기인한 것으로 추정. 
+  - 이는 output space의 제약 여부에서 기인한 것으로 추정.
 
-      - classification의 경우 domain은 달라도 같은 predefined label을 사용해 adaptation이 잘 되지만, generation의 경우 training set과 test set의 분포가 크게 달라서 adaptation이 잘 되지 않는 것 같다고 주장
+    - classification의 경우 domain은 달라도 같은 predefined label을 사용해 adaptation이 잘 되지만, generation의 경우 training set과 test set의 분포가 크게 달라서 adaptation이 잘 되지 않는 것 같다고 주장
 
-  - (뇌피셜) 여기선 NLI를 ICL이 특히 못하는걸 볼 수 있음
+- (뇌피셜) 여기선 NLI를 ICL이 특히 못하는걸 볼 수 있음
 
-    - QQP는 paraphrase detection인데 ICL 성능이 선방인거 같기도.. 아닌거 같기도..
+  - QQP는 paraphrase detection인데 ICL 성능이 선방인거 같기도.. 아닌거 같기도..
 
-    - question generation(Sciqa)의 경우 in-domain에선 fine-tuned성능이 높았지만, out-domain에선 fine-tuned성능이 크게 하락하면서 ICL이 더 나은 일반화 성능을 보임
+  - question generation(Sciqa)의 경우 in-domain에선 fine-tuned성능이 높았지만, out-domain에선 fine-tuned성능이 크게 하락하면서 ICL이 더 나은 일반화 성능을 보임
 
-      - 확실히 생성 태스크는 fine-tuned모델의 generalization ability가 상당히 낮음
+    - 확실히 생성 태스크는 fine-tuned모델의 generalization ability가 상당히 낮음
 
 - Different Tasks(2K로 학습)
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-03-19-unveiling-the-generalization-power-of-fine-tuned-large/image_003.png" class="img-fluid rounded z-depth-1" %}
 
-  - **첫번째 줄은 각 task에 대한 prompt의 시작이 모두 ###으로 동일할 때, 두번째 줄은 task마다 prompt의 시작 토큰을 다르게 설정했을 경우**
+- **첫번째 줄은 각 task에 대한 prompt의 시작이 모두 ###으로 동일할 때, 두번째 줄은 task마다 prompt의 시작 토큰을 다르게 설정했을 경우**
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-03-19-unveiling-the-generalization-power-of-fine-tuned-large/image_004.png" class="img-fluid rounded z-depth-1" %}
 
-  - classification에 fine-tuned model은 generation task에 일반화가 안됨
+- classification에 fine-tuned model은 generation task에 일반화가 안됨
 
-    - d,e,i,j를 보면 amazon, mnli, paws로 학습한 모델은 성능이 땅바닥에 붙어있음
+  - d,e,i,j를 보면 amazon, mnli, paws로 학습한 모델은 성능이 땅바닥에 붙어있음
 
-    - 이는 이미 이전에 predefined label을 생성하도록 학습되어, coherent text 생성과는 잘 align이 되지 않기 때문
+  - 이는 이미 이전에 predefined label을 생성하도록 학습되어, coherent text 생성과는 잘 align이 되지 않기 때문
 
-  - classification task로 평가할 때 prompt에 영향을 많이 받는다는 것을 볼 수 있음(a→f, b→g, c→h)
+- classification task로 평가할 때 prompt에 영향을 많이 받는다는 것을 볼 수 있음(a→f, b→g, c→h)
 
-  - (민진) **cross task setting에서 NLI, Paraphrases Detection(애매)를 제외하고는 ICL이 finetuned model보다 성능이 높음**
+- (민진) **cross task setting에서 NLI, Paraphrases Detection(애매)를 제외하고는 ICL이 finetuned model보다 성능이 높음**
 
-    - 확실히 finetuning은 양날의 검인듯.. 애초에 그걸 목적으로 고안된 방법론이기도 하고..
+  - 확실히 finetuning은 양날의 검인듯.. 애초에 그걸 목적으로 고안된 방법론이기도 하고..
 
 - FTICL
 
@@ -249,27 +250,27 @@ title: Unveiling the Generalization Power of Fine-Tuned Large Language Models
 
       - 걍 말을 붙인듯.
 
-  - Cross Task
+- Cross Task
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-03-19-unveiling-the-generalization-power-of-fine-tuned-large/image_006.png" class="img-fluid rounded z-depth-1" %}
 
     - **cross-task performance의 경우에도, FT보다 FTICL(FC)의 성능이 높음**
 
-  - Potential Reason
+- Potential Reason
 
-    - 왜 FTICL이 LLM의 일반화 성능을 강화하는지 대해 분석해보고자 함
+  - 왜 FTICL이 LLM의 일반화 성능을 강화하는지 대해 분석해보고자 함
 
-      - 가설 : FTICL이 FT보다 원래의 LLM의 파라미터에서 덜 바뀌는 경향이 있음
+    - 가설 : FTICL이 FT보다 원래의 LLM의 파라미터에서 덜 바뀌는 경향이 있음
 
-    - 두 finetuned model사이의 평균 parameter weight차이를 계산..
+  - 두 finetuned model사이의 평균 parameter weight차이를 계산..
 
-    - socialqa에 대해 학습한 경우 : FTICL(7.95e-5) vs FT(8.65e-5)
+  - socialqa에 대해 학습한 경우 : FTICL(7.95e-5) vs FT(8.65e-5)
 
-    - XSUM에 대해 학습한 경우 : FTICL(8.03e-5) vs FT(1.0e-4)
+  - XSUM에 대해 학습한 경우 : FTICL(8.03e-5) vs FT(1.0e-4)
 
 ⇒ in-context example이 새로운 태스크를 풀 때, 기존의 knowledge를 최대한 활용하도록 하기 때문!으로 해석..
 
-  - FTICL on Classification Tasks
+- FTICL on Classification Tasks
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-03-19-unveiling-the-generalization-power-of-fine-tuned-large/image_007.png" class="img-fluid rounded z-depth-1" %}
 
@@ -301,7 +302,6 @@ title: Unveiling the Generalization Power of Fine-Tuned Large Language Models
 
 - FT시 input을 ICL처럼 주는 FTICL방법이 generation task에서 모델의 generalization ability를 향상시킴
 
-
 ---
 
 민진 정리
@@ -318,7 +318,6 @@ title: Unveiling the Generalization Power of Fine-Tuned Large Language Models
 
   - 즉, 그냥 finetuning하는거보다 generalization ability가 높아짐
 
-
 ---
 
 총평
@@ -327,4 +326,4 @@ title: Unveiling the Generalization Power of Fine-Tuned Large Language Models
 
 - finetuning이 생각보다 generation task에서 일반화가 안되는게 신기했음
 
-- ICL.. 살짝 무시했었는데.. 몇몇  task를 제외하곤 뛰어난 방법론이었다..
+- ICL.. 살짝 무시했었는데.. 몇몇 task를 제외하곤 뛰어난 방법론이었다..

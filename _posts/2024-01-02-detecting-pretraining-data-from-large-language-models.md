@@ -1,29 +1,28 @@
 ---
 categories:
-- paper-reviews
-date: '2024-01-02 00:00:00'
+  - paper-reviews
+date: "2024-01-02 00:00:00"
 description: 논문 리뷰 - LLM 관련 연구
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-- detection
-- gpt
-- language-model
-- llm
-- paper-review
+  - detection
+  - gpt
+  - language-model
+  - llm
+  - paper-review
 thumbnail: assets/img/posts/2024-01-02-detecting-pretraining-data-from-large-language-models/thumbnail.jpg
 title: DETECTING PRETRAINING DATA FROM LARGE LANGUAGE MODELS
 ---
 
 **논문 정보**
+
 - **Date**: 2024-01-02
 - **Reviewer**: 김재희
 - **Property**: LLM
 
-
 ---
-
 
 ---
 
@@ -53,19 +52,19 @@ title: DETECTING PRETRAINING DATA FROM LARGE LANGUAGE MODELS
 
     - 두가지 가정 사용
 
-1) 대상 모델의 Pretrain 데이터를 알고 있음
+1. 대상 모델의 Pretrain 데이터를 알고 있음
 
-2) Shadow Data를 충분한 양 수집할 수 있음
+2. Shadow Data를 충분한 양 수집할 수 있음
 
 ⇒ 두 가정 모두 LLM에서 성립 X
 
     - Pretrain Corpus를 모르고, 알고 있다 하더라고 분석하기에 너무 방대하고, 우리가 실제로 접근할 수 있는 것은 생성 확률 뿐일 때를 가정하고 문제 상황 정의
 
-  - 탐지 어려움 : 
+- 탐지 어려움 :
 
-    - MIA 태스크에서 일반적으로 학습 데이터의 크기가 커질수록, 학습 epoch 및 lr이 작을수록 탐지 난이도가 올라간다고 알려져 있음
+  - MIA 태스크에서 일반적으로 학습 데이터의 크기가 커질수록, 학습 epoch 및 lr이 작을수록 탐지 난이도가 올라간다고 알려져 있음
 
-      - LLM Pretrain Corpus는 매우 크고, 학습 epoch과 lr은 매우 작음 → MIA 태스크 중 매우 난이도가 높음
+    - LLM Pretrain Corpus는 매우 크고, 학습 epoch과 lr은 매우 작음 → MIA 태스크 중 매우 난이도가 높음
 
 +) 특정 데이터의 Pretrain Corpus 내 등장 빈도 역시 고려되어야 함
 
@@ -77,15 +76,15 @@ title: DETECTING PRETRAINING DATA FROM LARGE LANGUAGE MODELS
 
     1. Non-Member Data : LLM들이 공통적으로 Pretrain에 사용되지 않았다고 확신할 수 있는 데이터
 
-      1. 2023년 1월 1일 이후 생성된 위키피디아 문서 수집
+    1. 2023년 1월 1일 이후 생성된 위키피디아 문서 수집
 
-        1. 사건사고 카테고리
+    1. 사건사고 카테고리
 
-        1. 해당 페이지 생성일자가 2023년 1월 1일 이후
+    1. 해당 페이지 생성일자가 2023년 1월 1일 이후
 
-    1.  Member Data : LLM들이 공통적으로 Pretrain에 사용했다고 확신할 수 있는 데이터
+    1. Member Data : LLM들이 공통적으로 Pretrain에 사용했다고 확신할 수 있는 데이터
 
-      1. 2017년 이전에 생성된 위키피디아 문서 수집 → 대부분의 LLM들이 해당 시점의 위키피디아 데이터를 Pretrain에 사용했다고 보고
+    1. 2017년 이전에 생성된 위키피디아 문서 수집 → 대부분의 LLM들이 해당 시점의 위키피디아 데이터를 Pretrain에 사용했다고 보고
 
     1. 의미가 없는 페이지 삭제 → Table of Contents 등으로만 구성된 페이지
 
@@ -97,7 +96,7 @@ title: DETECTING PRETRAINING DATA FROM LARGE LANGUAGE MODELS
 
   - Length : 기존의 MIA 태스크는 전체 데이터에 대해 하나의 metric 산출
 
-    - 자연어 특성 고려 및 실험 결과 문서 길이와 탐지 성능 간 높은 corr이 있었음. 
+    - 자연어 특성 고려 및 실험 결과 문서 길이와 탐지 성능 간 높은 corr이 있었음.
 
     - 길이 별 데이터를 분리하여 성능 평가
 
@@ -123,7 +122,7 @@ title: DETECTING PRETRAINING DATA FROM LARGE LANGUAGE MODELS
 
 - 해당 스코어에 대한 Thresholding을 통해 MIA 태스크 수행 가능
 
-## 4. Experiments 1 - Main 
+## 4. Experiments 1 - Main
 
 ### Implementation Details and Setup
 
@@ -215,7 +214,7 @@ title: DETECTING PRETRAINING DATA FROM LARGE LANGUAGE MODELS
 
       - 200개의 데이터 : Pretrain Corpus에 포함 X (Non-Membership Data)
 
-  - RedPajama Corpus + 200*4 Data로 Contaminated Pretrain Corpus 구축
+  - RedPajama Corpus + 200\*4 Data로 Contaminated Pretrain Corpus 구축
 
     - 해당 코퍼스에 대해 1 epoch 훈련 진행
 

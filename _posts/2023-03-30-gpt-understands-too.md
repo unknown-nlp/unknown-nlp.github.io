@@ -1,31 +1,32 @@
 ---
 categories:
-- paper-reviews
-date: '2023-03-30 00:00:00'
+  - paper-reviews
+date: "2023-03-30 00:00:00"
 description: 논문 리뷰 - Prompt Tuning 관련 연구
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-- bert
-- embedding
-- fine-tuning
-- gpt
-- language-model
-- paper-review
-- prompt tuning
+  - bert
+  - embedding
+  - fine-tuning
+  - gpt
+  - language-model
+  - paper-review
+  - prompt tuning
 thumbnail: assets/img/posts/2023-03-30-gpt-understands-too/thumbnail.jpg
 title: GPT Understands, Too
 ---
 
 **논문 정보**
+
 - **Date**: 2023-03-30
 - **Reviewer**: yukyung lee
 - **Property**: Prompt Tuning
 
 ## 1. Overview
 
-***Summary***
+**_Summary_**
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2023-03-30-gpt-understands-too/image_000.png" class="img-fluid rounded z-depth-1" %}
 
@@ -35,7 +36,7 @@ title: GPT Understands, Too
 
 - Full finetuning보다 P-tuning의 성능 향상폭이 훨씬 더 큼을 알 수 있었음
 
-***Motivation***
+**_Motivation_**
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2023-03-30-gpt-understands-too/image_001.png" class="img-fluid rounded z-depth-1" %}
 
@@ -47,7 +48,7 @@ title: GPT Understands, Too
 
 ## 2. Background
 
-***Discrete Prompt Search***
+**_Discrete Prompt Search_**
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2023-03-30-gpt-understands-too/image_002.png" class="img-fluid rounded z-depth-1" %}
 
@@ -59,11 +60,11 @@ title: GPT Understands, Too
 
 ## 3. Method
 
-***P-Tuning : Continuous space에서 Prompt를 찾자 !***
+**_P-Tuning : Continuous space에서 Prompt를 찾자 !_**
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2023-03-30-gpt-understands-too/image_003.png" class="img-fluid rounded z-depth-1" %}
 
-- Bi-LSTM기반의 prompt encoder를 활용하여 이산적인 token의 특징과 각 token과의 connectiveness를 함께 활용할 수 있도록  embedding을 생성하게 됨
+- Bi-LSTM기반의 prompt encoder를 활용하여 이산적인 token의 특징과 각 token과의 connectiveness를 함께 활용할 수 있도록 embedding을 생성하게 됨
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2023-03-30-gpt-understands-too/image_004.png" class="img-fluid rounded z-depth-1" %}
 
@@ -81,7 +82,7 @@ title: GPT Understands, Too
 
 ## 4. Results
 
-***Knowledge probling task***
+**_Knowledge probling task_**
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2023-03-30-gpt-understands-too/image_005.png" class="img-fluid rounded z-depth-1" %}
 
@@ -91,7 +92,7 @@ title: GPT Understands, Too
 
 - 거의 모든 경우 P-tuning이 높은 성능을 보임
 
-***SuperGLUE(Full finetuning)***
+**_SuperGLUE(Full finetuning)_**
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2023-03-30-gpt-understands-too/image_006.png" class="img-fluid rounded z-depth-1" %}
 
@@ -101,7 +102,7 @@ title: GPT Understands, Too
 
 - Large scale LM에서도 동일한 양상을 보임
 
-***SuperGLUE(Fewshot)***
+**_SuperGLUE(Fewshot)_**
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2023-03-30-gpt-understands-too/image_007.png" class="img-fluid rounded z-depth-1" %}
 

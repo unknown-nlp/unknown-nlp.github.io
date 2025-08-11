@@ -1,20 +1,21 @@
 ---
 categories:
-- paper-reviews
-date: '2025-04-15 00:00:00'
+  - paper-reviews
+date: "2025-04-15 00:00:00"
 description: 논문 리뷰
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-- language-model
-- llm
-- paper-review
+  - language-model
+  - llm
+  - paper-review
 thumbnail: assets/img/posts/2025-04-15-model-context-protocol-mcp---provided-by-antrophic/thumbnail.jpg
 title: Model Context Protocol (MCP) - provided by Antrophic
 ---
 
 **논문 정보**
+
 - **Date**: 2025-04-15
 - **Reviewer**: 준원 장
 
@@ -41,12 +42,12 @@ title: Model Context Protocol (MCP) - provided by Antrophic
 - MCP 구조는 아래와 같음
 
   - **MCP Hosts**:
-Claude Desktop, IDE 또는 AI 도구와 같이 사용자가 직접 사용하는 프로그램. MCP를 통해 데이터에 접근하고자 하는 최종 사용자 애플리케이션.
+    Claude Desktop, IDE 또는 AI 도구와 같이 사용자가 직접 사용하는 프로그램. MCP를 통해 데이터에 접근하고자 하는 최종 사용자 애플리케이션.
 
 ⇒ 가장 상위 레벨의 어플리케이션으로 사용자가 prompt 날리는 대상 (`Claude Desktop, Cursor`)
 
-  - **MCP Clients**:
-호스트 내부에서 서버와의 1:1 통신을 담당하는 기술적 구성요소. 프로토콜 규칙에 따라 메시지를 주고받는 통신 관리자 역할을 담당.
+- **MCP Clients**:
+  호스트 내부에서 서버와의 1:1 통신을 담당하는 기술적 구성요소. 프로토콜 규칙에 따라 메시지를 주고받는 통신 관리자 역할을 담당.
 
 ⇒ Host 내부에서 작동하는 구성 요소
 
@@ -56,19 +57,19 @@ Claude Desktop, IDE 또는 AI 도구와 같이 사용자가 직접 사용하는 
 
     - 서버와의 통신 관리 (연결 유지, 오류 처리 등)
 
-  - **MCP Servers**:
-특정 기능을 표준화된 Model Context Protocol을 통해 제공하는 경량 프로그램.
+- **MCP Servers**:
+  특정 기능을 표준화된 Model Context Protocol을 통해 제공하는 경량 프로그램.
 
 ⇒ 각 서버는 특정 기능(`api call/function call`)이나 데이터 접근을 담당.
 
-  - **Local Data Sources (로컬 데이터 소스)**:
-사용자 컴퓨터에 있는 파일, 데이터베이스, 서비스 등으로 MCP 서버가 안전하게 접근할 수 있는 정보 저장소 (`local database`)
+- **Local Data Sources (로컬 데이터 소스)**:
+  사용자 컴퓨터에 있는 파일, 데이터베이스, 서비스 등으로 MCP 서버가 안전하게 접근할 수 있는 정보 저장소 (`local database`)
 
-  - **Remote Services (원격 서비스)**:
-인터넷을 통해 접근 가능한 외부 시스템(API 등)으로, MCP 서버가 연결하여 정보를 가져올 수 있는 외부 자원 (`web search results`)
+- **Remote Services (원격 서비스)**:
+  인터넷을 통해 접근 가능한 외부 시스템(API 등)으로, MCP 서버가 연결하여 정보를 가져올 수 있는 외부 자원 (`web search results`)
 
-  - **MCP Protocol**:
-클라이언트와 서버 간의 표준화된 통신 방식으로, 데이터 형식, 요청/응답 구조, 오류 처리 등을 정의 (`pip install mcp` 로 설치되는 것)
+- **MCP Protocol**:
+  클라이언트와 서버 간의 표준화된 통신 방식으로, 데이터 형식, 요청/응답 구조, 오류 처리 등을 정의 (`pip install mcp` 로 설치되는 것)
 
 ### **MCP 통신 흐름**
 
@@ -76,29 +77,29 @@ Claude Desktop, IDE 또는 AI 도구와 같이 사용자가 직접 사용하는 
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2025-04-15-model-context-protocol-mcp---provided-by-antrophic/image_001.png" class="img-fluid rounded z-depth-1" %}
 
-  - 능력 협상 (Capability Negotiation)
+- 능력 협상 (Capability Negotiation)
 
-  - 버전 확인
+- 버전 확인
 
-  - 서버 정보 교환
+- 서버 정보 교환
 
 1. 일반 통신
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2025-04-15-model-context-protocol-mcp---provided-by-antrophic/image_002.png" class="img-fluid rounded z-depth-1" %}
 
-  - 요청/응답 (Request/Response)
+- 요청/응답 (Request/Response)
 
-  - 알림 (Notification)
+- 알림 (Notification)
 
-  - 에러 처리
+- 에러 처리
 
 1. 종료
 
-  - 정상 종료
+- 정상 종료
 
-  - 에러 복구
+- 에러 복구
 
-  - 리소스 정리
+- 리소스 정리
 
 - Protocol까보면 사실상 client ↔ server는 json 구조로 통신함
 
@@ -182,7 +183,7 @@ https://github.com/smithery-ai/reference-servers/tree/main/src/github
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2025-04-15-model-context-protocol-mcp---provided-by-antrophic/image_010.png" class="img-fluid rounded z-depth-1" %}
 
-1. Cursor (AI agent)에게 Github Token의 권한 아래 있는 repo에 대해서 tool 실행 (e.g., issue를 실행해줘)를 요청하면, (1) LLM이 특정 MCP server가 필요하다고 판단 → 특정 Tool 실행이 필요하다고 판단  (2) MCP에 맞는 입력 생성
+1. Cursor (AI agent)에게 Github Token의 권한 아래 있는 repo에 대해서 tool 실행 (e.g., issue를 실행해줘)를 요청하면, (1) LLM이 특정 MCP server가 필요하다고 판단 → 특정 Tool 실행이 필요하다고 판단 (2) MCP에 맞는 입력 생성
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2025-04-15-model-context-protocol-mcp---provided-by-antrophic/image_011.png" class="img-fluid rounded z-depth-1" %}
 
@@ -198,11 +199,11 @@ https://github.com/smithery-ai/reference-servers/tree/main/src/github
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2025-04-15-model-context-protocol-mcp---provided-by-antrophic/image_013.png" class="img-fluid rounded z-depth-1" %}
 
-  - FactMCP 인스턴스 생성
+- FactMCP 인스턴스 생성
 
-  - decorator를 활용해 `@mcp.tool()`을 활용해 tool 정의
+- decorator를 활용해 `@mcp.tool()`을 활용해 tool 정의
 
-  - server가 independent하게 동작하는지 확인
+- server가 independent하게 동작하는지 확인
 
 ```json
 if __name__ == "__main__":
@@ -210,15 +211,15 @@ if __name__ == "__main__":
     mcp.run(transport='stdio')
 ```
 
-  - 서버의 경로를 `mcp.json` 에 추가해주면 됨
+- 서버의 경로를 `mcp.json` 에 추가해주면 됨
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2025-04-15-model-context-protocol-mcp---provided-by-antrophic/image_014.png" class="img-fluid rounded z-depth-1" %}
 
-  - AI Agent (LLM)에게 prompt를 날리면 추가된 mcp server를 쓴다고 요청이 옴.
+- AI Agent (LLM)에게 prompt를 날리면 추가된 mcp server를 쓴다고 요청이 옴.
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2025-04-15-model-context-protocol-mcp---provided-by-antrophic/image_015.png" class="img-fluid rounded z-depth-1" %}
 
-  - `Run tool` 실행하면 tool 실행하고, 그 결과를 LLM result에 통합해서 최종 chat completion을 반환
+- `Run tool` 실행하면 tool 실행하고, 그 결과를 LLM result에 통합해서 최종 chat completion을 반환
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2025-04-15-model-context-protocol-mcp---provided-by-antrophic/image_016.png" class="img-fluid rounded z-depth-1" %}
 
@@ -228,15 +229,15 @@ if __name__ == "__main__":
 
 **⇒ Example**
 
-  - **https://modelcontextprotocol.io/llms-full.txt** 사이트를 방문하여 전체 문서 내용을 복사
+- **https://modelcontextprotocol.io/llms-full.txt** 사이트를 방문하여 전체 문서 내용을 복사
 
-  - **MCP TypeScript SDK** 또는 **Python SDK 저장소**로 이동
+- **MCP TypeScript SDK** 또는 **Python SDK 저장소**로 이동
 
-> **SDK**:  특정 플랫폼, 프레임워크 또는 시스템을 위한 개발 도구 모음
+> **SDK**: 특정 플랫폼, 프레임워크 또는 시스템을 위한 개발 도구 모음
 
-  - README 파일과 기타 관련 문서들을 복사 (e.g., mcp-python-sdk readme)
+- README 파일과 기타 관련 문서들을 복사 (e.g., mcp-python-sdk readme)
 
-  - 해당 문서를 이 문서들을 Claude(AI Agent)와의 대화창에 복붙
+- 해당 문서를 이 문서들을 Claude(AI Agent)와의 대화창에 복붙
 
 ### Cursor - Client Server
 
@@ -369,15 +370,15 @@ async def process_query(self, query: str) -> str:
 
 ⇒ 제일 노동력 많음
 
-  - 언어 모델 플러그인 (OpenAI Plugins)
+- 언어 모델 플러그인 (OpenAI Plugins)
 
-    - 모델이 외부 API를 쉽게 호출할 수 있게 해주는 프레임워크
+  - 모델이 외부 API를 쉽게 호출할 수 있게 해주는 프레임워크
 
 ⇒ 대부분의 플러그인은 모델이 API를 호출할 형태를 만드는 방식에 초점
 
-  - 프레임워크 기반 도구 사용 (LangChain의 Tools, Agents)
+- 프레임워크 기반 도구 사용 (LangChain의 Tools, Agents)
 
-    - LLM에 "도구"를 설명하고 모델이 상황에 맞게 도구를 호출하는 방식
+  - LLM에 "도구"를 설명하고 모델이 상황에 맞게 도구를 호출하는 방식
 
 ⇒ 개발자가 각 도구를 자신의 요구에 맞게 연결하거나 수정해야 함
 

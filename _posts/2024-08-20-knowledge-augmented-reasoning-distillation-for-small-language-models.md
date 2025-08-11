@@ -1,27 +1,28 @@
 ---
 categories:
-- paper-reviews
-date: '2024-08-20 00:00:00'
+  - paper-reviews
+date: "2024-08-20 00:00:00"
 description: 논문 리뷰 - Reasoning, Knowledge Distillation 관련 연구
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-- bert
-- fine-tuning
-- gpt
-- knowledge distillation
-- language-model
-- llm
-- neural
-- paper-review
-- reasoning
+  - bert
+  - fine-tuning
+  - gpt
+  - knowledge distillation
+  - language-model
+  - llm
+  - neural
+  - paper-review
+  - reasoning
 thumbnail: assets/img/posts/2024-08-20-knowledge-augmented-reasoning-distillation-for-small-language-models/thumbnail.jpg
 title: Knowledge-Augmented Reasoning distillation for Small Language Models in Knowledge-Intensive
   Tasks (KARD)
 ---
 
 **논문 정보**
+
 - **Date**: 2024-08-20
 - **Reviewer**: 전민진
 - **Property**: Reasoning, Knowledge Distillation
@@ -114,7 +115,7 @@ title: Knowledge-Augmented Reasoning distillation for Small Language Models in K
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-08-20-knowledge-augmented-reasoning-distillation-for-small-language-models/image_002.png" class="img-fluid rounded z-depth-1" %}
 
--  train data와 algorithm A로 학습한 모델 M의 overall error을 이렇게 수식으로 표현할 수 있음
+- train data와 algorithm A로 학습한 모델 M의 overall error을 이렇게 수식으로 표현할 수 있음
 
 - q(meta-distribution)과 n( # of train data)이 주어질 때, overall error를 최소화하는 optimal learner A_opt가 있다고 가정
 
@@ -140,9 +141,9 @@ title: Knowledge-Augmented Reasoning distillation for Small Language Models in K
 
 - KARD는 2가지 learning process로 구성됨
 
-  - 1) reasoning distillation
+  - 1. reasoning distillation
 
-  - 2) reranker training
+  - 2. reranker training
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-08-20-knowledge-augmented-reasoning-distillation-for-small-language-models/image_005.png" class="img-fluid rounded z-depth-1" %}
 
@@ -150,17 +151,17 @@ title: Knowledge-Augmented Reasoning distillation for Small Language Models in K
 
 **[Rationale Generation with LLMs]**
 
-- target task의 training dataset ((x_i,y_i))_{i=1}^n이 있다 가정
+- target task의 training dataset ((x*i,y_i))*{i=1}^n이 있다 가정
 
 - black-box LLM에 prompt, question, answer을 넣어서 각각 l개의 rationale을 생성(j는 rationale index)
 
-  - r_{ij} = LLM(p,x_i,y_i)
+  - r\_{ij} = LLM(p,x_i,y_i)
 
   - p는 chain-of-thought prompt
 
 **[Fine-tuning Small Models on Rationales] - 기존의 reasoning distillation 방법**
 
-- 위에서 생성한 rationale을 바탕으로 rationale, answer을 순차적으로 생성. 
+- 위에서 생성한 rationale을 바탕으로 rationale, answer을 순차적으로 생성.
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-08-20-knowledge-augmented-reasoning-distillation-for-small-language-models/image_006.png" class="img-fluid rounded z-depth-1" %}
 
@@ -204,13 +205,13 @@ title: Knowledge-Augmented Reasoning distillation for Small Language Models in K
 
 - 학습된 small LM과 reranker로 inference 진행
 
-1) question을 query로 retriever(BM25)을 통해 candidate document를 k*(100)개 추출
+1. question을 query로 retriever(BM25)을 통해 candidate document를 k\*(100)개 추출
 
-2) document를 re-ranking, 최종적으로 k개의 document를 선택
+2. document를 re-ranking, 최종적으로 k개의 document를 선택
 
-3) question과 k개의 document를 small model에 넣어서 rationale 생성
+3. question과 k개의 document를 small model에 넣어서 rationale 생성
 
-4) question, k개의 document, rationale을 바탕으로 최종 답변 생성
+4. question, k개의 document, rationale을 바탕으로 최종 답변 생성
 
 ## Experiments
 
@@ -230,7 +231,7 @@ knowledge-intensive reasoning task에 집중
 
 **[Baselines]**
 
-- Few-shot ICL 
+- Few-shot ICL
 
 - Few-shot ICL + CoT : 예시 + rationale 생성 및 rationale 기반으로 답변 생성하도록
 
@@ -324,9 +325,9 @@ knowledge-intensive reasoning task에 집중
 
 - KARD와 RAG의 차이는 RAG에선 query로 question을 쓰고, retriever와 generator를 같이 학습한다는 것
 
--  reasoning distillation에 RAG를 한 모델을 시험
+- reasoning distillation에 RAG를 한 모델을 시험
 
-  - trainable retriever로 DPR사용
+- trainable retriever로 DPR사용
 
 - KARD가 훨씬 높은 성능..
 

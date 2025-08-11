@@ -1,31 +1,32 @@
 ---
 categories:
-- paper-reviews
-date: '2023-08-29 00:00:00'
+  - paper-reviews
+date: "2023-08-29 00:00:00"
 description: 논문 리뷰 - LLM 관련 연구
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-- attention
-- embedding
-- fine-tuning
-- llm
-- paper-review
-- pre-training
-- reasoning
+  - attention
+  - embedding
+  - fine-tuning
+  - llm
+  - paper-review
+  - pre-training
+  - reasoning
 thumbnail: assets/img/posts/2023-08-29-code-llama-open-foundation-models-for-code/thumbnail.jpg
-title: 'Code Llama: Open Foundation Models for Code'
+title: "Code Llama: Open Foundation Models for Code"
 ---
 
 **논문 정보**
+
 - **Date**: 2023-08-29
 - **Reviewer**: hyowon Cho
 - **Property**: LLM
 
 # Introduction
 
-domain-specific dataset을 이용해서 application에 특화된 모델을 만드는 것은 보편적인 방법이다. 이러한 추세는 언어모델을 이용하여 코드를 작성하는데까지도 이어졌다. 예를 들어, code completion, debugging,  generating documentation과 같은 작업을 수행할 수 있다.
+domain-specific dataset을 이용해서 application에 특화된 모델을 만드는 것은 보편적인 방법이다. 이러한 추세는 언어모델을 이용하여 코드를 작성하는데까지도 이어졌다. 예를 들어, code completion, debugging, generating documentation과 같은 작업을 수행할 수 있다.
 
 이번 발표에서는 Meta AI에서 공개한 Code Llama에 대한 리뷰를 진행한다. 해당 모델의 의의는 크게 두 가지, 제일 성능이 좋다는 것과 repository-level의 긴 context를 받아서 처리할 수 있다는 것이다.
 
@@ -37,19 +38,19 @@ domain-specific dataset을 이용해서 application에 특화된 모델을 만�
 
 1. Code-training from foundation models
 
-  - AlphaCode (Li et al., 2022), InCoder (Fried et al., 2023), StarCoder (Li et al., 2023)과 같은 대다수의 최근 code LLM들은 모두 code로만 학습됨. 하지만 이번 모델은 Codex (Chen et al., 2021)와 같이 foundation model에서 출발. code로만 학습시켰을 때보다 더 좋은 성능을 내는 것을 보임
+- AlphaCode (Li et al., 2022), InCoder (Fried et al., 2023), StarCoder (Li et al., 2023)과 같은 대다수의 최근 code LLM들은 모두 code로만 학습됨. 하지만 이번 모델은 Codex (Chen et al., 2021)와 같이 foundation model에서 출발. code로만 학습시켰을 때보다 더 좋은 성능을 내는 것을 보임
 
 1. Infilling
 
-  - 일반적인 autoregressive 목적함수만을 사용하는 것이 아니라, multitask objective (autoregressive + causal infilling prediction) 사용
+- 일반적인 autoregressive 목적함수만을 사용하는 것이 아니라, multitask objective (autoregressive + causal infilling prediction) 사용
 
 1. Long input contexts.
 
-  - Llama 2은 4096 토큰  input. 하지만, repository-level reasoning을 하기 위해서는 이보다 더 긴 context를 받아야함. 이를 위해서, maximum context length을 4,096 tokens to 100,000 tokens로 늘리는 finetuning stage 제안. - modifying the parameters of the RoPE positional embeddings.
+- Llama 2은 4096 토큰 input. 하지만, repository-level reasoning을 하기 위해서는 이보다 더 긴 context를 받아야함. 이를 위해서, maximum context length을 4,096 tokens to 100,000 tokens로 늘리는 finetuning stage 제안. - modifying the parameters of the RoPE positional embeddings.
 
 1. Instruction fine-tuning.
 
-  - Code Llama - Instruct 에서 추가적인 Instruction fine-tuning 진행
+- Code Llama - Instruct 에서 추가적인 Instruction fine-tuning 진행
 
 이 외에도 해당 paper에서는 다른 code-based LLM들과의 비교를 진행하고, 우리가 궁금할법한 다양한 ablation study를 진행한다.
 
@@ -93,7 +94,7 @@ domain-specific dataset을 이용해서 application에 특화된 모델을 만�
 
 Infilling을 위한 데이터들은 다음과 같이 구성된다.
 
-먼저 모든 데이터들은 prefix-middle-suffix로 나눠진다.  (splitting locations are sampled independently from a uniform distribution over the document length.) 
+먼저 모든 데이터들은 prefix-middle-suffix로 나눠진다. (splitting locations are sampled independently from a uniform distribution over the document length.)
 
 이후, 전체 데이터의 절반은 prefix-suffix-middle (PSM) format, 나머지 절반은 suffix-prefix-middle (SPM) format으로 구성한다.
 
@@ -101,7 +102,7 @@ suffix, prefix, middle의 시작과 infilling span의 끝을 표기하기 위한
 
 이렇게 재배열된 데이터에 대한 auto-regressive training을 수행한다.
 
-전체 데이터의 90퍼센트는 Infilling, 나머지는 일반 auto-regressive수행한다. 
+전체 데이터의 90퍼센트는 Infilling, 나머지는 일반 auto-regressive수행한다.
 
 ### Long context fine-tuning
 
@@ -129,9 +130,9 @@ Code Llama에서는 최대 16,384 tokens을 다루기 위한 long context fine-t
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2023-08-29-code-llama-open-foundation-models-for-code/image_004.png" class="img-fluid rounded z-depth-1" %}
 
-  - Attention expectations over relative distances between key and value embeddings
+- Attention expectations over relative distances between key and value embeddings
 
-  - far-away tokens도 현재의 prediction에 더 기여하도록 바뀌었다는 것을 확인할 수 있음.
+- far-away tokens도 현재의 prediction에 더 기여하도록 바뀌었다는 것을 확인할 수 있음.
 
 ### Instruction fine-tuning
 
@@ -139,11 +140,11 @@ instruction fine-tuned models Code Llama - Instruct은 Code Llama에 다음의 �
 
 1. Proprietary dataset
 
-  - instruction tuning dataset collected for Llama 2
+- instruction tuning dataset collected for Llama 2
 
-  - multi-turn dialogue between a user and an assistant.
+- multi-turn dialogue between a user and an assistant.
 
-  - few examples of code-related tasks
+- few examples of code-related tasks
 
 1. Self-instruct
 
@@ -155,7 +156,7 @@ instruction fine-tuned models Code Llama - Instruct은 Code Llama에 다음의 �
 
 1. Rehearsal.
 
-  - 코딩과 언어 이해 능력을 보존하기 위해서 Code Llama - Instructs는 code dataset (6%)과 our natural language dataset (2%)을 포함함.
+- 코딩과 언어 이해 능력을 보존하기 위해서 Code Llama - Instructs는 code dataset (6%)과 our natural language dataset (2%)을 포함함.
 
 ### Training details
 

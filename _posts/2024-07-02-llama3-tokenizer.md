@@ -1,22 +1,23 @@
 ---
 categories:
-- paper-reviews
-date: '2024-07-02 00:00:00'
+  - paper-reviews
+date: "2024-07-02 00:00:00"
 description: 논문 리뷰 - Tokenizer 관련 연구
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-- embedding
-- neural
-- paper-review
-- pre-training
-- tokenizer
+  - embedding
+  - neural
+  - paper-review
+  - pre-training
+  - tokenizer
 thumbnail: assets/img/posts/2024-07-02-llama3-tokenizer/thumbnail.jpg
 title: Llama3 Tokenizer
 ---
 
 **논문 정보**
+
 - **Date**: 2024-07-02
 - **Reviewer**: 준원 장
 - **Property**: Tokenizer
@@ -35,25 +36,25 @@ title: Llama3 Tokenizer
 
 ### Tokenizer의 교체
 
-- Llama3부터는 **BPE(Byte Pair Encoding)**기반의  https://github.com/openai/tiktoken?tab=readme-ov-file 라이브러리로 교체를 했다고 합니다. (효율성과 확장성 때문이지 않을까라고 사료됩니다)
+- Llama3부터는 **BPE(Byte Pair Encoding)**기반의 https://github.com/openai/tiktoken?tab=readme-ov-file 라이브러리로 교체를 했다고 합니다. (효율성과 확장성 때문이지 않을까라고 사료됩니다)
 
 - ti-tokn 라이브러리는 token당 4 bytes의 압축률을 보인다고 합니다.
 
   - SentencePiece Tokenizer는 일본어,중국어와 같이 whitespace로 구분이 안되는 기존 언어들이 BPE(Byte Pair Encoding)나 Word Piece Tokenization 로 효과적으로 Tokenizing되지 않는 문제를 해결하기 위해 고안된 알고리즘입니다.
 
-  - language-agnostic하게 정보의 손실이 없는 tokenizer를 만들어주기 위해 whitespace에 _를 추가해줌으로써 알아서 전체 문장 내에 ‘_’가 공백이라는 정보를 학습시켜줍니다. 
+  - language-agnostic하게 정보의 손실이 없는 tokenizer를 만들어주기 위해 whitespace에 _를 추가해줌으로써 알아서 전체 문장 내에 ‘_’가 공백이라는 정보를 학습시켜줍니다.
 
   - ‘_’는 `detok = ’’.join(tokens).replace(’_’, ’ ’)` 를 통해 디코딩 과정중에 제거시켜줍니다.
 
   - Sentencepiece는 하나의 프레임워크이기에 BPE, WordPiece Tokenization도 지원합니다.
 
-    - (e.g., 엄마가_방에_있다 → 엄머가 방에 있다.)
+    - (e.g., 엄마가*방에*있다 → 엄머가 방에 있다.)
 
 - 다른 Tokenization 알고리즘은 어떻게 동작할까요?
 
   - **BPE(Byte Pair Encoding)**
 
-    - `this is the hugging face course. this chapter is about tokenization. this section shows several tokenizer algorithms.`  과 같은 text가 있다고 할때, 대부분의 상용 tokenizer들은 **whitespace를 기준으로 pre-tokenizing **과정을 거칩니다.
+    - `this is the hugging face course. this chapter is about tokenization. this section shows several tokenizer algorithms.` 과 같은 text가 있다고 할때, 대부분의 상용 tokenizer들은 **whitespace를 기준으로 pre-tokenizing **과정을 거칩니다.
 
       - `['this', 'is', 'the', 'hugging', 'face', 'course.', 'this', 'chapter', 'is', 'about', 'tokenization.', 'this', 'section', 'shows', 'several', 'tokenizer', 'algorithms.']`
 
@@ -75,11 +76,11 @@ title: Llama3 Tokenizer
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-07-02-llama3-tokenizer/image_001.png" class="img-fluid rounded z-depth-1" %}
 
-  - **Word Piece Tokenization**
+- **Word Piece Tokenization**
 
-    - BPE랑 거의 유사하지만, Splits가 만들어지는 방식과 Pairs frequencies가 상이합니다. 
+  - BPE랑 거의 유사하지만, Splits가 만들어지는 방식과 Pairs frequencies가 상이합니다.
 
-    - 특히 Pairs frequencies의 경우 각 Splits의 frequencies과 Pairs의 frequencies를 통해 likelihood를 통해 score를 계산한 후 vocab을 추가합니다.
+  - 특히 Pairs frequencies의 경우 각 Splits의 frequencies과 Pairs의 frequencies를 통해 likelihood를 통해 score를 계산한 후 vocab을 추가합니다.
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-07-02-llama3-tokenizer/image_002.png" class="img-fluid rounded z-depth-1" %}
 
@@ -119,7 +120,7 @@ title: Llama3 Tokenizer
 
   - Pre-Training시에도 더 높은 Token 수는 도움이 됩니다.
 
-    - Pre-Training의 목적은 Knowledge에 대한 Recall을 높히는 것입니다. 이런 관점에서 생각해볼 때, 같은 광범위한 데이터셋이라도 더 향상된 압축 비율(*여러 token들로 굳이 나눠서 표현할 수 있는 것 대비 필요한 token들로만 나누어서*)로 학습하는게 도움이 된다고 합니다.
+    - Pre-Training의 목적은 Knowledge에 대한 Recall을 높히는 것입니다. 이런 관점에서 생각해볼 때, 같은 광범위한 데이터셋이라도 더 향상된 압축 비율(_여러 token들로 굳이 나눠서 표현할 수 있는 것 대비 필요한 token들로만 나누어서_)로 학습하는게 도움이 된다고 합니다.
 
     - 영상에 직접적으로 언급은 없지만, vocab이 많기 때문에 다양한 corpus에 빠르게 fitting되는 경향이 있어 loss가 상대적으로 빠르게 수렴된다는 연구 및 실험 reporting도 많이 접했습니다.
 
@@ -129,9 +130,9 @@ title: Llama3 Tokenizer
 
 ### Token수의 확장은 Not Free Lunch
 
-- 이미 눈치채셨겠지만, Vocab Size를 4배 가량 확장했다는 의미는 Embedding Layer, lm_head(Research Scientist는 Debedding Layer라구하더라구요!ㅋㅋ)도 그만큼 확장해야 한다는 의미입니다. 
+- 이미 눈치채셨겠지만, Vocab Size를 4배 가량 확장했다는 의미는 Embedding Layer, lm_head(Research Scientist는 Debedding Layer라구하더라구요!ㅋㅋ)도 그만큼 확장해야 한다는 의미입니다.
 
-- 실제로 이 이유가 Llama3가 7B가 아니라 8B로 끝난 이유라고 합니다..! 
+- 실제로 이 이유가 Llama3가 7B가 아니라 8B로 끝난 이유라고 합니다..!
 
 - 특히나 lm_head가 증가하면 inference 속도에 직접적인 영향을 주기 때문에 GQA를 줘서 완화를 했다고 합니다.
 

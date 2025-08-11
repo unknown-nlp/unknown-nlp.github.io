@@ -1,23 +1,24 @@
 ---
 categories:
-- paper-reviews
-date: '2025-02-04 00:00:00'
+  - paper-reviews
+date: "2025-02-04 00:00:00"
 description: 논문 리뷰
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-- attention
-- language-model
-- neural
-- paper-review
-- pre-training
-- transformer
+  - attention
+  - language-model
+  - neural
+  - paper-review
+  - pre-training
+  - transformer
 thumbnail: assets/img/posts/2025-02-04-titans-learning-to-memorize-at-test-time/thumbnail.jpg
-title: 'Titans: Learning to Memorize at Test Time'
+title: "Titans: Learning to Memorize at Test Time"
 ---
 
 **논문 정보**
+
 - **Date**: 2025-02-04
 - **Reviewer**: 준원 장
 
@@ -35,7 +36,7 @@ title: 'Titans: Learning to Memorize at Test Time'
 
 ⇒ data가 matrix-valued states로 mapping/compressed이 되기 때문에 very long context에서 효용X
 
-- Limitation of recurrent neural network 
+- Limitation of recurrent neural network
 
   1. 단기 기억, 장기 기억, 메타 기억, 현재 맥락에 대한 attention을 모두 적절하게 구현한 architecture의 부재
 
@@ -47,17 +48,17 @@ title: 'Titans: Learning to Memorize at Test Time'
 
 ⇒ 논문에서는 Memory 관점에서 기존의 Model을 독자에게 이해시키고자 함
 
-  - **memory: input에 의해서 발생하는 neural update**
+- **memory: input에 의해서 발생하는 neural update**
 
-  1. RNN 
+1. RNN
 
-    1. 𝑓 (M_{𝑡 −1}, 𝑥_𝑡 )
+1. 𝑓 (M*{𝑡 −1}, 𝑥*𝑡 )
 
-    1. 𝑔(M_𝑡, 𝑥_𝑡 )
+1. 𝑔(M*𝑡, 𝑥*𝑡 )
 
 → t번째 입력에 의해서 ‘vector-valued memory module’ M이 업데이트 되고, retreiving 되는 것의 반복
 
-  1. Transformer
+1. Transformer
 
 → RNN과 달리 past key, value를 계속 appending함으로써 메모리 업데이트
 
@@ -67,7 +68,7 @@ title: 'Titans: Learning to Memorize at Test Time'
 
   1. 좋은 메모리 구조란 무엇일까?
 
-  1. 적절한 메모리 업데이트 메커니즘이란 무엇일까? 
+  1. 적절한 메모리 업데이트 메커니즘이란 무엇일까?
 
   1. 좋은 메모리 검색 프로세스란 무엇일까?
 
@@ -83,7 +84,7 @@ title: 'Titans: Learning to Memorize at Test Time'
 
 - Input: x ∈ ℝ^{(N×d_m)}
 
-- Neural Network Module: \mathcal{M} 
+- Neural Network Module: \mathcal{M}
 
 - Attention Mask: M
 
@@ -97,7 +98,7 @@ title: 'Titans: Learning to Memorize at Test Time'
 
   - forward pass with weight adjustment: \mathcal{N}(x)
 
-  - forward pass without weight adjustment: \mathcal{N}^{*}(x)
+  - forward pass without weight adjustment: \mathcal{N}^{\*}(x)
 
   - forward pass in k-th layer: \mathcal{N}^{(k)}
 
@@ -105,29 +106,29 @@ title: 'Titans: Learning to Memorize at Test Time'
 
 - Transformers
 
-  - y_i = \sum_{j=1}^i \frac{\exp(Q_i^T K_j/\sqrt{d_m}) V_j}{\sum_{l=1}^i \exp(Q_i^T K_l/\sqrt{d_m})}
+  - y*i = \sum*{j=1}^i \frac{\exp(Q*i^T K_j/\sqrt{d_m}) V_j}{\sum*{l=1}^i \exp(Q_i^T K_l/\sqrt{d_m})}
 
-  - 𝑁 × 𝑑 operation이 필요함  → 긴 메모리를 처리하기 위해서는 larger memory consumption and lower-throughput
+  - 𝑁 × 𝑑 operation이 필요함 → 긴 메모리를 처리하기 위해서는 larger memory consumption and lower-throughput
 
 - Efficient Attentions (linear attentions)
 
   - kernel function: \phi(x,y) = \phi(x)\phi(y)
 
-  - attention: y_i = \sum_{j=1}^i \frac{\phi(Q_i^T K_j)}{\sum_{l=1}^i \phi(Q_i^T K_l)} V_j = \sum_{j=1}^i \frac{\phi(Q_i)^T \phi(K_j)}{\sum_{l=1}^i \phi(Q_i)^T \phi(K_l)} V_j = \frac{\phi(Q_i)^T \sum_{j=1}^i \phi(K_j)V_j}{\phi(Q_i)^T \sum_{l=1}^i \phi(K_l)}
+  - attention: y*i = \sum*{j=1}^i \frac{\phi(Q*i^T K_j)}{\sum*{l=1}^i \phi(Q*i^T K_l)} V_j = \sum*{j=1}^i \frac{\phi(Q*i)^T \phi(K_j)}{\sum*{l=1}^i \phi(Q*i)^T \phi(K_l)} V_j = \frac{\phi(Q_i)^T \sum*{j=1}^i \phi(K*j)V_j}{\phi(Q_i)^T \sum*{l=1}^i \phi(K_l)}
 
   - kernel 이 identity function이면 다음과 같이 recurrent format을 갖는 transformer로 전개
 
-M_t = M_{t-1} + K_t^T V_t
+M*t = M*{t-1} + K_t^T V_t
 
 y_t = Q_t M_t
 
 - RNN
 
-  - hidden state  = memory units
+  - hidden state = memory units
 
   - recurrent process를 memory 관점에서 read/write로 해석할 수 있음
 
-    - read(input → hidden) : y_t = g(\mathcal{M}_t, x_t) \quad \text{Read Operation}
+    - read(input → hidden) : y_t = g(\mathcal{M}\_t, x_t) \quad \text{Read Operation}
 
     - write(hidden → output): \mathcal{M}_t = f(\mathcal{M}_{t-1}, x_t) \quad \text{Write Operation}
 
@@ -142,7 +143,7 @@ y_t = Q_t M_t
 ## 3. Learning to Memorize at Test Time
 
 > **논문이 제안하고자 하는것은 ‘inference time’때 long-term memory를 잘 활용하는 meta memory model
-→ neural network (e.g., LM)이 sequence를 처리할 때 이를 적절히 ‘저장할 함수’를 파라미터로써 학습시키는 것**
+> → neural network (e.g., LM)이 sequence를 처리할 때 이를 적절히 ‘저장할 함수’를 파라미터로써 학습시키는 것**
 
 ### 3.1 Long-term Memory
 
@@ -152,23 +153,23 @@ y_t = Q_t M_t
 
   - Online learning을 차용한 후 너무나 직관적인 방법을 활용해 current sequence input x_t이 그동안의 Memory Module이 저장해온 data의 pattern과 다르면 Memory Module을 update하는 식으로 학습
 
-→ \nabla \ell(\mathcal{M}_{t-1}; x_t)을 `surprise` 로 정의하는데 사실상 past sequence랑 많이 다르면 Memory Module을 많이 업데이트 하겠다.라는 전형적인 DL 업데이트
+→ \nabla \ell(\mathcal{M}\_{t-1}; x_t)을 `surprise` 로 정의하는데 사실상 past sequence랑 많이 다르면 Memory Module을 많이 업데이트 하겠다.라는 전형적인 DL 업데이트
 
 → gradient descent with momentum의 형식과 똑같이 `surprise` S_t를 정함
 
-  -  \eta_{t}와 \theta_{t}가 모두 function of input x_t
+- \eta*{t}와 \theta*{t}가 모두 function of input x_t
 
-  - data-dependent manner로 memory module을 update하는 방법을 학습시켜야 하기 때문에
+- data-dependent manner로 memory module을 update하는 방법을 학습시켜야 하기 때문에
 
-(e.g., 모든 토큰이 관련성이 있고 동일한 컨텍스트에 있을 경우, recent past tokens 대비 input x_t가  \eta_{t} \rightarrow 1로 해야 올바르게 학습이 됨)
+(e.g., 모든 토큰이 관련성이 있고 동일한 컨텍스트에 있을 경우, recent past tokens 대비 input x*t가 \eta*{t} \rightarrow 1로 해야 올바르게 학습이 됨)
 
 - **Objective.**
 
 → past data를 key와 value의 pair로 저장하는 이전 model들의 관점을 따라 아래의 loss로 memory module을 학습
 
-  -  input x_t를 사영시킨 이후 memory module이 key ↔ value의 관계를 학습시키는 방식
+- input x_t를 사영시킨 이후 memory module이 key ↔ value의 관계를 학습시키는 방식
 
-  - 이 학습 파이프라인 관점에서 W_K, W_V는 hyperparameter
+- 이 학습 파이프라인 관점에서 W_K, W_V는 hyperparameter
 
 - **Forgetting Mechanism.**
 
@@ -176,11 +177,11 @@ y_t = Q_t M_t
 
 - **Memory Architecture.**
 
-  - vector-valued나 matrix-valued를 활용해 memory module을 설계할 경우 →  \mathcal{M}_t =w_t
+  - vector-valued나 matrix-valued를 활용해 memory module을 설계할 경우 → \mathcal{M}\_t =w_t
 
     - 이 경우 온라인 선형 회귀 목표를 푸는게 되고, 최적의 값은 데이터의 종속성이 선형이라는 가정을 해야함
 
-  - 따라서 논문에서 편의를 위해 편의상 표기를 ‘\mathcal{M}_t =w_t’로 하지만 expressive power를 위해 2 layer MLP를 썼다고 함
+  - 따라서 논문에서 편의를 위해 편의상 표기를 ‘\mathcal{M}\_t =w_t’로 하지만 expressive power를 위해 2 layer MLP를 썼다고 함
 
 - **Retrieving a Memory.**
 
@@ -190,15 +191,15 @@ y_t = Q_t M_t
 
 → long-term memory module 학습시에 긴 sequence를 parallel하게 학습할 수 있다.를 수식적으로 보여준 부분
 
-- \mathcal{M}_0에서 학습시작
+- \mathcal{M}\_0에서 학습시작
 
 - t': 0
 
 - t: b
 
-- \beta_i = \prod_{j=1}^i(1-\alpha_j)
+- \beta*i = \prod*{j=1}^i(1-\alpha_j)
 
- →각 청크(rank)에 관련된 행렬을 저장함으로 분산학습 가능
+→각 청크(rank)에 관련된 행렬을 저장함으로 분산학습 가능
 
 → 각 chunk에 대한 u_t를 구해놓고 recurrent하게 `surprise` value값 구하기 가능
 
@@ -221,10 +222,10 @@ y_t = Q_t M_t
 ## 4 How to Incorporate Memory?
 
 > **위에서 소개한 ‘neural memory’를 neural network에 incorporate하는 3가지 방법을 제시함
-→ 논문에서는 기존 neural network를 short-term memory modules라고 표현하면서, 특히 transformer는, key value를 누적하기 때문에 long context에서는 한계가 있다고 언급
-→ 하지만 제안하는 memory module을 memory에 read/write하면서 current key/value representation을 강화**
+> → 논문에서는 기존 neural network를 short-term memory modules라고 표현하면서, 특히 transformer는, key value를 누적하기 때문에 long context에서는 한계가 있다고 언급
+> → 하지만 제안하는 memory module을 memory에 read/write하면서 current key/value representation을 강화**
 
-→ 아래 모든 framework에서 core를 neural network/lm정도로 생각하고 따라가면 된다. 
+→ 아래 모든 framework에서 core를 neural network/lm정도로 생각하고 따라가면 된다.
 
 → 또한 아래의 모든 framework가 test time에 어떻게 동작하는지를 기준으로 따라가자.
 
@@ -234,7 +235,7 @@ y_t = Q_t M_t
 
 → S^{(i)} \ (i = 1,\ldots,N/C) : sequence를 고정 크기 세그먼트만 처리하는 시스템
 
-1. h_t = \mathcal{M}_{t-1}^*(\mathbf{q}_t) : memory module에서 고정 세그먼트와 유사한 past information retrieve
+1. h*t = \mathcal{M}*{t-1}^\*(\mathbf{q}\_t) : memory module에서 고정 세그먼트와 유사한 past information retrieve
 
 1. \tilde{S}^{(t)} = [p_1 \quad p_2 \quad \cdots \quad p_{N_p}] | h_t | S^{(t)} \\ y_t = \text{Attn}(\tilde{S}^{(t)}) : persistent memory, past information, 고정 segment를 neural network에 forwarding해서 attention
 
@@ -246,7 +247,7 @@ y_t = Q_t M_t
 
 1. \mathcal{M}_t = \mathcal{M}_{t-1}(y_t) : attention output을 활용해 long-term memory module을 update
 
-1. o_t = y_t \otimes \mathcal{M}_t^*(y_t) : update되 memory module에 attention output을 통과한 후 이를 기존 attention output과 tensor곱 연산 해 최종 output 계산
+1. o_t = y_t \otimes \mathcal{M}\_t^\*(y_t) : update되 memory module에 attention output을 통과한 후 이를 기존 attention output과 tensor곱 연산 해 최종 output 계산
 
 ⇒ 해당 구조의 가장 큰 장점은 attention이 current/longterm에 동시에 attention을 주기 때문에 어떤 정보가 유용한지 파악 후 메모리 용량을 관리하기에 용이하다는 것
 
@@ -258,15 +259,15 @@ y_t = Q_t M_t
 
 1. \tilde{x} = [p_1 \quad p_2 \quad \cdots \quad p_{N_p}] | x
 
-1. y = \text{SW-Attn}^*(\tilde{x}) : sliding window attention으로 attention 처리
+1. y = \text{SW-Attn}^\*(\tilde{x}) : sliding window attention으로 attention 처리
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2025-02-04-titans-learning-to-memorize-at-test-time/image_003.png" class="img-fluid rounded z-depth-1" %}
 
-1. o = y \otimes \mathcal{M}(\tilde{x}) 
+1. o = y \otimes \mathcal{M}(\tilde{x})
 
-→  y \ 와 \mathcal{M}(\tilde{x})의 output을 학습 가능한 벡터 값 가중치를 사용하여 정규화한 후 \sigma(\cdot) 적용 후 비선형 게이팅을 통해 최종 output을 만듦
+→ y \ 와 \mathcal{M}(\tilde{x})의 output을 학습 가능한 벡터 값 가중치를 사용하여 정규화한 후 \sigma(\cdot) 적용 후 비선형 게이팅을 통해 최종 output을 만듦
 
- → (그리고 이게 아마 몇개의 layer로 쌓일 것이기 때문에) 그림에서 long-term memory는 fading의 형태로 attention map에 나타남. 반면, 다른 memory module은 precise하게 attention이 들어감.
+→ (그리고 이게 아마 몇개의 layer로 쌓일 것이기 때문에) 그림에서 long-term memory는 fading의 형태로 attention map에 나타남. 반면, 다른 memory module은 precise하게 attention이 들어감.
 
 ### 4.3 Memory as a Layer (MAL)
 
@@ -302,7 +303,7 @@ y_t = Q_t M_t
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2025-02-04-titans-learning-to-memorize-at-test-time/image_005.png" class="img-fluid rounded z-depth-1" %}
 
-→ attention이 들어간 모델: hybrid model → *표기
+→ attention이 들어간 모델: hybrid model → \*표기
 
 → attention을 안썼는데 가장 성능이 좋은 model → **model**
 
@@ -320,7 +321,7 @@ y_t = Q_t M_t
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2025-02-04-titans-learning-to-memorize-at-test-time/image_006.png" class="img-fluid rounded z-depth-1" %}
 
--  TTT에 비해서는 momentum과 forgetting mechanism이 있어서 유연한 memory module 관리가 가능
+- TTT에 비해서는 momentum과 forgetting mechanism이 있어서 유연한 memory module 관리가 가능
 
 - forgetting mechanism가 있는 Mamba2에 비해서는 deep non-linear 구조를 가지고 있기 때문에 보다 더 효용성 높은 memory module 관리가 가능
 
@@ -342,7 +343,7 @@ y_t = Q_t M_t
 
 → (위) Mamba module를 neural memory로 대체했더니 잘 나오더라
 
-→ (아래) DNA modeling task에서도 성능 잘 나오더라 
+→ (아래) DNA modeling task에서도 성능 잘 나오더라
 
 ## 5. Conclusion
 

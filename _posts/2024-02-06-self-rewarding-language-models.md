@@ -1,27 +1,28 @@
 ---
 categories:
-- paper-reviews
-date: '2024-02-06 00:00:00'
+  - paper-reviews
+date: "2024-02-06 00:00:00"
 description: 논문 리뷰 - Instruction Tuning 관련 연구
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-- alignment
-- fine-tuning
-- gpt
-- instruction tuning
-- language-model
-- llm
-- paper-review
-- reasoning
-- reinforcement-learning
-- rlhf
+  - alignment
+  - fine-tuning
+  - gpt
+  - instruction tuning
+  - language-model
+  - llm
+  - paper-review
+  - reasoning
+  - reinforcement-learning
+  - rlhf
 thumbnail: assets/img/posts/2024-02-06-self-rewarding-language-models/thumbnail.jpg
 title: Self-Rewarding Language Models
 ---
 
 **논문 정보**
+
 - **Date**: 2024-02-06
 - **Reviewer**: 상엽
 - **Property**: Instruction Tuning
@@ -32,11 +33,11 @@ title: Self-Rewarding Language Models
 
 - LLM 자체가 reward를 계산하는 LLM-as-a-Judge 모델
 
-human preference와 LLM을 align 시키는 것은 instruction following performance를 큰 폭으로 향상시킬 수 있음. 
+human preference와 LLM을 align 시키는 것은 instruction following performance를 큰 폭으로 향상시킬 수 있음.
 
 아래는 대표적은 예시
 
-- RLHF (Reinforcement Learning from Human Feedback) : 
+- RLHF (Reinforcement Learning from Human Feedback) :
 
   - 기존 문제점 : 대용량 데이터에서 LLM을 학습할 경우, 데이터의 퀄리티 문제 등으로 인간이 선호하는 답변을 학습하는 것에 어려움을 겪음.
 
@@ -56,7 +57,7 @@ human preference와 LLM을 align 시키는 것은 instruction following performa
 
 - **Self-Rewarding**
 
-  - 기존 문제점:  human prefernece data의 size와 quality
+  - 기존 문제점: human prefernece data의 size와 quality
 
   - instruction following task와 preference data를 생성하고 평가하는 것을 동시에 진행하는 LLM framework를 만들자. (Language model + reward model)
 
@@ -72,13 +73,13 @@ Iterative DPO procss를 이용해 학습
 
 1. 아래 Iteration 진행
 
-  1. Generate new prompt
+1. Generate new prompt
 
-  1. Generate candidate responses
+1. Generate candidate responses
 
-  1. Assign reward **by that same model (LLM-as-a-Judge prompt)**
+1. Assign reward **by that same model (LLM-as-a-Judge prompt)**
 
-  1. After adding the preference pairs to the training data, DPO training
+1. After adding the preference pairs to the training data, DPO training
 
 → Instruction following performance 향상
 
@@ -130,9 +131,9 @@ Iterative DPO procss를 이용해 학습
 
 1. **Generate a new prompt** : IFT 데이터 샘플링을 통해 few-shot example 제공, 새로운 prompt x_i 생성
 
-1. **Generate candidate responses** : N개의 candidate response 생성 \{y_{i}^{1},...,y_{i}^{N}\}
+1. **Generate candidate responses** : N개의 candidate response 생성 \{y*{i}^{1},...,y*{i}^{N}\}
 
-1. Evaluate candidate responses: 동일 모델에서 LLM-as-a-Judge ability 이용 N개의 candiate에 대해 reward 평가 진행. (r_{i}^{n} \in [0, 5])
+1. Evaluate candidate responses: 동일 모델에서 LLM-as-a-Judge ability 이용 N개의 candiate에 대해 reward 평가 진행. (r\_{i}^{n} \in [0, 5])
 
 ### Instruction Following Training
 
@@ -142,7 +143,7 @@ AI (Self-)Feedback을 통한 추가 학습 데이터 생성
 
 - Prefereence pairs
 
-  - (instruction prompt x_i, winning response y_{i}^{w}, losing response y_{i}^{l})
+  - (instruction prompt x*i, winning response y*{i}^{w}, losing response y\_{i}^{l})
 
   - winning (highest score) & losing pair (lowest score), 같으면 버리기
 
@@ -170,7 +171,7 @@ M2 : Initialized with M1, then trained with AIFT(M1) data using DPO.
 
 M3 : Initialized with M2, then trained with AIFT(M2) data using DPO.
 
-(This iterative training resembles the procedure used in Pairwise Cringe Optimization and Iterative DPO introduced in Xu et al. [2023]; however, an external fixed reward model was used in that work.) 
+(This iterative training resembles the procedure used in Pairwise Cringe Optimization and Iterative DPO introduced in Xu et al. [2023]; however, an external fixed reward model was used in that work.)
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-02-06-self-rewarding-language-models/image_002.png" class="img-fluid rounded z-depth-1" %}
 
@@ -182,7 +183,7 @@ Llama 2 70B를 base 모델로 이용.
 
 - IFT Seed Data
 
-  - human-authored examples provided in the **Open Assistant dataset** for instruction fine-tuning. 
+  - human-authored examples provided in the **Open Assistant dataset** for instruction fine-tuning.
 
   - we use **3200 examples**, by sampling only** first conversational turns** in the English language that are high-quality, based on their human annotated rank
 
@@ -200,7 +201,7 @@ Llama 2 70B를 base 모델로 이용.
 
   - AlpacaEval evaluation prompt와 GPT-4를 이용해서 256개 test prompt에 대해서 평가 진행.
 
-  - pairwise 평가 시 순서 바꿔서 실험했으며 결과가 다르면 tie로 표기 
+  - pairwise 평가 시 순서 바꿔서 실험했으며 결과가 다르면 tie로 표기
 
   - GPT-4를 평가 기준으로 하여 AlpacaEval 2.0 leaderboard의 805 prompt를 평가, GPT-4 Turbo와 win rate 비교
 
@@ -210,9 +211,9 @@ Llama 2 70B를 base 모델로 이용.
 
     - 모든 pairwise 조합에 대해서 order 일치 여부를 판단. (rank가 더 높다, 낮다.)
 
-    - 전체 rank에 대해 정확히 일치하는지 확인 
+    - 전체 rank에 대해 정확히 일치하는지 확인
 
-    - Spearman correlation and Kendall’s τ. 
+    - Spearman correlation and Kendall’s τ.
 
     - human label이 5점인 항목에 대해서 실제로 몇 %나 5점을 주었는가도 검증
 
@@ -228,7 +229,7 @@ Llama 2 70B를 base 모델로 이용.
 
   - dropout: 0.1.
 
-  - only calculate the loss on target tokens instead of the full sequence. 
+  - only calculate the loss on target tokens instead of the full sequence.
 
 - DPO
 
@@ -238,17 +239,17 @@ Llama 2 70B를 base 모델로 이용.
 
   - dropout: 0.1
 
-  - β: 0.1. 
+  - β: 0.1.
 
-  - early stopping by saving a checkpoint every 200 steps and evaluating generations using Claude 2 [Anthropic, 2023] on 253 validation examples 
+  - early stopping by saving a checkpoint every 200 steps and evaluating generations using Claude 2 [Anthropic, 2023] on 253 validation examples
 
 **Self-Instrction creation**
 
 - Generation of new prompts : fixed Llama 2-Chat 70B with 8-shot prompting
 
-- the other parts of the creation pipeline (generating the response, and evaluating it) use the model being trained. 
+- the other parts of the creation pipeline (generating the response, and evaluating it) use the model being trained.
 
-  - candidate responses: 4  (temperature T = 0.7, p = 0.9)
+  - candidate responses: 4 (temperature T = 0.7, p = 0.9)
 
   - candidate response 평가 시 variance를 방지하기 위해 3회 실행 후 평균
 
@@ -272,7 +273,7 @@ Llama 2 70B를 base 모델로 이용.
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-02-06-self-rewarding-language-models/image_004.png" class="img-fluid rounded z-depth-1" %}
 
-- Iteration 2 (M2) vs  SFT baseline
+- Iteration 2 (M2) vs SFT baseline
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-02-06-self-rewarding-language-models/image_005.png" class="img-fluid rounded z-depth-1" %}
 
@@ -280,7 +281,7 @@ M2에서부턴 명확한 성능 향상을 확인할 수 있음.
 
 **Iteration 3 (M3) improves over Iteration 2 (M2) **
 
-- Iteration 3 (M3) vs Iteration 2 (M2) 
+- Iteration 3 (M3) vs Iteration 2 (M2)
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-02-06-self-rewarding-language-models/image_006.png" class="img-fluid rounded z-depth-1" %}
 
@@ -290,8 +291,7 @@ M2에서부턴 명확한 성능 향상을 확인할 수 있음.
 
 → M3는 M2와 비교해도 상당한 향상이 있었음.
 
-
-**Self-Rewarding models perform well on AlpacaEval 2 leaderboard** 
+**Self-Rewarding models perform well on AlpacaEval 2 leaderboard**
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-02-06-self-rewarding-language-models/image_008.png" class="img-fluid rounded z-depth-1" %}
 
@@ -299,10 +299,9 @@ M2에서부턴 명확한 성능 향상을 확인할 수 있음.
 
 - Iteration이 진행됨에 따라 win rate가 증가하는 것을 확인할 수 있음.
 
-- Iteration 3 model은 대부분의 모델을 outperform함. (Claude 2, Gemini Pro, and GPT4 0613 등) 
+- Iteration 3 model은 대부분의 모델을 outperform함. (Claude 2, Gemini Pro, and GPT4 0613 등)
 
 - 성능 좋은 모델들은 Proprietary alignment data를 이용한 경우가 많았던 반면 self-rewarding 모델은 small set of seed data만 이용.
-
 
 **Preference optimization outperforms augmenting with positive examples only**
 
@@ -310,7 +309,7 @@ M2에서부턴 명확한 성능 향상을 확인할 수 있음.
 
 - Positive only vs SFT Baseline : 29% wins vs 30% wins
 
-**Data distribution analysis** 
+**Data distribution analysis**
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-02-06-self-rewarding-language-models/image_009.png" class="img-fluid rounded z-depth-1" %}
 
@@ -326,13 +325,13 @@ M2에서부턴 명확한 성능 향상을 확인할 수 있음.
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-02-06-self-rewarding-language-models/image_010.png" class="img-fluid rounded z-depth-1" %}
 
-**EFT augmentation improves over SFT baseline** 
+**EFT augmentation improves over SFT baseline**
 
 - 구체적인 reward modeling과 관련된 EFT 데이터 추가는 당연한 성능 향상을 보임.
 
 - 65.1% → 78.5% (13.4%p 상승)
 
-**Reward Modeling ability improves with Self-Training** 
+**Reward Modeling ability improves with Self-Training**
 
 - self-reward training round를 진행함에 따라 성능 향상이 확인 됨. (instruction following ability 역시 향상 됐었음.)
 
@@ -342,8 +341,7 @@ M2에서부턴 명확한 성능 향상을 확인할 수 있음.
 
 - 추가적인 ETF 데이터를 이용한 **reward 모델링 없이 AIFT가 생성한 데이터를 이용한 SFT 학습만으로 성능 향상이 이뤄진다**는 점에서 큰 의미가 있다. (because the model is becoming better at general instruction following, it nevertheless also improves at the LLM-as-a-Judge task.)
 
-
-**Importance of the LLM-as-a-Judge Prompt** 
+**Importance of the LLM-as-a-Judge Prompt**
 
 - 다양한 prompt를 사용해봤으며 현재 prompt가 제일 좋았다.
 
@@ -359,23 +357,23 @@ M2에서부턴 명확한 성능 향상을 확인할 수 있음.
 
 - RLHF : 앞에서도 설명을 많이 했다.
 
-- RLAIF : 전에 리뷰를 했다. 
+- RLAIF : 전에 리뷰를 했다.
 
 # Conclusion
 
-- While this is **only a preliminary study**, we believe this is an exciting avenue of research because this means the** model is better able to assign rewards in future iterations** for improving instruction following – a kind of virtuous circle. 
+- While this is **only a preliminary study**, we believe this is an exciting avenue of research because this means the** model is better able to assign rewards in future iterations** for improving instruction following – a kind of virtuous circle.
 
 - it still allows for the** possibility of continual improvement beyond the human preferences **that are typically used to build reward models and instruction following models today.
 
 # Limitations
 
-- 단일 세팅에서 3 iteration  밖에 실험을 진행하지 못함. → 다양한 크기 모델에 대해 여러 iteration으로 실험해보자.
+- 단일 세팅에서 3 iteration 밖에 실험을 진행하지 못함. → 다양한 크기 모델에 대해 여러 iteration으로 실험해보자.
 
 - GPT-4 평가 외에 다른 automatic evaluation도 해보자.
 
 - 길이 증가에 따른 성능 향상에 대해 실험하지 못함.
 
-- It would also be good to understand if so-called “’reward-hacking” can happen within our framework, and in what circumstances. 
+- It would also be good to understand if so-called “’reward-hacking” can happen within our framework, and in what circumstances.
 
 - 다른 모델들로도 위와 같은 framework로 실험을 해보고 싶다.
 

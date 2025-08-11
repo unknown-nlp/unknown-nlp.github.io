@@ -1,29 +1,30 @@
 ---
 categories:
-- paper-reviews
-date: '2025-04-15 00:00:00'
+  - paper-reviews
+date: "2025-04-15 00:00:00"
 description: 논문 리뷰
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-- alignment
-- gpt
-- language-model
-- llm
-- multimodal
-- nlp
-- paper-review
-- rlhf
+  - alignment
+  - gpt
+  - language-model
+  - llm
+  - multimodal
+  - nlp
+  - paper-review
+  - rlhf
 thumbnail: assets/img/posts/2025-04-15-universal-and-transferable-adversarial-attacks-on-aligned-language/thumbnail.jpg
 title: Universal and Transferable Adversarial Attacks on Aligned Language Models
 ---
 
 **논문 정보**
+
 - **Date**: 2025-04-15
 - **Reviewer**: 건우 김
 
-***23년도 12월에 출판된 논문이라 살짝 outdated 되어있는 점도 있지만, 유용한 내용이 많아서 공유드림.***
+**_23년도 12월에 출판된 논문이라 살짝 outdated 되어있는 점도 있지만, 유용한 내용이 많아서 공유드림._**
 
 # Abstract
 
@@ -75,7 +76,7 @@ title: Universal and Transferable Adversarial Attacks on Aligned Language Models
 
 - Objective 설정: 모델이 “Sure, here is how to build a bomb:”와 같이 긍정적이고 적극적인 응답의 첫 문구를 생성하도록 유도함.
 
-  - multimodal LLMs에서는 First target token을 specifying하는 것이 효과적이었지만, text-only LLMs에 first token을 targeting하면 원래 사용자 질문의 의도와 무관해질 가능성이 존재함. 
+  - multimodal LLMs에서는 First target token을 specifying하는 것이 효과적이었지만, text-only LLMs에 first token을 targeting하면 원래 사용자 질문의 의도와 무관해질 가능성이 존재함.
 
   - 따라서, 유저 요청을 반복적으로 언급하며 긍정 응답을 함께 포함한 phrase 삽입이 적절함.
 
@@ -85,11 +86,11 @@ title: Universal and Transferable Adversarial Attacks on Aligned Language Models
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2025-04-15-universal-and-transferable-adversarial-attacks-on-aligned-language/image_003.png" class="img-fluid rounded z-depth-1" %}
 
-  - Star tokens = target sequences of tokens
+- Star tokens = target sequences of tokens
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2025-04-15-universal-and-transferable-adversarial-attacks-on-aligned-language/image_004.png" class="img-fluid rounded z-depth-1" %}
 
-  - Optimizing adversarial suffix
+- Optimizing adversarial suffix
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2025-04-15-universal-and-transferable-adversarial-attacks-on-aligned-language/image_005.png" class="img-fluid rounded z-depth-1" %}
 
@@ -99,31 +100,31 @@ title: Universal and Transferable Adversarial Attacks on Aligned Language Models
 
 - 위 문제를 해결하기에 gradient를 활용한 GCG방법을 제안함
 
-  - x_1:n = How to build a bomb? b x(d,e,f) x(10,20,30) ./..x 
+  - x_1:n = How to build a bomb? b x(d,e,f) x(10,20,30) ./..x
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2025-04-15-universal-and-transferable-adversarial-attacks-on-aligned-language/image_006.png" class="img-fluid rounded z-depth-1" %}
 
-  1. 현재 prompt는 x_1:n이라고 가정
+1. 현재 prompt는 x_1:n이라고 가정
 
-  1. suffix만 바뀌는 부분이라고 두고, modifiable subset I라고 지칭 (ex. last 20 tokens)
+1. suffix만 바뀌는 부분이라고 두고, modifiable subset I라고 지칭 (ex. last 20 tokens)
 
-  1. 각 위치 i에 대해서 다음을 진행함
+1. 각 위치 i에 대해서 다음을 진행함
 
-    1. i에 대한 gradient 계산 (i자리에 각 토큰을 넣었을때, loss가 얼마나 바뀌는지 보여줌)
+1. i에 대한 gradient 계산 (i자리에 각 토큰을 넣었을때, loss가 얼마나 바뀌는지 보여줌)
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2025-04-15-universal-and-transferable-adversarial-attacks-on-aligned-language/image_007.png" class="img-fluid rounded z-depth-1" %}
 
     1. 위 gradient 중, loss를 많이 줄요줄 수 있는 top-k token 추출
 
-  1. 전체 candidates에서 무작위로 B개 고르고 교체해봄
+1. 전체 candidates에서 무작위로 B개 고르고 교체해봄
 
-    1. 무작위로 index i 선택함
+1. 무작위로 index i 선택함
 
-    1. 해당 index에 대해 top-k 후보 중 하나를 무작위로 교체함
+1. 해당 index에 대해 top-k 후보 중 하나를 무작위로 교체함
 
-    1. B개의 prompt를 만듬
+1. B개의 prompt를 만듬
 
-  1. B개 prompt에 대해서 각각 실제로 Loss를 계산함. (가장 Loss가 낮은 걸 선택해 다음 iteration의 새로운 prompt로 사용함)
+1. B개 prompt에 대해서 각각 실제로 Loss를 계산함. (가장 Loss가 낮은 걸 선택해 다음 iteration의 새로운 prompt로 사용함)
 
 ## 2.3 Universal Multi-prompt and Multi-model attacks
 
@@ -177,11 +178,11 @@ title: Universal and Transferable Adversarial Attacks on Aligned Language Models
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2025-04-15-universal-and-transferable-adversarial-attacks-on-aligned-language/image_010.png" class="img-fluid rounded z-depth-1" %}
 
-  - Harmful Behavior: Vicuna에서는 GCG와 AutoPrompt가 둘 다 ASR이 높은 반면, LLaMA-2에서는 GCG만 높은 ASR 보여줌
+- Harmful Behavior: Vicuna에서는 GCG와 AutoPrompt가 둘 다 ASR이 높은 반면, LLaMA-2에서는 GCG만 높은 ASR 보여줌
 
 - 25 behaviors, 1 model: 하나의 suffix로 다수 유해 behaviors에 대한 ASR 평가
 
-  - 25개 유해 behaviors를 학습으로 사용하고 Universal Prompt Optimization 사용했을때, 학습에 사용한 behavior 25개 (train ASR)과 학습에 사용되지 않은 behavior 100개 (test ASR)에서 일관되게 높은 ASR을 보여줌. 
+  - 25개 유해 behaviors를 학습으로 사용하고 Universal Prompt Optimization 사용했을때, 학습에 사용한 behavior 25개 (train ASR)과 학습에 사용되지 않은 behavior 100개 (test ASR)에서 일관되게 높은 ASR을 보여줌.
 
 ## 3.2 Transfer Attacks
 
@@ -213,7 +214,7 @@ title: Universal and Transferable Adversarial Attacks on Aligned Language Models
 
   - GPT-3.5 ASR: 47.4% → 79.6% 증가
 
-  - GPT-4에서는 성능 감소 
+  - GPT-4에서는 성능 감소
 
 - Ensemble: 여러 GCG prompt만 시도하면서 성공한 것만 사용
 

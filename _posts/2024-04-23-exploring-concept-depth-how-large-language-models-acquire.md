@@ -1,23 +1,24 @@
 ---
 categories:
-- paper-reviews
-date: '2024-04-23 00:00:00'
+  - paper-reviews
+date: "2024-04-23 00:00:00"
 description: 논문 리뷰
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-- classification
-- language-model
-- llm
-- paper-review
-- reasoning
+  - classification
+  - language-model
+  - llm
+  - paper-review
+  - reasoning
 thumbnail: assets/img/posts/2024-04-23-exploring-concept-depth-how-large-language-models-acquire/thumbnail.jpg
-title: 'Exploring Concept Depth: How Large Language Models Acquire Knowledge at Different
-  Layers?'
+title: "Exploring Concept Depth: How Large Language Models Acquire Knowledge at Different
+  Layers?"
 ---
 
 **논문 정보**
+
 - **Date**: 2024-04-23
 - **Reviewer**: hyowon Cho
 
@@ -29,7 +30,7 @@ title: 'Exploring Concept Depth: How Large Language Models Acquire Knowledge at 
 
 1. analyzing model weights and architectures
 
-  - pruning을 통해 어떤 layer 혹은 param을 제거해도 성능에 변화가 없는지 확인
+- pruning을 통해 어떤 layer 혹은 param을 제거해도 성능에 변화가 없는지 확인
 
 1. probing representations
 
@@ -174,16 +175,16 @@ quantization을 했을 때는 어떻게 달라질까?
 
   - i-th layer의 acc = a_i
 
-  - vartiation rate β_i = a_i/a_{i-1}
+  - vartiation rate β*i = a_i/a*{i-1}
 
-2가지 acc metric을 소개한다:  (1) jump point (2) coveraging point
+2가지 acc metric을 소개한다: (1) jump point (2) coveraging point
 
 1. **Jump Point**
-We denote J(M, D) = min{\frac{i}{d}} s.t.
-β_i >= 1.1, i ∈ {1, 2, ..., d − 1}, as the jump point, where $M$ and $D = (q, y)$ represents the LLM classifier and the dataset. 즉, 성능 상 주목할만한 향상이 있을 때, 그 지점을 jump point라고 부른다.
+   We denote J(M, D) = min{\frac{i}{d}} s.t.
+   β_i >= 1.1, i ∈ {1, 2, ..., d − 1}, as the jump point, where $M$ and $D = (q, y)$ represents the LLM classifier and the dataset. 즉, 성능 상 주목할만한 향상이 있을 때, 그 지점을 jump point라고 부른다.
 
 1. **Converging Point**
-We denote C(M, D) = max{\frac{i}{d}} s.t. |β_i − 1| < 0.03, i ∈ {1, 2, ..., d − 1} s.t. , as the converging point, where M and D = (q, y) represents the LLM classifier and the dataset.
+   We denote C(M, D) = max{\frac{i}{d}} s.t. |β_i − 1| < 0.03, i ∈ {1, 2, ..., d − 1} s.t. , as the converging point, where M and D = (q, y) represents the LLM classifier and the dataset.
 
 정확도가 유지 혹은 줄어들기 시작하면, saturation이 일어났다고 본다.
 
@@ -204,7 +205,7 @@ We denote C(M, D) = max{\frac{i}{d}} s.t. |β_i − 1| < 0.03, i ∈ {1, 2, ...,
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-04-23-exploring-concept-depth-how-large-language-models-acquire/image_005.png" class="img-fluid rounded z-depth-1" %}
 
 1. LLMs은 다루는 개념에 따라, layer에서 다른 양상을 보였다.
-하지만, 같은 개념은 다양한 LLM들에서 일관된 양상을 보였다.
+   하지만, 같은 개념은 다양한 LLM들에서 일관된 양상을 보였다.
 
 1. 다양한 레벨의 conceptual understanding이 필요한 태스크의 경우, LLMs은 여러 레이어에 걸쳐가며 처리를 하는 양상을 보였다 ==> indicating a layered approach to processing complex concepts
 
@@ -254,7 +255,6 @@ figure는 두가지의 반복되는 패턴을 보인다.
 → 개인적으로는 더 큰 모델일수록 earlier layer라고는 하지만, 결국 개수가 더 많으니까 본 layer의 수는 비슷/동일하지 않을까싶네요! 혹은 당연한 이야기지 않나.. — 결국 개수!
 
 → 그렇지만 데이터셋별로 그래프가 비슷한건 신기!
-
 
 ---
 

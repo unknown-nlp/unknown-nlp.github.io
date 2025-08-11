@@ -1,34 +1,33 @@
 ---
 categories:
-- paper-reviews
-date: '2024-07-30 00:00:00'
+  - paper-reviews
+date: "2024-07-30 00:00:00"
 description: 논문 리뷰 - Retrieval, ICL, In Context Learning 관련 연구
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-- attention
-- bert
-- embedding
-- gpt
-- icl
-- in context learning
-- language-model
-- llm
-- paper-review
-- retrieval
+  - attention
+  - bert
+  - embedding
+  - gpt
+  - icl
+  - in context learning
+  - language-model
+  - llm
+  - paper-review
+  - retrieval
 thumbnail: assets/img/posts/2024-07-30-in-context-retrieval-augmented-language-models/thumbnail.jpg
 title: In-Context Retrieval-Augmented Language Models
 ---
 
 **논문 정보**
+
 - **Date**: 2024-07-30
 - **Reviewer**: 김재희
 - **Property**: Retrieval, ICL, In Context Learning
 
-
 ---
-
 
 ---
 
@@ -39,7 +38,7 @@ title: In-Context Retrieval-Augmented Language Models
 2023년 01월에 발표된 논문이라는 점을 감안
 
 > 1. Off-the-shelf Retriever을 이용한 RAG 프레임워크 유효성 입증
-2. RAG 프레임워크 내 설계 요소(retriever, stride, reranker)에 대한 실험 진행
+> 2. RAG 프레임워크 내 설계 요소(retriever, stride, reranker)에 대한 실험 진행
 
 - 전반적인 논문의 서술은 최근 활발히 사용되는 RAG 프레임워크에서 크게 다르지 않음
 
@@ -47,17 +46,17 @@ title: In-Context Retrieval-Augmented Language Models
 
 ## 1-2. TL;DR
 
-1. Off-the-shelf Retriever 역시 Reader 성능 향상에 도움을 준다. 
+1. Off-the-shelf Retriever 역시 Reader 성능 향상에 도움을 준다.
 
-1. Retriever의 종류(sparse, dense)와 관계없이 성능 향상에 도움을 준다. 
+1. Retriever의 종류(sparse, dense)와 관계없이 성능 향상에 도움을 준다.
 
-1. stride는 적절히 짧게, retrieved passage의 수는 많을수록 성능 향상에 도움이 된다. 
+1. stride는 적절히 짧게, retrieved passage의 수는 많을수록 성능 향상에 도움이 된다.
 
-  1. 하지만 stride가 짧을수록, retrieved passage가 많을수록 연산량 증가
+1. 하지만 stride가 짧을수록, retrieved passage가 많을수록 연산량 증가
 
-1. Reranker는 당연하게도 도움이 된다. 
+1. Reranker는 당연하게도 도움이 된다.
 
-> RALM의 Design Choice는 초록색 글씨로 표시하였습니다. 
+> RALM의 Design Choice는 초록색 글씨로 표시하였습니다.
 
 # 2. Related Works
 
@@ -79,7 +78,7 @@ title: In-Context Retrieval-Augmented Language Models
 
 - 다양한 Knowledge Intensive Task에서 기존 방법론 대비 높은 성능 달성
 
-- 기존 방법론: 
+- 기존 방법론:
 
   - Closed Book: 외부 Document를 이용 X
 
@@ -115,7 +114,7 @@ title: In-Context Retrieval-Augmented Language Models
 
 - Million Scale의 RAG 프레임워크 연구들이 끝물을 향해 가고 있음
 
-  - FiD, Atlas, FiD-Light 
+  - FiD, Atlas, FiD-Light
 
 - LLM에 RAG 프레임워크 적용이 활발히 시작되던 시기
 
@@ -125,7 +124,7 @@ title: In-Context Retrieval-Augmented Language Models
 
 ### 3-1-1. Language Modeling
 
-- Prefix(x_{<i})를 바탕으로 현재 시점(i)의 토큰 분포를 생성하는 작업
+- Prefix(x\_{<i})를 바탕으로 현재 시점(i)의 토큰 분포를 생성하는 작업
 
 ### 3-1-2. Naive In-Context RALM
 
@@ -137,20 +136,20 @@ title: In-Context Retrieval-Augmented Language Models
 
   1. Retrieval: 현재 시점까지의 prefix를 query로 document retrieval
 
-  1. Concatenation: 기존 텍스트(x_{<i})와 Retrieved Document를 concat
+  1. Concatenation: 기존 텍스트(x\_{<i})와 Retrieved Document를 concat
 
-    1. concat된 텍스트가 model의 max length를 넘을 경우 기존 텍스트(x_{<i})를 truncation
+  1. concat된 텍스트가 model의 max length를 넘을 경우 기존 텍스트(x\_{<i})를 truncation
 
-  1. Generation: 기존에 생성된 텍스트(x_{<i})와 Retrieved Document를 모두 입력으로 하여 i 시점의 token dist. 생성
+  1. Generation: 기존에 생성된 텍스트(x\_{<i})와 Retrieved Document를 모두 입력으로 하여 i 시점의 token dist. 생성
 
 ## 3-2. RALM Design Choices
 
 ### 3-2-1. Retrieval Stride(s)
 
 > 오늘 서울에서 대전까지 가는 동안 날씨가 어떻게 변할 것 같아?
-금일 서울의 날씨는 28도로 온화 …
-금일 대전의 날씨는 35도로 매우 더울 예정 …
-전국 날씨는 비가 오지 않습니다. 
+> 금일 서울의 날씨는 28도로 온화 …
+> 금일 대전의 날씨는 35도로 매우 더울 예정 …
+> 전국 날씨는 비가 오지 않습니다.
 
 - Naive RALM: 매 토큰마다 Retrieval 진행
 
@@ -169,14 +168,14 @@ title: In-Context Retrieval-Augmented Language Models
 ### 3-2-2. Retrieval Query Length(\ell)
 
 > 오늘 서울에서 대전까지 가는 동안 …
-\mathcal{R}_{\mathcal{C}}(오늘 서울에서 대전까지 가는 동안) → 서울? 대전?
-\mathcal{R}_{\mathcal{C}}(대전까지 가는 동안) → 대전의 날씨!
+> \mathcal{R}_{\mathcal{C}}(오늘 서울에서 대전까지 가는 동안) → 서울? 대전?
+> \mathcal{R}_{\mathcal{C}}(대전까지 가는 동안) → 대전의 날씨!
 
 - Naive RALM: 현재까지 생성된 모든 text를 query로 사용
 
   - 현재 시점 token dist. 생성 시 중요한 정보가 희석될 수 있음
 
-- q_j^{s, \ell}:=x_{s \cdot j-\ell+1}, \ldots, x_{s \cdot j}: 현재까지 생성된 토큰 중 직전 \ell 길이의 토큰만 query로 활용
+- q*j^{s, \ell}:=x*{s \cdot j-\ell+1}, \ldots, x\_{s \cdot j}: 현재까지 생성된 토큰 중 직전 \ell 길이의 토큰만 query로 활용
 
 ## 3-3. Reranking
 
@@ -214,55 +213,55 @@ title: In-Context Retrieval-Augmented Language Models
 
 1. **Language Modeling(Perplexity)**
 
-  1. WikiText-103: 일반적인 LM 성능 평가용 corpus
+1. WikiText-103: 일반적인 LM 성능 평가용 corpus
 
-  1. The Pile(ArXiv, Stack Exchange, FreeLaw): 특정 도메인(과학, 코드, 법률)에 대한 LM 성능 평가 목적
+1. The Pile(ArXiv, Stack Exchange, FreeLaw): 특정 도메인(과학, 코드, 법률)에 대한 LM 성능 평가 목적
 
-  1. RealNews: 일반적인 RALM 프레임워크 사용 환경(Knowledge-Intensive task)에 대한 성능 평가 목적
+1. RealNews: 일반적인 RALM 프레임워크 사용 환경(Knowledge-Intensive task)에 대한 성능 평가 목적
 
 1. **Open-Domain Question Answering(Exact Match)**
 
-  1. RALM의 실제 정답 생성 능력 평가 목적
+1. RALM의 실제 정답 생성 능력 평가 목적
 
-  1. 지식 기반의 질의응답 데이터셋 이용
+1. 지식 기반의 질의응답 데이터셋 이용
 
-  1. Natural Questions, TriviaQA
+1. Natural Questions, TriviaQA
 
 ### 4-1-2. Models
 
 1. **Language Models**
 
-  1. GPT-2(110M ~ 1.5B): Wikipedia 문서가 제외되어 학습
+1. GPT-2(110M ~ 1.5B): Wikipedia 문서가 제외되어 학습
 
 ⇒ WikiText-103을 이용하여 완전한 zero-shot 상황에서의 성능 확인 가능
 
-  1. GPT-Neo, GPT-J(1.2B ~ 6B)
+1. GPT-Neo, GPT-J(1.2B ~ 6B)
 
-  1. OPT(125M ~ 66B)
+1. OPT(125M ~ 66B)
 
-  1. LLaMA1(7B ~ 33B)
+1. LLaMA1(7B ~ 33B)
 
-    1. 다양한 scale의 모델에 대한 효과 검증
+1. 다양한 scale의 모델에 대한 효과 검증
 
-    1. Wikipedia가 학습에 이용되었으므로 학습데이터의 RALM 효과 확인
+1. Wikipedia가 학습에 이용되었으므로 학습데이터의 RALM 효과 확인
 
 **Context Length: 1024**
 
 1. **Retriever**
 
-  1. Sparse Retriever: BM25
+1. Sparse Retriever: BM25
 
-  1. Dense Retriever
+1. Dense Retriever
 
-    1. BERT: RETRO와 동일하게 retriever finetune되지 않은 경우의 성능 확인
+1. BERT: RETRO와 동일하게 retriever finetune되지 않은 경우의 성능 확인
 
-    1. Contriever, Spider: Unsupervised Manner로 학습된 Retriever
+1. Contriever, Spider: Unsupervised Manner로 학습된 Retriever
 
 1. **Reranker**
 
-  1. RoBERTa-base 사용
+1. RoBERTa-base 사용
 
-    1. 향후 실험에서 학습 여부에 따른 성능 실험 진행
+1. 향후 실험에서 학습 여부에 따른 성능 실험 진행
 
 **Retrieved Document Length: 256**
 
@@ -272,7 +271,7 @@ title: In-Context Retrieval-Augmented Language Models
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-07-30-in-context-retrieval-augmented-language-models/image_004.png" class="img-fluid rounded z-depth-1" %}
 
-***모델 크기와 관계없이 RALM 적용 시 성능이 개선됨***
+**_모델 크기와 관계없이 RALM 적용 시 성능이 개선됨_**
 
 - BM25: RETRO 및 RAG와 다르게 LM과 함께 학습된 Retriever X, Sparse Retriever
 
@@ -286,7 +285,7 @@ title: In-Context Retrieval-Augmented Language Models
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-07-30-in-context-retrieval-augmented-language-models/image_005.png" class="img-fluid rounded z-depth-1" %}
 
-***Sparse Retriever가 Dense Retriever보다 높은 성능 달성 가능***
+**_Sparse Retriever가 Dense Retriever보다 높은 성능 달성 가능_**
 
 - Language Modeling 태스크에서 Sparse Retriever(BM25)가 가장 좋은 성능 달성
 
@@ -308,7 +307,7 @@ title: In-Context Retrieval-Augmented Language Models
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-07-30-in-context-retrieval-augmented-language-models/image_006.png" class="img-fluid rounded z-depth-1" %}
 
-***Stride에 따른 성능과 속도 Trade-off 관계 존재 확인***
+**_Stride에 따른 성능과 속도 Trade-off 관계 존재 확인_**
 
 - Stride가 짧을수록 성능이 개선되는 경향성 포착
 
@@ -318,7 +317,7 @@ title: In-Context Retrieval-Augmented Language Models
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-07-30-in-context-retrieval-augmented-language-models/image_007.png" class="img-fluid rounded z-depth-1" %}
 
-***적절한 길이의 Query Length가 Retrieval 효과 결정***
+**_적절한 길이의 Query Length가 Retrieval 효과 결정_**
 
 - BM25 이용 시 Query Length에 따른 성능 변화
 
@@ -336,7 +335,7 @@ title: In-Context Retrieval-Augmented Language Models
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-07-30-in-context-retrieval-augmented-language-models/image_008.png" class="img-fluid rounded z-depth-1" %}
 
-***w/o Retrieval < w/ Retrieval < w/ Reranker < w/ Trained Reranker***
+**_w/o Retrieval < w/ Retrieval < w/ Reranker < w/ Trained Reranker_**
 
 - 모든 데이터 및 모델에서 동일한 경향성 포착
 
@@ -348,9 +347,9 @@ title: In-Context Retrieval-Augmented Language Models
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-07-30-in-context-retrieval-augmented-language-models/image_009.png" class="img-fluid rounded z-depth-1" %}
 
-***Retrieved Document 중 최선의 문서는 따로 있다. ***
+**_Retrieved Document 중 최선의 문서는 따로 있다. _**
 
-- Oracle: Top-16 document 중 가장 성능 개선이 큰 Document의 성능 
+- Oracle: Top-16 document 중 가장 성능 개선이 큰 Document의 성능
 
   - Retrieval 특성 상 Top-1 Document가 항상 최선의 문서 X
 
@@ -360,7 +359,7 @@ title: In-Context Retrieval-Augmented Language Models
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-07-30-in-context-retrieval-augmented-language-models/image_010.png" class="img-fluid rounded z-depth-1" %}
 
-***Zero-shot Reranker의 크기는 중요하지 않다***
+**_Zero-shot Reranker의 크기는 중요하지 않다_**
 
 - Zero-shot Reranker: 사전학습된 LM을 이용하여 Reranking 작업 수행
 
@@ -374,7 +373,7 @@ title: In-Context Retrieval-Augmented Language Models
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-07-30-in-context-retrieval-augmented-language-models/image_011.png" class="img-fluid rounded z-depth-1" %}
 
-***LLM을 ODQA에 활용할 때도 RALM은 매우 효과적이다. ***
+**_LLM을 ODQA에 활용할 때도 RALM은 매우 효과적이다. _**
 
 - DPR: NQ와 TriviaQA로 학습된 Retriever
 
@@ -386,7 +385,7 @@ title: In-Context Retrieval-Augmented Language Models
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-07-30-in-context-retrieval-augmented-language-models/image_012.png" class="img-fluid rounded z-depth-1" %}
 
-***ODQA에서는 Document의 수가 많을 필요가 없다. ***
+**_ODQA에서는 Document의 수가 많을 필요가 없다. _**
 
 - 다소 혼재된 실험
 
@@ -401,7 +400,7 @@ title: In-Context Retrieval-Augmented Language Models
 ## 7. Conclusion
 
 > 1. Off-the-shelf Retriever을 이용한 RAG 프레임워크 유효성 입증
-2. RAG 프레임워크 내 설계 요소(retriever, stride, reranker)에 대한 실험 진행
+> 2. RAG 프레임워크 내 설계 요소(retriever, stride, reranker)에 대한 실험 진행
 
 - BM25: Language Modeling 시 강력한 Retriever baseline으로 동작
 
