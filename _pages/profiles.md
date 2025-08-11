@@ -62,6 +62,13 @@ profiles:
 
   - align: left
     image: prof_pic.jpg
+    content: people_cho_yeongjae.md
+    image_circular: true
+    more_info: >
+      <p><strong>Email</strong>: <a href="mailto:zxc5932@snu.ac.kr">zxc5932(at)snu.ac.kr</a></p>
+
+  - align: right
+    image: prof_pic.jpg
     content: people_jo_hyowon.md
     image_circular: true
     more_info: >
