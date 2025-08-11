@@ -73,5 +73,4 @@ profiles:
     image_circular: true
     more_info: >
       <p><strong>Email</strong>: <a href="mailto:zxc5932@snu.ac.kr">zxc5932(at)snu.ac.kr</a></p>
-
 ---
