@@ -9,4 +9,4 @@
 #### Work Experience
 
 - Naver, Research Intern (2024.5-2024.7)
-- Baikal.ai, Research Intern (2021.07-2022.01) 
+- Baikal.ai, Research Intern (2021.07-2022.01)
