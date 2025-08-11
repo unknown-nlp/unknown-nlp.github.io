@@ -150,12 +150,11 @@ title: "Physics of Language Models: Part 2.1, Grade-School Math and the Hidden R
 
 1. Solution Construction
 
+   - CoT 형식을 차용해서 topological 문장을 나열하는 식으로 solution 구성
 
-    - CoT 형식을 차용해서 topological 문장을 나열하는 식으로 solution 구성
+   - parameter(미지수)를 아래와 같은 식으로 서술함으로써 solution을 구성
 
-    - parameter(미지수)를 아래와 같은 식으로 서술함으로써 solution을 구성
-
-      - Define [param] as X; [intermediate steps]; so X =
+     - Define [param] as X; [intermediate steps]; so X =
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-08-13-physics-of-language-models-part-21-grade-school/image_003.png" class="img-fluid rounded z-depth-1" %}
 

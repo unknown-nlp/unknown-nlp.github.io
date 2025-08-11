@@ -480,13 +480,13 @@ LSSL은 본격적인 SSM 아키텍쳐의 시작인만큼, 위에서 언급한 3�
 
 **즉, LSSL은 Input u_k**가 들어왔을 때,
 
-- **X_k = u_k _ B + X_k-1 _ A**
+- **X*k = u_k * B + X*k-1 * A**
 
   - u_k에 B matrix를 곱하고 (linear)
 
   - 이전 hidden state cell의 X_k-1에 A matrix를 곱하고 (linear)
 
-- **output y_k = X_k _ C + u_k _ D**
+- **output y*k = X_k * C + u*k * D**
 
 - **이렇게 총 A,B,C,D 4개의 layer parameters를 훈련하면 된다!**
 

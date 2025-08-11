@@ -52,13 +52,11 @@ LLM-based autonomous agents들의 정리가 되었던 적이 없었기에, 본 �
 
 1. LLM을 보다 잘 활용하기 위해 **agent architecture**를 어떻게 디자인할지?
 
-
-    - 본 연구에서 이전 연구들을 포괄할 수 있는 unified agent framework를 제안함
+   - 본 연구에서 이전 연구들을 포괄할 수 있는 unified agent framework를 제안함
 
 1. 다양한 task를 수행하기 위해 **agent의 성능을** 어떻게 끌어올릴지?
 
-
-    - 자주 사용되는 agent 능력을 얻는 strategies의 summary를 정
+   - 자주 사용되는 agent 능력을 얻는 strategies의 summary를 정
 
 1. **application of LLM-based autonomous agents**
 

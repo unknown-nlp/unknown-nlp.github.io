@@ -80,22 +80,19 @@ title: Impact of Fine-Tuning Methods on Memorization in Large Language Models
 
 1. **Reference-based (Ref)** (Mireshghallah et al., 2022a)
 
-
-    - 기준 모델 MrM_rMr와 비교하여 손실 차이 계산
+   - 기준 모델 MrM_rMr와 비교하여 손실 차이 계산
 
 \text{Score} = L(x, M_t) - L(x, M_r)
 
 1. **Zlib Entropy (Zlib)** (Carlini et al., 2021)
 
-
-    - 손실을 zlib 엔트로피로 나눈 비율
+   - 손실을 zlib 엔트로피로 나눈 비율
 
 \text{Score} = \frac{L(x, M_t)}{\text{zlib}(x)}
 
 1. **Min-K%** (Shi et al., 2024)
 
-
-    - 토큰 확률이 낮은 하위 k% 토큰들의 평균 로그 likelihood
+   - 토큰 확률이 낮은 하위 k% 토큰들의 평균 로그 likelihood
 
 \text{Score} = \frac{1}{E} \sum*{x_i \in \text{Min-}K\%(x)} \log p(x_i | x*{<i})
 

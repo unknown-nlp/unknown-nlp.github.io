@@ -87,8 +87,7 @@ title: Contextual Document Embeddings
 
 1. Group이 **최대한 challenge**하기 위해 다음의 최적화 문제를 풀 수 있음.
 
-
-    - Zhang & Stratos (2021) show that **increasing the partition term** **improves the contrastive approximation to the maximum likelihood the gradient.**
+   - Zhang & Stratos (2021) show that **increasing the partition term** **improves the contrastive approximation to the maximum likelihood the gradient.**
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2025-03-04-contextual-document-embeddings/image_003.png" class="img-fluid rounded z-depth-1" %}
 

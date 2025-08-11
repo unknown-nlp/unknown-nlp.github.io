@@ -314,13 +314,11 @@ RL은 일관되게 희소한 파라미터 업데이트를 유도한다(대개 70
 
 1. **rejection sampling을 통해 생성된 in-distribution 데이터에 대한 SFT**
 
-
-    - section03에서 SFT data는 out-of-distribution이었는데 강제로 in-distribution으로 맞춰줌
+   - section03에서 SFT data는 out-of-distribution이었는데 강제로 in-distribution으로 맞춰줌
 
 1. **SFT 없이 out-of-distribution 데이터에 대해 수행된 DPO**
 
-
-    - SFT없이 DPO하면 out-of-distribution
+   - SFT없이 DPO하면 out-of-distribution
 
 **_ 학습방법론이 아닌 데이터 분포 차이에 의해서 sparsity가 발현되는지 검증하기 위함 _**
 
