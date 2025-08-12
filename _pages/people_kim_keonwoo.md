@@ -3,9 +3,9 @@
 #### Education
 
 - Seoul National University (2022.03~2024.02)
-    - *Master of Science in Industrial Engineering* 
+  - *Master of Science in Industrial Engineering*
 - UNIST (2016.03~2022.02)
-    - *Bachelor of Science in Industrial Engineering* 
+  - *Bachelor of Science in Industrial Engineering*
 
 #### Work Experience
 
