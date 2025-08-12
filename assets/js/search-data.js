@@ -51,7 +51,18 @@ ninja.data = [{
               handler: () => {
                 window.location.href = "/blog/";
               },
-            },{id: "post-impact-of-fine-tuning-methods-on-memorization-in-large-language-models",
+            },{id: "post-what-makes-a-reward-model-a-good-teacher-an-optimization-perspective-the-accuracy-paradox-in-rlhf-when-better-reward-models-don-t-yield-better-language-models",
+        
+          title: "What Makes a Reward Model a Good Teacher? An Optimization Perspective / The...",
+        
+        description: "논문 리뷰 - Reinforcement Learning 관련 연구",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2025/what-makes-a-reward-model-a-good-teacher/";
+          
+        },
+      },{id: "post-impact-of-fine-tuning-methods-on-memorization-in-large-language-models",
         
           title: "Impact of Fine-Tuning Methods on Memorization in Large Language Models",
         
