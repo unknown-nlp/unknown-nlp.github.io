@@ -44,14 +44,15 @@ profiles:
       <p><strong>Google Scholar</strong>: <a href="https://scholar.google.com/citations?user=ScBLCaMAAAAJ&hl=ko" target="_blank">Profile</a></p>
 
   - align: left
-    image: prof_pic.jpg
-    content: people_kim_geonwoo.md
+    image: keonwoo.jpg
+    content: people_kim_keonwoo.md
     image_circular: true
     more_info: >
-      <p><strong>Email</strong>: <a href="mailto:gunny1254@gmail.com">gunny1254(at)gmail.com</a></p>
+      <p><strong>Email</strong>: <a href="mailto:gunny1254@snu.ac.kr">gunny1254(at)snu.ac.kr</a></p>
       <p><strong>LinkedIn</strong>: <a href="https://www.linkedin.com/in/keonwookim97" target="_blank">keonwookim97</a></p>
       <p><strong>GitHub</strong>: <a href="https://github.com/gunny97" target="_blank">gunny97</a></p>
-      <p><strong>Google Scholar</strong>: <a href="https://scholar.google.com/citations?user=q4XXfo0AAAAJ&hl=en" target="_blank">Profile</a></p>
+      <p><strong>Google Scholar</strong>: <a href="https://scholar.google.com/citations?user=IRStRngAAAAJ&hl=en" target="_blank">Profile</a></p>
+      <p><strong>CV</strong>: <a href="https://docs.google.com/document/d/1eF1l2eQ6zbH93ZeowlcJPmVa6dLnu6LiUMJpiWtmXY8/edit?usp=sharing" target="_blank">View CV</a></p>
 
   - align: right
     image: prof_pic.jpg
