@@ -3,13 +3,13 @@
 #### Education
 
 - Seoul National University (2022.03~2024.02)
-  - *Master of Science in Industrial Engineering*
+  - _Master of Science in Industrial Engineering_
 - UNIST (2016.03~2022.02)
-  - *Bachelor of Science in Industrial Engineering*
+  - _Bachelor of Science in Industrial Engineering_
 
 #### Work Experience
 
-- NAVER Cloud, *Research Scientist* (2025.07 - present)
-- Kim & Chang, *AI Consultant* (2024.09-2025.07)
-- VRCREW, *AI Researcher* (2023.11-2024.09)
-- Neosapience, *Research Intern* (2022.06-2023.01) 
+- NAVER Cloud, _Research Scientist_ (2025.07 - present)
+- Kim & Chang, _AI Consultant_ (2024.09-2025.07)
+- VRCREW, _AI Researcher_ (2023.11-2024.09)
+- Neosapience, _Research Intern_ (2022.06-2023.01)
