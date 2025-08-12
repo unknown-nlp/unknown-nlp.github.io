@@ -12,4 +12,4 @@
 - NAVER Cloud, *Research Scientist* (2025.07 - present)
 - Kim & Chang, *AI Consultant* (2024.09-2025.07)
 - VRCREW, *AI Researcher* (2023.11-2024.09)
-- Neosapience, *Research Intern* (2022.06-2023.01)
+- Neosapience, *Research Intern* (2022.06-2023.01) 
