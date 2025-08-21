@@ -19,6 +19,8 @@ profiles:
     more_info: >
       <p><strong>Email</strong>: <a href="mailto:sy917kim@gmail.com">sy917kim(at)gmail.com</a></p>
       <p><strong>GitHub</strong>: <a href="https://github.com/sangyeop-kim" target="_blank">sangyeop-kim</a></p>
+      <p><strong>Google Scholar</strong>: <a href="https://scholar.google.com/citations?user=hxVvuSYAAAAJ" target="_blank">Profile</a></p>
+      <p><strong>CV</strong>: <a href="https://drive.google.com/file/d/1S2iZpqSs0iC4TNsEh4WnnW6M-GCqzvqn/view" target="_blank">View CV</a></p>
 
   - align: left
     content: people_lee_yukyung.md
