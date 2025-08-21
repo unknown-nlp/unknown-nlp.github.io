@@ -2,7 +2,7 @@
 layout: profiles
 permalink: /people/
 title: people
-description: members of the lab or group
+description: Meet our team of NLP researchers and professionals. Learn about our members' backgrounds, research interests, and contributions to natural language processing and machine learning.
 nav: true
 nav_order: 7
 
