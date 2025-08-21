@@ -235,7 +235,7 @@ for batch_idx, (inputs, labels) in enumerate(data_loader):
 
         - Example
 
-        23.5 = 127/5.4
+          23.5 = 127/5.4
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2023-06-29-qlora-eficient-finetuning-of-quantized-llms/image_004.png" class="img-fluid rounded z-depth-1" %}
 
