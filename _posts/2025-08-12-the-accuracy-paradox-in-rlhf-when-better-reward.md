@@ -1,31 +1,30 @@
 ---
 categories:
-- paper-reviews
-date: '2025-08-12 00:00:00'
+  - paper-reviews
+date: "2025-08-12 00:00:00"
 description: 논문 리뷰 - Reinforcement Learning, Reward Model 관련 연구
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-- alignment
-- language-model
-- paper-review
-- reinforcement learning
-- reward model
-- rlhf
+  - alignment
+  - language-model
+  - paper-review
+  - reinforcement learning
+  - reward model
+  - rlhf
 thumbnail: assets/img/posts/2025-08-12-the-accuracy-paradox-in-rlhf-when-better-reward/thumbnail.jpg
-title: 'The Accuracy Paradox in RLHF: When Better Reward Models Don’t Yield Better
-  Language Models / What Makes a Reward Model a Good Teacher? An Optimization Perspective'
+title: "The Accuracy Paradox in RLHF: When Better Reward Models Don’t Yield Better
+  Language Models / What Makes a Reward Model a Good Teacher? An Optimization Perspective"
 ---
 
 **논문 정보**
+
 - **Date**: 2025-08-12
 - **Reviewer**: 준원 장
 - **Property**: Reinforcement Learning, Reward Model
 
-
 ---
-
 
 ---
 
@@ -43,11 +42,11 @@ title: 'The Accuracy Paradox in RLHF: When Better Reward Models Don’t Yield Be
 
 - 더 Accurate을 줄 수 있는 RM이 더 effectiveness한 RM을 만들 수 있다.
 
-- 논문은  여러 실험을 통해 이를 반박하고자 함.
+- 논문은 여러 실험을 통해 이를 반박하고자 함.
 
 ⇒ moderate한 accuracy를 가진 RM이 the most accuracy를 가진 RM보다 LM performance를 더 향상시킨다.
 
-⇒ RM accuracy랑 LM final performance는 correlation이 없다. 
+⇒ RM accuracy랑 LM final performance는 correlation이 없다.
 
 ## 2. Motivation and Problem Setting & Recap RLHF Formula
 
@@ -59,9 +58,9 @@ title: 'The Accuracy Paradox in RLHF: When Better Reward Models Don’t Yield Be
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2025-08-12-the-accuracy-paradox-in-rlhf-when-better-reward/image_000.png" class="img-fluid rounded z-depth-1" %}
 
-triplet:  `(x, y_w, y_l)`
+triplet: `(x, y_w, y_l)`
 
-- accepted response score: `s_w = r_θ(x, y_w)` 
+- accepted response score: `s_w = r_θ(x, y_w)`
 
 - rejected response score: `s_l = r_θ(x, y_l)`
 
@@ -73,17 +72,17 @@ triplet:  `(x, y_w, y_l)`
 
   - metric
 
-- factuality 
+- factuality
 
 - relevance
 
 - completeness
 
-- P_{LM} = f (S_{RM}, τ )
+- P*{LM} = f (S*{RM}, τ )
 
-  - P_{LM}: LM acc on task
+  - P\_{LM}: LM acc on task
 
-  - S_{LM}: RM acc on RM binary task
+  - S\_{LM}: RM acc on RM binary task
 
   - τ: RL training time
 
@@ -113,9 +112,9 @@ triplet:  `(x, y_w, y_l)`
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2025-08-12-the-accuracy-paradox-in-rlhf-when-better-reward/image_003.png" class="img-fluid rounded z-depth-1" %}
 
-  - Critic LM: T5-base
+- Critic LM: T5-base
 
-  - Reward hacking 방지를 위해 KLD(↔ ref LM)가 너무 커지면 training interrupt (약간의 휴리스틱)
+- Reward hacking 방지를 위해 KLD(↔ ref LM)가 너무 커지면 training interrupt (약간의 휴리스틱)
 
 ### Results
 
@@ -139,7 +138,7 @@ consistent across the T5-base and T5-large models
 
 - Relevance
 
-→ `high-score`, `high-variance` 
+→ `high-score`, `high-variance`
 
 - Factuality
 
@@ -149,7 +148,7 @@ consistent across the T5-base and T5-large models
 
 → `low-score`, `high-variance`
 
-⇒ 공통적으로 모든 task에 대해서 best-performance RM은 variance가 높음. 
+⇒ 공통적으로 모든 task에 대해서 best-performance RM은 variance가 높음.
 
 직관적으로 생각해보면, 이 말은 곧 RM이 broader range of responses에 대한 평가를 가능하게 함 := exploration ⇒ improving the quality of the generated text
 
@@ -161,7 +160,7 @@ consistent across the T5-base and T5-large models
 
 - Relevance
 
-→  `low-score`, `low-variance`
+→ `low-score`, `low-variance`
 
 relevance측면에서 stable alignment
 
@@ -185,21 +184,21 @@ flexible approach suitable for evaluating complex texts (이건 해석이 좀..)
 
 ## 1. Introduction
 
-- 이전 논문에서 RL 관점에서 RM의 성능을 평가할 때 accuracy만으로 판단하는 것의 한계를 지적하며, variance이 높은 RM이 오히려 더 나은 policy model  performance으로 이어질 수 있음을 보여주었다.
+- 이전 논문에서 RL 관점에서 RM의 성능을 평가할 때 accuracy만으로 판단하는 것의 한계를 지적하며, variance이 높은 RM이 오히려 더 나은 policy model performance으로 이어질 수 있음을 보여주었다.
 
 - 이 논문은 이 논의를 확장해 다음의 질문에 대한 대답을 하고자 함.
 
-***“what makes a reward model a good teacher for RLHF?”***
+**_“what makes a reward model a good teacher for RLHF?”_**
 
 (수학적으로 많은 증명들이 있지만, 차치하고 논문에서 이야기하고 싶은 바는 아래와 같다.)
 
-- \pi_{\theta} (policy)에서 충분히 높은 확률로 rollout한 output에 대해서 얼만큼 잘 구분하는가 = reward variance
+- \pi\_{\theta} (policy)에서 충분히 높은 확률로 rollout한 output에 대해서 얼만큼 잘 구분하는가 = reward variance
 
 - r_G (ground truth reward: 우리가 올려야하는 reward)
 
-- r_{rm} (proxy reward: policy model에 의해 학습되는 reward)
+- r\_{rm} (proxy reward: policy model에 의해 학습되는 reward)
 
-⇒ low reward variance는 policy gradient로 학습시 r_{rm}뿐만 아니라 r_G도 굉장히 느리게 update하게 만든다.
+⇒ low reward variance는 policy gradient로 학습시 r\_{rm}뿐만 아니라 r_G도 굉장히 느리게 update하게 만든다.
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2025-08-12-the-accuracy-paradox-in-rlhf-when-better-reward/image_008.png" class="img-fluid rounded z-depth-1" %}
 
@@ -207,11 +206,11 @@ flexible approach suitable for evaluating complex texts (이건 해석이 좀..)
 
 **Reward model training or selection**
 
-- 우리의 목표: E_{y∼π_θ (·|x)}[r_G(x, y)] 
+- 우리의 목표: E*{y∼π*θ (·|x)}[r_G(x, y)]
 
 maximize the exp. ground truth reward
 
-- Proxy 목표: r_{RM} : X × Y → [−1, 1]
+- Proxy 목표: r\_{RM} : X × Y → [−1, 1]
 
 **Reward maximization via policy gradient**
 
@@ -221,15 +220,15 @@ maximize the exp. ground truth reward
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2025-08-12-the-accuracy-paradox-in-rlhf-when-better-reward/image_010.png" class="img-fluid rounded z-depth-1" %}
 
-- RM에서의 accuracy란 r_G랑 r_{rm} 이 같은 ranking으로 예측하고 있냐?이다.
+- RM에서의 accuracy란 r*G랑 r*{rm} 이 같은 ranking으로 예측하고 있냐?이다.
 
-- 즉, 
+- 즉,
 
-- r_{G}: 0.9 (x1) > 0.5 (x2) > 0.2 (x3)
+- r\_{G}: 0.9 (x1) > 0.5 (x2) > 0.2 (x3)
 
-- r_{rm}: 0.54 (x1) > 0.51 (x2) > 0.49 (x3)
+- r\_{rm}: 0.54 (x1) > 0.51 (x2) > 0.49 (x3)
 
-이면 r_{rm}의 acc는 1.0이다.
+이면 r\_{rm}의 acc는 1.0이다.
 
 - 일반적으로 RM의 acc는 off-policy bencmark (e.g., HH test set)에서 이루어짐. 그러나 RM이 적용되는 시점은 on-policy 시점 ⇒ 논문은 이를 모두 고려해서 분석을 진행.
 
@@ -239,7 +238,7 @@ maximize the exp. ground truth reward
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2025-08-12-the-accuracy-paradox-in-rlhf-when-better-reward/image_012.png" class="img-fluid rounded z-depth-1" %}
 
-- \pi_{\theta} (policy)하에서 발생하는 rollout을 RM이 얼만큼 잘 구분하는가?
+- \pi\_{\theta} (policy)하에서 발생하는 rollout을 RM이 얼만큼 잘 구분하는가?
 
 ## 3. Theory: Optimization Perspective on What Makes a Good Reward Model
 
@@ -263,15 +262,15 @@ maximize the exp. ground truth reward
 
 ### More Accurate Reward Models Are Not Necessarily Better Teachers
 
-- 어떤 초기 policy \pi_{\theta(0)}에 대해서도,
+- 어떤 초기 policy \pi\_{\theta(0)}에 대해서도,
 
-  - acc =1인 완벽한 보상 모델 r_{\mathrm{RM}} 존재
+  - acc =1인 완벽한 보상 모델 r\_{\mathrm{RM}} 존재
 
-  - acc ≤2/∣Y∣ 인 매우 부정확한 보상 모델 r'_{\mathrm{RM}} 존재
+  - acc ≤2/∣Y∣ 인 매우 부정확한 보상 모델 r'\_{\mathrm{RM}} 존재
 
-- 그런데 r_{\mathrm{RM}}을 쓰면 t_\gamma가 **무한히 커질 수 있음** (학습이 극도로 느림)
+- 그런데 r*{\mathrm{RM}}을 쓰면 t*\gamma가 **무한히 커질 수 있음** (학습이 극도로 느림)
 
-- 반면 r'_{\mathrm{RM}}을 쓰면 t_\gamma = O(\pi_{\theta(0)}(y^\gamma|x)^{-1})로 훨씬 짧을 수 있음
+- 반면 r'_{\mathrm{RM}}을 쓰면 t_\gamma = O(\pi\_{\theta(0)}(y^\gamma|x)^{-1})로 훨씬 짧을 수 있음
 
 (전재 조건은 그래도 r'_{\mathrm{RM}}(x,y^\gamma) > r'_{\mathrm{RM}}(x,y))
 
@@ -281,7 +280,7 @@ maximize the exp. ground truth reward
 
 - ArmoRM라는 모델이 주는 reward가 gt reward라고 가정
 
-- Data. 
+- Data.
 
 - UltraFeedback (80: RM tr / 20: policy gradient)
 
@@ -327,6 +326,6 @@ maximize the exp. ground truth reward
 
 - on-policy training 상황에서 off-policy accuracy만으로 RM의 effectiveness를 평가하면 optimization에 악영향을 끼침을 보임
 
-- reward variance는 RM의 optimization를 미리 가늠해볼 수 있는 좋은 지표 
+- reward variance는 RM의 optimization를 미리 가늠해볼 수 있는 좋은 지표
 
-→ ground truth reward를 보장해주지는 않음. 
+→ ground truth reward를 보장해주지는 않음.

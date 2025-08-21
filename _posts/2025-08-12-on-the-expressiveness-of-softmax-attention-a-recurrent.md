@@ -1,31 +1,30 @@
 ---
 categories:
-- paper-reviews
-date: '2025-08-12 00:00:00'
+  - paper-reviews
+date: "2025-08-12 00:00:00"
 description: 논문 리뷰 - Efficient Transformer 관련 연구
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-- attention
-- efficient transformer
-- language-model
-- neural
-- paper-review
+  - attention
+  - efficient transformer
+  - language-model
+  - neural
+  - paper-review
 thumbnail: assets/img/posts/2025-08-12-on-the-expressiveness-of-softmax-attention-a-recurrent/thumbnail.jpg
-title: 'ON THE EXPRESSIVENESS OF SOFTMAX ATTENTION: A
+title: "ON THE EXPRESSIVENESS OF SOFTMAX ATTENTION: A
 
-  RECURRENT NEURAL NETWORK PERSPECTIVE'
+  RECURRENT NEURAL NETWORK PERSPECTIVE"
 ---
 
 **논문 정보**
+
 - **Date**: 2025-08-12
 - **Reviewer**: Jaewon Cheon
 - **Property**: Efficient Transformer
 
-
 ---
-
 
 ---
 
@@ -37,7 +36,6 @@ title: 'ON THE EXPRESSIVENESS OF SOFTMAX ATTENTION: A
 
 - Research Field 소개에는 나쁘지 않은 것 같아서..
 
-
 ---
 
 ## 0. Prerequisites
@@ -46,65 +44,65 @@ title: 'ON THE EXPRESSIVENESS OF SOFTMAX ATTENTION: A
 
 Prerequisites:
 
-- RNNs(Linear Attention) ? 
+- RNNs(Linear Attention) ?
 
 - Isn’t RQ seems so obvious ?
 
-- Is  Attention - Softmax = RNNs(Linear Attention) ?
+- Is Attention - Softmax = RNNs(Linear Attention) ?
 
 - RNNs(Linear Attention)
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2025-08-12-on-the-expressiveness-of-softmax-attention-a-recurrent/image_000.png" class="img-fluid rounded z-depth-1" %}
 
-  - Inference Cost는 TF-based Language Models의 가장 큰 내재적 한계들 중 하나
+- Inference Cost는 TF-based Language Models의 가장 큰 내재적 한계들 중 하나
 
-    - KV Cache Complexity = O(N)
+  - KV Cache Complexity = O(N)
 
-    - Attention Complexity(per query) = O(N)
+  - Attention Complexity(per query) = O(N)
 
-  - RNNs(Mamba, RWKV, Titans, …)는 Sequential Information을 고정된 State에 저장 → 가장 직관적인 한계 극복 방법
+- RNNs(Mamba, RWKV, Titans, …)는 Sequential Information을 고정된 State에 저장 → 가장 직관적인 한계 극복 방법
 
-    - KV Cache Complexity = O(1)
+  - KV Cache Complexity = O(1)
 
-    - Attention Complexity(per query) = O(1)
+  - Attention Complexity(per query) = O(1)
 
-  - But, Training Parallelism 및 Weak Performance가 해결해야 할 과제
+- But, Training Parallelism 및 Weak Performance가 해결해야 할 과제
 
-    - Training Parallelism → 꽤 많이 해결되었음
+  - Training Parallelism → 꽤 많이 해결되었음
 
-    - Performance → 근본적으로 해결이 안 될 것처럼 보임
+  - Performance → 근본적으로 해결이 안 될 것처럼 보임
 
 - Is Attn vs RNNs a obvious fight?
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2025-08-12-on-the-expressiveness-of-softmax-attention-a-recurrent/image_001.png" class="img-fluid rounded z-depth-1" %}
 
-  - 위와 같은 Intuition이 있음
+- 위와 같은 Intuition이 있음
 
-    - Attention: q에 따라 필요한 정보를 모든 KV들에 대해 선택적으로 가져옴
+  - Attention: q에 따라 필요한 정보를 모든 KV들에 대해 선택적으로 가져옴
 
-    - RNNs: q가 무엇이든 고정된 S에서만 정보를 가져올 수 있음
+  - RNNs: q가 무엇이든 고정된 S에서만 정보를 가져올 수 있음
 
 - Attention w/o Softmax is RNN!
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2025-08-12-on-the-expressiveness-of-softmax-attention-a-recurrent/image_002.png" class="img-fluid rounded z-depth-1" %}
 
-  - Line 1:  Attend Property는 (q_tK^T_{1:t})를 하기 때문에 발생 
+- Line 1: Attend Property는 (q*tK^T*{1:t})를 하기 때문에 발생
 
-  - Line 2 : Softmax 연산을 빼더라도, 여전히 q_t가 모든 K_{1:t}, V_{1:t}에 Attend하는 것은 동일
+- Line 2 : Softmax 연산을 빼더라도, 여전히 q*t가 모든 K*{1:t}, V\_{1:t}에 Attend하는 것은 동일
 
-  - Line 3 : Associativity
+- Line 3 : Associativity
 
-  - Line 5 : 이는 고정된 State S_t에서 정보를 가져오는 것과 같음
+- Line 5 : 이는 고정된 State S_t에서 정보를 가져오는 것과 같음
 
-  - Line 4: Moreover, 이 S_t는 각 시점 1...t에서 만들어지는 KV의 Outer Product로 Update됨
+- Line 4: Moreover, 이 S_t는 각 시점 1...t에서 만들어지는 KV의 Outer Product로 Update됨
 
-    - 굉장히 간단한 RNN Update Rule
+  - 굉장히 간단한 RNN Update Rule
 
-  - 즉, Softmax(유일한 Non-linearity)가 없는 Attention은 RNN → Linear Attention이라 명명
+- 즉, Softmax(유일한 Non-linearity)가 없는 Attention은 RNN → Linear Attention이라 명명
 
-  - **제 Attend Property는 어디갔나요?**
+- **제 Attend Property는 어디갔나요?**
 
-    - Attention
+  - Attention
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2025-08-12-on-the-expressiveness-of-softmax-attention-a-recurrent/image_003.png" class="img-fluid rounded z-depth-1" %}
 
@@ -122,11 +120,11 @@ Prerequisites:
 
 Prerequisites:
 
-- RNNs(Linear Attention) ? 
+- RNNs(Linear Attention) ?
 
 - Isn’t RQ seems so obvious?
 
-- Is  Attention - Softmax = RNNs(Linear Attention)?
+- Is Attention - Softmax = RNNs(Linear Attention)?
 
 ## 2. Recurrent-style Softmax
 
@@ -158,15 +156,15 @@ Prerequisites:
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2025-08-12-on-the-expressiveness-of-softmax-attention-a-recurrent/image_010.png" class="img-fluid rounded z-depth-1" %}
 
-  - \otimes: n차 tensor product
+- \otimes: n차 tensor product
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2025-08-12-on-the-expressiveness-of-softmax-attention-a-recurrent/image_011.png" class="img-fluid rounded z-depth-1" %}
 
 - 결국 Recurrent Softmax는…
 
-  -  e^{Q⋅K}의 테일러 전개로부터 도출되는 1차항부터 무한차항까지의 RNN을 전부 더한 연산
+  - e^{Q⋅K}의 테일러 전개로부터 도출되는 1차항부터 무한차항까지의 RNN을 전부 더한 연산
 
-    - 각 RNN 출력에는 계수 \frac{1}{n!}가 곱해짐
+  - 각 RNN 출력에는 계수 \frac{1}{n!}가 곱해짐
 
   - **각 RNN의 hidden state 차원**
 
@@ -182,13 +180,13 @@ Prerequisites:
 
 ## 4. Numerator
 
-- 분자의 Infini-Sum 중, n=1만 사용하면? 
+- 분자의 Infini-Sum 중, n=1만 사용하면?
 
   - Linear Attention과 동일!
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2025-08-12-on-the-expressiveness-of-softmax-attention-a-recurrent/image_012.png" class="img-fluid rounded z-depth-1" %}
 
-  - 결국 (Primitive) Linear Attention은 Softmax Attention의 First-order approximation이었던 셈
+- 결국 (Primitive) Linear Attention은 Softmax Attention의 First-order approximation이었던 셈
 
 - 무한 개의 State를 사용하는 것과 같은 Softmax Attention에 비해 하나의 State만 사용하고 있는 것으로 해석
 
@@ -210,13 +208,13 @@ Prerequisites:
 
   - Output에 대해 곱해지는 어떤 값이라고 일반화를 하여 취급 ⇒ 비슷한 역할을 하는 요소가 존재
 
-- G_t  as a Gate
+- G_t as a Gate
 
   - 보통 RNNs에는 Output의 크기를 조절하는 Learnable Gate가 존재
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2025-08-12-on-the-expressiveness-of-softmax-attention-a-recurrent/image_014.png" class="img-fluid rounded z-depth-1" %}
 
-  - 하지만 결정적으로, Sequence length가 길어짐에 따라(많은 Vs가 추가됨에 따라) exploding을 막을 수 없다는 점에서 기존의 G_t와 다름
+- 하지만 결정적으로, Sequence length가 길어짐에 따라(많은 Vs가 추가됨에 따라) exploding을 막을 수 없다는 점에서 기존의 G_t와 다름
 
 - G_t as a Norm
 

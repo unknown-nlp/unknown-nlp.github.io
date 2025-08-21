@@ -1,28 +1,29 @@
 ---
 categories:
-- paper-reviews
-date: '2025-04-22 00:00:00'
+  - paper-reviews
+date: "2025-04-22 00:00:00"
 description: 논문 리뷰
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-- attention
-- bert
-- diffusion
-- embedding
-- fine-tuning
-- llm
-- multimodal
-- paper-review
-- reasoning
-- transformer
-- vision
+  - attention
+  - bert
+  - diffusion
+  - embedding
+  - fine-tuning
+  - llm
+  - multimodal
+  - paper-review
+  - reasoning
+  - transformer
+  - vision
 thumbnail: assets/img/posts/2025-04-22-fine-tuning-vision-language-action-models-optimizing-speed/thumbnail.jpg
-title: 'Fine-tuning Vision-Language-Action Models: Optimizing Speed and Success'
+title: "Fine-tuning Vision-Language-Action Models: Optimizing Speed and Success"
 ---
 
 **논문 정보**
+
 - **Date**: 2025-04-22
 - **Reviewer**: 전민진
 
@@ -144,7 +145,7 @@ title: 'Fine-tuning Vision-Language-Action Models: Optimizing Speed and Success'
 
   - single timestep action를 생성하는데 0.33초가 걸림(A100기준)
 
-- chunk size를 K, action dimensionality를 D라고 하면,  OpenVLA는 KD번 forward를 해야함
+- chunk size를 K, action dimensionality를 D라고 하면, OpenVLA는 KD번 forward를 해야함
 
 ## Proposed Method
 
@@ -180,17 +181,17 @@ title: 'Fine-tuning Vision-Language-Action Models: Optimizing Speed and Success'
 
 ⇒ 이 방식으로 D(action dimension) sequential pass를 한번의 single pass로 줄일 수 있음
 
-  - Parallel decoding에서 action chunking으로 확장하는거는 쉬움
+- Parallel decoding에서 action chunking으로 확장하는거는 쉬움
 
-    - empty action embedding을 decoder의 input에 추가, 이는 future action의 chunk로 mapping됨
+  - empty action embedding을 decoder의 input에 추가, 이는 future action의 chunk로 mapping됨
 
-    - chunk size K에 대해서, 모델은 이제 KD actions을 한번의 forward로 예측할 수 있고, 최소한의 latency로 thoughput K-fold를 증가
+  - chunk size K에 대해서, 모델은 이제 KD actions을 한번의 forward로 예측할 수 있고, 최소한의 latency로 thoughput K-fold를 증가
 
-      - thoughput K-fold: K의 rollout을 병렬로 생성했을 때의 처리량
+    - thoughput K-fold: K의 rollout을 병렬로 생성했을 때의 처리량
 
-        - k번에 걸쳐 action sequence를 생성, 평가해 가장 좋은걸 고르는 방법론(?)
+      - k번에 걸쳐 action sequence를 생성, 평가해 가장 좋은걸 고르는 방법론(?)
 
-    - parallel decoding은 autoregressive approach에 비해선 이론적으로 덜 expressive하지만 여러 태스크에 실험 결과, 성능 하락을 보이진 않음
+  - parallel decoding은 autoregressive approach에 비해선 이론적으로 덜 expressive하지만 여러 태스크에 실험 결과, 성능 하락을 보이진 않음
 
 - Continuous action space
 
@@ -244,9 +245,9 @@ title: 'Fine-tuning Vision-Language-Action Models: Optimizing Speed and Success'
 
       - D_ViT는 visual patch embedding에서 hidden dimension의 크기
 
-  - FiLM은 각 ViT block에서 self-attention layer와 FFN사이에 적용, 각 블록마다 다른 proejctor사용
+- FiLM은 각 ViT block에서 self-attention layer와 FFN사이에 적용, 각 블록마다 다른 proejctor사용
 
-  - FiLM은 ALOHA experiment에서만 사용!
+- FiLM은 ALOHA experiment에서만 사용!
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2025-04-22-fine-tuning-vision-language-action-models-optimizing-speed/image_002.png" class="img-fluid rounded z-depth-1" %}
 
@@ -274,15 +275,15 @@ RQ3. How do alternative fine-tuning formulations affect flexibility in model inp
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2025-04-22-fine-tuning-vision-language-action-models-optimizing-speed/image_004.png" class="img-fluid rounded z-depth-1" %}
 
-  - OpenVLA에서는 unsucessful demonstration을 필터링하고 각 task마다 따로 LoRA로 FT
+- OpenVLA에서는 unsucessful demonstration을 필터링하고 각 task마다 따로 LoRA로 FT
 
-  - 본 논문에서는 non-diffulsion method는 50-150K gradient step학습, diffusion method는 100-250K gradient step을 학습
+- 본 논문에서는 non-diffulsion method는 50-150K gradient step학습, diffusion method는 100-250K gradient step을 학습
 
-    - batch size 64-128, A100/H100 8대 사용
+  - batch size 64-128, A100/H100 8대 사용
 
-  - 특별한 언급이 없으면, policy는 하나의 third-person image와 language instruction을 input으로 받음
+- 특별한 언급이 없으면, policy는 하나의 third-person image와 language instruction을 input으로 받음
 
-  - action chunk size K=8로 설정, replanning전에 full chunk 실행
+- action chunk size K=8로 설정, replanning전에 full chunk 실행
 
 - Task performance comparisons
 
@@ -350,19 +351,19 @@ RQ3. How do alternative fine-tuning formulations affect flexibility in model inp
 
 ⇒ 이 세팅은 OpenVLA pretraining때와 매우 다름
 
-  - 크게 4개의 task를 선택
+- 크게 4개의 task를 선택
 
-    - fold shorts : 흰 반바지 접기, 20개의 demon으로 학습, 평가는 10번
+  - fold shorts : 흰 반바지 접기, 20개의 demon으로 학습, 평가는 10번
 
-    - fold shirt : 흰 티 접기, 30개의 demon으로 학습, 평가는 10번
+  - fold shirt : 흰 티 접기, 30개의 demon으로 학습, 평가는 10번
 
-    - scoop X into bowl : 왼손으로 table의 중앙으로 그릇을 움직이고, 오른손으로 특정 재료를 퍼서 담음, 45개 demon(재료당 15개)으로 학습, 12번(재료당 4번) 평가
+  - scoop X into bowl : 왼손으로 table의 중앙으로 그릇을 움직이고, 오른손으로 특정 재료를 퍼서 담음, 45개 demon(재료당 15개)으로 학습, 12번(재료당 4번) 평가
 
-    - put X into pot : 왼손으로 냄비 뚜껑 열어서 오른손으로 특정 아이템을 넣음, 300 demon으로 학습(아이템당 100번), 24번 평가(12번는 학습 아이템, 12번은 ood)
+  - put X into pot : 왼손으로 냄비 뚜껑 열어서 오른손으로 특정 아이템을 넣음, 300 demon으로 학습(아이템당 100번), 24번 평가(12번는 학습 아이템, 12번은 ood)
 
-  - OpenVLA를 각 task에 따로따로 50-150K gradient step정도 FT
+- OpenVLA를 각 task에 따로따로 50-150K gradient step정도 FT
 
-    - action chunk size K=25, inference시에 바로 풀 action chunk실행
+  - action chunk size K=25, inference시에 바로 풀 action chunk실행
 
 - Method in Comparison
 
@@ -392,7 +393,7 @@ RQ3. How do alternative fine-tuning formulations affect flexibility in model inp
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2025-04-22-fine-tuning-vision-language-action-models-optimizing-speed/image_010.png" class="img-fluid rounded z-depth-1" %}
 
-  - FiLM이 language following을 위해 매우 중요함을 보여줌
+- FiLM이 language following을 위해 매우 중요함을 보여줌
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2025-04-22-fine-tuning-vision-language-action-models-optimizing-speed/image_011.png" class="img-fluid rounded z-depth-1" %}
 

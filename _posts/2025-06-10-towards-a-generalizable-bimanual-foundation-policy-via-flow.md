@@ -1,23 +1,24 @@
 ---
 categories:
-- paper-reviews
-date: '2025-06-10 00:00:00'
+  - paper-reviews
+date: "2025-06-10 00:00:00"
 description: 논문 리뷰 - Robotics 관련 연구
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-- alignment
-- attention
-- diffusion
-- paper-review
-- robotics
-- vision
+  - alignment
+  - attention
+  - diffusion
+  - paper-review
+  - robotics
+  - vision
 thumbnail: assets/img/posts/2025-06-10-towards-a-generalizable-bimanual-foundation-policy-via-flow/thumbnail.jpg
 title: Towards a Generalizable Bimanual Foundation Policy via Flow-based Video Prediction
 ---
 
 **논문 정보**
+
 - **Date**: 2025-06-10
 - **Reviewer**: 전민진
 - **Property**: Robotics
@@ -130,11 +131,11 @@ title: Towards a Generalizable Bimanual Foundation Policy via Flow-based Video P
 
 - CogRobot에서, instruction-conditioned bimanual policy의 학습을 두 가지 스텝으로 분해
 
-  - future obsercation trajectories를 예측 : o_{t+1:t+N}=o_{t+1},...,o_{t+N} 
+  - future obsercation trajectories를 예측 : o*{t+1:t+N}=o*{t+1},...,o\_{t+N}
 
     - current observation o_t를 기반으로 specified goal l을 달성하기 위한 로봇 움직임 영상
 
-  - predicted observation sequence(o_{t+1:t+N}=o_{t+1},...,o_{t+N})를 기반으로 executable low-level action을 생성
+  - predicted observation sequence(o*{t+1:t+N}=o*{t+1},...,o\_{t+N})를 기반으로 executable low-level action을 생성
 
 - 최근 T2V model은 고품질의 realistic video를 생성하는 능력이 아주 굿 ⇒ 하지만 바로 bimanual에 FT하기엔 한계가 존재
 
@@ -144,9 +145,9 @@ title: Towards a Generalizable Bimanual Foundation Policy via Flow-based Video P
 
 ⇒ T2f, f2V로 나눠서 FT
 
-  - T2f: pixel-level motion encode, future optical flow 예측
+- T2f: pixel-level motion encode, future optical flow 예측
 
-  - f2V : future flow로 video생성
+- f2V : future flow로 video생성
 
 - 양팔 학습 데이터로는 RDT, ROBOMIND사용
 
@@ -174,31 +175,31 @@ title: Towards a Generalizable Bimanual Foundation Policy via Flow-based Video P
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2025-06-10-towards-a-generalizable-bimanual-foundation-policy-via-flow/image_004.png" class="img-fluid rounded z-depth-1" %}
 
-  - 즉, f는 각 픽셀별로 (u,v) 2차원의 벡터로 표현됨
+- 즉, f는 각 픽셀별로 (u,v) 2차원의 벡터로 표현됨
 
-  - 보통 로봇에서 두 obsercation의 차이는 robot arm의 움직임에서 기인하기 때문에, 해당 정보를 활용하면  kinematics, interaction with arm and object등에 대해 모델링이 가능
+- 보통 로봇에서 두 obsercation의 차이는 robot arm의 움직임에서 기인하기 때문에, 해당 정보를 활용하면 kinematics, interaction with arm and object등에 대해 모델링이 가능
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2025-06-10-towards-a-generalizable-bimanual-foundation-policy-via-flow/image_005.png" class="img-fluid rounded z-depth-1" %}
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2025-06-10-towards-a-generalizable-bimanual-foundation-policy-via-flow/image_006.png" class="img-fluid rounded z-depth-1" %}
 
-  - 하지만 2-optical flow와 3-channel RGB image사이의 modality차이 때문에, t2v모델로 raw optical flow를 바로 예측하게 학습하는건 어려움
+- 하지만 2-optical flow와 3-channel RGB image사이의 modality차이 때문에, t2v모델로 raw optical flow를 바로 예측하게 학습하는건 어려움
 
-    - 이전 논문에서는 추가적인 flow VAE를 scatch부터 학습하는 방법론이 필요했지만, 현재 세팅에서는 데이터 자체가 적기 때문에 적합하지 않음
+  - 이전 논문에서는 추가적인 flow VAE를 scatch부터 학습하는 방법론이 필요했지만, 현재 세팅에서는 데이터 자체가 적기 때문에 적합하지 않음
 
-  - optical flow를 flow video format으로 변환해 사용
+- optical flow를 flow video format으로 변환해 사용
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2025-06-10-towards-a-generalizable-bimanual-foundation-policy-via-flow/image_007.png" class="img-fluid rounded z-depth-1" %}
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2025-06-10-towards-a-generalizable-bimanual-foundation-policy-via-flow/image_008.png" class="img-fluid rounded z-depth-1" %}
 
-  - 위의 transformation을 통해, flow generation task는 flow video에 대한 distribution을 학습하는 것으로 reformulated될 수 있음
+- 위의 transformation을 통해, flow generation task는 flow video에 대한 distribution을 학습하는 것으로 reformulated될 수 있음
 
-    - pretrained CogVideoX를 사용, 학습 시 flow video를 latent z로 encode하는 VAE를 freeze
+  - pretrained CogVideoX를 사용, 학습 시 flow video를 latent z로 encode하는 VAE를 freeze
 
-      - latent는 점점 noise를 더하면서 perturb됨
+    - latent는 점점 noise를 더하면서 perturb됨
 
-      - 각 denoising step k에서 모델은 noisy latent z를 받아서 상응하는 noise eps를 예측하도록 함
+    - 각 denoising step k에서 모델은 noisy latent z를 받아서 상응하는 noise eps를 예측하도록 함
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2025-06-10-towards-a-generalizable-bimanual-foundation-policy-via-flow/image_009.png" class="img-fluid rounded z-depth-1" %}
 
@@ -218,9 +219,9 @@ title: Towards a Generalizable Bimanual Foundation Policy via Flow-based Video P
 
 - 해당 그림을 보면, language-only model의 경우(그냥 SFT) meaningful region을 식별하는데 실패하는 것을 볼 수 있음
 
-- flow video를 중간에 생성, 이를 기반으로  detailed vidoe를 생성함으로써, intruction과 visual input사이의 더 나은 alignment를 달성
+- flow video를 중간에 생성, 이를 기반으로 detailed vidoe를 생성함으로써, intruction과 visual input사이의 더 나은 alignment를 달성
 
-- 첫번째 단계에서 생성한 flow video를 잘 활용하여 detailed video를 생성할 수 있도록, flow video와 RGB vidoe를 channel dimension에 따라서 concat하는 방법론을 제안 
+- 첫번째 단계에서 생성한 flow video를 잘 활용하여 detailed video를 생성할 수 있도록, flow video와 RGB vidoe를 channel dimension에 따라서 concat하는 방법론을 제안
 
   - 학습 동안, flow video v_F과 dual-arm trajectory video v는 VAE에 각각 encoding되고, z_f, z_v^0으로 나옴
 
@@ -270,7 +271,7 @@ title: Towards a Generalizable Bimanual Foundation Policy via Flow-based Video P
 
   - 다른 애들은 robot action을 기반으로 world model를 구축
 
-** optical flow를 썼다는게 본 논문의 핵심 차별점
+\*\* optical flow를 썼다는게 본 논문의 핵심 차별점
 
 ## Experiments
 
@@ -330,13 +331,13 @@ title: Towards a Generalizable Bimanual Foundation Policy via Flow-based Video P
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2025-06-10-towards-a-generalizable-bimanual-foundation-policy-via-flow/image_016.png" class="img-fluid rounded z-depth-1" %}
 
-  - 각 task마다 사람이 100개의 demonstration을 직접 수집
+- 각 task마다 사람이 100개의 demonstration을 직접 수집
 
-  - 우리 방법론의 view adaptabilites를 평가하기 위해 각 태스크는 다양한 camera viewpoint에서 기록됨
+- 우리 방법론의 view adaptabilites를 평가하기 위해 각 태스크는 다양한 camera viewpoint에서 기록됨
 
-  - 이 demonstration을 활용해서 RDT와 RoboMIND에 1차로 FT된 CogVideoX-2B모델을 추가로 FT
+- 이 demonstration을 활용해서 RDT와 RoboMIND에 1차로 FT된 CogVideoX-2B모델을 추가로 FT
 
-  - baseline으로는 DP만 활용
+- baseline으로는 DP만 활용
 
 - 실험 결과, 확실히 어려운 task(pull box)에서 CogRobot의 성능이 높게 나옴
 

@@ -1,28 +1,29 @@
 ---
 categories:
-- paper-reviews
-date: '2025-08-19 00:00:00'
+  - paper-reviews
+date: "2025-08-19 00:00:00"
 description: 논문 리뷰 - RL, SFT 관련 연구
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-- alignment
-- fine-tuning
-- gpt
-- language-model
-- llm
-- paper-review
-- reinforcement-learning
-- rl
-- rlhf
-- sft
+  - alignment
+  - fine-tuning
+  - gpt
+  - language-model
+  - llm
+  - paper-review
+  - reinforcement-learning
+  - rl
+  - rlhf
+  - sft
 thumbnail: assets/img/posts/2025-08-19-on-the-generalization-of-sft-a-reinforcement-learning/thumbnail.jpg
-title: 'ON THE GENERALIZATION OF SFT: A REINFORCEMENT LEARNING PERSPECTIVE WITH REWARD
-  RECTIFICATION'
+title: "ON THE GENERALIZATION OF SFT: A REINFORCEMENT LEARNING PERSPECTIVE WITH REWARD
+  RECTIFICATION"
 ---
 
 **논문 정보**
+
 - **Date**: 2025-08-19
 - **Reviewer**: 전민진
 - **Property**: RL, SFT
@@ -63,7 +64,7 @@ title: 'ON THE GENERALIZATION OF SFT: A REINFORCEMENT LEARNING PERSPECTIVE WITH 
 
 ⇒ 하지만 SFT만으로 RL에서 얻는 효과를 어느정도 얻을 수 있다면? 아주 나이스함
 
-  - SFT는 negative sample 혹은 reward, vefication model이 없는 경우에도 활용할 수 있음
+- SFT는 negative sample 혹은 reward, vefication model이 없는 경우에도 활용할 수 있음
 
 - 본 논문에서는, SFT와 RL사이의 근본적인 차이를 밝히는 수학적 분석을 통해서 제공하여 이러한 차이를 해소하려고 함
 
@@ -113,7 +114,7 @@ title: 'ON THE GENERALIZATION OF SFT: A REINFORCEMENT LEARNING PERSPECTIVE WITH 
 
   - SFT와 RL의 학습 단계를 번갈아가면서 시행 : 안정성을 높이면서 성능도 높이기 위해
 
-  - DPO : reward model없이 postive answer, negative answer를 활용하여 imitation과 reinforcement signal을 하나의 loss에 녹여냄 
+  - DPO : reward model없이 postive answer, negative answer를 활용하여 imitation과 reinforcement signal을 하나의 loss에 녹여냄
 
   - Negative-aware Fine-Tuning(NFT) : 모델이 틀린 부분을 학습하여 스스로 개선할 수 있도록 함
 
@@ -133,7 +134,7 @@ title: 'ON THE GENERALIZATION OF SFT: A REINFORCEMENT LEARNING PERSPECTIVE WITH 
 
 ⇒ 이러한 경구들은 SFT와 RL 사이의 연결고리를 weigthing의 관점에서 지적, SFT gradient과 off-line policy gradient 간의 간단한 수학적 equivalence를 보이는 것에는 한계를 보임
 
-  - 반대로 본 논문에서는 equivalence를 엄격하게 확립한 최초의 연구, 핵심적인 차이가 SFT에 존재하는 inverse-probability weighting term에 있음을 보임
+- 반대로 본 논문에서는 equivalence를 엄격하게 확립한 최초의 연구, 핵심적인 차이가 SFT에 존재하는 inverse-probability weighting term에 있음을 보임
 
 - 흥미롭게도, 본 저자의 방법은 잘 알려진 Focal Loss와 정반대되는 CE loss 설계를 도출
 
@@ -157,9 +158,9 @@ title: 'ON THE GENERALIZATION OF SFT: A REINFORCEMENT LEARNING PERSPECTIVE WITH 
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2025-08-19-on-the-generalization-of-sft-a-reinforcement-learning/image_001.png" class="img-fluid rounded z-depth-1" %}
 
-  - **\nabla \theta를 Expectation 안에 넣는 과정**
+- **\nabla \theta를 Expectation 안에 넣는 과정**
 
-    - 여기서 적분 형태로 식을 재작성
+  - 여기서 적분 형태로 식을 재작성
 
 (편의상 x에 대한 기대값은 잠시 생략)
 
@@ -179,7 +180,7 @@ title: 'ON THE GENERALIZATION OF SFT: A REINFORCEMENT LEARNING PERSPECTIVE WITH 
 
 - SFT gradient의 형태는 policy gradient equation(4번식)과 거의 유사
 
-- 즉, 여기서 conventinal SFT는 reward를 expert trajectory와 동일한지를 비교하는 indicator function으로 주면서, importance weigthing 1/\pi_\theta로 편향된 on-policy-gradient로 해석 가능
+- 즉, 여기서 conventinal SFT는 reward를 expert trajectory와 동일한지를 비교하는 indicator function으로 주면서, importance weigthing 1/\pi\_\theta로 편향된 on-policy-gradient로 해석 가능
 
 ⇒ 만약 모델이 정답을 맞힐 확률이 매우 낮으면, 가중치가 폭증, 학습 과정을 불안정하게 만들고, 모델이 어쩌다 맞춘 exact-match demonstration에 과적합되도록 함.
 
@@ -191,7 +192,7 @@ title: 'ON THE GENERALIZATION OF SFT: A REINFORCEMENT LEARNING PERSPECTIVE WITH 
 
   - stop-graident operator를 사용해서 reward scaling term w를 통해 gradient가 흐르지 않도록 함
 
-- 식을 좀 더 간단하게 쓰기 위해 정답인 경우(y*)에 대해서만 식을 작성하면 8번이 됨
+- 식을 좀 더 간단하게 쓰기 위해 정답인 경우(y\*)에 대해서만 식을 작성하면 8번이 됨
 
   - 이제 gradient가 흐르지 않기 때문에, 수정된 SFT는 간단한 reweighted loss가 되고, DFT라고 명명
 
@@ -225,8 +226,9 @@ loss = loss * torch.softmax(shift_logits, dim=-1).gather(1, shift_labels.unsquee
 
   - Model
 
-    - Qwen2.5-Math-1.5B, Qwen2.5-Math-7B, LLaMA-3.2-3B, LLaMA-3.1-8B, and
-DeepSeekMath-7B-Base.
+        - Qwen2.5-Math-1.5B, Qwen2.5-Math-7B, LLaMA-3.2-3B, LLaMA-3.1-8B, and
+
+    DeepSeekMath-7B-Base.
 
   - Training details
 
@@ -256,23 +258,23 @@ DeepSeekMath-7B-Base.
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2025-08-19-on-the-generalization-of-sft-a-reinforcement-learning/image_005.png" class="img-fluid rounded z-depth-1" %}
 
-  - DFT는 모든 베이스 모델에 대해서 SFT보다 높은 성능을 보임
+- DFT는 모든 베이스 모델에 대해서 SFT보다 높은 성능을 보임
 
-  - 특히 DFT는 좀 더 어려운 벤치마크에서 강점을 보임 (generalization과 robustness가 뛰어남)
+- 특히 DFT는 좀 더 어려운 벤치마크에서 강점을 보임 (generalization과 robustness가 뛰어남)
 
-    - SFT의 경우 OlympiadBench, AIME24, AMC23과 같은 어려운 데이터셋에서는 base모델보다 낮은 성능을 보이는 경우도 있는 반면, DFT는 이러한 데이터셋에서도 뛰어난 성능을 보임
+  - SFT의 경우 OlympiadBench, AIME24, AMC23과 같은 어려운 데이터셋에서는 base모델보다 낮은 성능을 보이는 경우도 있는 반면, DFT는 이러한 데이터셋에서도 뛰어난 성능을 보임
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2025-08-19-on-the-generalization-of-sft-a-reinforcement-learning/image_006.png" class="img-fluid rounded z-depth-1" %}
 
-  - DFT는 SFT와 비교했을 때 빠른 수렴 속도, 뛰어난 초기 성능, 높은 샘플 효율성을 보임
+- DFT는 SFT와 비교했을 때 빠른 수렴 속도, 뛰어난 초기 성능, 높은 샘플 효율성을 보임
 
-    - 학습이 수렴되는 속도가 빠르며, 학습 초기 10-20단계만에  SFT의 최종 성능을 뛰어 넘음 + 최고 성능에 도달할 때까지 더 적은 업데이트(=더 적은 학습 데이터)를 필요로 함
+  - 학습이 수렴되는 속도가 빠르며, 학습 초기 10-20단계만에 SFT의 최종 성능을 뛰어 넘음 + 최고 성능에 도달할 때까지 더 적은 업데이트(=더 적은 학습 데이터)를 필요로 함
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2025-08-19-on-the-generalization-of-sft-a-reinforcement-learning/image_007.png" class="img-fluid rounded z-depth-1" %}
 
-  - 비슷한 시기에 나온 iw-SFT와 성능을 비교해도, 대부분의 경우에서 평균적으로 높은 성능을 보임
+- 비슷한 시기에 나온 iw-SFT와 성능을 비교해도, 대부분의 경우에서 평균적으로 높은 성능을 보임
 
-    - 특히, iw-SFT의 경우 특정 모델이나 벤치마크에서 성능이 불안정
+  - 특히, iw-SFT의 경우 특정 모델이나 벤치마크에서 성능이 불안정
 
 (iw-SFT는 reference model을 써서 reweight하는 방법론)
 
@@ -332,7 +334,7 @@ DeepSeekMath-7B-Base.
 
 ⇒ 견고한 학습을 위해서 모든 토큰을 동일한 신뢰도로 맞추려고 하면 안된다. LLM의 경우 핵심적 의미를 전달하기보다 문법적 기능을 수행하는 토큰들의 학습 우선순위를 낮추는게 유리할 수 있다
 
-  - 학생들이 연결어보다는 실질적인 개념에 집중하도록 하는 것과 유사..
+- 학생들이 연결어보다는 실질적인 개념에 집중하도록 하는 것과 유사..
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2025-08-19-on-the-generalization-of-sft-a-reinforcement-learning/image_009.png" class="img-fluid rounded z-depth-1" %}
 
@@ -352,7 +354,7 @@ DeepSeekMath-7B-Base.
 
 - 실험 결과, SFT, SFT 변형식 뿐만 아니라 offline RL보다도 높은 성능을 보임
 
-- 추가적인 cost가 전혀 없다는 측면에서 한번쯤 SFT 대신  loss만 바꿔서 학습해볼만할지도?
+- 추가적인 cost가 전혀 없다는 측면에서 한번쯤 SFT 대신 loss만 바꿔서 학습해볼만할지도?
 
   - 물론 본 논문에서의 실험은 수학 도메인에만 제한적…
 

@@ -1,34 +1,33 @@
 ---
 categories:
-- paper-reviews
-date: '2025-03-25 00:00:00'
+  - paper-reviews
+date: "2025-03-25 00:00:00"
 description: 논문 리뷰 - Reinforcement Learning, SFT 관련 연구
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-- alignment
-- fine-tuning
-- language-model
-- llm
-- paper-review
-- reasoning
-- reinforcement learning
-- reinforcement-learning
-- rlhf
-- sft
+  - alignment
+  - fine-tuning
+  - language-model
+  - llm
+  - paper-review
+  - reasoning
+  - reinforcement learning
+  - reinforcement-learning
+  - rlhf
+  - sft
 thumbnail: assets/img/posts/2025-03-25-reft-reasoning-with-reinforced-fine-tuning/thumbnail.jpg
-title: 'ReFT: Reasoning with Reinforced Fine-Tuning'
+title: "ReFT: Reasoning with Reinforced Fine-Tuning"
 ---
 
 **논문 정보**
+
 - **Date**: 2025-03-25
 - **Reviewer**: 김재희
 - **Property**: Reinforcement Learning, SFT
 
-
 ---
-
 
 ---
 
@@ -44,11 +43,11 @@ title: 'ReFT: Reasoning with Reinforced Fine-Tuning'
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2025-03-25-reft-reasoning-with-reinforced-fine-tuning/image_000.png" class="img-fluid rounded z-depth-1" %}
 
-  - 학습 중인 모델(policy, \pi^{RL}_\phi)의 Reward를 최대화
+- 학습 중인 모델(policy, \pi^{RL}\_\phi)의 Reward를 최대화
 
-  - 학습 전 모델(SFT, Initial Policy, \pi^{SFT})과 너무 멀어지지 않도록 제약
+- 학습 전 모델(SFT, Initial Policy, \pi^{SFT})과 너무 멀어지지 않도록 제약
 
-    - 마지막 항도 비슷한 역할
+  - 마지막 항도 비슷한 역할
 
 ⇒ 실제 학습 가능한 loss가 아님
 
@@ -62,31 +61,31 @@ title: 'ReFT: Reasoning with Reinforced Fine-Tuning'
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2025-03-25-reft-reasoning-with-reinforced-fine-tuning/image_002.png" class="img-fluid rounded z-depth-1" %}
 
-  - value function( V(.))의 도입으로 가능!
+- value function( V(.))의 도입으로 가능!
 
-    - value function: 각 토큰 시점에서 가지고 있는 생성된 토큰들의 가치
+  - value function: 각 토큰 시점에서 가지고 있는 생성된 토큰들의 가치
 
-      - high value: reward를 높이는 방향으로 미래에 생성할 가능성이 높음
+    - high value: reward를 높이는 방향으로 미래에 생성할 가능성이 높음
 
-      - row value: reward를 높이는 방향으로 미래에 생성할 가능성이 낮음
+    - row value: reward를 높이는 방향으로 미래에 생성할 가능성이 낮음
 
 → 단순히 최종 Reward를 고려하는 것이 아니라, 각 토큰의 생성 시점에서 정말 그 토큰의 reward에 대한 기여도를 확인
 
-  - PPO 주의점
+- PPO 주의점
 
-    - 학습에 활용되는 모델 갯수 (4개)
+  - 학습에 활용되는 모델 갯수 (4개)
 
-      - policy model: 학습 대상 모델
+    - policy model: 학습 대상 모델
 
-      - initial model: 학습 대상 모델의 복사본 (학습 X)
+    - initial model: 학습 대상 모델의 복사본 (학습 X)
 
-      - reward model: scalar reward  value를 생성하는 모델 (학습 X, 학습 signal 생성)
+    - reward model: scalar reward value를 생성하는 모델 (학습 X, 학습 signal 생성)
 
-      - value model: 학습 대상 모델 - lm head + linear layer (다른 방식도 있는듯?)
+    - value model: 학습 대상 모델 - lm head + linear layer (다른 방식도 있는듯?)
 
-        - 각 token의 last representation에 별도의 linear layer 통과
+      - 각 token의 last representation에 별도의 linear layer 통과
 
-        - 각 토큰의 value 계산 역할 (학습 X)
+      - 각 토큰의 value 계산 역할 (학습 X)
 
 ### RLHF
 
@@ -110,9 +109,9 @@ title: 'ReFT: Reasoning with Reinforced Fine-Tuning'
 
     - annotation을 통해 모든 trajactory를 확보하는 것은 불가능
 
-  - LLM이 일정 수준의 추론 능력을 갖추었다면, 스스로 trajactory를 explore할 수 있을 것. 
+  - LLM이 일정 수준의 추론 능력을 갖추었다면, 스스로 trajactory를 explore할 수 있을 것.
 
-    - 우리는 좋은 trajactory를 평가하고, Signal을 주입할 수 있으면 된다. 
+    - 우리는 좋은 trajactory를 평가하고, Signal을 주입할 수 있으면 된다.
 
 ## 2. Method
 
@@ -126,9 +125,9 @@ title: 'ReFT: Reasoning with Reinforced Fine-Tuning'
 
   1. SFT로 warm up 학습 진행
 
-  1. RLHF를 통해 학습 
+  1. RLHF를 통해 학습
 
-    - 사전에 reward function, ground truth answer 정의
+  - 사전에 reward function, ground truth answer 정의
 
   1. 우왁굳!
 
@@ -142,7 +141,7 @@ title: 'ReFT: Reasoning with Reinforced Fine-Tuning'
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2025-03-25-reft-reasoning-with-reinforced-fine-tuning/image_007.png" class="img-fluid rounded z-depth-1" %}
 
-- policy model( \pi_\theta): 학습 대상 모델 
+- policy model( \pi\_\theta): 학습 대상 모델
 
 ### Objectives
 
@@ -150,7 +149,7 @@ title: 'ReFT: Reasoning with Reinforced Fine-Tuning'
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2025-03-25-reft-reasoning-with-reinforced-fine-tuning/image_008.png" class="img-fluid rounded z-depth-1" %}
 
-- RL: RLHF 수식과 동일합니다. 
+- RL: RLHF 수식과 동일합니다.
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2025-03-25-reft-reasoning-with-reinforced-fine-tuning/image_009.png" class="img-fluid rounded z-depth-1" %}
 
@@ -170,7 +169,7 @@ title: 'ReFT: Reasoning with Reinforced Fine-Tuning'
 
   - RL: (query, answer)를 이용
 
-    - RL의 경우 매 epoch마다 서로 다른 reasoning이 생성될 수 있으므로 SFT 데이터를 그대로 이용하여도 문제가 될 것은 없다. 
+    - RL의 경우 매 epoch마다 서로 다른 reasoning이 생성될 수 있으므로 SFT 데이터를 그대로 이용하여도 문제가 될 것은 없다.
 
     - RL Fine-tuning을 위한 추가 데이터 확보 필요성 X
 
@@ -192,7 +191,7 @@ title: 'ReFT: Reasoning with Reinforced Fine-Tuning'
 
 틀렸지만 어쨋든 숫자 예측했으니까!
 
-### Training Reward Model 
+### Training Reward Model
 
 (학습을 위한 reward model이 아닙니다. )
 
@@ -282,29 +281,29 @@ title: 'ReFT: Reasoning with Reinforced Fine-Tuning'
 
   - ReFT 대비 성능 개선 폭 제한적
 
-→ *exploring *작업이 매우 중요함 확인 
+→ *exploring *작업이 매우 중요함 확인
 
-  - online: 여전히 ReFT 대비 성능 저하 확인 
+- online: 여전히 ReFT 대비 성능 저하 확인
 
-    - exploring은 진행되지만, 잘못된 예측을 학습에 활용 X → MLE 학습이 진행되니까
+  - exploring은 진행되지만, 잘못된 예측을 학습에 활용 X → MLE 학습이 진행되니까
 
-    - 하지만 ReFT는 잘못된 예측도 학습에 관여
+  - 하지만 ReFT는 잘못된 예측도 학습에 관여
 
-      - 잘못된 예측 → low reward → model update
+    - 잘못된 예측 → low reward → model update
 
 ### Reward Hacking for MathQA
 
 - MathQA: 4지선다 예측 문제
 
-  - 학습 중인 모델의 reasoning을 통해 reward hacking 문제 확인 
+  - 학습 중인 모델의 reasoning을 통해 reward hacking 문제 확인
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2025-03-25-reft-reasoning-with-reinforced-fine-tuning/image_014.png" class="img-fluid rounded z-depth-1" %}
 
-  - 모델의 추론 과정 중 잘못된 답을 도출하였음에도, 4지선다에서는 정답으로 예측해버림
+- 모델의 추론 과정 중 잘못된 답을 도출하였음에도, 4지선다에서는 정답으로 예측해버림
 
-    - reward 상으로는 맞추었다고 signal이 발생
+  - reward 상으로는 맞추었다고 signal이 발생
 
-    - 모델: 잘못 예측하고 정답을 맞추는 것이 좋은 reasoning 이구나!
+  - 모델: 잘못 예측하고 정답을 맞추는 것이 좋은 reasoning 이구나!
 
 - MathQA를 직접 정답 숫자 예측 문제로 전환하여 실험 진행
 
@@ -330,9 +329,9 @@ title: 'ReFT: Reasoning with Reinforced Fine-Tuning'
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2025-03-25-reft-reasoning-with-reinforced-fine-tuning/image_017.png" class="img-fluid rounded z-depth-1" %}
 
-  - 작은 모델들에 대해서도 SFT보다 높은 성능 도출이 가능함 확인
+- 작은 모델들에 대해서도 SFT보다 높은 성능 도출이 가능함 확인
 
-    - 작은 모델들도 충분한 exploration 능력을 가지고 있음
+  - 작은 모델들도 충분한 exploration 능력을 가지고 있음
 
 ### Ablation Study
 
@@ -354,7 +353,7 @@ title: 'ReFT: Reasoning with Reinforced Fine-Tuning'
 
 - ReFT가 더 나은 모습을 보임
 
-  - 모델 스스로 좋은 Reasoning을 만들 수 있음 확인 
+  - 모델 스스로 좋은 Reasoning을 만들 수 있음 확인
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2025-03-25-reft-reasoning-with-reinforced-fine-tuning/image_019.png" class="img-fluid rounded z-depth-1" %}
 
@@ -362,13 +361,13 @@ title: 'ReFT: Reasoning with Reinforced Fine-Tuning'
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2025-03-25-reft-reasoning-with-reinforced-fine-tuning/image_020.png" class="img-fluid rounded z-depth-1" %}
 
-- SFT warmup step을 달리하며 실험 진행 
+- SFT warmup step을 달리하며 실험 진행
 
 - 일관된 결과 확인
 
   1. warmup 종료 후 RL stage에서 첫 2 epoch은 오히려 성능 저하 관찰
 
-    1. value model의 linear layer가 random init이므로 좋은 value model이 갖추어질 때까지 시간 필요
+  1. value model의 linear layer가 random init이므로 좋은 value model이 갖추어질 때까지 시간 필요
 
   1. 30 epoch 이후 SFT는 성능이 개선되지 않음
 

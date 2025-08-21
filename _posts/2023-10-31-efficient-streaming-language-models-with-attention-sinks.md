@@ -1,28 +1,27 @@
 ---
 categories:
-- paper-reviews
-date: '2023-10-31 00:00:00'
+  - paper-reviews
+date: "2023-10-31 00:00:00"
 description: 논문 리뷰 - LLM 관련 연구
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-- attention
-- language-model
-- llm
-- paper-review
+  - attention
+  - language-model
+  - llm
+  - paper-review
 thumbnail: assets/img/posts/2023-10-31-efficient-streaming-language-models-with-attention-sinks/thumbnail.jpg
 title: EFFICIENT STREAMING LANGUAGE MODELS WITH ATTENTION SINKS
 ---
 
 **논문 정보**
+
 - **Date**: 2023-10-31
 - **Reviewer**: 김재희
 - **Property**: LLM
 
-
 ---
-
 
 ---
 
@@ -42,13 +41,13 @@ title: EFFICIENT STREAMING LANGUAGE MODELS WITH ATTENTION SINKS
 
   1. Computation Cost : Attention Mechanism은 O(T^2)의 복잡도를 가지고 있음
 
-    1. 입력 길이가 길어질수록 매우 많은 연산을 필요로 하게 됨 
+  1. 입력 길이가 길어질수록 매우 많은 연산을 필요로 하게 됨
 
   1. Performance Deline : Pretrain 길이보다 긴 입력 시 급격한 성능 저하 발생
 
-    1. 학습되지 않은 Positional Encoding
+  1. 학습되지 않은 Positional Encoding
 
-    1. 긴 입력에 대해 모델이 적절한 Attention 부여 실패 
+  1. 긴 입력에 대해 모델이 적절한 Attention 부여 실패
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2023-10-31-efficient-streaming-language-models-with-attention-sinks/image_000.png" class="img-fluid rounded z-depth-1" %}
 
@@ -56,7 +55,7 @@ title: EFFICIENT STREAMING LANGUAGE MODELS WITH ATTENTION SINKS
 
 ⇒ Query-Key 간 거리에 따라 Attention Score를 직접 조정하는 방법론들
 
-⇒ Pretrain 및 Model Architecture 설계 시 미리 반영되어 있어야 함. 
+⇒ Pretrain 및 Model Architecture 설계 시 미리 반영되어 있어야 함.
 
 - 긴 입력을 나누어 처리하는 방법론 역시 존재
 
@@ -68,17 +67,17 @@ title: EFFICIENT STREAMING LANGUAGE MODELS WITH ATTENTION SINKS
 
   1. Window Attention : LLM에서 흔히 사용되는 Key, Value Caching을 Max Length만큼만 유지하는 방법론
 
-⇒ Max Length(L) 이상의 입력 및 출력에서 시간 복잡도를 줄일 수 있음 
+⇒ Max Length(L) 이상의 입력 및 출력에서 시간 복잡도를 줄일 수 있음
 
 ⇒ 성능 저하가 매우 극심하게 발생
 
 **⇒ Positional Encoding만으로 Long context를 다룰 수 없음**
 
-  1. Sliding Window : Input을 L 길이로 잘라서 연산하는 방법론
+1. Sliding Window : Input을 L 길이로 잘라서 연산하는 방법론
 
 ⇒ L 길이로 잘라서 Full Attention을 매번 계산하므로 높은 시간복잡도
 
-⇒ 성능 저하가 거의 발생하지 않음 
+⇒ 성능 저하가 거의 발생하지 않음
 
 **⇒ Long Context를 다룰 때 꼭 모든 이전 토큰이 필요하지 X**
 
@@ -88,7 +87,7 @@ title: EFFICIENT STREAMING LANGUAGE MODELS WITH ATTENTION SINKS
 
   - L 개의 이전 K, V를 이용하여 현재 시점의 Attention을 취하는 것은 동일
 
-⇒ Long Context를 다루는 기존의 방법론들이 놓치는 무엇인가가 있는 느낌… 
+⇒ Long Context를 다루는 기존의 방법론들이 놓치는 무엇인가가 있는 느낌…
 
 > 두 방법론의 차이를 발생시키는 Attention Mechanism의 특징을 포착하고, 이를 이용해보자!
 
@@ -96,7 +95,7 @@ title: EFFICIENT STREAMING LANGUAGE MODELS WITH ATTENTION SINKS
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2023-10-31-efficient-streaming-language-models-with-attention-sinks/image_002.png" class="img-fluid rounded z-depth-1" %}
 
-> 많은 양의 Attention의 특정 Token으로 쏠리는 경향이 매우 강하게 존재한다. 
+> 많은 양의 Attention의 특정 Token으로 쏠리는 경향이 매우 강하게 존재한다.
 
 - Input과 관계없이 많은 양의 Attention이 첫 토큰으로 쏠리는 모습을 볼 수 있음
 
@@ -116,7 +115,7 @@ title: EFFICIENT STREAMING LANGUAGE MODELS WITH ATTENTION SINKS
 
   1. Absolute Position으로 인한 강한 Bias를 학습 → 모든 input의 첫번째 토큰
 
-- (x+y) 토큰 조합을 통한 성능 변화 관찰 실험 
+- (x+y) 토큰 조합을 통한 성능 변화 관찰 실험
 
   - x : 가장 첫 토큰 x개
 
@@ -136,7 +135,7 @@ title: EFFICIENT STREAMING LANGUAGE MODELS WITH ATTENTION SINKS
 
 ### Why Attention Goes into Sink Tokens?
 
-- Attention Mechanism을 살펴볼 필요가 있음 
+- Attention Mechanism을 살펴볼 필요가 있음
 
 - 현재 시점의 Query에서 이전 시점의 Key에 대한 Attention은 아래 식과 같음
 
@@ -150,7 +149,7 @@ title: EFFICIENT STREAMING LANGUAGE MODELS WITH ATTENTION SINKS
 
 > Attention을 버릴 곳으로 거의 모든 Input에서 등장하게 되는 초기 토큰을 Attention Sink로 사용
 
-- 위 개념에 대한 아이디어는 올해 7월 블로그 글에 처음 개제됨 
+- 위 개념에 대한 아이디어는 올해 7월 블로그 글에 처음 개제됨
 
   - 아마 이 논문은 블로그 글을 발전시킨 형태가 아닐까…?
 
@@ -162,7 +161,7 @@ title: EFFICIENT STREAMING LANGUAGE MODELS WITH ATTENTION SINKS
 
 - 첫 K개의 토큰을 사용할 수 없어지는 시점부터 Dense Attention, Window Attention 모두 성능이 박살
 
-- Sliding Window의 경우 안정적인 성능을 유지하는 모습 
+- Sliding Window의 경우 안정적인 성능을 유지하는 모습
 
   - Pythia, Falcon은 Window Attention을 사용해도 성능 저하가 비교적 극심하지 않음
 
@@ -176,13 +175,13 @@ title: EFFICIENT STREAMING LANGUAGE MODELS WITH ATTENTION SINKS
 
 ⇒ 160m짜리 모델을 Scratch부터 학습시킴
 
-⇒ Prompt Learning처럼 첫 K개의 토큰을 Learnable Token으로 고정 
+⇒ Prompt Learning처럼 첫 K개의 토큰을 Learnable Token으로 고정
 
 ![Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/3acbc979-3f43-48f4-8683-229c6104ec76/46813ecc-92df-43e2-9442-9e76f7861790/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=ASIAZI2LB466UG6TKER2%2F20250821%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20250821T020050Z&X-Amz-Expires=3600&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEJr%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJHMEUCIHu1Ou6CF%2F8rWaJ30vs2tIV3815HjohJmTkgMnGwXgzCAiEAgeJ3M04IQBnctKbeDP3oHKDGQ7vPnOiKa5%2FytQZp5X4qiAQI4%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FARAAGgw2Mzc0MjMxODM4MDUiDPYCDm%2BWn0Cdd3fH4yrcAwEtdINPnqClnsndPVBQWZZMTdOHsB8DklZoeVbxsVkwr6kcyzN0HxfU1RGlknIHDbTNxnhMu%2FAoBWm%2FMZzLEy4E2Z4bYDun35qg4ScVJUGuloAMk%2BaEekghKfOknLoS397DqnQKTc2zZ5LkCscKW5mB7OzZTpHj%2B06%2F1moZo2qCPHoqe0RpfoVZQXCOIzMtUFkdJZU0VQW1JB3J2jm5q7SPg6gCSGadhviG8q4E5FlXYCz23GWaHn3XTcaPzT%2BxG0i0MNJ%2BX0xOX4Qiu8lwBjj2lonr%2F%2FTsdJyi87eB9uKIiWwB%2FNSnBkcy4TX0A8CazOoj%2FlE5L5Bdy133my1cefEy4hltOazglXDSlGpNJhqHjvvt61lVItuY%2BUTlRN3eyyl6tRuh9ZdbkfbfHILM9b1eo2ptlLXxJOKbGymKzSlApYB74dcRHX1y1gRXGUgz9sxaLuYAcFDJSToSvBXxuBJMIYy2wKLP4gl%2BL%2BN0ZAloku7l60wkwTMq1XbZY9o0h0Rd%2B6jF%2FgV%2F8gBnTdEyfshOy%2BSGyei0ZrMEZ5g%2B%2BMjSnmHO0fmNSr%2B%2BJ%2B0uZ%2FSoSpHcobNeFvW20jUL8GHQwsCuhlPSLCKh43tpGih9xtZAzr9ekGXaN1vtprv1MKT6mcUGOqUBF43I8kimxn5JI4vaFRn4qSADkuS5ubCKgYN0oMyZbzQdqw5XCjwNbhRYpH%2Fib63Chh1O5mFvf3WZAFhF4scWWUACrJQTLEFaZrchC0AnSz%2FhRej3aIRjSyWRDl8Q39t7s%2F0UrQKQqU9CWRsQMSc1fLPs55ciEd%2F4ZUkGDHsRuD1UysnOKSDL7g4R3PdGDL37S2k5Tuhy%2Bt%2BK5UQPgCktsr13AZkl&X-Amz-Signature=1b82213c2ce078affbec1fd0c3c34b89c158f93a6e861198f312fa597fb7925d&X-Amz-SignedHeaders=host&x-amz-checksum-mode=ENABLED&x-id=GetObject)
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2023-10-31-efficient-streaming-language-models-with-attention-sinks/image_005.png" class="img-fluid rounded z-depth-1" %}
 
-- Vanilla 모델과 비교하여 Loss 및 Downstream Task 모두에서 살짝 더 좋은 성능을 보임. 
+- Vanilla 모델과 비교하여 Loss 및 Downstream Task 모두에서 살짝 더 좋은 성능을 보임.
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2023-10-31-efficient-streaming-language-models-with-attention-sinks/image_006.png" class="img-fluid rounded z-depth-1" %}
 
@@ -202,11 +201,11 @@ title: EFFICIENT STREAMING LANGUAGE MODELS WITH ATTENTION SINKS
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2023-10-31-efficient-streaming-language-models-with-attention-sinks/image_008.png" class="img-fluid rounded z-depth-1" %}
 
-  - Dense : 너무 긴 Input으로 OOM 발생
+- Dense : 너무 긴 Input으로 OOM 발생
 
-  - Window : 역시나 성능 박살
+- Window : 역시나 성능 박살
 
-  - StreamingLLM : 단일 QA(One-Shot)과 비슷하거나 더 좋은 성능 달성
+- StreamingLLM : 단일 QA(One-Shot)과 비슷하거나 더 좋은 성능 달성
 
 ⇒ 긴 Input에서도 필요한 정보에 잘 Attention을 줄 수 있음!
 
@@ -224,7 +223,7 @@ title: EFFICIENT STREAMING LANGUAGE MODELS WITH ATTENTION SINKS
 
 > Attention Sink 현상 규명 및 이를 이용한 Long Context Handling 방법론 제안
 
-### Attention Sink 
+### Attention Sink
 
 - Pretrained LM이 학습 과정에서 고정적으로 등장하는 첫 K개의 토큰에 필요없는 Attention을 버리는 현상
 
@@ -244,6 +243,6 @@ title: EFFICIENT STREAMING LANGUAGE MODELS WITH ATTENTION SINKS
 
 - Sliding Window에 비해 낮은 Computation Cost 발생
 
-### Limitation 
+### Limitation
 
 - 조금 더 다양한 Downstream Task에 대한 성능 비교 필요

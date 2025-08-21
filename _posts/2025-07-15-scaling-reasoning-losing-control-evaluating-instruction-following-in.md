@@ -1,24 +1,25 @@
 ---
 categories:
-- paper-reviews
-date: '2025-07-15 00:00:00'
+  - paper-reviews
+date: "2025-07-15 00:00:00"
 description: 논문 리뷰
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-- attention
-- language-model
-- llm
-- paper-review
-- pre-training
-- reasoning
+  - attention
+  - language-model
+  - llm
+  - paper-review
+  - pre-training
+  - reasoning
 thumbnail: assets/img/posts/2025-07-15-scaling-reasoning-losing-control-evaluating-instruction-following-in/thumbnail.jpg
-title: 'Scaling Reasoning, Losing Control: Evaluating Instruction Following in Large
-  Reasoning Models'
+title: "Scaling Reasoning, Losing Control: Evaluating Instruction Following in Large
+  Reasoning Models"
 ---
 
 **논문 정보**
+
 - **Date**: 2025-07-15
 - **Reviewer**: 전민진
 
@@ -98,7 +99,7 @@ title: 'Scaling Reasoning, Losing Control: Evaluating Instruction Following in L
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2025-07-15-scaling-reasoning-losing-control-evaluating-instruction-following-in/image_000.png" class="img-fluid rounded z-depth-1" %}
 
-  - 확실히 LRM의 성능이 상대적으로 낮으나, 낮은 원인이 domain shift때문인지 IF성능 때문인지는 분명하지 않음
+- 확실히 LRM의 성능이 상대적으로 낮으나, 낮은 원인이 domain shift때문인지 IF성능 때문인지는 분명하지 않음
 
 ⇒ 수학 도메인의 IF benchmark를 만들자!
 
@@ -144,7 +145,7 @@ title: 'Scaling Reasoning, Losing Control: Evaluating Instruction Following in L
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2025-07-15-scaling-reasoning-losing-control-evaluating-instruction-following-in/image_004.png" class="img-fluid rounded z-depth-1" %}
 
-  - 구체적인 언급 없으면 correctness는 contraint가 있는 상태에서 나온 답변으로 계산
+- 구체적인 언급 없으면 correctness는 contraint가 있는 상태에서 나온 답변으로 계산
 
 ## Experiment
 

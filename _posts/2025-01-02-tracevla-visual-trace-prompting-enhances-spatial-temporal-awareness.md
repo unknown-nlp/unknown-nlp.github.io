@@ -1,26 +1,27 @@
 ---
 categories:
-- paper-reviews
-date: '2025-01-02 00:00:00'
+  - paper-reviews
+date: "2025-01-02 00:00:00"
 description: 논문 리뷰 - Robotics, Evaluation Metric 관련 연구
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-- embedding
-- evaluation metric
-- llm
-- multimodal
-- paper-review
-- robotics
-- transformer
-- vision
+  - embedding
+  - evaluation metric
+  - llm
+  - multimodal
+  - paper-review
+  - robotics
+  - transformer
+  - vision
 thumbnail: assets/img/posts/2025-01-02-tracevla-visual-trace-prompting-enhances-spatial-temporal-awareness/thumbnail.jpg
-title: 'TraceVLA: Visual Trace Prompting Enhances Spatial-Temporal Awareness for Generalist
-  Robotic Policies'
+title: "TraceVLA: Visual Trace Prompting Enhances Spatial-Temporal Awareness for Generalist
+  Robotic Policies"
 ---
 
 **논문 정보**
+
 - **Date**: 2025-01-02
 - **Reviewer**: 전민진
 - **Property**: Robotics, Evaluation Metric
@@ -55,11 +56,11 @@ title: 'TraceVLA: Visual Trace Prompting Enhances Spatial-Temporal Awareness for
 
   - 장점
 
-    - curation한 Open-X dataset 150K를 사용해서 VLA를 finetuning, 다양한 환경에서도 성능이 어느정도 유지되는 general policy를 제안 
+    - curation한 Open-X dataset 150K를 사용해서 VLA를 finetuning, 다양한 환경에서도 성능이 어느정도 유지되는 general policy를 제안
 
     - VLA 모델을 학습할 때, 어떠한 방식으로 해야하는지 개괄적인 베이스라인을 제공한 느낌
 
-  - 단점 
+  - 단점
 
     - **Only supports single-frame input**
 
@@ -109,7 +110,7 @@ title: 'TraceVLA: Visual Trace Prompting Enhances Spatial-Temporal Awareness for
 
   - multi-point trajectories를 visual trace라고 지칭, 이는 기존 사진에 여러 포인트의 trajectory를 표시한 형태
 
-  - 결론적으로는 2d input image를 하나 추가한 셈이지만, 훨신 더 향상된 spatial-temporal awareness를 보임 
+  - 결론적으로는 2d input image를 하나 추가한 셈이지만, 훨신 더 향상된 spatial-temporal awareness를 보임
 
 - visual trace prompting을 사용하는 TraceVLA를 제안
 
@@ -133,7 +134,7 @@ title: 'TraceVLA: Visual Trace Prompting Enhances Spatial-Temporal Awareness for
 
 **[Visual trace를 생성하는 방법]**
 
-- timestep t, time window budget N이 주어질 때, 우선 historical image observations h_t = (o_{t-N},...,o_t)에서 dense point trajectories 집합을 추출
+- timestep t, time window budget N이 주어질 때, 우선 historical image observations h*t = (o*{t-N},...,o_t)에서 dense point trajectories 집합을 추출
 
   - dense point tracking 모델로는 Co-Tracker를 사용
 
@@ -141,13 +142,13 @@ title: 'TraceVLA: Visual Trace Prompting Enhances Spatial-Temporal Awareness for
 
 - K x K개의 tracking point가 만들어진 후, 그 중에서 active point만 식별하기 위해서 pixel location에서의 change를 계산
 
-  - \Delta p_{t'} = |p_{t'+1}-p_{t'}|_1
+  - \Delta p*{t'} = |p*{t'+1}-p\_{t'}|\_1
 
-  - active point trajectories 
+  - active point trajectories
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2025-01-02-tracevla-visual-trace-prompting-enhances-spatial-temporal-awareness/image_003.png" class="img-fluid rounded z-depth-1" %}
 
-  - \hat P에서 M개의 active point trajectories를 sampling, 이를 visual prompting에 사용
+- \hat P에서 M개의 active point trajectories를 sampling, 이를 visual prompting에 사용
 
 - sampled active point trajectories를 robot의 original observation frame에 그림, 이를 visual prompt으로 최종적으로 사용
 
@@ -161,13 +162,13 @@ title: 'TraceVLA: Visual Trace Prompting Enhances Spatial-Temporal Awareness for
 
   - visual prompt와 original observation사이에 special sperator token([SEP])를 넣어 분리
 
--  test시 visual trace를 사용하지 못하는 상황이 발생할 수 있으므로, 학습 동안에 dropout mechanism을 구현
+- test시 visual trace를 사용하지 못하는 상황이 발생할 수 있으므로, 학습 동안에 dropout mechanism을 구현
 
-  - Co-Tracker가 나쁜 조도 환경에서는 성능이 몹시 안좋음
+- Co-Tracker가 나쁜 조도 환경에서는 성능이 몹시 안좋음
 
-  - \alpha의 확률로, visual trace prompt image를 original image로 교체, text prompt에서도 이에 대한 말은 삭제
+- \alpha의 확률로, visual trace prompt image를 original image로 교체, text prompt에서도 이에 대한 말은 삭제
 
-    - Co-Tracker model이 visual trace를 추출하지 못하는 상황에서도 VLA모델이 정상적으로 작동하도록 함
+  - Co-Tracker model이 visual trace를 추출하지 못하는 상황에서도 VLA모델이 정상적으로 작동하도록 함
 
 ### Implementation Details
 
@@ -213,7 +214,7 @@ title: 'TraceVLA: Visual Trace Prompting Enhances Spatial-Temporal Awareness for
 
   - visual matching은 real environment와 Raw simulation사이의 visual appearance gap을 최소화하는게 목표인 세팅
 
-  - visual aggregation은 넓은 범주의 Environment variation을 커버하는 세팅 
+  - visual aggregation은 넓은 범주의 Environment variation을 커버하는 세팅
 
     - background from different room, lighter and darker lightning condition, varying number of distractors, solid color and complex table textures, different robot camera poses
 
@@ -221,9 +222,9 @@ title: 'TraceVLA: Visual Trace Prompting Enhances Spatial-Temporal Awareness for
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2025-01-02-tracevla-visual-trace-prompting-enhances-spatial-temporal-awareness/image_004.png" class="img-fluid rounded z-depth-1" %}
 
-  -  실험 결과, 기존 OpenVLA모델보다 TraceVLA가 모든 세팅에서 더 높은 성능을 보임
+- 실험 결과, 기존 OpenVLA모델보다 TraceVLA가 모든 세팅에서 더 높은 성능을 보임
 
-  - visual trace prompting이 모델의 일반화 성능을 강화시킴
+- visual trace prompting이 모델의 일반화 성능을 강화시킴
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2025-01-02-tracevla-visual-trace-prompting-enhances-spatial-temporal-awareness/image_005.png" class="img-fluid rounded z-depth-1" %}
 
@@ -231,13 +232,13 @@ title: 'TraceVLA: Visual Trace Prompting Enhances Spatial-Temporal Awareness for
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2025-01-02-tracevla-visual-trace-prompting-enhances-spatial-temporal-awareness/image_006.png" class="img-fluid rounded z-depth-1" %}
 
-  - 여러 환경변수를 바꿨을 때의 성능을 측정
+- 여러 환경변수를 바꿨을 때의 성능을 측정
 
-  - 측정 결과, 모든 세팅에서 TraceVLA가 보다 높은 성능을 보임
+- 측정 결과, 모든 세팅에서 TraceVLA가 보다 높은 성능을 보임
 
-    - visual trace prompting이 카메라 앵글이 바뀔 때에도, 유의미한 spatial trajectory 정보를 제공하기 때문인 것으로 보임
+  - visual trace prompting이 카메라 앵글이 바뀔 때에도, 유의미한 spatial trajectory 정보를 제공하기 때문인 것으로 보임
 
-    - 카메라 앵글 외에, 배경이 바뀌거나, table texture, lighting alteration과 같은 environmental background에 대해서도 영향을 덜 받고, stable하도록 함
+  - 카메라 앵글 외에, 배경이 바뀌거나, table texture, lighting alteration과 같은 environmental background에 대해서도 영향을 덜 받고, stable하도록 함
 
 ### Real Robot Experiments
 

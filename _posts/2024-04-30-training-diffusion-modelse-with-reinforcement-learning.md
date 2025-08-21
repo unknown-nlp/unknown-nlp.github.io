@@ -1,30 +1,31 @@
 ---
 categories:
-- paper-reviews
-date: '2024-04-30 00:00:00'
+  - paper-reviews
+date: "2024-04-30 00:00:00"
 description: 논문 리뷰 - Evaluation Metric, RL 관련 연구
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-- alignment
-- bert
-- diffusion
-- embedding
-- evaluation metric
-- fine-tuning
-- generative
-- language-model
-- neural
-- paper-review
-- reinforcement-learning
-- rl
-- vision
+  - alignment
+  - bert
+  - diffusion
+  - embedding
+  - evaluation metric
+  - fine-tuning
+  - generative
+  - language-model
+  - neural
+  - paper-review
+  - reinforcement-learning
+  - rl
+  - vision
 thumbnail: assets/img/posts/2024-04-30-training-diffusion-modelse-with-reinforcement-learning/thumbnail.jpg
 title: Training diffusion modelse with reinforcement learning
 ---
 
 **논문 정보**
+
 - **Date**: 2024-04-30
 - **Reviewer**: 전민진
 - **Property**: Evaluation Metric, RL
@@ -55,7 +56,7 @@ title: Training diffusion modelse with reinforcement learning
 
   - 이 문제의 어려운 점은 diffusion model의 정확한 likelihood 계산이 불가능하다는 것에서 기인, 대부분의 RL알고리즘을 적용하기 어려움
 
-    -  RL에서는 결국 최적의 정책, 최대 보상을 얻을 수 있는 정책을 찾는 것이 목표인데, diffusion에서 정책은 결국 데이터의 likelihood이기 때문
+    - RL에서는 결국 최적의 정책, 최대 보상을 얻을 수 있는 정책을 찾는 것이 목표인데, diffusion에서 정책은 결국 데이터의 likelihood이기 때문
 
 - denoising을 multi-step decision-making task로 보는 방법론을 제안, 전체 denoising process 과정을 근사한 likelihood를 사용하는 것이 아니라 각 denoising step에서의 정확한 likelihood를 사용
 
@@ -157,19 +158,19 @@ title: Training diffusion modelse with reinforcement learning
 
 - Diffusion models
 
-  - 본 논문에서는 conditional diffusion probailistic models를 고려, 해당 모델은 데이터셋의 샘플 \mathbf{x}_0와 그에 상응하는 context \mathbf{c}에 대한 distribution p(\mathbf{x}_0|\mathbf{c})로 나타냄
+  - 본 논문에서는 conditional diffusion probailistic models를 고려, 해당 모델은 데이터셋의 샘플 \mathbf{x}\_0와 그에 상응하는 context \mathbf{c}에 대한 distribution p(\mathbf{x}\_0|\mathbf{c})로 나타냄
 
   - 해당 분포는 데이터에 반복적으로 노이즈를 더하는 Markovian forward process q(\mathbf{x}_t | \mathbf{x}_{t-1})의 역과정으로 모델링 됨
 
-  - forward process의 역과정은 아래 objective로 neural network \mathbf{\mu}_\theta(\mathbf{x}_t,\mathbf{c},t)를 학습하는 것으로 구현
+  - forward process의 역과정은 아래 objective로 neural network \mathbf{\mu}\_\theta(\mathbf{x}\_t,\mathbf{c},t)를 학습하는 것으로 구현
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-04-30-training-diffusion-modelse-with-reinforcement-learning/image_000.png" class="img-fluid rounded z-depth-1" %}
 
-  - t시점의 이미지와 context, 특정 시점 t를 바탕으로 각 step의 평균을 모델링 특정 시점 t와, 원본 이미지가 주어졌을 때의 forward process의 mean과의 차이가 줄도록 학습
+- t시점의 이미지와 context, 특정 시점 t를 바탕으로 각 step의 평균을 모델링 특정 시점 t와, 원본 이미지가 주어졌을 때의 forward process의 mean과의 차이가 줄도록 학습
 
-  - sampling process는 predictor \mu_\theta뿐만 아니라 sample의 선택에 의존
+- sampling process는 predictor \mu\_\theta뿐만 아니라 sample의 선택에 의존
 
-    - 보통 sampler로 isotropic Gaussian reverse process를 씀
+  - 보통 sampler로 isotropic Gaussian reverse process를 씀
 
 - Markov decision processes and reinforcement learning
 
@@ -185,7 +186,7 @@ title: Training diffusion modelse with reinforcement learning
 
     - R : reward
 
-  - 각 timestep t마다, agent는 s_t \in S를 관찰, a_t \in A를 취하고, 보상 R(s_t,a_t)를 획득, 새로운 state s_{t+1} \sim P(s_{t+1}|s_t,a_t)로 이동
+  - 각 timestep t마다, agent는 s*t \in S를 관찰, a_t \in A를 취하고, 보상 R(s_t,a_t)를 획득, 새로운 state s*{t+1} \sim P(s\_{t+1}|s_t,a_t)로 이동
 
   - agent는 policy \pi(a|s)에 따라 행동
 
@@ -199,7 +200,7 @@ title: Training diffusion modelse with reinforcement learning
 
   - 이미 diffusion model이 있다고 가정, model은 pretrain되거나 randomly initialized.
 
-  - fixed sampler를 가정하고, diffusion model은 sample ditribution p_{\theta}(\mathbf{x}_0|\mathbf{c})을 유발
+  - fixed sampler를 가정하고, diffusion model은 sample ditribution p\_{\theta}(\mathbf{x}\_0|\mathbf{c})을 유발
 
   - denoising diffusion RL objective는 각 sample과 context로 정의된 reward signal r을 최대화 하는 것이 목표
 
@@ -209,7 +210,7 @@ title: Training diffusion modelse with reinforcement learning
 
 - Reward-weighted regression
 
-  - standard diffuion model 학습 시 적은 변화로 J_{DDRL}에 최적화하기 위해서, [Lee et al, 2023]에서는 diffusion model에 대한 sigle-round version을 서술
+  - standard diffuion model 학습 시 적은 변화로 J\_{DDRL}에 최적화하기 위해서, [Lee et al, 2023]에서는 diffusion model에 대한 sigle-round version을 서술
 
     - 일반적으로 이 방법은 sampling과 training을 번갈아가면서 수행되기 때문에 online RL방법으로 가능
 
@@ -229,29 +230,29 @@ title: Training diffusion modelse with reinforcement learning
 
   - denoising process를 multi-step MDP에 치환하는걸 보임
 
-    - 이는 policy gradient를 통해 J_{DDRL}을 바로 최적화하도록 함
+    - 이는 policy gradient를 통해 J\_{DDRL}을 바로 최적화하도록 함
 
     - 이는 이전 논문에서 유도한 것을 따르며, 그들의 방법과 reward가 GAN-like discriminator인 policy gradient algoritm간의 등가성을 증명
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-04-30-training-diffusion-modelse-with-reinforcement-learning/image_005.png" class="img-fluid rounded z-depth-1" %}
 
-  - state : text, time step t, image of time step t
+- state : text, time step t, image of time step t
 
-  - action : image of time step t-1
+- action : image of time step t-1
 
-  - policy : reverse process given imag of time step t and text
+- policy : reverse process given imag of time step t and text
 
-  - distribution of initial states : distribution of text, dirac delta distribution of time step t, standard gaussian(X_T는 여기서 샘플링되니까)
+- distribution of initial states : distribution of text, dirac delta distribution of time step t, standard gaussian(X_T는 여기서 샘플링되니까)
 
-  - transition kernel : dirac delta distribution of text, time step t-1, image of time step t-1
+- transition kernel : dirac delta distribution of text, time step t-1, image of time step t-1
 
-  - reward is computed given \mathbf{x_0}, \mathbf{c}
+- reward is computed given \mathbf{x_0}, \mathbf{c}
 
 - policy gradient estimation
 
-  - likelihood와 likelihood gradient에 접근할 수 있다면, 우리는 \nabla J_{DDRL}의 직접적인 Monte Carlo estimate가능
+  - likelihood와 likelihood gradient에 접근할 수 있다면, 우리는 \nabla J\_{DDRL}의 직접적인 Monte Carlo estimate가능
 
-  - RWR처럼, DDPO는 샘플링을 통해 denoising trajectories \{\mathbf{x}_T,\mathbf{x}_{T-1},...,\mathbf{x}_0\}을 수집, gradient descent로 parameter update
+  - RWR처럼, DDPO는 샘플링을 통해 denoising trajectories \{\mathbf{x}_T,\mathbf{x}_{T-1},...,\mathbf{x}\_0\}을 수집, gradient descent로 parameter update
 
   - DDPO의 첫번째 버전을 DDPO_SF라 하고, score function policy gradient estimator(aka REINFORCE algorithm)를 사용
 
@@ -261,9 +262,9 @@ title: Training diffusion modelse with reinforcement learning
 
       - gradient가 현재 파라미터로 생성된 데이터에 의해 계산되어야 하기 때문
 
-  - 여러 번의 optimization을 할 수 있게, importance sampling estimator를 사용(DDPO_IS)
+- 여러 번의 optimization을 할 수 있게, importance sampling estimator를 사용(DDPO_IS)
 
-    - 구현시, p_{\theta}가 p_{\theta_{old}}와 너무 멀어져서 estimator가 부정확해지는 것을 막기 위해 clipping을 통해 trust region을 구현(PPO처럼)
+  - 구현시, p*{\theta}가 p*{\theta\_{old}}와 너무 멀어져서 estimator가 부정확해지는 것을 막기 위해 clipping을 통해 trust region을 구현(PPO처럼)
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-04-30-training-diffusion-modelse-with-reinforcement-learning/image_007.png" class="img-fluid rounded z-depth-1" %}
 
@@ -307,21 +308,21 @@ title: Training diffusion modelse with reinforcement learning
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-04-30-training-diffusion-modelse-with-reinforcement-learning/image_008.png" class="img-fluid rounded z-depth-1" %}
 
-  - text-to-image model을 학습하는 범용적인 reward function은 prompt-image alignment
+- text-to-image model을 학습하는 범용적인 reward function은 prompt-image alignment
 
-  - 하지만 일반적인 prompt alignment를 파악하는 reward를 specifying하는 것은 어려움
+- 하지만 일반적인 prompt alignment를 파악하는 reward를 specifying하는 것은 어려움
 
-    - large-scale human labelingh efforts가 필요
+  - large-scale human labelingh efforts가 필요
 
-  - 본 논문에서는 기존의 VLM을 사용하는 방법론을 제안
+- 본 논문에서는 기존의 VLM을 사용하는 방법론을 제안
 
-    - RLAIF연구에서 영감을 받음
+  - RLAIF연구에서 영감을 받음
 
-      - 언어 모델이 자체 피드백을 통해 개선
+    - 언어 모델이 자체 피드백을 통해 개선
 
-  - SOTA VLM인 LLaVa를 사용해서 image에 대한 description을 생성, image를 생성할 때 사용한 text와 BERTScore를 계산, 이를 reward로 사용
+- SOTA VLM인 LLaVa를 사용해서 image에 대한 description을 생성, image를 생성할 때 사용한 text와 BERTScore를 계산, 이를 reward로 사용
 
-    - BERTScore recall metric 사용
+  - BERTScore recall metric 사용
 
 ## Experimiental evaluation
 
@@ -345,57 +346,57 @@ title: Training diffusion modelse with reinforcement learning
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-04-30-training-diffusion-modelse-with-reinforcement-learning/image_009.png" class="img-fluid rounded z-depth-1" %}
 
-  - 위의 결과를 보면, DDPO는 추가적인 data curation없이 reward function 명시만으로 pretrained model을 효과적으로 adapt
+- 위의 결과를 보면, DDPO는 추가적인 data curation없이 reward function 명시만으로 pretrained model을 효과적으로 adapt
 
-  - 각 reward를 최적화 하기 위해 찾은 전략이 nontrivial함
+- 각 reward를 최적화 하기 위해 찾은 전략이 nontrivial함
 
-    - 예를 들어, LAION-predicted aesthetic quality를 최대화 하기 위해, DDPO는 자연스러운 이미지를 artistic drawing을 생성하도록 모델을 변형
+  - 예를 들어, LAION-predicted aesthetic quality를 최대화 하기 위해, DDPO는 자연스러운 이미지를 artistic drawing을 생성하도록 모델을 변형
 
-    - compressibility를 최대화 하기 위해, DDPO는 background를 제거, 남아있는 것에 smoothing을 적용
+  - compressibility를 최대화 하기 위해, DDPO는 background를 제거, 남아있는 것에 smoothing을 적용
 
-    - incompressibility를 최대화 하기 위해, DDPO는 JPEG compression algorithm으로 인코딩하기 힘든 artifact를 찾음
+  - incompressibility를 최대화 하기 위해, DDPO는 JPEG compression algorithm으로 인코딩하기 힘든 artifact를 찾음
 
-      - high-frequency noise, sharp edges
+    - high-frequency noise, sharp edges
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-04-30-training-diffusion-modelse-with-reinforcement-learning/image_010.png" class="img-fluid rounded z-depth-1" %}
 
-  - 양적인 비교는 위의 그래프에 나와 있음
+- 양적인 비교는 위의 그래프에 나와 있음
 
-    - DDPO가 확실히 RWR보다 우월한 성능을 보임
+  - DDPO가 확실히 RWR보다 우월한 성능을 보임
 
-    - 즉, denoising process를 multi-step MDP로 formulating하고 policy gradient로 바로 최적화하는 것이 log-likelihood에 대한 reward-weighted variational bound에 최적화하는 것보다 훨씬 효율적
+  - 즉, denoising process를 multi-step MDP로 formulating하고 policy gradient로 바로 최적화하는 것이 log-likelihood에 대한 reward-weighted variational bound에 최적화하는 것보다 훨씬 효율적
 
-    - DDPO끼리 비교하면, importance sampling estimator가 약간 성능이 우수, 이는 opimization step이 늘어났기 때문
+  - DDPO끼리 비교하면, importance sampling estimator가 약간 성능이 우수, 이는 opimization step이 늘어났기 때문
 
 - Automated prompt alignment
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-04-30-training-diffusion-modelse-with-reinforcement-learning/image_011.png" class="img-fluid rounded z-depth-1" %}
 
-  - DDPO_IS를 바탕으로 실험 진행
+- DDPO_IS를 바탕으로 실험 진행
 
-  - 해당 task에 대한 prompt로 “a(n) [animal] [activity]”형태를 사용
+- 해당 task에 대한 prompt로 “a(n) [animal] [activity]”형태를 사용
 
-    - 동물은 45개 list에서 선택
+  - 동물은 45개 list에서 선택
 
-    - activity는 “riding a bike”, “playing chess”, “washing dishes”중 하나 선택
+  - activity는 “riding a bike”, “playing chess”, “washing dishes”중 하나 선택
 
-  - finetuning set의 일부 prompt의 경우(돌고래가 자전거를 타고 있는 모습)엔 pretrained모델로 아예 생성하지 못했는데, adaptation후에는 잘 생성되는 것을 볼 수 있음
+- finetuning set의 일부 prompt의 경우(돌고래가 자전거를 타고 있는 모습)엔 pretrained모델로 아예 생성하지 못했는데, adaptation후에는 잘 생성되는 것을 볼 수 있음
 
-  - 대부분의 이미지가 cartoon-like 혹은 artistic하게 변화하는 것을 볼 수 있음
+- 대부분의 이미지가 cartoon-like 혹은 artistic하게 변화하는 것을 볼 수 있음
 
-    - 본 논문의 저자들은 pretraining distribution의 function 혹은 reward function 때문인 것으로 추정
+  - 본 논문의 저자들은 pretraining distribution의 function 혹은 reward function 때문인 것으로 추정
 
-      - 예를 들어, 일상적인 활동을 동물이 하는 것은 photorealistic보단 cartoon-like로 묘사됐을 것
+    - 예를 들어, 일상적인 활동을 동물이 하는 것은 photorealistic보단 cartoon-like로 묘사됐을 것
 
-      - 혹은 LLaVA모델이 간단한 cartoon-like image를 인식하기 용이했을 것
+    - 혹은 LLaVA모델이 간단한 cartoon-like image를 인식하기 용이했을 것
 
 - Generalization
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-04-30-training-diffusion-modelse-with-reinforcement-learning/image_012.png" class="img-fluid rounded z-depth-1" %}
 
-  - LM에서와 비슷하게 finetuning의 효과가 일반화 되는 것을 발견
+- LM에서와 비슷하게 finetuning의 효과가 일반화 되는 것을 발견
 
-  - 학습 분포 밖의 동물, 비동물(일상적인 물건)에 대한 generalization evidence를 발견했고, prompt-image alignment의 경우 새로운 활동 “tasking an exam”에 대해서도 생성이 가능했음
+- 학습 분포 밖의 동물, 비동물(일상적인 물건)에 대한 generalization evidence를 발견했고, prompt-image alignment의 경우 새로운 활동 “tasking an exam”에 대해서도 생성이 가능했음
 
 ## Discussion and Limitations
 
@@ -405,7 +406,7 @@ title: Training diffusion modelse with reinforcement learning
 
 - DDPO는 prompt로 명시하기 어렵고, 프로그래밍 적으로 평가하기 어려운 taks에 대해서 매우 효과적으로 최적화 하는 방법론
 
-- 향후 과제로, 
+- 향후 과제로,
 
   - VLM에 input으로 들어가는 질문을 확장할 수 있고, prompt를 기반으로 관련 질문을 생성하는 언어모델을 사용할 수 있음
 

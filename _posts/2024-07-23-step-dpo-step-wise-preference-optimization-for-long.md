@@ -1,25 +1,26 @@
 ---
 categories:
-- paper-reviews
-date: '2024-07-23 00:00:00'
+  - paper-reviews
+date: "2024-07-23 00:00:00"
 description: 논문 리뷰 - Reasoning, Reinforcement Learning 관련 연구
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-- alignment
-- gpt
-- llm
-- paper-review
-- pre-training
-- reasoning
-- reinforcement learning
-- rlhf
+  - alignment
+  - gpt
+  - llm
+  - paper-review
+  - pre-training
+  - reasoning
+  - reinforcement learning
+  - rlhf
 thumbnail: assets/img/posts/2024-07-23-step-dpo-step-wise-preference-optimization-for-long/thumbnail.jpg
-title: 'Step-DPO : Step-wise preference optimization for long-chain reasoning of LLMs'
+title: "Step-DPO : Step-wise preference optimization for long-chain reasoning of LLMs"
 ---
 
 **논문 정보**
+
 - **Date**: 2024-07-23
 - **Reviewer**: 전민진
 - **Property**: Reasoning, Reinforcement Learning
@@ -96,7 +97,7 @@ title: 'Step-DPO : Step-wise preference optimization for long-chain reasoning of
 
 - DPO
 
-  - input prompt x, preference data pair (y_{win},y_{lose})가 주어질 때, DPO는 preferred output y_win의 확률을 높이면서 undesirable output y_lose의 확률은 낮추려고 함
+  - input prompt x, preference data pair (y*{win},y*{lose})가 주어질 때, DPO는 preferred output y_win의 확률을 높이면서 undesirable output y_lose의 확률은 낮추려고 함
 
   - DPO의 경우, incorrect answer안에 일부 맞는 reasoning step이 있어도 전체를 reject하도록 학습되기 때문에 학습하면서 상당한 noise, 악영향을 끼침
 
@@ -106,7 +107,7 @@ title: 'Step-DPO : Step-wise preference optimization for long-chain reasoning of
 
   - answer y를 reasoning step의 sequence y=s_1,...,s_n으로 쪼개서 생각
 
-  - Step-DPO에서는 correct next reasoning step s_{win}의 확률을 높이고, incorrect next reasoning step s_{lose}의 확률을 낮추는 것을 목표로 학습 
+  - Step-DPO에서는 correct next reasoning step s*{win}의 확률을 높이고, incorrect next reasoning step s*{lose}의 확률을 낮추는 것을 목표로 학습
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-07-23-step-dpo-step-wise-preference-optimization-for-long/image_004.png" class="img-fluid rounded z-depth-1" %}
 
@@ -118,11 +119,11 @@ title: 'Step-DPO : Step-wise preference optimization for long-chain reasoning of
 
     - prompt x
 
-    - initial reasoning steps s_{1\sim k-1}=s_1,...,s_{k-1}
+    - initial reasoning steps s*{1\sim k-1}=s_1,...,s*{k-1}
 
-    - preferred reasoning step s_{win}
+    - preferred reasoning step s\_{win}
 
-    - undesirable reasoning step s_{lose}
+    - undesirable reasoning step s\_{lose}
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-07-23-step-dpo-step-wise-preference-optimization-for-long/image_005.png" class="img-fluid rounded z-depth-1" %}
 
@@ -130,33 +131,33 @@ title: 'Step-DPO : Step-wise preference optimization for long-chain reasoning of
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-07-23-step-dpo-step-wise-preference-optimization-for-long/image_006.png" class="img-fluid rounded z-depth-1" %}
 
-  - Error collection
+- Error collection
 
-    - 우선 수학 문제와 정답으로 구성된 D_0=\{(x,\hat y)\}를 수집
+  - 우선 수학 문제와 정답으로 구성된 D_0=\{(x,\hat y)\}를 수집
 
-      - x는 reference model을 infer할 때 prompt로 사용
+    - x는 reference model을 infer할 때 prompt로 사용
 
-    - inference 전에, step-wise Chain-of-Thought prefix를 추가
+  - inference 전에, step-wise Chain-of-Thought prefix를 추가
 
-      - “Let’s think step by step. Step 1:”
+    - “Let’s think step by step. Step 1:”
 
-      - 이를 통해 각 step이 명시적으로 step i 다음에 작성되게 됨
+    - 이를 통해 각 step이 명시적으로 step i 다음에 작성되게 됨
 
-    - 이러한 prompt를 바탕으로 final answer(model generated answer) y를 수집, 그중 오답인 y를 모아서 D_1=\{(x,\hat y, y)\}를 구축
+  - 이러한 prompt를 바탕으로 final answer(model generated answer) y를 수집, 그중 오답인 y를 모아서 D_1=\{(x,\hat y, y)\}를 구축
 
-  - Step Localization
+- Step Localization
 
-    - D_1에서 수집한 sequence of reasoning step을 바탕으로, 각 step이 맞는지를 확인, 최초로 error가 발생한 지점을 k로 표기
+  - D_1에서 수집한 sequence of reasoning step을 바탕으로, 각 step이 맞는지를 확인, 최초로 error가 발생한 지점을 k로 표기
 
-      - GPT-4 혹은 사람을 써서 함
+    - GPT-4 혹은 사람을 써서 함
 
-    - s_k를 틀린 reasoning step s_{lose}로 사용
+  - s*k를 틀린 reasoning step s*{lose}로 사용
 
-    - D_2=\{(x,\hat y, s_{1 \sim k-1},s_{lose})\}로 formulation
+  - D*2=\{(x,\hat y, s*{1 \sim k-1},s\_{lose})\}로 formulation
 
-  - Rectification
+- Rectification
 
-    - reference model에 prompt x와 preceding correct reasoning step s_{1\sim k-1}를 여러 답변을 sampling(y_{cont})
+  - reference model에 prompt x와 preceding correct reasoning step s*{1\sim k-1}를 여러 답변을 sampling(y*{cont})
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-07-23-step-dpo-step-wise-preference-optimization-for-long/image_007.png" class="img-fluid rounded z-depth-1" %}
 
@@ -166,13 +167,13 @@ title: 'Step-DPO : Step-wise preference optimization for long-chain reasoning of
 
       - (이 과정은 appedix에 쓴다 했는데, 아직 appendix가 없음.. 쓰는 중인듯..)
 
-**이렇게 데이터를 구축할 때의 키는 in-ditribution data를 사용해야한다는 것
+\*\*이렇게 데이터를 구축할 때의 키는 in-ditribution data를 사용해야한다는 것
 
-  - 만약 s_win을 구축할 때, reference model이 아니라 사람이나 GPT-4를 사용하게 된다면, 자기가 아닌 모델로 수정한 답변은 현재 모델에선 낮은 prob를 가질 수 있고, 이를 높은 확률이 되도록 학습하는 것은 gradient decay issue때문에 어려울 수 있음
+- 만약 s_win을 구축할 때, reference model이 아니라 사람이나 GPT-4를 사용하게 된다면, 자기가 아닌 모델로 수정한 답변은 현재 모델에선 낮은 prob를 가질 수 있고, 이를 높은 확률이 되도록 학습하는 것은 gradient decay issue때문에 어려울 수 있음
 
-    - 이것도 appendix에서 다룬다는데 아직 없음.
+  - 이것도 appendix에서 다룬다는데 아직 없음.
 
-  - 결론적으로, self-generated in-distribution data를 사용하는게 human preference와 alinging되도록 학습할 때 효과적.
+- 결론적으로, self-generated in-distribution data를 사용하는게 human preference와 alinging되도록 학습할 때 효과적.
 
 ## Experiments
 
@@ -202,7 +203,7 @@ title: 'Step-DPO : Step-wise preference optimization for long-chain reasoning of
 
     - MATH, GSM8K, AIME, Odyssey-MATH로 평가
 
-      - math가 5000개의 데이터, gsm8k가 1319개. 
+      - math가 5000개의 데이터, gsm8k가 1319개.
 
       - math가 더 어려운 데이터셋
 

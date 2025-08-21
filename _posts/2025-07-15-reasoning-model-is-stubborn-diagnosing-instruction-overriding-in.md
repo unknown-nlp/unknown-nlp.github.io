@@ -1,25 +1,26 @@
 ---
 categories:
-- paper-reviews
-date: '2025-07-15 00:00:00'
+  - paper-reviews
+date: "2025-07-15 00:00:00"
 description: 논문 리뷰
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-- attention
-- detection
-- embedding
-- gpt
-- llm
-- paper-review
-- reasoning
+  - attention
+  - detection
+  - embedding
+  - gpt
+  - llm
+  - paper-review
+  - reasoning
 thumbnail: assets/img/posts/2025-07-15-reasoning-model-is-stubborn-diagnosing-instruction-overriding-in/thumbnail.jpg
-title: 'Reasoning Model is Stubborn: Diagnosing Instruction Overriding in Reasoning
-  Models'
+title: "Reasoning Model is Stubborn: Diagnosing Instruction Overriding in Reasoning
+  Models"
 ---
 
 **논문 정보**
+
 - **Date**: 2025-07-15
 - **Reviewer**: 전민진
 
@@ -35,11 +36,11 @@ title: 'Reasoning Model is Stubborn: Diagnosing Instruction Overriding in Reason
 
   - deviation을 요구하도록 기존 데이터셋을 수정한 상태
 
-  - 예를 들어, 모든 토끼는 불임이다. 토끼가 3쌍이 있고 토끼 한 쌍이 암수 각 1마리씩 총 2마리를 낳는다고 가정하면, 2세대를 거치면 몇마리의 토끼가 되는가? 라는 질문. 
+  - 예를 들어, 모든 토끼는 불임이다. 토끼가 3쌍이 있고 토끼 한 쌍이 암수 각 1마리씩 총 2마리를 낳는다고 가정하면, 2세대를 거치면 몇마리의 토끼가 되는가? 라는 질문.
 
 ⇒ 이를 통해서 모델이 습관적으로 쓰는 contamination된 pattern을 식별할 수 있음
 
-  - 모델이 주어진 instruction 을 무시하거나 왜곡하도록 함
+- 모델이 주어진 instruction 을 무시하거나 왜곡하도록 함
 
 - reasoning trap을 통해서 모덷이 습관적으로 사용하는 reasoning pattern을 발견, 분류
 
@@ -55,7 +56,7 @@ title: 'Reasoning Model is Stubborn: Diagnosing Instruction Overriding in Reason
 
 - LLM은 수학, 복잡한 코딩 문제, 퍼즐 풀이를 포함한 여러 어려운 태스크에서 주목할만한 성능을 보임
 
-  - 특히 test-time scaling을 활용해 확장된  CoT prompting을 활용하는 reasoning model들이 큰 주목을 받고 있음
+  - 특히 test-time scaling을 활용해 확장된 CoT prompting을 활용하는 reasoning model들이 큰 주목을 받고 있음
 
 - 하지만, 이러한 모델들에게 문제 행동, reasoning rigidity가 발견됨
 
@@ -65,9 +66,9 @@ title: 'Reasoning Model is Stubborn: Diagnosing Instruction Overriding in Reason
 
 ⇒ 이는 기존에 언급되어왔던 hallucinataion, prompt brittlness들을 해소해도 존재할 수 있음
 
-  - hallucination : 틀린 정보를 생성하는 것
+- hallucination : 틀린 정보를 생성하는 것
 
-  - prompt brittlness : 미묘한 prompt 차이에 따라 답변이 바뀜. 답변이 unstable한 현상
+- prompt brittlness : 미묘한 prompt 차이에 따라 답변이 바뀜. 답변이 unstable한 현상
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2025-07-15-reasoning-model-is-stubborn-diagnosing-instruction-overriding-in/image_000.png" class="img-fluid rounded z-depth-1" %}
 
@@ -77,7 +78,7 @@ title: 'Reasoning Model is Stubborn: Diagnosing Instruction Overriding in Reason
 
 ⇒ 사용자의 지시를 무의식 중에 편집하거나 무시(reasoning rigidity), 모델의 reasoning path전체가 오염, 오답으로 이어짐
 
-  - 이러한 현상은 아주 크리티컬하나, 본 논문에서 처음으로 문제를 정의
+- 이러한 현상은 아주 크리티컬하나, 본 논문에서 처음으로 문제를 정의
 
 - reasoning rigidity를 식별할 수 있도록, 기존의 수학, 퍼즐 데이터셋을 활용해 reasoningtrap이라는 벤치마크를 제안
 
@@ -111,7 +112,7 @@ title: 'Reasoning Model is Stubborn: Diagnosing Instruction Overriding in Reason
 
 ⇒ 즉, LRM이 user-provided example을 following하는 능력이 부족
 
-  - 본 연구는 이와 결은 같지만, 모델이 친숙한 reaosning pattern을 고집한다는 것에 초점을 둠
+- 본 연구는 이와 결은 같지만, 모델이 친숙한 reaosning pattern을 고집한다는 것에 초점을 둠
 
 - Rigidity in reasoning models
 
@@ -129,7 +130,7 @@ title: 'Reasoning Model is Stubborn: Diagnosing Instruction Overriding in Reason
 
   - 몇몇 연구들이 왜 LLM이 이러한 rigidity를 가지는지에 대해 분석했고, training data 혹은 optimization 방식에 임베딩된 bias를 지적
 
-  - 한 연구에서 RL로 학습된 모델들이 exploitation이 뛰어나고, 이로 인해 높은 성능은 달성했지만 역설적이게도 non-reasoning model에 비해 좁은  knowledge coverage를 보인다고 주장
+  - 한 연구에서 RL로 학습된 모델들이 exploitation이 뛰어나고, 이로 인해 높은 성능은 달성했지만 역설적이게도 non-reasoning model에 비해 좁은 knowledge coverage를 보인다고 주장
 
   - 다른 연구에서는 training data에 내재된 bias때문이라고 함
 
@@ -195,7 +196,7 @@ title: 'Reasoning Model is Stubborn: Diagnosing Instruction Overriding in Reason
 
 - 각 단락과 오리지널 문제의 reasoning path, 각 단락과 modified reasoning path와의 cosine 유사도를 계산, 둘을 비교해 original reasoning path와의 유사도가 더 높을 경우 1로 계산
 
-  - 즉,  조건이 수정되었는데도 무시하고 습관처럼 reasoning을 했다는 뜻
+  - 즉, 조건이 수정되었는데도 무시하고 습관처럼 reasoning을 했다는 뜻
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2025-07-15-reasoning-model-is-stubborn-diagnosing-instruction-overriding-in/image_003.png" class="img-fluid rounded z-depth-1" %}
 
@@ -241,7 +242,7 @@ Signals for Contamination in Realistic Situation
 
 - 실험 결과, 대부분 reason모드일 때보다 base모드에서 더 높은 성능을 보임
 
-  - 즉, 길게 reasoning을 하면서 습관적인 reasoning pattern을 사용, 오답으로 이어지는 경우가 많다는 것 
+  - 즉, 길게 reasoning을 하면서 습관적인 reasoning pattern을 사용, 오답으로 이어지는 경우가 많다는 것
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2025-07-15-reasoning-model-is-stubborn-diagnosing-instruction-overriding-in/image_008.png" class="img-fluid rounded z-depth-1" %}
 

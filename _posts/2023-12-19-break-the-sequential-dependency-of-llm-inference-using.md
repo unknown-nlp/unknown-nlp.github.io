@@ -1,29 +1,30 @@
 ---
 categories:
-- paper-reviews
-date: '2023-12-19 00:00:00'
+  - paper-reviews
+date: "2023-12-19 00:00:00"
 description: 논문 리뷰 - Decoding 관련 연구
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-- attention
-- decoding
-- llm
-- paper-review
-- transformer
+  - attention
+  - decoding
+  - llm
+  - paper-review
+  - transformer
 thumbnail: assets/img/posts/2023-12-19-break-the-sequential-dependency-of-llm-inference-using/thumbnail.jpg
 title: Break the Sequential Dependency of LLM Inference Using Lookahead Decoding
 ---
 
 **논문 정보**
+
 - **Date**: 2023-12-19
 - **Reviewer**: hyowon Cho
 - **Property**: Decoding
 
 # Introduction
 
-많은 초거대 언어모델들이 현실 세계의 application에 적용되고 있지만, 여전히 그들의 inference는 느리고 최적화하기도 어렵다. 대다수의 언어모델들은 하나의 time step 당 하나의 토큰을 만들어내는 autoregressive decoding에 의존하고 있으며, 당연히 decoding의 수는 response 길이에 의존한다. 즉 latency도 그만큼 늘어난다는 것이다. 
+많은 초거대 언어모델들이 현실 세계의 application에 적용되고 있지만, 여전히 그들의 inference는 느리고 최적화하기도 어렵다. 대다수의 언어모델들은 하나의 time step 당 하나의 토큰을 만들어내는 autoregressive decoding에 의존하고 있으며, 당연히 decoding의 수는 response 길이에 의존한다. 즉 latency도 그만큼 늘어난다는 것이다.
 
 문제를 더욱 심각하게 만드는 것은 각 decoding step은 현대 gpu의 parallel processing power를 전혀 활용하지 못한다는 것이다. 이는 현재 긴 시퀀스를 빠르게 만들어야하는 chatbot이나 personal assistant의 큰 도전과제가 된다.
 
@@ -51,11 +52,11 @@ Lookahead Decoding을 다루기 전에, 2023년 여러 가지 decoding technique
 
 1. draft model이 얼마나 토큰을 잘 만드느냐에 따라서 maximum speedup에 한계가 있음.
 
-  - guess들이 다 거절 당하는 경우
+- guess들이 다 거절 당하는 경우
 
 1. creating an accurate draft model is non-trivial
 
-  - 이 draft model을 만드는 데는 extra training + tuning이 필요함.
+- 이 draft model을 만드는 데는 extra training + tuning이 필요함.
 
 => Draft model을 없애보자!
 
@@ -69,7 +70,7 @@ Lookahead Decoding을 다루기 전에, 2023년 여러 가지 decoding technique
 
 Jacobi는 Ax=b 형태의 선형 연립 방정식을 구하는 방법 중 하나인데, 해의 초기값을 가정한 후 반복 계산으로 이를 수렴시키는 것이 특징이다.
 
-즉, Ax=b를 x=Cx+d, 더 엄밀하게는, x_n = Cx_{n-1}+d로 정의해 x_n을 반복적으로 찾아간다. 초기값은 설정하기 나름이다.
+즉, Ax=b를 x=Cx+d, 더 엄밀하게는, x*n = Cx*{n-1}+d로 정의해 x_n을 반복적으로 찾아간다. 초기값은 설정하기 나름이다.
 
 자세한 내용은 위키피티아 참고.
 
@@ -86,8 +87,8 @@ Equation (2)에 따르면, 전체 토큰에 대한 생성 절차는 다음과 �
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2023-12-19-break-the-sequential-dependency-of-llm-inference-using/image_002.png" class="img-fluid rounded z-depth-1" %}
 
-이 때, f(y_i
-, y_{1:i−1}, x) = y_i − argmax p_θ(y_i|y_{1:i−1}, x) 라고 정의하면 우리는 Equation (3)을 이렇게 다시 쓸 수 있다.
+이 때, f(y*i
+, y*{1:i−1}, x) = y*i − argmax p*θ(y*i|y*{1:i−1}, x) 라고 정의하면 우리는 Equation (3)을 이렇게 다시 쓸 수 있다.
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2023-12-19-break-the-sequential-dependency-of-llm-inference-using/image_003.png" class="img-fluid rounded z-depth-1" %}
 
@@ -171,7 +172,7 @@ W와 N의 크기가 커질수록 비용도 커짐. 하지만 이들이 커질수
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2023-12-19-break-the-sequential-dependency-of-llm-inference-using/image_008.png" class="img-fluid rounded z-depth-1" %}
 
-when N is large enough, an exponential increase in the W  can result in a linear reduction of decoding steps.
+when N is large enough, an exponential increase in the W can result in a linear reduction of decoding steps.
 
 ## Cost, Usage, and Limitations
 
@@ -206,6 +207,6 @@ The 7B, 13B, and 33B models require 120x, 80x, and 56x extra FLOPs per step, res
 - LLaMA-Chat on MT-Bench => 1.5x speedup
 
 - CodeLLaMA on HumanEval:
-2x speedup. This is because many repeated N-grams are present in code which can be correctly guessed.
+  2x speedup. This is because many repeated N-grams are present in code which can be correctly guessed.
 
 - CodeLLaMA-Instruct on GSM8K: 1.8x latency reduction.

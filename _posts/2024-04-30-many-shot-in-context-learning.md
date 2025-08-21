@@ -1,25 +1,26 @@
 ---
 categories:
-- paper-reviews
-date: '2024-04-30 00:00:00'
+  - paper-reviews
+date: "2024-04-30 00:00:00"
 description: 논문 리뷰 - ICL 관련 연구
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-- classification
-- fine-tuning
-- gpt
-- icl
-- llm
-- paper-review
-- pre-training
-- reasoning
+  - classification
+  - fine-tuning
+  - gpt
+  - icl
+  - llm
+  - paper-review
+  - pre-training
+  - reasoning
 thumbnail: assets/img/posts/2024-04-30-many-shot-in-context-learning/thumbnail.jpg
 title: Many-Shot In-Context Learning
 ---
 
 **논문 정보**
+
 - **Date**: 2024-04-30
 - **Reviewer**: 상엽
 - **Property**: ICL
@@ -36,21 +37,21 @@ Many shot learning : 수백개 이상의 매우 많은 shot을 이용한 ICL 방
 
 1. In cotext example의 수가 다양한 downstream task의 LLM 성능에 미치는 영향
 
-  - **math problem solving** using MATH (Hendrycks et al., 2021) and GSM8K (Cobbe et al., 2021)
+- **math problem solving** using MATH (Hendrycks et al., 2021) and GSM8K (Cobbe et al., 2021)
 
-  - **question-answering** (GPQA, Rein et al., 2023)
+- **question-answering** (GPQA, Rein et al., 2023)
 
-  - **summarization** using XSum (Narayan et al., 2018) and XLSum (Hasan et al., 2021)
+- **summarization** using XSum (Narayan et al., 2018) and XLSum (Hasan et al., 2021)
 
-  - **algorithmic reasoning** (Big- Bench Hard, Suzgun et al., 2022)
+- **algorithmic reasoning** (Big- Bench Hard, Suzgun et al., 2022)
 
-  - **outcome reward modeling** (Code verification, Ni et al., 2023)
+- **outcome reward modeling** (Code verification, Ni et al., 2023)
 
-  - **low-resource machine translation** (FLORES, Goyal et al., 2022)
+- **low-resource machine translation** (FLORES, Goyal et al., 2022)
 
-  - **planning** (Logistics, Seipp et al., 2022)
+- **planning** (Logistics, Seipp et al., 2022)
 
-  - **sentiment analysis** (FP, Malo et al., 2014)
+- **sentiment analysis** (FP, Malo et al., 2014)
 
 → few-shot과 비교했을 때 상당한 성능 향상을 보임. (Gemini 1.5 pro 수십만개의 sample)
 
@@ -58,23 +59,23 @@ Many shot learning : 수백개 이상의 매우 많은 shot을 이용한 ICL 방
 
 1. Many-shot을 만들기 위한 리소스 한계 → 이를 해결하기 위한 방법 두 가지 탐색
 
-  - reinforced ICL
+- reinforced ICL
 
-    - Inspired by the efficacy of model-generated solutions for fine-tuning (Singh et al., 2023) → 사람이 쓴 rationales → model이 만든 것 (정답을 맞춘 rationales을 이용)으로 바꾸자. 
+  - Inspired by the efficacy of model-generated solutions for fine-tuning (Singh et al., 2023) → 사람이 쓴 rationales → model이 만든 것 (정답을 맞춘 rationales을 이용)으로 바꾸자.
 
-  - unsupervised ICL
+- unsupervised ICL
 
-    -  Inspired by task-recognition view of ICL (Xie et al., 2021) → 정답 없이 오직 문제만으로 ICL 구성
+  - Inspired by task-recognition view of ICL (Xie et al., 2021) → 정답 없이 오직 문제만으로 ICL 구성
 
 1. Few-shot → Many-shot으로 갈 때 ICL의 learning dynamic을 확인
 
-  - pre-training biases를 극복
+- pre-training biases를 극복
 
-  - high-dimensional prediction tasks 해결
+- high-dimensional prediction tasks 해결
 
-  - the order of examples의 수는 many-shot에서도 여전히 중요한 영향을 미침.
+- the order of examples의 수는 many-shot에서도 여전히 중요한 영향을 미침.
 
-  - next-token prediction loss가 ICL에 미치는 악영향
+- next-token prediction loss가 ICL에 미치는 악영향
 
 **Contribution**
 
@@ -100,7 +101,7 @@ Many shot learning : 수백개 이상의 매우 많은 shot을 이용한 ICL 방
 
 - Prior works (Anil et al., 2024; Gemini Team, 2024; Kaplan et al., 2020; Xiong et al., 2023)에서 context의 길이가 길어질수록 next-token prediction loss가 줄어듦을 보임.
 
-→ 우리의 실험 결과도 이를 뒷받침함 +  성능과 상관없이 next-token prediction loss가 계속 줄어드는 것을 확인, next-token prediction loss를 long-context 성능 평가에 이용하는 것은 별로라 생각함.
+→ 우리의 실험 결과도 이를 뒷받침함 + 성능과 상관없이 next-token prediction loss가 계속 줄어드는 것을 확인, next-token prediction loss를 long-context 성능 평가에 이용하는 것은 별로라 생각함.
 
 **Learning from self-generated data**
 
@@ -116,14 +117,13 @@ Many shot learning : 수백개 이상의 매우 많은 shot을 이용한 ICL 방
 
 **Self-generated data and in-context learning**
 
-- Kim et al. (2022) : self-generated 데이터를 ICL에 활용해 분류 문제 해결, test input이 가질 수 있는 레이블에  맞춰 예시 생성
+- Kim et al. (2022) : self-generated 데이터를 ICL에 활용해 분류 문제 해결, test input이 가질 수 있는 레이블에 맞춰 예시 생성
 
 → test input에 접근없이 데이터를 생성 (Singh et al. (2023)) 어떤 문제에도 적용이 가능하게 함.
 
-
 **Learning Input-Output Relationships with ICL**
 
-- Numerous works (Kossen et al., 2023; Lin and Lee, 2024; Min et al., 2022; Yoo et al., 2022)  : input-output 관계를 ICL에 이용
+- Numerous works (Kossen et al., 2023; Lin and Lee, 2024; Min et al., 2022; Yoo et al., 2022) : input-output 관계를 ICL에 이용
 
 - Min et al. (2022) : ICL의 label을 랜덤하게 섞어도 성능에 큰 영향을 주지 않았음을 발견
 
@@ -159,7 +159,7 @@ Evaluation details
 
 ### Summarization
 
--  XSum task from the GEM benchmark
+- XSum task from the GEM benchmark
 
 - ROUGE-L을 이용해 평가
 
@@ -209,7 +209,7 @@ Evaluation details
 
 - Left : 16개 이상부터 Pass@1 이김, 지속적인 성능 향상 (Pass@4 acc : 90%)
 
-- Right : verifier confidence 
+- Right : verifier confidence
 
 # Many-shot Learning without Human-Written Rationales
 
@@ -247,7 +247,7 @@ Evaluation details
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-04-30-many-shot-in-context-learning/image_005.png" class="img-fluid rounded z-depth-1" %}
 
-- 가설 : task를 해결하기 위한 지식을 이미 가지고 있다면 prompt에 주어지는 문제는 task를 위해 필요한 지식이 무엇인지를 구체화해줄 수 있을 것이다. 
+- 가설 : task를 해결하기 위한 지식을 이미 가지고 있다면 prompt에 주어지는 문제는 task를 위해 필요한 지식이 무엇인지를 구체화해줄 수 있을 것이다.
 
 - 스포) 대부분의 task에서 효과가 있었지만 output이 중요한 몇 가지 task에서는 성능이 좋지 않았다.
 
@@ -327,7 +327,7 @@ Evaluation details
 
   - default에서 example 증가에 따라 confidence도 증가
 
-  -  충분히 많은 example을 제공할 경우 biases를 극복할 수 있다.
+  - 충분히 많은 example을 제공할 경우 biases를 극복할 수 있다.
 
 ### Learning Non-Natural Language Tasks
 
@@ -351,7 +351,7 @@ Evaluation details
 
 - Parity : Boolean 함수, input sequence에서 1의 수가 짝수인지 홀수인지
 
-- ex)  1 → Odd,  (1, 0) → Odd, (1, 0, 1) → Even
+- ex) 1 → Odd, (1, 0) → Odd, (1, 0, 1) → Even
 
 - 기존 LLM에서는 20개 이상을 넘어간 parity function에 한계가 있었음.
 
@@ -367,11 +367,11 @@ Evaluation details
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-04-30-many-shot-in-context-learning/image_012.png" class="img-fluid rounded z-depth-1" %}
 
-  - 결과를 봤을 때 어떤 순서가 모든 task에서 더 우수하거나 하는 경향성은 전혀 없었음.
+- 결과를 봤을 때 어떤 순서가 모든 task에서 더 우수하거나 하는 경향성은 전혀 없었음.
 
-  - Geometry에서 제일 좋았던 순서가 Number theory에서는 제일 안좋기도 함.
+- Geometry에서 제일 좋았던 순서가 Number theory에서는 제일 안좋기도 함.
 
-  - 여전한 Challenge이다.
+- 여전한 Challenge이다.
 
 ### NLL May Not Be Predictive of ICL Performance
 
@@ -385,7 +385,7 @@ Evaluation details
 
 - Reinforced & Unsupervised ICL에서 NLL 감소는 좀 더 적었다.
 
-- 위의 결과들을 종합했을 때 test set의 분포에서 벗어나 프롬프트의 사용은 NLL의  downstream task에 대한 예측력을 해치는 요인이 되는 것으로 추정됨.
+- 위의 결과들을 종합했을 때 test set의 분포에서 벗어나 프롬프트의 사용은 NLL의 downstream task에 대한 예측력을 해치는 요인이 되는 것으로 추정됨.
 
 → 결론적으로, 저자는 문제 해결력을 요구하는 복잡한 task에서 NLL이 final performance를 예측하기에 신뢰성이 부족하다.
 
@@ -397,7 +397,6 @@ Evaluation details
 
 - 왜 더 많은 examples을 사용할 때 성능 감소가 발생하는지에 대해 이해할 방법이 없다.
 
-
 ---
 
 Context가 길어지면서 ICL을 Fine-tuning의 특징과 연결지어 해석하려는 여러 논문들이 나오고 그 시리즈 중의 최고 길이의 실험.
@@ -406,12 +405,11 @@ Context가 길어지면서 ICL을 Fine-tuning의 특징과 연결지어 해석�
 
 기존 논문들에서 발견한 ICL의 트렌드와 이슈들을 하나씩 검증해본다는 점에서 흥미롭다.
 
-
 ---
 
 ICL (Groud-Truth)가 성능이 덜 좋을 수는 있지만 0-Shot보다 안좋을 수 있는가? (GPQA)
 
-many-shot의 ordering을 본다고 했을 때 50개면 이전 실험에 비해 너무 적은 것은 아닌가? 
+many-shot의 ordering을 본다고 했을 때 50개면 이전 실험에 비해 너무 적은 것은 아닌가?
 
 많은 해석과 생각이 있을 것이라 생각했지만 섹션 4까지는 거의 실험 결과 나열이라는 점은 좀 아쉽.
 

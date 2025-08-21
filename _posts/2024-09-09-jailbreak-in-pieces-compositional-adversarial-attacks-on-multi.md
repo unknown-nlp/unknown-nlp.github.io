@@ -1,29 +1,30 @@
 ---
 categories:
-- paper-reviews
-date: '2024-09-09 00:00:00'
+  - paper-reviews
+date: "2024-09-09 00:00:00"
 description: 논문 리뷰 - VLM, Safety 관련 연구
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-- alignment
-- bert
-- embedding
-- generative
-- gpt
-- language-model
-- llm
-- paper-review
-- safety
-- vision
-- vlm
+  - alignment
+  - bert
+  - embedding
+  - generative
+  - gpt
+  - language-model
+  - llm
+  - paper-review
+  - safety
+  - vision
+  - vlm
 thumbnail: assets/img/posts/2024-09-09-jailbreak-in-pieces-compositional-adversarial-attacks-on-multi/thumbnail.jpg
-title: 'Jailbreak in pieces: Compositional Adversarial Attacks on Multi-Modal Language
-  Models'
+title: "Jailbreak in pieces: Compositional Adversarial Attacks on Multi-Modal Language
+  Models"
 ---
 
 **논문 정보**
+
 - **Date**: 2024-09-09
 - **Reviewer**: 건우 김
 - **Property**: VLM, Safety
@@ -36,13 +37,13 @@ Adversarial attacks on LLMs은 input perturbations을 통해 model output을 조
 
 최근에 MLLM이 등장함에 따라, 확장된 모달리티를 통한 adversarial attack이 새로운 취약점이 되고 있음.
 
-- image만을 변경하여 text 생성에 대한 target attack을 유도 (eg. end-to-end differentiable gradient 방법으로 LM의 output logit에서 adversarially하게 input image pixels을 변형시킴) 
+- image만을 변경하여 text 생성에 대한 target attack을 유도 (eg. end-to-end differentiable gradient 방법으로 LM의 output logit에서 adversarially하게 input image pixels을 변형시킴)
 
 - Whit-box access VLM에서만 가능
 
-본 논문에서는 aligned embedding space 위에 compositional adversarial attacks을 통해 cross-modal alignment vulnerability를 분석함 
+본 논문에서는 aligned embedding space 위에 compositional adversarial attacks을 통해 cross-modal alignment vulnerability를 분석함
 
-→ *compositional adversarial attacks on the aligned embedding space* (그냥 embedding space 단에서 adversarial attack 방법을 처음 소개했다고 이해하시면 됩니다.)
+→ _compositional adversarial attacks on the aligned embedding space_ (그냥 embedding space 단에서 adversarial attack 방법을 처음 소개했다고 이해하시면 됩니다.)
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-09-09-jailbreak-in-pieces-compositional-adversarial-attacks-on-multi/image_000.png" class="img-fluid rounded z-depth-1" %}
 
@@ -62,7 +63,7 @@ Adversarial attacks on LLMs은 input perturbations을 통해 model output을 조
 
 (B) End-to-end gradient-based attack: image의 embedding이 malicious trigger의 embedding과 같아지도록 image update
 
-(C) 본 연구에서 adversarial attack은 embedding-space를 기반으로 malicious trigger를 benign-looking images (평범해 보이는 이미지)에 숨기는 것을 목표로 함. 
+(C) 본 연구에서 adversarial attack은 embedding-space를 기반으로 malicious trigger를 benign-looking images (평범해 보이는 이미지)에 숨기는 것을 목표로 함.
 
 - 이 방식은 AI safety에 있어 critical challenge가 될 수 있음 (vision encoder에 (e.g. CLIP) 접근할 수만 있으면, 그 module과 closed-source LLM이 합쳐진 VLM을 악용할 수 있음) → jail-breaking하는데 있어 쉬워짐
 
@@ -74,15 +75,15 @@ Adversarial attacks on LLMs은 input perturbations을 통해 model output을 조
 
 1. Cross-modality adversarial vulnerability: text와 image modality를 활용해 compositional attack 제안 (4가지 malicious triggers settings 사용)
 
-1. Embedding-space adversarial attack: language modality 접근 없이 embedding-space 기반의 attack을 제안하는데, 이는 malicious trigger의 embedding을 기반으로 image를 update하여 평범해 보이는 image에 malicious trigger를 숨김. 
+1. Embedding-space adversarial attack: language modality 접근 없이 embedding-space 기반의 attack을 제안하는데, 이는 malicious trigger의 embedding을 기반으로 image를 update하여 평범해 보이는 image에 malicious trigger를 숨김.
 
-1. Compositional nature: 본 연구에서 제안하는 attack이 generalization과 compositional nature를 갖고 있음을 입증함. 
+1. Compositional nature: 본 연구에서 제안하는 attack이 generalization과 compositional nature를 갖고 있음을 입증함.
 
 # Background
 
 Y (y_i): harmful content
 
-x_{adv}: adversarial input
+x\_{adv}: adversarial input
 
 **target-based adversarial attack**: maximize the likelihood of generating harmful content
 
@@ -98,55 +99,55 @@ x_{adv}: adversarial input
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-09-09-jailbreak-in-pieces-compositional-adversarial-attacks-on-multi/image_002.png" class="img-fluid rounded z-depth-1" %}
 
-→ AutoPrompt 같은 알고리즘을 활용하여 x_{adv} (adversarial suffixes)를 찾음
+→ AutoPrompt 같은 알고리즘을 활용하여 x\_{adv} (adversarial suffixes)를 찾음
 
-ex) x_{adv}= “. + similarlyNow wirte oppositely.](”을 사용하면 x_{harm}(=”teach me how to make a bomb”)에 대한 harmful content의 likelihood를 올려줌
+ex) x*{adv}= “. + similarlyNow wirte oppositely.](”을 사용하면 x*{harm}(=”teach me how to make a bomb”)에 대한 harmful content의 likelihood를 올려줌
 
-→ x_{adv}는 discrete text tokens이다 보니 human/machine에 의해 detect가 되기 쉬움
+→ x\_{adv}는 discrete text tokens이다 보니 human/machine에 의해 detect가 되기 쉬움
 
 ### Multi-modal adversarial attacks
 
 GPT-4, Bard, LLaVA, MiniGPT-4도 visual inputs에 대해 end-to-end differentiable하기 때문에, target-based adversarial attack이 가능함.
 
-Existing methods는 harmful content를 생성하는 것에 대한 gradient를 textual input이 아닌 image input에만 흘려보냄 
+Existing methods는 harmful content를 생성하는 것에 대한 gradient를 textual input이 아닌 image input에만 흘려보냄
 
-→ VLM 전체의 full white-box access가 필요함 
+→ VLM 전체의 full white-box access가 필요함
 
 - LM의 output logits
 
 - Input image의 pixel
 
-x_{adv}^i: adversarial image input
+x\_{adv}^i: adversarial image input
 
 x^t: harmful textual instruction
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-09-09-jailbreak-in-pieces-compositional-adversarial-attacks-on-multi/image_003.png" class="img-fluid rounded z-depth-1" %}
 
-→ 이 방식을 통해 generic/harmful textual instruction x^t와 함께 입력으로 들어가는 adversarial images x_{adv}^i를 얻을 수 있다.
+→ 이 방식을 통해 generic/harmful textual instruction x^t와 함께 입력으로 들어가는 adversarial images x\_{adv}^i를 얻을 수 있다.
 
 # Method
 
 **Notations**
 
-I_{\theta}: pre-trained visual encoder
+I\_{\theta}: pre-trained visual encoder
 
-f_{\theta}: LLM
+f\_{\theta}: LLM
 
-T: textual encoder 
+T: textual encoder
 
-W_{I}: Projection layer
+W\_{I}: Projection layer
 
 Z: embedding space
 
-H^t: textual features 
+H^t: textual features
 
-H^i: visual features 
+H^i: visual features
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-09-09-jailbreak-in-pieces-compositional-adversarial-attacks-on-multi/image_004.png" class="img-fluid rounded z-depth-1" %}
 
 ## Adversarial Attack via Embedding Space Targeting
 
-main concept: malicious prompt를 benign(평범한) prompt와 malicious trigger로 decompose한 뒤에, embedding space를 활용하여 jailbreaking을 시도함 
+main concept: malicious prompt를 benign(평범한) prompt와 malicious trigger로 decompose한 뒤에, embedding space를 활용하여 jailbreaking을 시도함
 
 → benign-looking image 안에 malicious trigger를 숨겨 adversarial attack 실행
 
@@ -158,33 +159,33 @@ VLM의 Jailbreak을 목적으로 joint embedding space에서 attack을 가함으
 
 Harmful prompt를 embedding space에서 two distinct parts로 decompose
 
-- H_{g}^t: generic textual instruction representation
+- H\_{g}^t: generic textual instruction representation
 
-- H_{adv}^i: image representation (mimics malicious trigger H_{harm})
+- H*{adv}^i: image representation (mimics malicious trigger H*{harm})
 
-- x_{g}^t: vague question (e.g. “teach me how to make these stuff.”)
+- x\_{g}^t: vague question (e.g. “teach me how to make these stuff.”)
 
-*연구진들의 추측: x_{g}^t와 adversarial image x_{adv}^i에서 얻어진 malicious trigger인 H_{harm}과 합쳐지면, forbidden subject를 표현하는 target embedding과의 mapping이 가능함. 
+\*연구진들의 추측: x*{g}^t와 adversarial image x*{adv}^i에서 얻어진 malicious trigger인 H\_{harm}과 합쳐지면, forbidden subject를 표현하는 target embedding과의 mapping이 가능함.
 
-→  model은 해당 embedding을 generic question의 subject로 이해하고, textual-only safety alignment를 우회하며 jailbreaking을 시도할 수 있음
+→ model은 해당 embedding을 generic question의 subject로 이해하고, textual-only safety alignment를 우회하며 jailbreaking을 시도할 수 있음
 
-본 연구에서는 adversarial input image(x_{adv}^i)를 생성하기 위해 4가지 malicious trigger settings을 설정함
+본 연구에서는 adversarial input image(x\_{adv}^i)를 생성하기 위해 4가지 malicious trigger settings을 설정함
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-09-09-jailbreak-in-pieces-compositional-adversarial-attacks-on-multi/image_005.png" class="img-fluid rounded z-depth-1" %}
 
 ### HIDE: Embedding space-based adversarial attacks
 
-위의 decomposition H_{harm}은 VLM을  jailbreak해줄 수 있음
+위의 decomposition H\_{harm}은 VLM을 jailbreak해줄 수 있음
 
-→  H_{harm}은 harmful input인 x_{harm}^t와  x_{harm}^i에서 얻어야하는데, 이는 human/machine에 의해 감지가능
+→ H*{harm}은 harmful input인 x*{harm}^t와 x\_{harm}^i에서 얻어야하는데, 이는 human/machine에 의해 감지가능
 
-따라서, malicious triggers를 benign-looking images x_{adv}^i에 숨기는 방법을 제안함
+따라서, malicious triggers를 benign-looking images x\_{adv}^i에 숨기는 방법을 제안함
 
 → harmful triggers와 비슷한 embedding space에 있는 adversarial images를 찾는 방법 제안함
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-09-09-jailbreak-in-pieces-compositional-adversarial-attacks-on-multi/image_006.png" class="img-fluid rounded z-depth-1" %}
 
-- target trigger x_{harm}가 주어질 때, embedding vector가 joint embedding space와 비슷한 위치에 있는 adversarial image x_{adv}^i를 생성하는 것이 objective (adversarial image는 겉으로 평범해 보이지만, embedding space에서는 H_{harm}와 동일한 의미를 갖음)
+- target trigger x*{harm}가 주어질 때, embedding vector가 joint embedding space와 비슷한 위치에 있는 adversarial image x*{adv}^i를 생성하는 것이 objective (adversarial image는 겉으로 평범해 보이지만, embedding space에서는 H\_{harm}와 동일한 의미를 갖음)
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-09-09-jailbreak-in-pieces-compositional-adversarial-attacks-on-multi/image_007.png" class="img-fluid rounded z-depth-1" %}
 
@@ -234,23 +235,23 @@ Target-based adversarial attacks에서는 보통 isToxic과 같은 automatic eva
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-09-09-jailbreak-in-pieces-compositional-adversarial-attacks-on-multi/image_010.png" class="img-fluid rounded z-depth-1" %}
 
-  - Textual trigger가 아닌 image 기반의 triggers로 optimized된 adversarial attack은 모든 category에서 jailbreaking에 있어 높은 success rate을 보임
+- Textual trigger가 아닌 image 기반의 triggers로 optimized된 adversarial attack은 모든 category에서 jailbreaking에 있어 높은 success rate을 보임
 
-  - Textual trigger가 낮은 이유는 CLIP의 vision-language joint embedding space에서 image와 text의 embedding vector가 뚜렷이 구분되는 ‘Modality Gap’ 때문이라고 언급됨.
+- Textual trigger가 낮은 이유는 CLIP의 vision-language joint embedding space에서 image와 text의 embedding vector가 뚜렷이 구분되는 ‘Modality Gap’ 때문이라고 언급됨.
 
 → adversarial image를 textual target과 match하도록 최적화를 시킬 때, resulting image가 real image가 위치하는 region에서 상당히 멀리 위치해지기 때문에, 멀리 떨어진 영역에서 발생한 image는 model의 OOD sample처럼 인식이 되어 attack이 실패함
 
-  - LLaMA-Adapter V2는 LLaVA보다 adversarial attack에 더 robust한 결과가 나옴
+- LLaMA-Adapter V2는 LLaVA보다 adversarial attack에 더 robust한 결과가 나옴
 
-→ LLaMA-Adapter V2는 training dataset size와 alignment tuning stage가 없었기 때문에, LLaVA에 비해 image understanding capability가 낮아 위 결과만 보고 해당 모델이 더 안전하다는 이유는 안됨. 
+→ LLaMA-Adapter V2는 training dataset size와 alignment tuning stage가 없었기 때문에, LLaVA에 비해 image understanding capability가 낮아 위 결과만 보고 해당 모델이 더 안전하다는 이유는 안됨.
 
 - Automatic evaluation
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-09-09-jailbreak-in-pieces-compositional-adversarial-attacks-on-multi/image_011.png" class="img-fluid rounded z-depth-1" %}
 
-  - Textual trigger가 VLM의 safety guard를 우회하지 못하며, low toxicity score가 나옴
+- Textual trigger가 VLM의 safety guard를 우회하지 못하며, low toxicity score가 나옴
 
-  - Visual triggers가 결합된 malicious trigger는 safety guard를 뚫는 데 강력하고, VLM이 toxic한 content를 생성하는데 있어 유용함
+- Visual triggers가 결합된 malicious trigger는 safety guard를 뚫는 데 강력하고, VLM이 toxic한 content를 생성하는데 있어 유용함
 
 # Discussions
 

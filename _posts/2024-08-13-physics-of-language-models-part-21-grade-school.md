@@ -1,28 +1,29 @@
 ---
 categories:
-- paper-reviews
-date: '2024-08-13 00:00:00'
+  - paper-reviews
+date: "2024-08-13 00:00:00"
 description: 논문 리뷰 - Reasoning, Explainability 관련 연구
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-- attention
-- embedding
-- explainability
-- gpt
-- language-model
-- llm
-- paper-review
-- pre-training
-- reasoning
-- transformer
+  - attention
+  - embedding
+  - explainability
+  - gpt
+  - language-model
+  - llm
+  - paper-review
+  - pre-training
+  - reasoning
+  - transformer
 thumbnail: assets/img/posts/2024-08-13-physics-of-language-models-part-21-grade-school/thumbnail.jpg
-title: 'Physics of Language Models: Part 2.1, Grade-School Math and the Hidden Reasoning
-  Process'
+title: "Physics of Language Models: Part 2.1, Grade-School Math and the Hidden Reasoning
+  Process"
 ---
 
 **논문 정보**
+
 - **Date**: 2024-08-13
 - **Reviewer**: 준원 장
 - **Property**: Reasoning, Explainability
@@ -33,7 +34,7 @@ title: 'Physics of Language Models: Part 2.1, Grade-School Math and the Hidden R
 
 - small language models (GPT2 in this paper)의 GSM8K, its augmentation의 성능을 향상시키는 기존의 연구는 많았음.
 
-- 논문에서는 단순한 성능 향상이 아닌 보다 근본적인 질문을 해결하고자 함. 
+- 논문에서는 단순한 성능 향상이 아닌 보다 근본적인 질문을 해결하고자 함.
 
   - small language model이 진정으로 grade-school (초등학교 수준)의 수학문제를 풀 수 있는 능력을 학습할 수 있는가?
 
@@ -57,7 +58,7 @@ title: 'Physics of Language Models: Part 2.1, Grade-School Math and the Hidden R
 
 (Do models trained on GSM8K-like datasets develop reasoning skills beyond those necessary for solving GSM8K problems?)
 
-1. 어떤  hidden (mental) reasoning process이 추론 오류를 범하게 만들까?
+1. 어떤 hidden (mental) reasoning process이 추론 오류를 범하게 만들까?
 
 (What mental process causes models to make reasoning mistakes?)
 
@@ -91,7 +92,7 @@ title: 'Physics of Language Models: Part 2.1, Grade-School Math and the Hidden R
 
     1. 정수만 사용하고, 큰 수 방지를 위해 arithmetic mod23를 사용
 
-      1. 12 + 20 = 9. (32%23=9)
+    1. 12 + 20 = 9. (32%23=9)
 
     1. 이렇게 함으로써 특정 template에 구애받지 않는 diverse한 합성 데이터를 구축하는 프레임워크 제시 (GPT2-small (100M)보다 많은 데이터 생성해서 training)
 
@@ -111,11 +112,11 @@ title: 'Physics of Language Models: Part 2.1, Grade-School Math and the Hidden R
 
 - Data Generation은 parameter(미지수)간의 hierarchy를 기준으로 그래프 설립 → 문제 생성의 순을 따름
 
-  1. 문제에서 parameter(미지수)를 담당할 category기반 layered structure 구조를 아래와 같이 구축. 
+  1. 문제에서 parameter(미지수)를 담당할 category기반 layered structure 구조를 아래와 같이 구축.
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-08-13-physics-of-language-models-part-21-grade-school/image_000.png" class="img-fluid rounded z-depth-1" %}
 
-  1. Structure Graph
+1. Structure Graph
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-08-13-physics-of-language-models-part-21-grade-school/image_001.png" class="img-fluid rounded z-depth-1" %}
 
@@ -127,17 +128,17 @@ title: 'Physics of Language Models: Part 2.1, Grade-School Math and the Hidden R
 
 ⇒ “the total number of classrooms in Central High”같은 Abstract parameters를 이해하려면 LM이 여러 문장을 이해해야함
 
-  1. Dependency Graph
+1. Dependency Graph
 
-    1. 각 instance parameter에 대해 random number generator  RNG를 포함하여 depedency를 생성 수 있는 (최대 4개까지) parameter set을 구성
+1. 각 instance parameter에 대해 random number generator RNG를 포함하여 depedency를 생성 수 있는 (최대 4개까지) parameter set을 구성
 
-      1. [param A ] is X more than the difference of [param B ] and [param C ]라는 문장이 있다면
+1. [param A ] is X more than the difference of [param B ] and [param C ]라는 문장이 있다면
 
-      1. B & C & RNG → A로 edge를 그림
+1. B & C & RNG → A로 edge를 그림
 
-    1. Abstract parameters는 instance parameter에 의해 암시되도록 설계
+1. Abstract parameters는 instance parameter에 의해 암시되도록 설계
 
-  1. Problem Generation
+1. Problem Generation
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-08-13-physics-of-language-models-part-21-grade-school/image_002.png" class="img-fluid rounded z-depth-1" %}
 
@@ -147,13 +148,13 @@ title: 'Physics of Language Models: Part 2.1, Grade-School Math and the Hidden R
 
     - 특정 parameter(미지수)가 선택되고 [Problem;Question] or [Question;Problem] 형식으로 data generate
 
-  1. Solution Construction
+1. Solution Construction
 
-    - CoT 형식을 차용해서 topological 문장을 나열하는 식으로 solution 구성
+   - CoT 형식을 차용해서 topological 문장을 나열하는 식으로 solution 구성
 
-    - parameter(미지수)를 아래와 같은 식으로 서술함으로써 solution을 구성
+   - parameter(미지수)를 아래와 같은 식으로 서술함으로써 solution을 구성
 
-      - Define [param] as X; [intermediate steps]; so X =
+     - Define [param] as X; [intermediate steps]; so X =
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-08-13-physics-of-language-models-part-21-grade-school/image_003.png" class="img-fluid rounded z-depth-1" %}
 
@@ -163,33 +164,33 @@ title: 'Physics of Language Models: Part 2.1, Grade-School Math and the Hidden R
 
     1. 모든 operation을 binary operation으로 제한 (e.g., g = 12+13+7 is broken into g = 12+R and R = 13+7)
 
-  1. Data Generation
+1. Data Generation
 
-    1. 매 문제마다 hierarchical categorization (i.e., the English part); a structure graph (i.e., the instance parameters); a dependency graph; arithmetic computations on the dependency graph; integer numbers (i.e., the RNG); problem sentence permutation; and the query parameter을 랜덤하게 선택해 문제의 중복 방지.
+1. 매 문제마다 hierarchical categorization (i.e., the English part); a structure graph (i.e., the instance parameters); a dependency graph; arithmetic computations on the dependency graph; integer numbers (i.e., the RNG); problem sentence permutation; and the query parameter을 랜덤하게 선택해 문제의 중복 방지.
 
-    1. GSM^{op≤op,ip≤ip} 
+1. GSM^{op≤op,ip≤ip}
 
-      1. op: solution에 있는 operation 수
+1. op: solution에 있는 operation 수
 
-      1. ip: question에 있는 instance parameter 수
+1. ip: question에 있는 instance parameter 수
 
-    1. Training & Eval Setup (Training Data → Eval Data)
+1. Training & Eval Setup (Training Data → Eval Data)
 
-      1. iGSM-med
+1. iGSM-med
 
-        1. GSM-med^{op≤15,ip≤20} → GSM-med^{op≤15,ip≤20}, GSM-med^{op=\{15, 20, 21, 22, 23\},ip≤20},  GSM-med^{op=op,reask} (query parameter만 바꾼 문제)
+1. GSM-med^{op≤15,ip≤20} → GSM-med^{op≤15,ip≤20}, GSM-med^{op=\{15, 20, 21, 22, 23\},ip≤20}, GSM-med^{op=op,reask} (query parameter만 바꾼 문제)
 
-      1. iGSM-hard
+1. iGSM-hard
 
-        1. GSM-hard^{op≤21, ip≤28} → GSM-hard^{op≤21,ip≤28}, GSM-hard^{op=\{21, 28, 29, 30, 31, 32\},ip≤28},  GSM-hard^{op=op,reask} (query parameter만 바꾼 문제)
+1. GSM-hard^{op≤21, ip≤28} → GSM-hard^{op≤21,ip≤28}, GSM-hard^{op=\{21, 28, 29, 30, 31, 32\},ip≤28}, GSM-hard^{op=op,reask} (query parameter만 바꾼 문제)
 
-      1. problem & question order
+1. problem & question order
 
-        1. GSM_pq (problem → query parameter)
+1. GSM_pq (problem → query parameter)
 
-        1. GSM_qp (query parameter → problem)
+1. GSM_qp (query parameter → problem)
 
-      1. Define Owl Forest’s Elephant as y; so y = 11. Define Parrot Paradise’s Raccoon as t; so t = y = 11."은 "Define Inst as a; so a = 0. Define Inst as b; so b = a = 0."라는 하나의 solution template으로 정의하면 7billion~90 trillion개의 solution template이 나온다고 주장. 
+1. Define Owl Forest’s Elephant as y; so y = 11. Define Parrot Paradise’s Raccoon as t; so t = y = 11."은 "Define Inst as a; so a = 0. Define Inst as b; so b = a = 0."라는 하나의 solution template으로 정의하면 7billion~90 trillion개의 solution template이 나온다고 주장.
 
 ⇒ op ≤ 21 samples로 학습 op ≥ 28 samples로 eval: 통제된 실험 가능
 
@@ -253,13 +254,13 @@ title: 'Physics of Language Models: Part 2.1, Grade-School Math and the Hidden R
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-08-13-physics-of-language-models-part-21-grade-school/image_007.png" class="img-fluid rounded z-depth-1" %}
 
-  - problem 끝나면 dep(), question 끝나면 necc(), 그외에는 solution sentence 끝날때마다 진행
+- problem 끝나면 dep(), question 끝나면 necc(), 그외에는 solution sentence 끝날때마다 진행
 
-  - [START] parameter [END]로 parameter를 감싸고 [END] last hidden에서 linear probing
+- [START] parameter [END]로 parameter를 감싸고 [END] last hidden에서 linear probing
 
-  - embedding에 rank-8 (linear) update해서 [START], [END]이 추가로 들어오는거 처리
+- embedding에 rank-8 (linear) update해서 [START], [END]이 추가로 들어오는거 처리
 
-  - LM freeze & linear classifier train으로 probing 진행
+- LM freeze & linear classifier train으로 probing 진행
 
 - pretrained weights에서 성능이 기인했음을 보기 위해 random initialized model에도 linear classifier학습을 진행
 
@@ -281,7 +282,7 @@ title: 'Physics of Language Models: Part 2.1, Grade-School Math and the Hidden R
 
 - 인간의 “backward reasoning”과 달리 LM은 question이 시작되기 전에 문제 안에 존재하는 모든 의존성 그래프 dep(A, B)를 정신적으로 미리 계산 → 문제파악을 문제 읽으면서 함
 
-  - pre-training data에서  “all-pair dependency” 를 학습하지 않는데도 (fitting the data only requires computing necessary parameters) 위의 성능을 통해 LM의 generalization을 실험적으로 증명 
+  - pre-training data에서 “all-pair dependency” 를 학습하지 않는데도 (fitting the data only requires computing necessary parameters) 위의 성능을 통해 LM의 generalization을 실험적으로 증명
 
 - 어떤 문제를 풀때, “because I want to compute X, but X depends on Y and Y depends on Z, so let me compute Z first”를 명시적으로 사고하도록 LM을 만드는 것은 AGI의 목표와 동일. 본인들 실험을 통해 적어도 “because I want to compute X, but X depends on Y and Y depends on Z, so let me compute Z first”라는 명시적인 데이터로 학습하지 않아도 언어모델이 초등학교 수학수준에서는 이가 가능하다는 것을 실험적으로 보임
 
@@ -293,13 +294,13 @@ title: 'Physics of Language Models: Part 2.1, Grade-School Math and the Hidden R
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-08-13-physics-of-language-models-part-21-grade-school/image_010.png" class="img-fluid rounded z-depth-1" %}
 
-  - unnecessary parameter를 포함하면, output acc가 현저하게 떨어짐
+- unnecessary parameter를 포함하면, output acc가 현저하게 떨어짐
 
 1. What causes incorrect answers?
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-08-13-physics-of-language-models-part-21-grade-school/image_011.png" class="img-fluid rounded z-depth-1" %}
 
-  - wrong solutions의 first wrong parameters을 probing해본 결과, nece next(A)나 can next(A)을 잘못 true라고 예측하고 solution을 생성할 경우, acc가 낮아지는 것을 확인할 수 있음
+- wrong solutions의 first wrong parameters을 probing해본 결과, nece next(A)나 can next(A)을 잘못 true라고 예측하고 solution을 생성할 경우, acc가 낮아지는 것을 확인할 수 있음
 
 > **Result 6**
 
@@ -329,7 +330,7 @@ title: 'Physics of Language Models: Part 2.1, Grade-School Math and the Hidden R
 
 > **Result 8**
 
--  parameter A에 대해 정신적으로 nece(A)를 계산하는 t-단계 hidden reasoning process, 다른 모든 하이퍼파라미터가 일정하다고 가정할 때, t가 클수록 더 depth한 LM이 필요함
+- parameter A에 대해 정신적으로 nece(A)를 계산하는 t-단계 hidden reasoning process, 다른 모든 하이퍼파라미터가 일정하다고 가정할 때, t가 클수록 더 depth한 LM이 필요함
 
 (Attention/Transformer을 생각할때 사실상 당연함)
 

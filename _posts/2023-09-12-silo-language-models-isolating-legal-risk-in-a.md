@@ -1,30 +1,29 @@
 ---
 categories:
-- paper-reviews
-date: '2023-09-12 00:00:00'
+  - paper-reviews
+date: "2023-09-12 00:00:00"
 description: "논문 리뷰 - LM, Retrieval, \bDomain Adaptation 관련 연구"
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-- "\bdomain adaptation"
-- language-model
-- llm
-- lm
-- paper-review
-- retrieval
+  - "\bdomain adaptation"
+  - language-model
+  - llm
+  - lm
+  - paper-review
+  - retrieval
 thumbnail: assets/img/posts/2023-09-12-silo-language-models-isolating-legal-risk-in-a/thumbnail.jpg
-title: 'SILO LANGUAGE MODELS: ISOLATING LEGAL RISK IN A NONPARAMETRIC DATASTORE'
+title: "SILO LANGUAGE MODELS: ISOLATING LEGAL RISK IN A NONPARAMETRIC DATASTORE"
 ---
 
 **논문 정보**
+
 - **Date**: 2023-09-12
 - **Reviewer**: 김재희
 - **Property**: LM, Retrieval, Domain Adaptation
 
-
 ---
-
 
 ---
 
@@ -34,7 +33,7 @@ title: 'SILO LANGUAGE MODELS: ISOLATING LEGAL RISK IN A NONPARAMETRIC DATASTORE'
 
 - 학습 데이터 및 Retrieve-and-Augment 방법론에 따라 Domain 별 성능 평가 진행
 
-- 논문에서 제기하는 RQ : 저작권, 보안 이슈에서 자유로운 LLM을 학습/이용하는 상황을 가정할 때, Inference 성능 극대화할 수 있는 방법은 무엇일까? 
+- 논문에서 제기하는 RQ : 저작권, 보안 이슈에서 자유로운 LLM을 학습/이용하는 상황을 가정할 때, Inference 성능 극대화할 수 있는 방법은 무엇일까?
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2023-09-12-silo-language-models-isolating-legal-risk-in-a/image_000.png" class="img-fluid rounded z-depth-1" %}
 
@@ -46,33 +45,33 @@ title: 'SILO LANGUAGE MODELS: ISOLATING LEGAL RISK IN A NONPARAMETRIC DATASTORE'
 
 ### 저작권을 고려한 Pretrain Corpus 수집이 문제가 되는 이유?
 
-  - 저작권을 고려하는 순간(low legal risk) 수집할 수 있는 데이터의 크기와 도메인이 제한되게 됨
+- 저작권을 고려하는 순간(low legal risk) 수집할 수 있는 데이터의 크기와 도메인이 제한되게 됨
 
-  - 작은 크기와 제한된 도메인은 LM의 Domain Generalization 능력을 저하할 수 있음
+- 작은 크기와 제한된 도메인은 LM의 Domain Generalization 능력을 저하할 수 있음
 
-    - Domain : 코드 생성, 뉴스 분야, 수학, 논문 등
+  - Domain : 코드 생성, 뉴스 분야, 수학, 논문 등
 
-  - LLM의 수익화 시 현실적으로 발생 가능한 가장 큰 문제점 중 하나
+- LLM의 수익화 시 현실적으로 발생 가능한 가장 큰 문제점 중 하나
 
 ### 저작권이 중요한 데이터(high legal risk) 활용 방안
 
-  - 논문에는 해당 시나리오의 구체적 예시가 주어져 있지는 않음
+- 논문에는 해당 시나리오의 구체적 예시가 주어져 있지는 않음
 
-  - 단순히 high legal risk 데이터를 추론 시점에 활용가능할 경우를 가정
+- 단순히 high legal risk 데이터를 추론 시점에 활용가능할 경우를 가정
 
-  - (재희) : 모델 훈련과 사용 주체가 다를 경우 발생 가능한 시나리오
+- (재희) : 모델 훈련과 사용 주체가 다를 경우 발생 가능한 시나리오
 
-    - 학습 주체 : 네이버
+  - 학습 주체 : 네이버
 
-      - 모델 훈련 능력 및 인프라가 갖추어져 있으나, 특정 도메인 or legal risk가 있는 데이터를 확보할 수 없는 주체
+    - 모델 훈련 능력 및 인프라가 갖추어져 있으나, 특정 도메인 or legal risk가 있는 데이터를 확보할 수 없는 주체
 
-      - 증권사 내부 리포트에 대한 데이터 확보 불가 or 저작권 문제 해소 불가 → 증권 데이터를 Pretrain Corpus에 포함할 수 없음
+    - 증권사 내부 리포트에 대한 데이터 확보 불가 or 저작권 문제 해소 불가 → 증권 데이터를 Pretrain Corpus에 포함할 수 없음
 
-    - 사용 주체 : 토스
+  - 사용 주체 : 토스
 
-      - 모델 사용하고자 하는 고객사
+    - 모델 사용하고자 하는 고객사
 
-      - 사내 데이터로서 증권 리포트 데이터 사용 가능 but 모델이 학습하기를 원치 않는 상황
+    - 사내 데이터로서 증권 리포트 데이터 사용 가능 but 모델이 학습하기를 원치 않는 상황
 
 → 외부 유출 등에 대한 우려
 
@@ -100,7 +99,7 @@ title: 'SILO LANGUAGE MODELS: ISOLATING LEGAL RISK IN A NONPARAMETRIC DATASTORE'
 
   - PD(Public Domain) : 저작권에 대한 우려가 전혀 없는 완전 공개 데이터. 가장 손쉽게 활용 가능
 
-  - SW(Permissively Licensed Software) : 저작권에 대한 제한이 매우 소극적인 데이터. Apache 라이센스 등 활용에 있어 제한은 없으나 저작권 조항이 유지되어야 하는 특징이 있음. 
+  - SW(Permissively Licensed Software) : 저작권에 대한 제한이 매우 소극적인 데이터. Apache 라이센스 등 활용에 있어 제한은 없으나 저작권 조항이 유지되어야 하는 특징이 있음.
 
   - BY(Attribution License) : 활용에 제한은 없으나, 저작권은 원저작자에게 귀속되는 데이터. 모델 활용 관점에서는 BY 데이터가 학습에 사용된다면, 생성문이 원저작자에 귀속되는 문제가 발생
 
@@ -112,7 +111,7 @@ title: 'SILO LANGUAGE MODELS: ISOLATING LEGAL RISK IN A NONPARAMETRIC DATASTORE'
 
     - Legal : 공문서 중심의 데이터셋으로 대부분 차지
 
-    - Books, Science : 논문 및 예전 서적 중심으로 일부 차지 
+    - Books, Science : 논문 및 예전 서적 중심으로 일부 차지
 
   - PD,SW : 일부 완화된 분포를 보이면서 Code가 매우 많은 데이터 차지
 
@@ -176,7 +175,7 @@ title: 'SILO LANGUAGE MODELS: ISOLATING LEGAL RISK IN A NONPARAMETRIC DATASTORE'
 
 ## 4. Augmented Methods
 
-- OOD 도메인의 성능을 높이기 위해 KNN-LM과 Retrieval-In-Context LM (Augmented-LM, RIC LM) 두가지 방법론 이용 
+- OOD 도메인의 성능을 높이기 위해 KNN-LM과 Retrieval-In-Context LM (Augmented-LM, RIC LM) 두가지 방법론 이용
 
 ### KNN-LM
 
@@ -202,7 +201,7 @@ Retrieval의 확률 변환 과정
 
 - test 도메인의 훈련 데이터를 datastore로 설정하고, Retrieve된 text를 In-Context Learning으로서 활용하는 방법론
 
-- Retriever : BM25, OOD Retrieval 시 가장 안정적인 성능을 보이는 방법론이기 때문에 선택한듯. 
+- Retriever : BM25, OOD Retrieval 시 가장 안정적인 성능을 보이는 방법론이기 때문에 선택한듯.
 
 - ICL 시 사용되는 모든 M개의 Retrieved Text는 단순 concat을 통해 활용
 
@@ -270,7 +269,7 @@ Retrieval의 확률 변환 과정
 
   - (Pythia, X)와 비교를 통해 Retrieval을 통한 성능 향상 폭 확인 가능
 
-- 2번 (Pythia, Ours) : Retrieval는 OOD인 경우 
+- 2번 (Pythia, Ours) : Retrieval는 OOD인 경우
 
   - Retrieval가 OOD더라도 충분한 성능 향상 관찰, 1번과 큰 성능 차이 X
 
@@ -284,9 +283,9 @@ Retrieval의 확률 변환 과정
 
 - 4번 (Ours, Ours) : Retrieval와 LM 모두 OOD 인 경우
 
-  - LM only 보다는 성능이 좋지만, 1, 2, 3에 비해서는 성능 저하 관찰 가능 
+  - LM only 보다는 성능이 좋지만, 1, 2, 3에 비해서는 성능 저하 관찰 가능
 
-⇒ LM의 In-Domain 여부가 매우 중요한 요소 
+⇒ LM의 In-Domain 여부가 매우 중요한 요소
 
 ⇒ Retrieval 적용을 통한 성능 개선 역시 매우 뚜렷
 
@@ -302,9 +301,9 @@ Retrieval의 확률 변환 과정
 
 - 사실 당연한 문제 상황이고, 당연한 결과물임
 
-  - LM의 OOD 성능이 떨어진다. 
+  - LM의 OOD 성능이 떨어진다.
 
-  - LM에 Retrieval을 통해 성능 개선이 가능하다. 
+  - LM에 Retrieval을 통해 성능 개선이 가능하다.
 
 - 하지만 이를 저작권 문제와 결합시켜서 보다 엄밀한 문제 상황 제기
 
@@ -324,6 +323,6 @@ Retrieval의 확률 변환 과정
 
 - 민세원님 논문답게 분석과 워딩, 시각화가 무척 좋다…
 
-  - 논문에 써있는 내용도 좋고, 내가 직접 해석할 여지도 충분히 남겨 놓았다. 
+  - 논문에 써있는 내용도 좋고, 내가 직접 해석할 여지도 충분히 남겨 놓았다.
 
 - 결국 문제는 Retrieval을 언제 어떻게 결합하느냐…

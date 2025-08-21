@@ -1,34 +1,35 @@
 ---
 categories:
-- paper-reviews
-date: '2023-09-19 00:00:00'
+  - paper-reviews
+date: "2023-09-19 00:00:00"
 description: 논문 리뷰 - LM 관련 연구
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-- classification
-- gpt
-- language-model
-- lm
-- neural
-- paper-review
-- rlhf
-- transformer
+  - classification
+  - gpt
+  - language-model
+  - lm
+  - neural
+  - paper-review
+  - rlhf
+  - transformer
 thumbnail: assets/img/posts/2023-09-19-the-cringe-loss-learning-what-language-not-to/thumbnail.jpg
-title: 'The CRINGE Loss: Learning what language not to model'
+title: "The CRINGE Loss: Learning what language not to model"
 ---
 
 **논문 정보**
+
 - **Date**: 2023-09-19
 - **Reviewer**: 건우 김
 - **Property**: LM
 
 # Introdution
 
-LM은 아직도 toxicicty, bias, lack of coherence, fail to user’s coherence와 같은 문제들이 있음. 이런 문제들을 해결하기 위해 objective function에 failure cases에 대한 정보를 주입하는 식으로 training objective를 설계하는 여러 시도들이 있음. 
+LM은 아직도 toxicicty, bias, lack of coherence, fail to user’s coherence와 같은 문제들이 있음. 이런 문제들을 해결하기 위해 objective function에 failure cases에 대한 정보를 주입하는 식으로 training objective를 설계하는 여러 시도들이 있음.
 
-본 연구에서는 일반적으로 자주 사용되는 *positive example sequences*와 *negative example sequences (model should not generate) *를 모두 포함하는 training data를 통해 해당 문제를 탐구함. 
+본 연구에서는 일반적으로 자주 사용되는 *positive example sequences*와 *negative example sequences (model should not generate) *를 모두 포함하는 training data를 통해 해당 문제를 탐구함.
 
 다음 training data에 학습을 시키는 새로운 learning method, **CRINGE loss,**를 소개함.
 
@@ -46,7 +47,7 @@ Positive와 negative training data를 갖는 3가지 task에 실험을 한 결�
 
 ### Collecting negative examples
 
-최근에는 positive examples(e.g. human written text, websites etc.)을 수집하는 것 뿐만 아니라, 모델이 특정 ‘response’(e.g. contradictory, toxic, unhelpful responses)를 생성하지 않는 식으로 학습을 시키기 위해 negative examples을 수집하는 것에 대한 연구도 많이 진행됨. 
+최근에는 positive examples(e.g. human written text, websites etc.)을 수집하는 것 뿐만 아니라, 모델이 특정 ‘response’(e.g. contradictory, toxic, unhelpful responses)를 생성하지 않는 식으로 학습을 시키기 위해 negative examples을 수집하는 것에 대한 연구도 많이 진행됨.
 
 PPO에서 사용되는 human preference에 대한 ranked examples들도 있지만, 본 연구에서는 positive / negative examples만 고려해서 연구를 진행함.
 
@@ -54,9 +55,9 @@ PPO에서 사용되는 human preference에 대한 ranked examples들도 있지�
 
 1. Negative examples을 활용해서 LM을 학습하는 연구들도 다수 존재함.
 
-**(Neural Text ****De****Geneartion with Unlikelihood Training, ICLR 2020)**
+**(Neural Text \*\***De\***\*Geneartion with Unlikelihood Training, ICLR 2020)**
 
-→ unlikelihood training을 소개하며, negative token들에 대한 probability를 낮추는 식으로 objective function을 새로 제안함. negative candidates들에 대해 모델의 probability를 감소시키는 아이디어. 
+→ unlikelihood training을 소개하며, negative token들에 대한 probability를 낮추는 식으로 objective function을 새로 제안함. negative candidates들에 대해 모델의 probability를 감소시키는 아이디어.
 
 **Token-level unlikelihood objective**
 
@@ -86,7 +87,7 @@ PPO에서 사용되는 human preference에 대한 ranked examples들도 있지�
 
 → Text degeneration을 방지하기 위해 contrastive learning을 사용함. 앞선 M context tokens (negative candidates)들에 대해 positive label에 contrast를 가하는 것은 undesired token들이 생성되는 것을 방지 시켜줌.
 
-(Unlikelihood training은 undesired token을 생성하는 것이 문제): *아마도 ULS에서는 positive token에 대한 정보가 없기 때문*
+(Unlikelihood training은 undesired token을 생성하는 것이 문제): _아마도 ULS에서는 positive token에 대한 정보가 없기 때문_
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2023-09-19-the-cringe-loss-learning-what-language-not-to/image_005.png" class="img-fluid rounded z-depth-1" %}
 
@@ -98,23 +99,23 @@ PPO에서 사용되는 human preference에 대한 ranked examples들도 있지�
 
 1. Negative examples을 objective function에 추가해서 training하는 것 말고, negative examples을 활용하는 방법으로 별도의 classifier 혹은 reranker model을 학습 시키는 것도 존재함.
 
-→ LM이 multiple candidates를 생성하고, 독립적인 model이 generations에 대해 scoring 진행 후 best-scoring candidate를 선정함. 
+→ LM이 multiple candidates를 생성하고, 독립적인 model이 generations에 대해 scoring 진행 후 best-scoring candidate를 선정함.
 
-  - **(Addressing Contradictions in Dialogue Modeling, 2021 ACL)**: Reranker가 contradictory generation에 도움이 됨
+- **(Addressing Contradictions in Dialogue Modeling, 2021 ACL)**: Reranker가 contradictory generation에 도움이 됨
 
-  - **(WebGPT: Browser-assisted question-answering with human feedback, arixv 2021)**: 몇몇 case에서는 reranking이 RL보다 효과적임
+- **(WebGPT: Browser-assisted question-answering with human feedback, arixv 2021)**: 몇몇 case에서는 reranking이 RL보다 효과적임
 
 1. 독립적인 model이 final generation을 선택해주는 것 말고도 model-guiding에 관한 연구들도 다수 존재.
 
 - **(FUDGE: Controlled Text Generation With Future Discriminators, NAACL 2021)**
 
-→ LM (Blue) 이외의 별도의 classifier (Red)를 두고, 각 token에 대해 rerank를 수행 한 뒤에 LM의 prob과 multiplication을 수행한 뒤 next token을 선택함. 
+→ LM (Blue) 이외의 별도의 classifier (Red)를 두고, 각 token에 대해 rerank를 수행 한 뒤에 LM의 prob과 multiplication을 수행한 뒤 next token을 선택함.
 
-*X=x_{1:n}, P(X)=P(x_{1:n})= \prod_{i=1}^{n}P(x_{i}|x_{1:i-1})**, attribute a를 condition으로 추가 P(X|a)*
+_X=x*{1:n}, P(X)=P(x*{1:n})= \prod*{i=1}^{n}P(x*{i}|x\_{1:i-1})\*\*, attribute a를 condition으로 추가 P(X|a)_
 
-→ 여기서 attirbute a는 *desired attribute* (e.g. formality)
+→ 여기서 attirbute a는 _desired attribute_ (e.g. formality)
 
-P(X|a)=\prod_{i=1}^{n}P(x_{i}|x_{1:i-1},a), 되고 Bayesian factorization을 적용하면 아래와 같이 전개
+P(X|a)=\prod*{i=1}^{n}P(x*{i}|x\_{1:i-1},a), 되고 Bayesian factorization을 적용하면 아래와 같이 전개
 
 이 식은, 아래 figure에서 Blue LM과 Red LM으로 구분된 것으로 볼 수 있음
 
@@ -142,7 +143,7 @@ P(X|a)=\prod_{i=1}^{n}P(x_{i}|x_{1:i-1},a), 되고 Bayesian factorization을 적
 
 하지만 대부분의 task에서 좋은 성능이 나왔지만, architecture 자체를 변경 시켜야 하기 때문에, existing models들에 바로 적용하는 것이 쉽지 않은 단점이 존재함
 
-  - 밑에 실험에서 나오는 baseline으로 사용되는 DIRECTOR-shared는 ‘Head’의 Linear layer를 공유한 모델 
+- 밑에 실험에서 나오는 baseline으로 사용되는 DIRECTOR-shared는 ‘Head’의 Linear layer를 공유한 모델
 
 # Method
 
@@ -158,19 +159,19 @@ Positive와 negative sequence를 모두 포함하는 training data에 대해 학
 
   - training data에서 negative sequence가 주어지기는 하지만, negative sequence 내의 임의의 negative token에 대한 alternative positive token이 무엇인지 모름.
 
-e.g) You are very stupid ididot ugly! 
+e.g) You are very stupid ididot ugly!
 
-   → You are very (negative sequence)  → You are very (token) (token) (token)
+→ You are very (negative sequence) → You are very (token) (token) (token)
 
 → **(A Simple Contrastive Learning Objective for Alleviating Neural Text Degeneration, arxiv 2022)**의 **문제점으로 지적**
 
 → (arxiv 2022) paper에서는 token 단위로 contrastive learing을 수행할 수 있는 task들을 수행했는데, 본 실험에서 진행되는 task들은 sequence 단위로 negative example이 주어지기 때문에, 적용이 안되는거 같습니다…이거를 논문에 직접적으로 언급을 해줬으면 이해하기가 더 수월했을듯!
 
-  - 이를 해결하기 위해, model의 현재 시점의 top-k prediction을 sample하여 alternative positive token으로 사용함. (negative token이 top-k 내에 존재하면, negative token이 positive example로 선택되면 안되므로 top-k에서 negative token을 지움)
+- 이를 해결하기 위해, model의 현재 시점의 top-k prediction을 sample하여 alternative positive token으로 사용함. (negative token이 top-k 내에 존재하면, negative token이 positive example로 선택되면 안되므로 top-k에서 negative token을 지움)
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2023-09-19-the-cringe-loss-learning-what-language-not-to/image_014.png" class="img-fluid rounded z-depth-1" %}
 
-  - 아래 Pseudo code를 보면 직관적임
+- 아래 Pseudo code를 보면 직관적임
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2023-09-19-the-cringe-loss-learning-what-language-not-to/image_015.png" class="img-fluid rounded z-depth-1" %}
 
@@ -180,17 +181,17 @@ e.g) You are very stupid ididot ugly!
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2023-09-19-the-cringe-loss-learning-what-language-not-to/image_016.png" class="img-fluid rounded z-depth-1" %}
 
-  - 해당 objective function은 다음과 같은 방식으로 iteratively하게 적용되어 model의 성능을 올릴 수 있음
+- 해당 objective function은 다음과 같은 방식으로 iteratively하게 적용되어 model의 성능을 올릴 수 있음
 
-    1. 먼저 dataset *D* 로 model을 training 진행
+  1. 먼저 dataset _D_ 로 model을 training 진행
 
-    1. 학습된 model이 기존 training contexts에 대해 additional seuqnece를 생성함
+  1. 학습된 model이 기존 training contexts에 대해 additional seuqnece를 생성함
 
-    1. model의 generation을 positive 혹은 negative로 labeling 진행한 뒤에, (1)에 있던 dataset *D*에 추가함
+  1. model의 generation을 positive 혹은 negative로 labeling 진행한 뒤에, (1)에 있던 dataset *D*에 추가함
 
-      - positive, negative를 포함하는 original training data로 별도의 classifier를 학습 시킨 뒤 model generation labeling을 진행함. (RLHF에서 reward model이랑 비슷)
+  - positive, negative를 포함하는 original training data로 별도의 classifier를 학습 시킨 뒤 model generation labeling을 진행함. (RLHF에서 reward model이랑 비슷)
 
-    1. (1~3) process를 반복함
+  1. (1~3) process를 반복함
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2023-09-19-the-cringe-loss-learning-what-language-not-to/image_017.png" class="img-fluid rounded z-depth-1" %}
 
@@ -214,7 +215,7 @@ e.g) You are very stupid ididot ugly!
 
 - **Unlikelihood Loss**
 
-  - Unlikelihood loss는 unwanted token의 prob을 낮추지만, CRINGE Loss는 top-k prediction에 대해 contrast를 가하는 점이 다르다. 
+  - Unlikelihood loss는 unwanted token의 prob을 낮추지만, CRINGE Loss는 top-k prediction에 대해 contrast를 가하는 점이 다르다.
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2023-09-19-the-cringe-loss-learning-what-language-not-to/image_018.png" class="img-fluid rounded z-depth-1" %}
 
@@ -230,13 +231,13 @@ e.g) You are very stupid ididot ugly!
 
 **(Jam or Cream First? Modeling Ambiguity in Neural Machine Translation with SCONES, 2022 NAACL) **
 
-  - LM head의 softmax를 sigmoid로 대체함 → full vocab의 dist를 사용하는 대신에, 각 token에 대해 sigmoid를 적용한 뒤에 binary classification을 수행
+- LM head의 softmax를 sigmoid로 대체함 → full vocab의 dist를 사용하는 대신에, 각 token에 대해 sigmoid를 적용한 뒤에 binary classification을 수행
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2023-09-19-the-cringe-loss-learning-what-language-not-to/image_019.png" class="img-fluid rounded z-depth-1" %}
 
-  - SCONES term을 다음과 같이 변형 시킨 후 baseline으로 사용
+- SCONES term을 다음과 같이 변형 시킨 후 baseline으로 사용
 
-    - irrelevant하는 것을 처리해주는 term을 추가시킴
+  - irrelevant하는 것을 처리해주는 term을 추가시킴
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2023-09-19-the-cringe-loss-learning-what-language-not-to/image_020.png" class="img-fluid rounded z-depth-1" %}
 
@@ -250,39 +251,39 @@ Backbone으로 BB1 사용
 
 다음 두 가지 기준으로 평가 진행
 
-1. 동일 prompt가 주어질 때, ConvAI2 dataset의 gold respones에 대한 F1 score로 ***generation performance*** 측정
+1. 동일 prompt가 주어질 때, ConvAI2 dataset의 gold respones에 대한 F1 score로 **_generation performance_** 측정
 
-1. WTC dataset의 toxic prompt에 대한* ****safe generation***의 비중 (DIRECTOR에서 사용한 classifier를 기준으로 평가 진행 → CRINGE training loop에서 사용되는 c도 동일하게 사용)
+1. WTC dataset의 toxic prompt에 대한\* \***_safe generation_**의 비중 (DIRECTOR에서 사용한 classifier를 기준으로 평가 진행 → CRINGE training loop에서 사용되는 c도 동일하게 사용)
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2023-09-19-the-cringe-loss-learning-what-language-not-to/image_022.png" class="img-fluid rounded z-depth-1" %}
 
 - CRINGE loss (single iteration)은 DIRECTOR와 비슷한 수준을 보이고, unlikelihood training, Reranker, FUDGE, PACER보다 높은 성능 보임
 
-- 추가 iteration 진행한 CRINGE는 Geneartion perfromance (F1)을 거의 유지하며, Safety score가 거의 100% 수준을 보임 
+- 추가 iteration 진행한 CRINGE는 Geneartion perfromance (F1)을 거의 유지하며, Safety score가 거의 100% 수준을 보임
 
-- 아래는 WikiToxic prompt에 대한 정성 평가인데, CRINGE는 safe response를 잘 생성하는 반면에 DIRECTOR는 그렇지 못함 
+- 아래는 WikiToxic prompt에 대한 정성 평가인데, CRINGE는 safe response를 잘 생성하는 반면에 DIRECTOR는 그렇지 못함
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2023-09-19-the-cringe-loss-learning-what-language-not-to/image_023.png" class="img-fluid rounded z-depth-1" %}
 
 ## Contradiction Avoidance Task
 
-사람이 contradictory / nonconctradictory로 label한 examples인 DECODE dataset을 사용 
+사람이 contradictory / nonconctradictory로 label한 examples인 DECODE dataset을 사용
 
 Backbone으로 BB1 사용
 
 다음 두 가지 기준으로 평가 진행
 
-1. ConvAI2 dataset의 gold respones에 대한 F1 score로 ***generation performance*** 측정
+1. ConvAI2 dataset의 gold respones에 대한 F1 score로 **_generation performance_** 측정
 
-1. DECODE에서 ***coherent*** 비중 (여기서도 Safe Generation Task와 유사하게 별도의 labeled dataset에 학습된 classifier 사용)
+1. DECODE에서 **_coherent_** 비중 (여기서도 Safe Generation Task와 유사하게 별도의 labeled dataset에 학습된 classifier 사용)
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2023-09-19-the-cringe-loss-learning-what-language-not-to/image_024.png" class="img-fluid rounded z-depth-1" %}
 
-- CRINGE (single-iteration)과 DIRECTOR가 다른 baseline 보다 classifier accuracy 측면에서 큰 차이로 우수한 성능을 보임 
+- CRINGE (single-iteration)과 DIRECTOR가 다른 baseline 보다 classifier accuracy 측면에서 큰 차이로 우수한 성능을 보임
 
 ## Open-domain Dialogue (FITS) Task
 
-specific tasks가 아닌 practical한 상황에서 평가하기 위해 Feedback for Interactive Talk & Search (FITS) benchmark사용해서 실험 진행 
+specific tasks가 아닌 practical한 상황에서 평가하기 위해 Feedback for Interactive Talk & Search (FITS) benchmark사용해서 실험 진행
 
 - FITS: diverse topic에 대해 human과 model 간의 conversation이 있고, model의 response에 대한 사람이 annotate binary feedback label이 존재함 (pos/neg)
 
@@ -290,11 +291,11 @@ Backbone으로 BB2 사용 (search engine 사용 → FiD를 통해 top search res
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2023-09-19-the-cringe-loss-learning-what-language-not-to/image_025.png" class="img-fluid rounded z-depth-1" %}
 
-- valid(684), test(1453), test unseen(1366) 종류의 F1 score에 대한 weighted average 
+- valid(684), test(1453), test unseen(1366) 종류의 F1 score에 대한 weighted average
 
-  - test unsee: training시에 등장하지 않은 topic 
+  - test unsee: training시에 등장하지 않은 topic
 
-  - *valid를 포함시키는게 맞나…? 음………….?!*
+  - _valid를 포함시키는게 맞나…? 음………….?!_
 
 - CRINGE (single-iteration)이 baseline 뛰어 넘고, 추가 iteration한 case가 가장 우수함
 
@@ -308,11 +309,11 @@ Backbone으로 BB2 사용 (search engine 사용 → FiD를 통해 top search res
 
 본 연구에서는 LM을 iterative하게 학습시킬 수 있는 CRINGE Loss를 새롭게 제안함.
 
-그런데, 개인적인 생각으로 CRINGE Loss는 **(A Simple Contrastive Learning Objective for Alleviating Neural Text Degeneration, arxiv 2022) **에서 주장한 Contrastive Loss와 구조적으로 거의 동일하고, negative token에 대한 alternative positive token을 top-k prediction으로 사용해 개선한 점이 유일한 novelty라고 생각함. 
+그런데, 개인적인 생각으로 CRINGE Loss는 **(A Simple Contrastive Learning Objective for Alleviating Neural Text Degeneration, arxiv 2022) **에서 주장한 Contrastive Loss와 구조적으로 거의 동일하고, negative token에 대한 alternative positive token을 top-k prediction으로 사용해 개선한 점이 유일한 novelty라고 생각함.
 
 iterative하게 training data를 scale up 시키는 것에 대한 effectiveness를 실험적으로 잘 보여줬고, Safety task 와 Contradiction task에서 압도적으로 높은 성능을 보임
 
-다만, Open-domain Dialogue Task에서는 Unlikelihood training과 비슷하거나 못한 성능을 보임 
+다만, Open-domain Dialogue Task에서는 Unlikelihood training과 비슷하거나 못한 성능을 보임
 
 최근 Language Modeling objective function에 variant를 가한 아이디어 자체는 아래 범주에서 크게 벗어나지 않고 있는 것 같다고 느낌
 

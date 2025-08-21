@@ -1,27 +1,28 @@
 ---
 categories:
-- paper-reviews
-date: '2024-03-05 00:00:00'
+  - paper-reviews
+date: "2024-03-05 00:00:00"
 description: 논문 리뷰 - Prompt Tuning, Inference 관련 연구
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-- alignment
-- gpt
-- inference
-- llm
-- nlp
-- paper-review
-- pre-training
-- prompt tuning
-- reasoning
-- rlhf
+  - alignment
+  - gpt
+  - inference
+  - llm
+  - nlp
+  - paper-review
+  - pre-training
+  - prompt tuning
+  - reasoning
+  - rlhf
 thumbnail: assets/img/posts/2024-03-05-beyond-memorization-violating-privacy-via-inferencing-with-llms/thumbnail.jpg
-title: 'Beyond Memorization: Violating Privacy Via Inferencing With LLMs'
+title: "Beyond Memorization: Violating Privacy Via Inferencing With LLMs"
 ---
 
 **논문 정보**
+
 - **Date**: 2024-03-05
 - **Reviewer**: 준원 장
 - **Property**: Prompt Tuning, Inference
@@ -56,9 +57,9 @@ title: 'Beyond Memorization: Violating Privacy Via Inferencing With LLMs'
 
   - exact repetition of training data sequences during inference in response to a specific input prompt, often the corresponding prefix. (동일한 prefix에 대해서 training data와 response를 하는것이라고 논문에서 정의함)
 
-- Carlini et al. (2023)에 따르면 memorization, model size, training data repetitions에는  log-linear 관계가 있음. 
+- Carlini et al. (2023)에 따르면 memorization, model size, training data repetitions에는 log-linear 관계가 있음.
 
-→ 기존에는 privacy leakage를 신경써야하는 source가 pt data라면 이 연구에서는 inference때 LM이 직면하는 data의 privacy leakage도 신경써야함을 주장. 
+→ 기존에는 privacy leakage를 신경써야하는 source가 pt data라면 이 연구에서는 inference때 LM이 직면하는 data의 privacy leakage도 신경써야함을 주장.
 
 ### Risk of LLMs
 
@@ -76,7 +77,7 @@ title: 'Beyond Memorization: Violating Privacy Via Inferencing With LLMs'
 
   - ”any information relating to an identified or identifiable natural person” explicitly including location data and a persons economic, cultural or social identity.
 
-- Personal Identifiable Information (PII)  - U.S.
+- Personal Identifiable Information (PII) - U.S.
 
   - acknowledge the existence of sensitive data such as race, sexual orientation, or religion.
 
@@ -98,11 +99,11 @@ title: 'Beyond Memorization: Violating Privacy Via Inferencing With LLMs'
 
 : Dataset에 user와 text 정보가 있을때 LLM을 통해서 attribute와 value정보를 extract하자
 
-- P_{A_1} (t) = (S, P)
+- P\_{A_1} (t) = (S, P)
 
   - S: System Prompt
 
-  - P = (Prefix \ F_{A_{1}}(t) \ Suffix)
+  - P = (Prefix \ F*{A*{1}}(t) \ Suffix)
 
 - **Prompt Example**
 
@@ -116,13 +117,13 @@ title: 'Beyond Memorization: Violating Privacy Via Inferencing With LLMs'
 
 - (논문에서 설명이 부족하긴 하지만) Persona적으로 무해해보이는 Role을 부여받은 chat-bot이 사용자와 계속 대화를 이어나가면서 뒤에서는 걔속해서 잠재적으로 민감한 정보를 학습할 수 있는 텍스트를 생성하도록 유도
 
-- T_{p} : public task of the LLM, e.g., “being a helpful travel assistant”
+- T\_{p} : public task of the LLM, e.g., “being a helpful travel assistant”
 
-- T_{h} : hidden task of the LLM, e.g., “trying to extract private information from the user”
+- T\_{h} : hidden task of the LLM, e.g., “trying to extract private information from the user”
 
-- m_{i} > r_{i}^{h} : a user message > a hidden model response to the model hosting entity (e.g., PII inferences from prior responses)
+- m*{i} > r*{i}^{h} : a user message > a hidden model response to the model hosting entity (e.g., PII inferences from prior responses)
 
-- m_{i} > r_{i}^{p} : a user message > a public model response revealed to the user
+- m*{i} > r*{i}^{p} : a user message > a public model response revealed to the user
 
 → chatbot platform 모방해서 실험진행
 
@@ -158,7 +159,7 @@ title: 'Beyond Memorization: Violating Privacy Via Inferencing With LLMs'
 
   - hardness 3이 4보다 높은 reasoning을 요구하는 경우가 있음
 
-- Decontamination 진행 
+- Decontamination 진행
 
   - PT때 해당 reddit 데이터 보지 않았음을 검증
 
@@ -172,7 +173,7 @@ title: 'Beyond Memorization: Violating Privacy Via Inferencing With LLMs'
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-03-05-beyond-memorization-violating-privacy-via-inferencing-with-llms/image_005.png" class="img-fluid rounded z-depth-1" %}
 
- → Perceived Certainity ≥ 3 이상 dataset 가지고 실험 진행 (This resulted in 1066 (down from 1184) individual labels across all 520 profiles.)
+→ Perceived Certainity ≥ 3 이상 dataset 가지고 실험 진행 (This resulted in 1066 (down from 1184) individual labels across all 520 profiles.)
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-03-05-beyond-memorization-violating-privacy-via-inferencing-with-llms/image_006.png" class="img-fluid rounded z-depth-1" %}
 
@@ -182,7 +183,7 @@ title: 'Beyond Memorization: Violating Privacy Via Inferencing With LLMs'
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-03-05-beyond-memorization-violating-privacy-via-inferencing-with-llms/image_007.png" class="img-fluid rounded z-depth-1" %}
 
-- GPT-4의 경우 top-1으로만 비교했을때 전체 attributes에 대해서 84.6% 정도 ACC를 보임. 
+- GPT-4의 경우 top-1으로만 비교했을때 전체 attributes에 대해서 84.6% 정도 ACC를 보임.
 
   - top-3로 범위 확장시 95.1% ACC
 
@@ -222,7 +223,7 @@ title: 'Beyond Memorization: Violating Privacy Via Inferencing With LLMs'
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-03-05-beyond-memorization-violating-privacy-via-inferencing-with-llms/image_010.png" class="img-fluid rounded z-depth-1" %}
 
-- AzureLanguageService를 활용해 user attribute를 ***로 anonymize 하는 것
+- AzureLanguageService를 활용해 user attribute를 \*\*\*로 anonymize 하는 것
 
 - AzureLanguageService에 의해서 지원되는 location, age, occupation, place of birth, and income에 대해서만 anonymize 하고 inference시에 privacy leakage가 발생하는지 확인
 

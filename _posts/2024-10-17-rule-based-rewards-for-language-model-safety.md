@@ -1,24 +1,25 @@
 ---
 categories:
-- paper-reviews
-date: '2024-10-17 00:00:00'
+  - paper-reviews
+date: "2024-10-17 00:00:00"
 description: 논문 리뷰
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-- classification
-- detection
-- gpt
-- language-model
-- llm
-- paper-review
-- rlhf
+  - classification
+  - detection
+  - gpt
+  - language-model
+  - llm
+  - paper-review
+  - rlhf
 thumbnail: assets/img/posts/2024-10-17-rule-based-rewards-for-language-model-safety/thumbnail.jpg
 title: Rule Based Rewards for Language Model Safety
 ---
 
 **논문 정보**
+
 - **Date**: 2024-10-17
 - **Reviewer**: 준원 장
 
@@ -86,7 +87,7 @@ title: Rule Based Rewards for Language Model Safety
 
 ### Rule-Based Rewards for Safety
 
-⇒ 위에서 열심히 구분한 completion들을 (1) 어떻게 fine-grained하게  구분해서 (2) Reward Signal로 줄 . 수있냐?가 가장 큰 관건이나, openai는 heuristic과 자원으로 해결
+⇒ 위에서 열심히 구분한 completion들을 (1) 어떻게 fine-grained하게 구분해서 (2) Reward Signal로 줄 . 수있냐?가 가장 큰 관건이나, openai는 heuristic과 자원으로 해결
 
 - **Propositions and Rules**
 
@@ -102,19 +103,19 @@ title: Rule Based Rewards for Language Model Safety
 
       - 여러 preposition의 T/F 조합에 따라 ‘completion types’을 아래와 같이 분류함. 즉 모든 **Resonponse Type의 Quality가 아래와 같이 정해진다고 판단하면 됨.**
 
-        - ideal: desired behavior without disallowed content. 
+        - ideal: desired behavior without disallowed content.
 
-        - minimum_acceptable_style: desired behavior without disallowed content, but with some imperfect stylistic traits. 
+        - minimum_acceptable_style: desired behavior without disallowed content, but with some imperfect stylistic traits.
 
-        - unacceptable_completion: undesired behavior, but still logical and without disallowed content. 
+        - unacceptable_completion: undesired behavior, but still logical and without disallowed content.
 
-        - illogical_completion: illogical continuation of the conversation. 
+        - illogical_completion: illogical continuation of the conversation.
 
         - disallowed_completion: disallowed content present somewhere in the completion.
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-10-17-rule-based-rewards-for-language-model-safety/image_002.png" class="img-fluid rounded z-depth-1" %}
 
-- **A Small Set of Human Labelled Data for Prompt Tuning:  **
+- **A Small Set of Human Labelled Data for Prompt Tuning: **
 
   - LLM에게 원하는 policy에 대한 response를 생성시킨 다음, 인간이 preposition별로 나누어서 labeling.
 
@@ -126,11 +127,11 @@ title: Rule Based Rewards for Language Model Safety
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-10-17-rule-based-rewards-for-language-model-safety/image_003.png" class="img-fluid rounded z-depth-1" %}
 
-  - (모든 자세한 설명은 생략되어있지만) Ps에서 prompt만 가져와, Helpful-Only Model (뭔지 설명 안해줌)에게 forward하고 hard refusal, two bad completions with randomly sampled bad refusal traits, disallowed content 생성시킴
+- (모든 자세한 설명은 생략되어있지만) Ps에서 prompt만 가져와, Helpful-Only Model (뭔지 설명 안해줌)에게 forward하고 hard refusal, two bad completions with randomly sampled bad refusal traits, disallowed content 생성시킴
 
-    - 위에서 생성시킨 데이터 ModAPI로 필터링 ⇒ 생성한 데이터 D_RBR
+  - 위에서 생성시킨 데이터 ModAPI로 필터링 ⇒ 생성한 데이터 D_RBR
 
-    - 이후, D_RBR에서 Ideal class만 가져와서 SFT data로 지정
+  - 이후, D_RBR에서 Ideal class만 가져와서 SFT data로 지정
 
 - **Inner Loop: Fitting an RBR & Outer Loop: Evaluating the Final Reward Signal and Tuning**
 
@@ -140,17 +141,17 @@ title: Rule Based Rewards for Language Model Safety
 
 ⇒ 기존 reward model signal도 같이 활용
 
-  - 실제 파라미터 수는 ‘propositions + the five class probabilities’이지만 PPO때 활용한 데이터수만큼 활용
+- 실제 파라미터 수는 ‘propositions + the five class probabilities’이지만 PPO때 활용한 데이터수만큼 활용
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-10-17-rule-based-rewards-for-language-model-safety/image_005.png" class="img-fluid rounded z-depth-1" %}
 
-  - (Left) Test Set에서 각 prompt에 대해서 다른 completion을 생성시키고 perfect refusal을 reward의 reward를 다른 completion에 substract 
+- (Left) Test Set에서 각 prompt에 대해서 다른 completion을 생성시키고 perfect refusal을 reward의 reward를 다른 completion에 substract
 
-    - RM only는 미세한 구분을 못함
+  - RM only는 미세한 구분을 못함
 
-  - (Right) Ideal한 response(즉 가장 조건들이 다 포함된 response)가 pair에 있는 상황에서 Ideal보다 Non-Ideal이 더 높이 있는 확률
+- (Right) Ideal한 response(즉 가장 조건들이 다 포함된 response)가 pair에 있는 상황에서 Ideal보다 Non-Ideal이 더 높이 있는 확률
 
-    -  역시 RM only은 error rate이 높음
+  - 역시 RM only은 error rate이 높음
 
 ⇒ 위의 표는 signal을 주었기에 당연한 결과
 
@@ -170,7 +171,7 @@ title: Rule Based Rewards for Language Model Safety
 
     - Comply prompts인데 completion이 not refusals이지 않은 비율
 
-  - Hard-Refusal-Style 
+  - Hard-Refusal-Style
 
     - Hard-Refusal prompts에 대해서 completion이 ideal style (preposition 다 포함)하는 비율
 

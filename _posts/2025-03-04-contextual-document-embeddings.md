@@ -1,32 +1,33 @@
 ---
 categories:
-- paper-reviews
-date: '2025-03-04 00:00:00'
+  - paper-reviews
+date: "2025-03-04 00:00:00"
 description: 논문 리뷰 - Retrieval, Embeddings 관련 연구
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-- attention
-- bert
-- embedding
-- embeddings
-- neural
-- paper-review
-- retrieval
-- transformer
+  - attention
+  - bert
+  - embedding
+  - embeddings
+  - neural
+  - paper-review
+  - retrieval
+  - transformer
 thumbnail: assets/img/posts/2025-03-04-contextual-document-embeddings/thumbnail.jpg
 title: Contextual Document Embeddings
 ---
 
 **논문 정보**
+
 - **Date**: 2025-03-04
 - **Reviewer**: 상엽
 - **Property**: Retrieval, Embeddings
 
 # Introduction
 
-- **Statistical approaches**: BM25 → **Neural method**: *dual encoder*
+- **Statistical approaches**: BM25 → **Neural method**: _dual encoder_
 
 - **neural model**에 없는 Statistical approach만이 가진 장점: **prior corpus 통계치**를 알 수 있다는 것
 
@@ -42,17 +43,17 @@ title: Contextual Document Embeddings
 
 1. **Contextual training procudure**
 
-  - Fast query-document clustering: contrastive learning 과정에서 배치 내 이웃 문서 (**neighboring documents**) 정의
+- Fast query-document clustering: contrastive learning 과정에서 배치 내 이웃 문서 (**neighboring documents**) 정의
 
-  - 이웃 문서로만 배치학습 진행 ← **most challenge contexts**를 구별할 수 있게 하기 위함.
+- 이웃 문서로만 배치학습 진행 ← **most challenge contexts**를 구별할 수 있게 하기 위함.
 
 1. **Architecture**
 
-  - 임베딩 동안에 **contextual document를 주입하는 새로운 encoder** 설계
+- 임베딩 동안에 **contextual document를 주입하는 새로운 encoder** 설계
 
-  - **Contextual Document Embedding (CDE)**: BERT-style encoder에 aggregated document-level information about neighboring documents를 제공
+- **Contextual Document Embedding (CDE)**: BERT-style encoder에 aggregated document-level information about neighboring documents를 제공
 
-  - 사전에 계산된 corpus-level 통계치를 제공 → 동일한 임베딩 사이즈 유지
+- 사전에 계산된 corpus-level 통계치를 제공 → 동일한 임베딩 사이즈 유지
 
 # Background
 
@@ -78,15 +79,15 @@ title: Contextual Document Embeddings
 
 - **Meta-learning-style objectives**: 도메인 선정 → 관련 예시를 샘플링
 
-  1. Training dataset (\mathcal{D}_T)를 각각의 pseudo-domain을 나타내는** (****\mathcal{B}^1, ..., \mathcal{B}^B****) 그룹들로 분할**
+  1. Training dataset (\mathcal{D}\_T)를 각각의 pseudo-domain을 나타내는** (\*\***\mathcal{B}^1, ..., \mathcal{B}^B\***\*) 그룹들로 분할**
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2025-03-04-contextual-document-embeddings/image_002.png" class="img-fluid rounded z-depth-1" %}
 
     - Hard negatives (\mathcal{H}) 없음!
 
-  1. Group이 **최대한 challenge**하기 위해 다음의 최적화 문제를 풀 수 있음.
+1. Group이 **최대한 challenge**하기 위해 다음의 최적화 문제를 풀 수 있음.
 
-    - Zhang & Stratos (2021) show that **increasing the partition term** **improves the contrastive approximation to the maximum likelihood the gradient.**
+   - Zhang & Stratos (2021) show that **increasing the partition term** **improves the contrastive approximation to the maximum likelihood the gradient.**
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2025-03-04-contextual-document-embeddings/image_003.png" class="img-fluid rounded z-depth-1" %}
 
@@ -162,26 +163,25 @@ title: Contextual Document Embeddings
 
 - corpus subset을 미리 임베딩해 만들어 활용한다면 lexical 정보를 encdoing에서 활용하는 것이 아닌가?
 
-- Two-stage process를 통해  contextualized embedding을 생성
-
+- Two-stage process를 통해 contextualized embedding을 생성
 
 ---
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2025-03-04-contextual-document-embeddings/image_009.png" class="img-fluid rounded z-depth-1" %}
 
-**First stage: ***Gather and embed context*
+**First stage: \***Gather and embed context\*
 
 - Context documents: d^1, ..., d^J \in \mathcal{D}가 있을 때, 임베딩 모델을 사용해 만든 임베딩을 concat하여 Embedding sequence M_1(d^1)...M_1(d^J) 획득
 
-**Second stage: ***Embed document with additional context tokens*
+**Second stage: \***Embed document with additional context tokens\*
 
 - document d'의 임베딩을 일 계산하기 위해 contextual embedding sequence와 결합하여 다음을 계산
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2025-03-04-contextual-document-embeddings/image_010.png" class="img-fluid rounded z-depth-1" %}
 
-  - M_2: second-stage encoder model
+- M_2: second-stage encoder model
 
-  - E: token embedding matrix of M_2
+- E: token embedding matrix of M_2
 
 - Query도 유사하게 계산
 
@@ -195,7 +195,7 @@ title: Contextual Document Embeddings
 
 **Embedding without context**
 
-- Training 시, 모델의 generalization을 향상하기 위해 p 확률로 특정 context embedding M_1(d^*)을  null token으로 바꾸는 sequence dropout을 활용.
+- Training 시, 모델의 generalization을 향상하기 위해 p 확률로 특정 context embedding M_1(d^\*)을 null token으로 바꾸는 sequence dropout을 활용.
 
 - Test 시, context를 활용할 수 없을 경우 null tokens을 활용
 
@@ -310,7 +310,6 @@ title: Contextual Document Embeddings
   - 당연히 도메인이 같을 경우 즉 동일한 도메인 문서를 context로 받을 경우, 성능이 더 높음.
 
   - 몇몇 도메인에서는 교차 상호작용도 있었음!
-
 
 ---
 
