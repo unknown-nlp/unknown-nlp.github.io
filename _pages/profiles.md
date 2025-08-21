@@ -66,5 +66,4 @@ profiles:
     more_info: >
       <p><strong>Email</strong>: <a href="mailto:jaewon_cheon@korea.ac.kr">jaewon_cheon(at)korea.ac.kr</a></p>
       <p><strong>Google Scholar</strong>: <a href="https://scholar.google.com/citations?user=0ofLeLAAAAAJ&hl=en" target="_blank">Profile</a></p>
-
 ---
