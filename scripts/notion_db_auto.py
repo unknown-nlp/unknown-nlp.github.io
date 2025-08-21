@@ -21,6 +21,7 @@ from pathlib import Path
 from datetime import datetime
 import time
 import yaml
+import json
 
 try:
     from notion_client import Client
@@ -53,6 +54,8 @@ class NotionDatabaseProcessor:
         self.notion = Client(auth=token)
         self.token = token
         self.downloaded_images = {}  # URL -> 로컬 파일명 매핑
+        self.processed_pages_file = Path("scripts/.notion_processed_pages.json")
+        self.processed_pages = self._load_processed_pages()
     
     def get_all_block_children(self, block_id):
         """
@@ -374,6 +377,62 @@ class NotionDatabaseProcessor:
         
         return "".join(text_parts)
     
+    def _load_processed_pages(self):
+        """
+        이미 처리된 페이지 ID 목록을 로드
+        
+        Returns:
+            dict: 처리된 페이지 정보 {page_id: {title, date, file_path}}
+        """
+        if self.processed_pages_file.exists():
+            try:
+                with open(self.processed_pages_file, 'r', encoding='utf-8') as f:
+                    return json.load(f)
+            except Exception as e:
+                print(f"   ⚠️  처리 기록 파일 로드 실패: {e}")
+                return {}
+        return {}
+    
+    def _save_processed_pages(self):
+        """
+        처리된 페이지 정보를 저장
+        """
+        try:
+            with open(self.processed_pages_file, 'w', encoding='utf-8') as f:
+                json.dump(self.processed_pages, f, ensure_ascii=False, indent=2)
+        except Exception as e:
+            print(f"   ⚠️  처리 기록 저장 실패: {e}")
+    
+    def _mark_page_as_processed(self, page_id, title, date, file_path):
+        """
+        페이지를 처리됨으로 표시
+        
+        Args:
+            page_id (str): 페이지 ID
+            title (str): 페이지 제목
+            date (str): 처리 날짜
+            file_path (str): 생성된 파일 경로
+        """
+        self.processed_pages[page_id] = {
+            "title": title,
+            "date": date,
+            "file_path": file_path,
+            "processed_at": datetime.now().isoformat()
+        }
+        self._save_processed_pages()
+    
+    def _is_page_processed(self, page_id):
+        """
+        페이지가 이미 처리되었는지 확인
+        
+        Args:
+            page_id (str): 페이지 ID
+            
+        Returns:
+            bool: 처리 여부
+        """
+        return page_id in self.processed_pages
+    
     def get_image_from_notion_block(self, block):
         """
         노션 블록에서 이미지 정보를 추출
@@ -520,6 +579,16 @@ class NotionDatabaseProcessor:
         Returns:
             tuple: (생성된 파일 경로, 성공 여부)
         """
+        page_id = page["id"]
+        
+        # 이미 처리된 페이지인지 확인
+        if self._is_page_processed(page_id):
+            processed_info = self.processed_pages[page_id]
+            print(f"   ⏭️  이미 처리된 페이지: {processed_info['title']}")
+            print(f"      파일: {processed_info['file_path']}")
+            print(f"      처리 시간: {processed_info['processed_at']}")
+            return None, False
+        
         # 메타데이터 추출
         metadata = self.extract_page_metadata(page)
         title = metadata["title"]
@@ -573,9 +642,12 @@ class NotionDatabaseProcessor:
         
         print(f"   ✅ 변환 완료: {output_file}")
         
+        # 페이지를 처리됨으로 표시
+        self._mark_page_as_processed(page_id, title, final_date, str(output_file))
+        
         return str(output_file), True
 
-def process_notion_database(database_url, token, start_date=None):
+def process_notion_database(database_url, token, start_date=None, force_reprocess=False):
     """
     노션 데이터베이스를 처리해서 ai-folio 블로그로 변환
     
@@ -583,10 +655,17 @@ def process_notion_database(database_url, token, start_date=None):
         database_url (str): 노션 데이터베이스 URL
         token (str): 노션 API 토큰
         start_date (str, optional): 시작 날짜
+        force_reprocess (bool): 이미 처리된 페이지도 다시 처리할지 여부
     """
     print("🚀 노션 데이터베이스 자동 변환 시작!")
     
     processor = NotionDatabaseProcessor(token)
+    
+    # 강제 재처리 옵션이 켜져있으면 처리 기록 초기화
+    if force_reprocess:
+        print("⚠️  강제 재처리 모드: 모든 페이지를 다시 처리합니다.")
+        processor.processed_pages = {}
+        processor._save_processed_pages()
     
     # URL에서 데이터베이스 ID 추출
     try:
@@ -608,8 +687,27 @@ def process_notion_database(database_url, token, start_date=None):
     
     success_count = 0
     failed_count = 0
+    skipped_count = 0
     
-    for i, page in enumerate(pages):
+    # 처리되지 않은 페이지만 필터링 (force_reprocess가 아닌 경우)
+    unprocessed_pages = []
+    for page in pages:
+        if force_reprocess or not processor._is_page_processed(page["id"]):
+            unprocessed_pages.append(page)
+        else:
+            skipped_count += 1
+    
+    if not unprocessed_pages:
+        print(f"\n✅ 모든 페이지가 이미 처리되었습니다. (총 {len(pages)}개)")
+        print("   강제 재처리를 원하시면 --force-reprocess 옵션을 사용하세요.")
+        return
+    
+    print(f"\n📊 처리 현황:")
+    print(f"   - 전체 페이지: {len(pages)}개")
+    print(f"   - 이미 처리됨: {skipped_count}개")
+    print(f"   - 처리 예정: {len(unprocessed_pages)}개")
+    
+    for i, page in enumerate(unprocessed_pages):
         try:
             # 날짜를 하루씩 증가시켜서 순서 유지 (안전한 방법)
             from datetime import timedelta
@@ -617,7 +715,7 @@ def process_notion_database(database_url, token, start_date=None):
             current_dt = start_dt + timedelta(days=i)
             date_str = current_dt.strftime("%Y-%m-%d")
             
-            print(f"\n📖 [{i+1}/{len(pages)}] 페이지 처리 중...")
+            print(f"\n📖 [{i+1}/{len(unprocessed_pages)}] 페이지 처리 중...")
             
             output_file, success = processor.convert_page_to_blog(page, date_str)
             if success:
@@ -636,7 +734,8 @@ def process_notion_database(database_url, token, start_date=None):
     print(f"\n🎉 변환 완료!")
     print(f"   ✅ 성공: {success_count}개")
     print(f"   ❌ 실패: {failed_count}개")
-    print(f"   📁 총 처리: {len(pages)}개")
+    print(f"   ⏭️  건너뜀: {skipped_count}개")
+    print(f"   📁 총 페이지: {len(pages)}개")
 
 def main():
     if not NOTION_CLIENT_AVAILABLE:
@@ -646,6 +745,7 @@ def main():
     parser.add_argument('--database-url', required=True, help='노션 데이터베이스 URL')
     parser.add_argument('--token', help='노션 API 토큰')
     parser.add_argument('--start-date', help='시작 날짜 (YYYY-MM-DD)')
+    parser.add_argument('--force-reprocess', action='store_true', help='이미 처리된 페이지도 다시 처리')
     
     args = parser.parse_args()
     
@@ -661,7 +761,8 @@ def main():
         process_notion_database(
             database_url=args.database_url,
             token=token,
-            start_date=args.start_date
+            start_date=args.start_date,
+            force_reprocess=args.force_reprocess
         )
     except Exception as e:
         print(f"❌ 변환 중 오류 발생: {e}")

@@ -51,7 +51,29 @@ ninja.data = [{
               handler: () => {
                 window.location.href = "/blog/";
               },
-            },{id: "post-what-makes-a-reward-model-a-good-teacher-an-optimization-perspective-the-accuracy-paradox-in-rlhf-when-better-reward-models-don-t-yield-better-language-models",
+            },{id: "post-spurious-rewards-rethinking-training-signals-in-rlvr",
+        
+          title: "Spurious Rewards: Rethinking Training Signals in RLVR",
+        
+        description: "논문 리뷰 - RLVR 관련 연구",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2025/spurious-rewards-rethinking-training-signals-in-rlvr/";
+          
+        },
+      },{id: "post-on-the-generalization-of-sft-a-reinforcement-learning-perspective-with-reward-rectification",
+        
+          title: "ON THE GENERALIZATION OF SFT: A REINFORCEMENT LEARNING PERSPECTIVE WITH REWARD RECTIFICATION",
+        
+        description: "논문 리뷰 - RL, SFT 관련 연구",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2025/on-the-generalization-of-sft-a-reinforcement-learning/";
+          
+        },
+      },{id: "post-what-makes-a-reward-model-a-good-teacher-an-optimization-perspective-the-accuracy-paradox-in-rlhf-when-better-reward-models-don-t-yield-better-language-models",
         
           title: "What Makes a Reward Model a Good Teacher? An Optimization Perspective / The...",
         
@@ -60,6 +82,29 @@ ninja.data = [{
         handler: () => {
           
             window.location.href = "/blog/2025/what-makes-a-reward-model-a-good-teacher/";
+          
+        },
+      },{id: "post-the-accuracy-paradox-in-rlhf-when-better-reward-models-don-t-yield-better-language-models-what-makes-a-reward-model-a-good-teacher-an-optimization-perspective",
+        
+          title: "The Accuracy Paradox in RLHF: When Better Reward Models Don’t Yield Better Language...",
+        
+        description: "논문 리뷰 - Reinforcement Learning, Reward Model 관련 연구",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2025/the-accuracy-paradox-in-rlhf-when-better-reward/";
+          
+        },
+      },{id: "post-on-the-expressiveness-of-softmax-attention-a-recurrent-neural-network-perspective",
+        
+          title: "ON THE EXPRESSIVENESS OF SOFTMAX ATTENTION: A
+RECURRENT NEURAL NETWORK PERSPECTIVE",
+        
+        description: "논문 리뷰 - Efficient Transformer 관련 연구",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2025/on-the-expressiveness-of-softmax-attention-a-recurrent/";
           
         },
       },{id: "post-impact-of-fine-tuning-methods-on-memorization-in-large-language-models",
