@@ -60,4 +60,11 @@ profiles:
     content: people_cho_yeongjae.md
     more_info: >
       <p><strong>Email</strong>: <a href="mailto:zxc5932@snu.ac.kr">zxc5932(at)snu.ac.kr</a></p>
+
+  - align: left
+    content: people_cheon_jaewon.md
+    more_info: >
+      <p><strong>Email</strong>: <a href="mailto:jaewon_cheon@korea.ac.kr">jaewon_cheon(at)korea.ac.kr</a></p>
+      <p><strong>Google Scholar</strong>: <a href="https://scholar.google.com/citations?user=0ofLeLAAAAAJ&hl=en" target="_blank">Profile</a></p>
+
 ---
