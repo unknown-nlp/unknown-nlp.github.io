@@ -8,5 +8,6 @@
 
 #### Work Experience
 
+- Kim & Chang, AI Consultant (2025.08- current)
 - Naver, Research Intern (2024.5-2024.7)
 - Baikal.ai, Research Intern (2021.07-2022.01)
