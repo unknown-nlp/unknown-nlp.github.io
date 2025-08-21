@@ -1,25 +1,24 @@
 ---
 categories:
-  - paper-reviews
-date: "2024-04-16 00:00:00"
+- paper-reviews
+date: '2024-04-16 00:00:00'
 description: 논문 리뷰 - Pre-training 관련 연구
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-  - generative
-  - gpt
-  - language-model
-  - llm
-  - nlp
-  - paper-review
-  - pre-training
+- generative
+- gpt
+- language-model
+- llm
+- nlp
+- paper-review
+- pre-training
 thumbnail: assets/img/posts/2024-04-16-understanding-emergent-abilities-of-language-models-from-the/thumbnail.jpg
 title: Understanding Emergent Abilities of Language Models from the Loss Perspective
 ---
 
 **논문 정보**
-
 - **Date**: 2024-04-16
 - **Reviewer**: 준원 장
 - **Property**: Pre-training
@@ -30,15 +29,15 @@ title: Understanding Emergent Abilities of Language Models from the Loss Perspec
 
   - 작은 Model에서는 못하지만 큰 Model에서는 발현되는 LM의 능력들 (e.g., few-shot, KG-intensive task, ..)
 
-- Emergent Abilities의 실체에 대한 의문이 제기되는 이유
+-  Emergent Abilities의 실체에 대한 의문이 제기되는 이유
 
 1. 많은 Token을 본 LLaMA-13B가 GPT-175B보다 MMLU 성능이 더 좋다
 
 1. Downstream Task를 측정하는 nonlinear or discontinuous metrics 때문에 Emergent abilities가 있는것처럼 보여지는 것이다.
 
-- Chinchilla가 제한된 Training Compute내에서 Model Size와 Training Tokens를 변경해가면서 조합별로 pre-training loss가 매번 다르게 수렴하는 것을 실험적으로 밝혀냈지만, 이 pre-training loss와 downtream task간의 관계를 규명하고자 하는 연구는 많이 진행되지 않았음
+-  Chinchilla가 제한된 Training Compute내에서 Model Size와 Training Tokens를 변경해가면서 조합별로 pre-training loss가 매번 다르게 수렴하는 것을 실험적으로 밝혀냈지만, 이 pre-training loss와 downtream task간의 관계를 규명하고자 하는 연구는 많이 진행되지 않았음
 
-- 이를 위해서 본 연구에서는 30개의 크기가 다른 LM들을 **‘pt data corpus’, ‘tokenization’, ‘model architecture’ 을 고정**시킨채 from the scratch로 학습하면서, loss 변화에 따라서 12개의 다른 downstream performance를 측정한다.
+- 이를 위해서 본 연구에서는 30개의 크기가 다른 LM들을 **‘pt data corpus’, ‘tokenization’, ‘model architecture’ 을 고정**시킨채 from the scratch로 학습하면서, loss 변화에 따라서 12개의 다른 downstream performance를 측정한다. 
 
 ⇒ LM 크기나, pt data corpus에 상관없이 pre-training loss가 downstream tasks의 성능을 보여줄 수 있는 지표로써 역할을 함을 증명함.
 
@@ -50,19 +49,19 @@ title: Understanding Emergent Abilities of Language Models from the Loss Perspec
 
 - Pre-training LMs
 
-  - different model sizes (300M, 540M, 1B, 1.5B, 3B, 6B, and 32B)을 fixed data corpus, tokenization, architecture setting에서 from the scratch부터 pre-training
+  - different model sizes (300M, 540M, 1B, 1.5B, 3B, 6B, and 32B)을 fixed data corpus, tokenization, architecture setting에서 from the scratch부터 pre-training 
 
   - English Corpus: Chines Corpus = 4:1
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-04-16-understanding-emergent-abilities-of-language-models-from-the/image_000.png" class="img-fluid rounded z-depth-1" %}
 
-- Default Training Setting
+  - Default Training Setting
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-04-16-understanding-emergent-abilities-of-language-models-from-the/image_001.png" class="img-fluid rounded z-depth-1" %}
 
-- Small Scale Models
+  - Small Scale Models
 
-  - 각 열에 보이는 number of tokens과 Max LR에 대응되는 학습 step까지 학습한 models
+    - 각 열에 보이는 number of tokens과 Max LR에 대응되는 학습 step까지 학습한 models
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-04-16-understanding-emergent-abilities-of-language-models-from-the/image_002.png" class="img-fluid rounded z-depth-1" %}
 
@@ -82,7 +81,7 @@ title: Understanding Emergent Abilities of Language Models from the Loss Perspec
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-04-16-understanding-emergent-abilities-of-language-models-from-the/image_005.png" class="img-fluid rounded z-depth-1" %}
 
-→ scaling laws에 따라 조금 더 작은 scale의 model(300M, 540M, 1B, 1.5B, 3B, 6B)을 더 적은 pre-training corpus를 가지고 실험.
+→ scaling laws에 따라 조금 더 작은 scale의 model(300M, 540M, 1B, 1.5B, 3B, 6B)을 더 적은 pre-training corpus를 가지고 실험. 
 
 → 각 model을 상기표에 표기된 configuration까지 pre-training을 완료한 다음 last checkpoint의 pre-training loss & downstream performance를 plotting 함
 
@@ -116,17 +115,17 @@ title: Understanding Emergent Abilities of Language Models from the Loss Perspec
 
 1. 당연하게도, G2가 G1보다 task difficulty가 높다
 
-1. G1(Hellaswag.RACE)은 commonsense, 단순 qa수준의 문제. 반면 GSM8K는 tuning안한 PLM이 Chain-of-Thought prompting안하고 풀기 어렵다고 알려져있음.
+  1. G1(Hellaswag.RACE)은 commonsense, 단순 qa수준의 문제. 반면 GSM8K는 tuning안한 PLM이 Chain-of-Thought prompting안하고 풀기 어렵다고 알려져있음. 
 
 1. Model이 Training dataset에 Overfitting된 한참 후에 전체 data distribution에 generalization 되는 Grokking현상
 
-1. Pre-training corpus는 mixture of corpus이기 때문에 model이 어떤 corpus(e.g., code)는 fitting되더라도 다른 corpus에는 underfitting되어 있는게 당연하기 때문
+  1. Pre-training corpus는 mixture of corpus이기 때문에 model이 어떤 corpus(e.g., code)는 fitting되더라도 다른 corpus에는 underfitting되어 있는게 당연하기 때문
 
 1. 기존 Emergent Abilities 정의와의 연관성
 
-1. pre-training loss가 줄어들면서 G2 performance가 향상하는 지점과 model size가 scaling하는 지점이 유사
+  1. pre-training loss가 줄어들면서 G2 performance가 향상하는 지점과 model size가 scaling하는 지점이 유사
 
-1. training tokens이 고정되었다면, pre-training loss는 model 크기의 power law를 따라 감소하는 경향이 있음
+  1. training tokens이 고정되었다면, pre-training loss는 model 크기의 power law를 따라 감소하는 경향이 있음
 
 **#### 3.2. Influence of Different Metrics**
 
@@ -144,7 +143,7 @@ title: Understanding Emergent Abilities of Language Models from the Loss Perspec
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-04-16-understanding-emergent-abilities-of-language-models-from-the/image_009.png" class="img-fluid rounded z-depth-1" %}
 
-→ BrierScore 역시 random guess (0.25^2\*3+0.75^2=0.75) 이상 성능을 보이려면 pre-training loss가 일정 성능 이하로 떨어져야 한다.
+→ BrierScore 역시 random guess (0.25^2*3+0.75^2=0.75) 이상 성능을 보이려면 pre-training loss가 일정 성능 이하로 떨어져야 한다. 
 
 → 더 크게 보면, pre-training loss가 감소할수록 BrierScore 감소하는 경향을 보이긴 하나 BrierScore의 감소가 task performance의 성능 향상과 직결되는 지표는 아니기 때문에 참고로만 보라고 저자들은 당부함
 
@@ -160,7 +159,7 @@ title: Understanding Emergent Abilities of Language Models from the Loss Perspec
 
 ### Emergent Abilities의 재정의
 
-**Definition**. _An ability is emergent if it is not present in models with higher pre-training loss but is present in models with lower pre-training loss._
+**Definition**. *An ability is emergent if it is not present in models with higher pre-training loss but is present in models with lower pre-training loss.*
 
 - emergent ability를 normalized performance로 재정의 할 수 있다.
 
@@ -172,7 +171,7 @@ title: Understanding Emergent Abilities of Language Models from the Loss Perspec
 
 - 위의 식 2개를 결합하면,
 
-→ 언어모델의 파리미터 사이즈가 N*0 \cdot \left(\eta - L*{\infty}\right)^{-\frac{1}{\alpha_N}} 이상이면 pre-treiaining loss가 감소하고, 이는 downsetream task에서의 normalized performance 증가로 이어진다.
+→ 언어모델의 파리미터 사이즈가  N_0 \cdot \left(\eta - L_{\infty}\right)^{-\frac{1}{\alpha_N}} 이상이면 pre-treiaining loss가 감소하고, 이는 downsetream task에서의 normalized performance 증가로 이어진다.
 
 ### 5. Related Work
 

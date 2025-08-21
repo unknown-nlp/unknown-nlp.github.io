@@ -1,23 +1,22 @@
 ---
 categories:
-  - paper-reviews
-date: "2025-01-21 00:00:00"
+- paper-reviews
+date: '2025-01-21 00:00:00'
 description: 논문 리뷰
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-  - gpt
-  - language-model
-  - llm
-  - paper-review
-  - transformer
+- gpt
+- language-model
+- llm
+- paper-review
+- transformer
 thumbnail: assets/img/posts/2025-01-21-agent-laboratory-using-llm-agents-as-research-assistants/thumbnail.jpg
-title: "Agent Laboratory: Using LLM Agents as Research Assistants"
+title: 'Agent Laboratory: Using LLM Agents as Research Assistants'
 ---
 
 **논문 정보**
-
 - **Date**: 2025-01-21
 - **Reviewer**: 상엽
 
@@ -99,11 +98,11 @@ PhD agent: arXiv API를 활용해 아래 3가지 main actions을 수행.
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2025-01-21-agent-laboratory-using-llm-agents-as-research-assistants/image_003.png" class="img-fluid rounded z-depth-1" %}
 
-- **_summary_**: agent에 의해 생성된 쿼리와 관련성이 높은 20개의 paper를 추출.
+- ***summary***: agent에 의해 생성된 쿼리와 관련성이 높은 20개의 paper를 추출.
 
-- **_full text_**: paper의 전체 content를 추출.
+- ***full text***: paper의 전체 content를 추출.
 
-- **_add paper_**: summary와 full text를 이용해 curated review를 만듦.
+- ***add paper***: summary와 full text를 이용해 curated review를 만듦.
 
 - 위의 과정은 반복적으로 실행 (다수의 쿼리를 이용)하며 매 스텝에서 selection을 진행하여 최종적으로 N_max의 레퍼런스가 확보되면 종료
 
@@ -161,41 +160,41 @@ ML Engineer: 이전 실험 계획을 수행하는 것이 목표
 
   1. Command Execution
 
-  - 현재 단계에서 상위 성능 프로그램 (단일 파일, \*.py)을 샘플링
+    - 현재 단계에서 상위 성능 프로그램 (단일 파일, *.py)을 샘플링
 
-  - **EDIT**: 라인 범위 지정 → 해당 라인의 코드를 다른 것으로 수정
+    - **EDIT**: 라인 범위 지정 → 해당 라인의 코드를 다른 것으로 수정
 
-  - **REPLACE**: 완전히 새로운 파일을 생성
+    - **REPLACE**: 완전히 새로운 파일을 생성 
 
   1. Code Execution
 
-  - compiler를 통해 런타임 에러 체크
+    - compiler를 통해 런타임 에러 체크
 
-  - 성공할 시, 스코어 측정, top score program 리스트 업데이트
+    - 성공할 시, 스코어 측정, top score program 리스트 업데이트
 
-  - 실패할 시, 코드 수정 N\_{rep}=3번 도전 그래도 실패할 경우 replacement
+    - 실패할 시, 코드 수정 N_{rep}=3번 도전 그래도 실패할 경우 replacement
 
   1. Program Scoring
 
-  - 2단계 성공 시, scoring function을 이용해 해당 코드가 이전 단계의 코드보다 점수가 향상되었는지를 확인
+    - 2단계 성공 시, scoring function을 이용해 해당 코드가 이전 단계의 코드보다 점수가 향상되었는지를 확인
 
-  - LLM을 활용해 mle-solver가 만든 코드의 효과성에 대해 scoring (0~1)
+    - LLM을 활용해 mle-solver가 만든 코드의 효과성에 대해 scoring (0~1)
 
   1. Self Reflection
 
-  - 성공, 실패 여부와 상관없이 reflection 실행, 액션의 결과에 대해 반영하라고 prompted
+    - 성공, 실패 여부와 상관없이 reflection 실행, 액션의 결과에 대해 반영하라고 prompted
 
-    - 실패할 경우, 다음 단계에 어떻게 에러를 고칠 것이지에 대해 반영
+      - 실패할 경우, 다음 단계에 어떻게 에러를 고칠 것이지에 대해 반영
 
-    - 성공할 경우, 이것이 어떻게 점수를 향상시켰는지에 대해 반영
+      - 성공할 경우, 이것이 어떻게 점수를 향상시켰는지에 대해 반영
 
   1. Performance Stabilization
 
-  - 시스템 성능의 안정성을 위해 다음 두 가지 전략을 취함.
+    - 시스템 성능의 안정성을 위해 다음 두 가지 전략을 취함.
 
-    - top program sampling: 위의 설명과 같음.
+      - top program sampling: 위의 설명과 같음.
 
-    - Batch-parallelization: 각 step에서 N개를 동시에 생성, 최상위 1개만 남기는 방식 (Prompt 변화는 없는듯, temparature를 높게 가져감.)
+      - Batch-parallelization: 각 step에서 N개를 동시에 생성, 최상위 1개만 남기는 방식 (Prompt 변화는 없는듯, temparature를 높게 가져감.)
 
 **Results Interpretation**
 
@@ -213,21 +212,21 @@ Phd & Postdoc agent간 토론을 통해 실험 결과로부터 유의미한 인�
 
 1. Initial Report Scaffold
 
-- 8개의 표준 섹션으로 구성 (Abstract, Introduction, Background, Related Work, Methods, Experimental Setup, Results, and Discussion)
+  - 8개의 표준 섹션으로 구성 (Abstract, Introduction, Background, Related Work, Methods, Experimental Setup, Results, and Discussion)
 
-- Latex format 관련 코드 포함, 각 섹션 별로 placeholder로 구성
+  - Latex format 관련 코드 포함, 각 섹션 별로 placeholder로 구성
 
 1. Arxiv Research
 
-- 이전 단계와 같은 API를 활용 이전에 찾은 reference 외에 추가로 필요할 경우 선택적으로 활용
+  - 이전 단계와 같은 API를 활용 이전에 찾은 reference 외에 추가로 필요할 경우 선택적으로 활용
 
 1. Report Editing
 
-- 실제 report를 작성하는 단계
+  - 실제 report를 작성하는 단계
 
-- **EDIT**: latex code를 line 단위로 수정하는 것, 반복적 수정을 통해 계속 글을 수정하여 만족할만한 quality까지 도달할 수 있음.
+  - **EDIT**: latex code를 line 단위로 수정하는 것, 반복적 수정을 통해 계속 글을 수정하여 만족할만한 quality까지 도달할 수 있음.
 
-- latex compile을 통해 bug-free 보장
+  - latex compile을 통해 bug-free 보장
 
 1. Paper Review
 
@@ -299,7 +298,7 @@ experiment quality, report quality, usefulness 측면에서 사람 평가 진행
 
 - 인간 평가가 필수적일듯…
 
-## Co-pilot Mode
+##  Co-pilot Mode
 
 o1-mini로 모든 실험 진행
 
@@ -412,6 +411,7 @@ report 생성 이후 아래 항목에 대해 설문 조사 진행
   - mle-solver가 subprocess.run()을 사용하여 시스템 명령어를 사용하는 경우가 존재
 
   - paper-solver가 arxiv api 활용 시 limit에 걸리는 경우가 많음.
+
 
 ---
 

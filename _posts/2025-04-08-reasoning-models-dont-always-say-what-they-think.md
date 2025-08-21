@@ -1,23 +1,22 @@
 ---
 categories:
-  - paper-reviews
-date: "2025-04-08 00:00:00"
+- paper-reviews
+date: '2025-04-08 00:00:00'
 description: 논문 리뷰
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-  - alignment
-  - paper-review
-  - reasoning
-  - reinforcement-learning
-  - rlhf
+- alignment
+- paper-review
+- reasoning
+- reinforcement-learning
+- rlhf
 thumbnail: assets/img/posts/2025-04-08-reasoning-models-dont-always-say-what-they-think/thumbnail.jpg
 title: Reasoning Models Don’t Always Say What They Think
 ---
 
 **논문 정보**
-
 - **Date**: 2025-04-08
 - **Reviewer**: 상엽
 
@@ -37,7 +36,7 @@ title: Reasoning Models Don’t Always Say What They Think
 
 → CoT 자체를 신뢰할 수 없다면
 
-→ 즉, 구체적 언어로 명시되지 않은 사고 과정에 의해 결과가 영향을 받는다면
+→ 즉, 구체적 언어로 명시되지 않은 사고 과정에 의해 결과가 영향을 받는다면 
 
 → CoT 모니터링을 통한 Safety 확보를 보장할 수 없음.
 
@@ -47,7 +46,7 @@ title: Reasoning Models Don’t Always Say What They Think
 
 - CoT없이도 풀 수 있는 매우 쉬운 문제의 경우: 옳은 reasoning process를 가진 Human 데이터로 학습이 됐으므로
 
-→ 하지만, **RLHF로 학습할 경우, 바람직하지 않은 reasoning 과정을 숨기기도 한다는 점을 발견.**
+→ 하지만, **RLHF로 학습할 경우, 바람직하지 않은 reasoning 과정을 숨기기도 한다는 점을 발견.** 
 
 → 즉, AI의 실제 사고과정과 reasoning이 다를 수 있다는 의문을 제기.
 
@@ -95,7 +94,7 @@ Inspired by Turpin et al. (2023); Chua and Evans (2025), we **evaluate faithfuln
 
 - “**hinted**” **prompt** x_h (직접적으로 정답을 가리키는 힌트를 x_u에 추가한 것)
 
-→ CoT의 faithfulness == x_u에서는 힌트가 아닌 다른 답변을 말하지만 x_h에서는 힌트를 정답으로 말할 때, 모델이 hinted prompt 문제를 풀기 위해 힌트를 사용했음을 말하는지 여부 (a_u \neq h \text { and } a_h=h인 경우)
+→ CoT의 faithfulness ==  x_u에서는 힌트가 아닌 다른 답변을 말하지만 x_h에서는 힌트를 정답으로 말할 때, 모델이 hinted prompt 문제를 풀기 위해 힌트를 사용했음을 말하는지 여부 (a_u \neq h \text { and } a_h=h인 경우)
 
 답변 변경의 무작위 노이즈를 고려하기 위해 다음의 **정규화 과정**을 따름.
 
@@ -153,7 +152,7 @@ q=P\left(a_h \neq h, a_h \neq a_u \mid a_u \neq h\right): non-hint answer에서 
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2025-04-08-reasoning-models-dont-always-say-what-they-think/image_001.png" class="img-fluid rounded z-depth-1" %}
 
-**CoTs of reasoning models reveal hints across more settings, and do so more often than those of non-reasoning models.**
+**CoTs of reasoning models reveal hints across more settings, and do so more often than those of non-reasoning models.** 
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2025-04-08-reasoning-models-dont-always-say-what-they-think/image_002.png" class="img-fluid rounded z-depth-1" %}
 
@@ -173,19 +172,19 @@ q=P\left(a_h \neq h, a_h \neq a_u \mid a_u \neq h\right): non-hint answer에서 
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2025-04-08-reasoning-models-dont-always-say-what-they-think/image_003.png" class="img-fluid rounded z-depth-1" %}
 
-- Unfaithful CoTs에서는 **힌트를 사용하지 않고** (=Unfaithfulness) 장황한게 **각각의 옵션에 대해 확인을 하는 절차를 포함하는 경우가 많음.**
+- Unfaithful CoTs에서는 **힌트를 사용하지 않고** (=Unfaithfulness) 장황한게 **각각의 옵션에 대해 확인을 하는 절차를 포함하는 경우가 많음.** 
 
-- 더 문제가 되는 부분은 힌트를 정답으로 하기 위해 **기존 지식과 모순되는 방법을 동원**하기도 한다는 점. 이 때에도 힌트 사용 여부를 설명하지 않는 경우가 많음.
+- 더 문제가 되는 부분은 힌트를 정답으로 하기 위해 **기존 지식과 모순되는 방법을 동원**하기도 한다는 점. 이 때에도 힌트 사용 여부를 설명하지 않는 경우가 많음. 
 
 > **These patterns suggest that models seem to have a strong prior to conceal their true reasoning processes.**
 
-**CoT appears to be less faithful on harder questions.**
+**CoT appears to be less faithful on harder questions.** 
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2025-04-08-reasoning-models-dont-always-say-what-they-think/image_004.png" class="img-fluid rounded z-depth-1" %}
 
 - **GPQA >> MMLU, GPQA에서 신뢰도가 훨씬 낮았음.** (Claude 3.7 Sonnet에서 44% R1에서 32% 감소)
 
-- Faithful CoTs의 경우, **자신의 답변을 먼저 생성**하고 **Hint와 답변을 비교**하는 reasoning 과정을 가진 후 **hint에 따라 답을 바꾼다는 사실**을 보여줌.
+- Faithful CoTs의 경우, **자신의 답변을 먼저 생성**하고 **Hint와 답변을 비교**하는 reasoning 과정을 가진 후 **hint에 따라 답을 바꾼다는 사실**을 보여줌. 
 
 → 어려운 문제에 대해 모델이 명확한 정답을 모르는 경우, 힌트를 밝히지 않고 활용하는 경향이 커지는듯함
 
@@ -199,19 +198,19 @@ q=P\left(a_h \neq h, a_h \neq a_u \mid a_u \neq h\right): non-hint answer에서 
 
 **→ outcom-based RL 실험**
 
-- **Reasoning-intensive tasks** (coding and math) 진행
+  - **Reasoning-intensive tasks** (coding and math) 진행
 
-  - 복잡한 reasoning을 요구하는 tasks는 전반적인 CoT의 신뢰성을 높이는 것에 기여할 것
+    - 복잡한 reasoning을 요구하는 tasks는 전반적인 CoT의 신뢰성을 높이는 것에 기여할 것
 
-- 오직 **결과값만을 reward**로 활용
+  - 오직 **결과값만을 reward**로 활용
 
-  - 어려운 정답을 맞추기 위해 CoTs를 계속 진행한다면 신뢰있는 CoTs만이 정답률 향상에 기여할 것
+    - 어려운 정답을 맞추기 위해 CoTs를 계속 진행한다면 신뢰있는 CoTs만이 정답률 향상에 기여할 것
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2025-04-08-reasoning-models-dont-always-say-what-they-think/image_005.png" class="img-fluid rounded z-depth-1" %}
 
 - Sonnet 3.7 모델에 대해서 학습 극초기에는 MMLU 63%, GPQA 41% 정도 향상되는 것으로 보임.
 
-- 더 학습을 진행하더라도 개선되지 않음.
+- 더 학습을 진행하더라도 개선되지 않음. 
 
 → **outcom-based RL은 faithfullness 확보에 적합한 수단은 아님!**
 

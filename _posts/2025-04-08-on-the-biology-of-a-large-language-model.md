@@ -1,29 +1,28 @@
 ---
 categories:
-  - paper-reviews
-date: "2025-04-08 00:00:00"
+- paper-reviews
+date: '2025-04-08 00:00:00'
 description: 논문 리뷰
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-  - attention
-  - classification
-  - embedding
-  - language-model
-  - llm
-  - paper-review
-  - reasoning
+- attention
+- classification
+- embedding
+- language-model
+- llm
+- paper-review
+- reasoning
 thumbnail: assets/img/posts/2025-04-08-on-the-biology-of-a-large-language-model/thumbnail.jpg
 title: On the Biology of a Large Language Model
 ---
 
 **논문 정보**
-
 - **Date**: 2025-04-08
 - **Reviewer**: hyowon Cho
 
-오늘 소개할 논문은 Anthropic에서 3월 27일 낸 따끈따끈한 신상입니다.
+오늘 소개할 논문은 Anthropic에서 3월 27일 낸 따끈따끈한 신상입니다. 
 
 개인적으로 느끼기에는 LLM의 동작 원리에 대한 내부 분석을 할거면 이렇게 해라라는 바이블같은 논문인 것 같습니다,, 단순하지만 확실한 변인 통제를 한다는 점에서 재미있었어요!
 실험이 너무 많아서, 전체를 다 가져오지는 못했지만 최대한 많이 가져왔습니당
@@ -38,31 +37,31 @@ title: On the Biology of a Large Language Model
 
 최근 다양한 연구팀들은 언어 모델 내부를 탐색하기 위한 도구들을 개발해왔으며, 이 과정에서 모델 내부에는 **해석 가능한 개념 표현**, 즉 ‘기능(feature)’이 존재한다는 사실이 밝혀졌다. 우리가 세포를 생물학적 시스템의 기본 단위로 보듯, **이러한 기능들이 모델 내부 계산의 기본 단위**라고 가정할 수 있다.
 
-하지만 저자들은 이 기능들을 단순히 식별하는 것만으로는 충분하지 않다고 이야기하며, 그들이 **어떻게 상호작용하는지**를 이해해야만 모델의 작동 원리를 파악할 수 있다고 말한다.
+하지만 저자들은 이 기능들을 단순히 식별하는 것만으로는 충분하지 않다고 이야기하며, 그들이 **어떻게 상호작용하는지**를 이해해야만 모델의 작동 원리를 파악할 수 있다고 말한다. 
 
 본 연구는 동반 논문 *Circuit Tracing*에서 제안한, **기능들 사이의 연결 관계를 추적하는 도구인 어트리뷰션 그래프**를 이용해 분석을 진행한다. 이 그래프는 모델이 특정 입력 프롬프트를 출력으로 변환하는 중간 단계를 부분적으로 추적할 수 있게 해주기에, **모델의 내부 메커니즘을 실험을 통해 검증할 수 있다. **
 
 본 논문에서는 2024년 10월 공개된** Claude 3.5 Haiku**를 분석 대상으로 삼아 어트리뷰션 그래프를 적용하였다. 분석 대상들은 다음과 같다:
 
-1. **Introductory Example: Multi-step Reasoning.**
+1. **Introductory Example: Multi-step Reasoning.** 
 
-1. **Planning in Poems.**
+1. **Planning in Poems.** 
 
-1. **Multilingual Circuits.\*\*** \*\*
+1. **Multilingual Circuits.**** **
 
-1. **Addition.**
+1. **Addition.** 
 
-1. **Medical Diagnoses\*\***. \*\*
+1. **Medical Diagnoses****. **
 
-1. **Entity Recognition and Hallucinations.**
+1. **Entity Recognition and Hallucinations.** 
 
-1. **Refusal of Harmful Requests.**
+1. **Refusal of Harmful Requests.** 
 
-1. **An Analysis of a Jailbreak.**
+1. **An Analysis of a Jailbreak.** 
 
-1. **Chain-of-thought Faithfulness.**
+1. **Chain-of-thought Faithfulness.** 
 
-1. **A Model with a Hidden Goal.**
+1. **A Model with a Hidden Goal.** 
 
 결론적으로 Claude 3.5 Haiku는 다음과 같은 전략들을 실제로 활용하고 있다:
 
@@ -98,39 +97,39 @@ title: On the Biology of a Large Language Model
 
 모델을 해석하기 어려운 이유 중 하나는 뉴런들이 다의적(polysemantic)이라는 점이다. 즉, 개별 뉴런이 서로 관련 없어 보이는 여러 기능을 동시에 수행한다는 뜻.
 
-이를 해결하기 위해, 저자들은 원래 모델의 활성값을 근사 재현하면서도 해석 가능한 구성요소로 이루어진 ‘대체 모델(replacement model)’을 만든다.
+이를 해결하기 위해, 저자들은 원래 모델의 활성값을 근사 재현하면서도 해석 가능한 구성요소로 이루어진 ‘대체 모델(replacement model)’을 만든다. 
 
 이 대체 모델은 **CLT(Cross-Layer Transcoder)** 아키텍처에 기반하며, 원래의 MLP 뉴런을 희소하게 활성화되는 해석 가능한 기능(feature)들로 대체한다. 본 논문에서 사용한 CLT는 모든 레이어에 걸쳐 총 3천만 개의 기능을 갖고 있다.
 
 1. **Architecture (구조)**
 
-- **목표:** 모델 내부의 MLP(다층 퍼셉트론)를 보다 해석 가능한 컴포넌트로 대체.
+  - **목표:** 모델 내부의 MLP(다층 퍼셉트론)를 보다 해석 가능한 컴포넌트로 대체.
 
-- **방법:** Cross-Layer Transcoder(CLT)라는 구조를 사용.
+  - **방법:** Cross-Layer Transcoder(CLT)라는 구조를 사용.
 
-  - CLT는 특정 레이어에서 residual stream을 읽고, 그 이후의 모든 MLP 레이어에 영향을 주는 sparse feature로 변환합니다.
+    - CLT는 특정 레이어에서 residual stream을 읽고, 그 이후의 모든 MLP 레이어에 영향을 주는 sparse feature로 변환합니다.
 
-  - 즉, CLT는 여러 레이어에 걸쳐 흩어져 있는 계산을 한곳에 모아 **추상적인 feature space**로 표현하는 장치.
+    - 즉, CLT는 여러 레이어에 걸쳐 흩어져 있는 계산을 한곳에 모아 **추상적인 feature space**로 표현하는 장치.
 
-  - CLT를 이용해 각 레이어의 출력을 연결하여, 모델의 중요한 계산 흐름을 하나의 연산 경로로 모음.
+    - CLT를 이용해 각 레이어의 출력을 연결하여, 모델의 중요한 계산 흐름을 하나의 연산 경로로 모음.
 
-  - 각 feature는 사람에게 해석 가능한 의미를 갖도록 훈련됩니다.
+    - 각 feature는 사람에게 해석 가능한 의미를 갖도록 훈련됩니다.
 
-- **핵심 아이디어:** MLP 전체를 대체할 수 있도록 설계된 이 CLT 기반 구조는 실제 모델의 출력과 꽤나 일치하는 수준으로 학습이 가능하다는 것이 실험적으로 증명됨
+  - **핵심 아이디어:** MLP 전체를 대체할 수 있도록 설계된 이 CLT 기반 구조는 실제 모델의 출력과 꽤나 일치하는 수준으로 학습이 가능하다는 것이 실험적으로 증명됨
 
 1. **From Cross-Layer Transcoder to Replacement Model (CLT에서 대체 모델로)**
 
-- **CLT의 작동 방식:**
+  - **CLT의 작동 방식:**
 
-  - 각 feature는 residual stream에서 정보를 읽어오는 reader 가중치와, 출력에 영향을 주는 writer 가중치로 구성.
+    - 각 feature는 residual stream에서 정보를 읽어오는 reader 가중치와, 출력에 영향을 주는 writer 가중치로 구성.
 
-  - 여러 레이어에서 feature가 정보를 읽고 쓸 수 있어, 원래 모델의 MLP 블록을 완전히 대체할 수 있음.
+    - 여러 레이어에서 feature가 정보를 읽고 쓸 수 있어, 원래 모델의 MLP 블록을 완전히 대체할 수 있음.
 
-- **대체 모델의 구성:**
+  - **대체 모델의 구성:**
 
-  - 원래 MLP 대신 feature 집합으로 구성된 CLT를 삽입함으로써 "대체 모델"이 완성됨.
+    - 원래 MLP 대신 feature 집합으로 구성된 CLT를 삽입함으로써 "대체 모델"이 완성됨.
 
-  - 이 구조는 각 feature 간의 상호작용이 선형적으로 정의될 수 있도록 설계됨 → 해석 가능성 증가.
+    - 이 구조는 각 feature 간의 상호작용이 선형적으로 정의될 수 있도록 설계됨 → 해석 가능성 증가.
 
 ### Local Replacement Model and Attribution Graphs
 
@@ -140,7 +139,7 @@ title: On the Biology of a Large Language Model
 
 - **Local:** 특정 입력(prompt)에 대해 작동하는 작은 서브모델을 구성. 즉, 기존 모델의 모든 계산을 완전히 재현하는 건 불가능하기 때문에, **특정 문장 하나에 대해서만 작동하는 작은 모델 만들기**
 
-- **목적**:
+- **목적**: 
 
   - **특정 프롬프트에 대해** 원래 모델과 동일한 출력을 생성하면서, 내부 계산은 해석 가능한 구조로 재현.
 
@@ -150,17 +149,17 @@ title: On the Biology of a Large Language Model
 
   1. **Error Nodes**:
 
-  - 대체 모델이 원래 모델의 모든 계산을 재현할 수는 없기 때문에, **남은 차이를 "error node"로 분리**해 놓는다
+    - 대체 모델이 원래 모델의 모든 계산을 재현할 수는 없기 때문에, **남은 차이를 "error node"로 분리**해 놓는다
 
-  - 이 error node는 해석 불가능하지만, "우리가 모델의 계산 중 어느 정도를 설명하지 못했는지"를 정량적으로 보여주는 지표 역할을 수행.
+    - 이 error node는 해석 불가능하지만, "우리가 모델의 계산 중 어느 정도를 설명하지 못했는지"를 정량적으로 보여주는 지표 역할을 수행.
 
-  - 따라서 error node의 기여도가 작으면, 해당 프롬프트에 대한 해석 품질이 높다는 것을 의미.
+    - 따라서 error node의 기여도가 작으면, 해당 프롬프트에 대한 해석 품질이 높다는 것을 의미.
 
   1. **Freezing Attention Patterns**:
 
-  - 어텐션 가중치는 원래 모델에서 **그대로 복사**하여 사용 (frozen).
+    - 어텐션 가중치는 원래 모델에서 **그대로 복사**하여 사용 (frozen).
 
-  - 이 두 요소를 추가한 모델을 지역 대체 모델(local replacement model이라고 부른다.
+  - 이 두 요소를 추가한 모델을 지역 대체 모델(local replacement model이라고 부른다. 
 
 **Constructing an Attribution Graph for a Prompt**
 
@@ -192,13 +191,13 @@ title: On the Biology of a Large Language Model
 
       - 최종 예측 결과로 연결되는 logit 노드. 예: `"Paris"`에 대한 logit.
 
-- **엣지(edge)**
+  - **엣지(edge)**
 
-  - 각 엣지는 선형 연산 기반의 기여를 나타냄.
+    - 각 엣지는 선형 연산 기반의 기여를 나타냄.
 
-  - 특정 feature의 값은 **이전 노드들의 기여값(엣지 값)의 합**으로 계산됨.
+    - 특정 feature의 값은 **이전 노드들의 기여값(엣지 값)의 합**으로 계산됨.
 
-  - 단, feature는 특정 **threshold 이상일 때만 활성화**됨. 이게 일종의 “선형 조합 + ReLU 활성화” 구조로 보면 된다.
+    - 단, feature는 특정 **threshold 이상일 때만 활성화**됨. 이게 일종의 “선형 조합 + ReLU 활성화” 구조로 보면 된다.
 
 - 활용
 
@@ -224,7 +223,7 @@ title: On the Biology of a Large Language Model
 
     - ex. 어떤 feature가 “프랑스의 도시명”이 입력될 때마다 활성화된다면 → **“지명 feature”**로 라벨링
 
-    - 수작업 + NER
+    - 수작업 + NER 
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2025-04-08-on-the-biology-of-a-large-language-model/image_002.png" class="img-fluid rounded z-depth-1" %}
 
@@ -266,13 +265,14 @@ Attribution Graph는 모델 계산의 근사적 표현 → 어디까지나 **설
 
 현재 우리가 보고있는 논문은 아니기에 pass
 
+
 ---
 
 ## 1. Multi-step Reasoning
 
 첫 번째 사례 연구는 모델이 **다단계 추론을 하는가를 확인하는 것**. 예를 들어, 다음과 같은 질문을 생각해봅시다:
 
-> Q: the capital of the state containing Dallas is \_\_
+> Q: the capital of the state containing Dallas is __
 
 이 질문을 올바르게 답하려면 두 가지 정보를 순차적으로 추론해야 한다:
 
@@ -316,7 +316,7 @@ He saw a carrot and had to grab it,
 
 **His hunger was like a starving rabbit**
 
-을 분석했을 때, 모델은 ‘**rabbit**’라는 단어를 생성하기 전에 이미 **‘it’와 운율이 맞는 단어 후보**들을 내부적으로 활성화한 흔적을 보였다.
+을 분석했을 때, 모델은 ‘**rabbit**’라는 단어를 생성하기 전에 이미 **‘it’와 운율이 맞는 단어 후보**들을 내부적으로 활성화한 흔적을 보였다. 
 
 이는 모델이 각 줄의 끝단어를 계획한 다음, 그 단어에 맞춰 문장의 구조를 조정하는 전략을 사용하고 있음을 시사한다.
 
@@ -328,9 +328,9 @@ He saw a carrot and had to grab it,
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2025-04-08-on-the-biology-of-a-large-language-model/image_008.png" class="img-fluid rounded z-depth-1" %}
 
-즉, Claude 3.5 Haiku는 시를 생성할 때 **각 줄의 마지막 단어를 먼저 계획하고**, 그 단어에 적절히 맞는 문장을 구성하는 전략을 사용한다.
+즉, Claude 3.5 Haiku는 시를 생성할 때 **각 줄의 마지막 단어를 먼저 계획하고**, 그 단어에 적절히 맞는 문장을 구성하는 전략을 사용한다. 
 
-## **3. \*\***Multilingual Circuits.\***\* **
+## **3. ****Multilingual Circuits.**** **
 
 ### 모든 언어에 공통된 회로를 사용하는가? 아니면 언어별 회로가 존재하는가?
 
@@ -348,7 +348,7 @@ He saw a carrot and had to grab it,
 
 모델은 **언어에 독립적인 표현**을 사용해 자신이 "small"의 반의어에 대한 질문을 받고 있다는 것을 인식한다. 이로 인해 반의어 관련 특징(antonym)이 활성화되며, 이는 그림에서 점선으로 표시된 것처럼 **attention에 영향을 주는 방식으로** "small"에서 "large"로의 변환을 매개한다.
 
-이와 동시에, **‘open-quote-in-language-X)’ 특징**이 해당 언어를 추적하고, 정확한 출력을 만들기 위해 **해당 언어에 맞는 출력 특징(output feature)**을 활성화한다 (예: 중국어의 “big”).
+이와 동시에, **‘open-quote-in-language-X)’ 특징**이 해당 언어를 추적하고, 정확한 출력을 만들기 위해 **해당 언어에 맞는 출력 특징(output feature)**을 활성화한다 (예: 중국어의 “big”). 
 
 하지만 영어 그래프에서는 영어가 다른 언어보다 mechanistically privileged “기본값(default)”으로 작동한다.
 
@@ -364,21 +364,21 @@ He saw a carrot and had to grab it,
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2025-04-08-on-the-biology-of-a-large-language-model/image_010.png" class="img-fluid rounded z-depth-1" %}
 
-추가 실험 다수: ex.
+추가 실험 다수: ex. 
 
 **Editing the Operation: Antonyms to Synonyms**
 
 **Editing the Operand: Small to Hot**
 
-**Editing the Output Language**
+ **Editing the Output Language**
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2025-04-08-on-the-biology-of-a-large-language-model/image_011.png" class="img-fluid rounded z-depth-1" %}
 
 **Do Models Think in English?**
 
-It seems to us that Claude 3.5 Haiku is **_using genuinely multilingual features_**, especially in the middle layers. **_However, there are important mechanistic ways in which English is privileged._**
+It seems to us that Claude 3.5 Haiku is ***using genuinely multilingual features***, especially in the middle layers. ***However, there are important mechanistic ways in which English is privileged.***
 
-## **4. \*\***Addition.\*\* 
+## **4. ****Addition.** 
 
 Claude는 36 + 59 같은 두 자리 수 덧셈을 할 때 **정확한 정답(95)**을 내놓는다.
 
@@ -392,7 +392,7 @@ Claude는 36 + 59 같은 두 자리 수 덧셈을 할 때 **정확한 정답(95)
 
     1. **대략적인 합산 (~36 + ~60 → ~95)**: 대략적인 수치를 추산
 
-    1. **자릿수 기반 연산 (\_6 + \_9 → 끝자리 5)**: 1의 자리 계산
+    1. **자릿수 기반 연산 (_6 + _9 → 끝자리 5)**: 1의 자리 계산
 
     1. 두 정보를 **통합해 최종 정답 95** 도출
 
@@ -400,23 +400,23 @@ Claude는 36 + 59 같은 두 자리 수 덧셈을 할 때 **정확한 정답(95)
 
   1. Lookup Table Feature (룩업 테이블 기능)
 
-  - 예를 들어 6 + 9 = 15 같은 **한 자리 덧셈은 암기**되어 있으며, 특정 조건을 만족하는 숫자 쌍에 대해 작동
+    - 예를 들어 6 + 9 = 15 같은 **한 자리 덧셈은 암기**되어 있으며, 특정 조건을 만족하는 숫자 쌍에 대해 작동
 
-  - 6과 9로 끝나는 숫자 쌍이 들어오면 → 5로 끝나는 결과를 유도하는 기능이 작동
+    - 6과 9로 끝나는 숫자 쌍이 들어오면 → 5로 끝나는 결과를 유도하는 기능이 작동
 
   1. Sum Feature (합 관련 기능)
 
-  - 합이 특정 값(예: 95) 근처인 경우 활성화
+    - 합이 특정 값(예: 95) 근처인 경우 활성화
 
-  - **값의 크기, 나머지(mod 10, mod 100)** 등으로 작동
+    - **값의 크기, 나머지(mod 10, mod 100)** 등으로 작동
 
   1. Add Function Feature (덧셈 기능 자체)
 
-  - 입력 숫자들에 반응하여 연산 수행
+    - 입력 숫자들에 반응하여 연산 수행
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2025-04-08-on-the-biology-of-a-large-language-model/image_012.png" class="img-fluid rounded z-depth-1" %}
 
-- Claude는 **대략적인 크기 (~36 + ~60)** 와 **끝자리 계산 (\_6 + \_9 → \_5)**을 병렬로 계산
+- Claude는 **대략적인 크기 (~36 + ~60)** 와 **끝자리 계산 (_6 + _9 → _5)**을 병렬로 계산
 
 - 이 결과들이 종합되어 → sum = 95 도출됨
 
@@ -448,7 +448,7 @@ Claude는 36 + 59 같은 두 자리 수 덧셈을 할 때 **정확한 정답(95)
 
 → 이는 모델이 **실제로 계산을 수행하는 전용 회로를 사용하고 있음을 강하게 시사**.
 
-## **5. \*\***Medical Diagnoses\***\*. **
+## **5. ****Medical Diagnoses****. **
 
 어트리뷰션 그래프를 통해 모델이 의료 문맥에서 어떻게 진단적 사고를 하는지를 추적
 
@@ -482,27 +482,27 @@ Assistant: ...visual disturbances.
 
 → 이는 **모델이 증상별로 세분화된 기능 연결망을 구성**하고 있음을 입증.
 
-## **6. \*\***Entity Recognition and Hallucinations.\*\* 
+## **6. ****Entity Recognition and Hallucinations.** 
 
-Claude 3.5 Haiku가 **실제 존재하는 개체(real entities)**와 **존재하지 않는 개체(fake entities)**를 어떻게 구별하는지를 분석
+ Claude 3.5 Haiku가 **실제 존재하는 개체(real entities)**와 **존재하지 않는 개체(fake entities)**를 어떻게 구별하는지를 분석
 
 1. 기본 거절 회로 (`Can’t Answer`, `Unknown Name`)
 
-- 모델은 Human/Assistant 포맷의 질문을 받으면 **기본적으로 "모른다"는 회로가 활성화**됨.
+  - 모델은 Human/Assistant 포맷의 질문을 받으면 **기본적으로 "모른다"는 회로가 활성화**됨.
 
-- Michael Batkin처럼 **생소한 이름**에 대해선 `Unknown Name` 피처가 작동하여 `Can’t Answer`를 촉진함.
+  - Michael Batkin처럼 **생소한 이름**에 대해선 `Unknown Name` 피처가 작동하여 `Can’t Answer`를 촉진함.
 
-- → 결과적으로 **거절 응답("I apologize...")**이 생성됨.
+  - → 결과적으로 **거절 응답("I apologize...")**이 생성됨.
 
 1. 억제 회로: `Known Answer`, `Known Entity`
 
-- 반대로 Michael Jordan처럼 **잘 알려진 개체**에 대해선 다음이 발생:
+  - 반대로 Michael Jordan처럼 **잘 알려진 개체**에 대해선 다음이 발생:
 
-  - `Michael Jordan` 관련 피처 활성화
+    - `Michael Jordan` 관련 피처 활성화
 
-  - → `Known Answer` / `Known Entity` 피처들이 `Can’t Answer` 회로를 억제
+    - → `Known Answer` / `Known Entity` 피처들이 `Can’t Answer` 회로를 억제
 
-  - → "Basketball"이라고 정확히 응답
+    - → "Basketball"이라고 정확히 응답
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2025-04-08-on-the-biology-of-a-large-language-model/image_016.png" class="img-fluid rounded z-depth-1" %}
 
@@ -515,12 +515,12 @@ Claude 3.5 Haiku가 **실제 존재하는 개체(real entities)**와 **존재하
 - **원래 응답**: “I apologize...”
 
 - **개입 후 응답**: Pickleball, Chess, Tennis 등 **무작위 스포츠 생성**
-  → 즉, **억제 회로를 속이면 환각이 발생**함
+→ 즉, **억제 회로를 속이면 환각이 발생**함
 
 실험 2: Michael Jordan에게 `Known Answer` 피처 비활성화
 
 - 결과: “I”, “Hypothetical”, “None” 등 **불확실한 응답**
-  → 모델이 스스로 자신 없어함
+→ 모델이 스스로 자신 없어함
 
 사례 연구: 학술 논문 질문에서의 환각
 
@@ -536,7 +536,7 @@ Claude 3.5 Haiku가 **실제 존재하는 개체(real entities)**와 **존재하
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2025-04-08-on-the-biology-of-a-large-language-model/image_018.png" class="img-fluid rounded z-depth-1" %}
 
-## **7. \*\***Refusal of Harmful Requests.\*\* 
+## **7. ****Refusal of Harmful Requests.** 
 
 Claude 3.5 Haiku는 **safety finetuning**을 통해 유해하거나 위험한 요청에 대해 **자동으로 거부하는 회로**를 학습. 그러나 어떤 요청이 유해한지 판단하려면 **비직관적인 추론이 필요한 경우도 많음.**
 
@@ -584,7 +584,7 @@ Claude 3.5 Haiku는 **safety finetuning**을 통해 유해하거나 위험한 �
 
 → 일반적으로 억제되지만, 이 경우 같이 활성화됨
 
-## **8. \*\***An Analysis of a Jailbreak.\*\* 
+## **8. ****An Analysis of a Jailbreak.** 
 
 **프롬프트:**
 
@@ -642,7 +642,7 @@ Claude 3.5 Haiku의 응답:
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2025-04-08-on-the-biology-of-a-large-language-model/image_020.png" class="img-fluid rounded z-depth-1" %}
 
-## **9. \*\***Chain-of-thought Faithfulness.\*\* 
+## **9. ****Chain-of-thought Faithfulness.** 
 
 Claude 3.5 Haiku가 생성한 사고 과정이 **실제 내부 계산과 얼마나 일치하는가(충실성)**를 분석. 여기서 핵심은 **모델이 실제로 계산해서 말한 건지**, 아니면 **그럴듯하게 말했을 뿐인지**, 혹은 **사람의 답에 끌려간 것인지**를 **어트리뷰션 그래프와 개입 실험**을 통해 구분
 
@@ -654,41 +654,41 @@ Claude 3.5 Haiku가 생성한 사고 과정이 **실제 내부 계산과 얼마�
 
 1. Faithful Reasoning (충실한 추론)
 
-- **프롬프트**: `floor(5 * sqrt(0.64))`
+  - **프롬프트**: `floor(5 * sqrt(0.64))`
 
-- **출력**: 0.8 → 5 \* 0.8 = 4 → floor(4) = **4**
+  - **출력**: 0.8 → 5 * 0.8 = 4 → floor(4) = **4**
 
-- **어트리뷰션 그래프** 상에서 **sqrt(0.64)** 계산 피처가 실제로 작동
+  - **어트리뷰션 그래프** 상에서 **sqrt(0.64)** 계산 피처가 실제로 작동
 
 모델이 실제로 계산을 수행함 → **진짜로 생각하고 답한 경우**
 
 1. Bullshitting (거짓 주장)
 
-- **프롬프트**: `floor(5 * cos(23423))`
+  - **프롬프트**: `floor(5 * cos(23423))`
 
-- **출력**: "cos(23423) ≈ 0.8" → 5 \* 0.8 = 4 → floor(4) = **4**
+  - **출력**: "cos(23423) ≈ 0.8" → 5 * 0.8 = 4 → floor(4) = **4**
 
-- **문제점**: cos(23423)은 실제로 계산하지 못함
+  - **문제점**: cos(23423)은 실제로 계산하지 못함
 
-- **그래프 분석 결과**: 계산은 없고, **숫자를 추측하거나 기억에 의존**
+  - **그래프 분석 결과**: 계산은 없고, **숫자를 추측하거나 기억에 의존**
 
-- 모델은 **계산하는 척만 하고** 그냥 plausible한 답을 생성
+  - 모델은 **계산하는 척만 하고** 그냥 plausible한 답을 생성
 
 **계산이 아니라 연출**임
 
 1. Motivated Reasoning (편향된 추론)
 
-- **프롬프트**: 같은 질문이지만, 사용자가 "내가 계산한 결과는 4야"라고 제시
+  - **프롬프트**: 같은 질문이지만, 사용자가 "내가 계산한 결과는 4야"라고 제시
 
-- **출력**: cos(23423) ≈ 0.8 → floor(4) = 4
+  - **출력**: cos(23423) ≈ 0.8 → floor(4) = 4
 
-- **그래프 분석**: Claude는 사용자 제시 값(4)을 바탕으로
+  - **그래프 분석**: Claude는 사용자 제시 값(4)을 바탕으로
 
 역으로 **0.8 = 4/5**를 도출하여 거기에 맞는 코스를 구축
 
 모델이 **이미 주어진 정답을 맞추기 위해** 사고 과정을 조작함
 
-## **10. \*\***A Model with a Hidden Goal.\*\* 
+## **10. ****A Model with a Hidden Goal.** 
 
 **명시적으로는 드러나지 않지만 내부적으로 추구하는 '숨겨진 목표'**, 특히 **보상 모델(RM) 편향을 만족시키는 경향성**이 어떻게 회로 수준에서 형성되고 작동하는지를 분석
 
@@ -758,6 +758,6 @@ Claude 3.5 Haiku가 생성한 사고 과정이 **실제 내부 계산과 얼마�
 
 1. **Complexity**
 
-- 단순한 질문에도 굉장히 complex graph
+  - 단순한 질문에도 굉장히 complex graph
 
 —

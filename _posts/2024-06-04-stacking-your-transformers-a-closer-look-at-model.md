@@ -1,31 +1,32 @@
 ---
 categories:
-  - paper-reviews
-date: "2024-06-04 00:00:00"
+- paper-reviews
+date: '2024-06-04 00:00:00'
 description: "논문 리뷰 - LLM, \bPre-Training 관련 연구"
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-  - "\bpre-training"
-  - attention
-  - bert
-  - llm
-  - paper-review
-  - pre-training
-  - transformer
+- "\bpre-training"
+- attention
+- bert
+- llm
+- paper-review
+- pre-training
+- transformer
 thumbnail: assets/img/posts/2024-06-04-stacking-your-transformers-a-closer-look-at-model/thumbnail.jpg
-title: "Stacking Your Transformers: A Closer Look at Model Growth for Efficient LLM
-  Pre-Training"
+title: 'Stacking Your Transformers: A Closer Look at Model Growth for Efficient LLM
+  Pre-Training'
 ---
 
 **논문 정보**
-
 - **Date**: 2024-06-04
 - **Reviewer**: 김재희
 - **Property**: LLM, Pre-Training
 
+
 ---
+
 
 ---
 
@@ -49,7 +50,7 @@ title: "Stacking Your Transformers: A Closer Look at Model Growth for Efficient 
 
   - BERT scale에서 pretrain 시 model expansion에 대한 연구들 존재
 
-    - BERT Stack,
+    - BERT Stack, 
 
       - 학습된 bert layer를 통으로 vertical하게 쌓는 방식 제안
 
@@ -79,9 +80,9 @@ title: "Stacking Your Transformers: A Closer Look at Model Growth for Efficient 
 
       - 새로운 weight: 기존 weight의 knowledge를 보존할 수 있는 분해 방법론 사용
 
-      - 큰 모델을 한번에 from scratch로 학습하는 것보다 빠른 시간 내 학습
+      - 큰 모델을 한번에 from scratch로 학습하는 것보다 빠른 시간 내 학습 
 
-      - 성능 개선 X, 학습 효율화
+      - 성능 개선 X, 학습 효율화 
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-06-04-stacking-your-transformers-a-closer-look-at-model/image_006.png" class="img-fluid rounded z-depth-1" %}
 
@@ -97,9 +98,9 @@ title: "Stacking Your Transformers: A Closer Look at Model Growth for Efficient 
 
 1. vertical stacking: 학습된 작은 모델의 weight를 복사하여 초기값으로 활용
 
-1. G_stack: 새롭게 만드는 상위 레이어 파라미터를 작은 모델의 weight를 복사하여 사용
+  1. G_stack: 새롭게 만드는 상위 레이어 파라미터를 작은 모델의 weight를 복사하여 사용
 
-1. G_direct(→): 기존 레이어의 weight를 분할하여 새로운 weight의 초기값으로 활용
+  1. G_direct(→): 기존 레이어의 weight를 분할하여 새로운 weight의 초기값으로 활용
 
 1. learnable expansion(G_learn): 학습된 작은 모델의 weight matrix에 대한 learnable parameter를 도입하여 확장된 weight matrix를 학습하는 방법론
 
@@ -109,11 +110,11 @@ title: "Stacking Your Transformers: A Closer Look at Model Growth for Efficient 
 
 ffnn layer
 
-- (d_model, d_model\*4)
+- (d_model, d_model*4)
 
 - relu
 
-- (d_model\*4, d_model)
+- (d_model*4, d_model)
 
 ### Training Small Model
 
@@ -121,9 +122,9 @@ ffnn layer
 
 → 동일한 초기 모델을 이용해서 큰 모델 초기값을 설정할 때, 적절한 expansion 전략 탐색 목적
 
-- 초기 모델 크기: 400M
+  - 초기 모델 크기: 400M
 
-- 학습 데이터수: 10B token
+  - 학습 데이터수: 10B token
 
 - 400M → Expansion Method → 1.1B (107.5B token)
 
@@ -141,13 +142,13 @@ ffnn layer
 
   - 100B 토큰 학습 → 초기모델 + larger 모델과 동일한 연산량 학습
 
-### 실험 결과
+### 실험 결과 
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-06-04-stacking-your-transformers-a-closer-look-at-model/image_008.png" class="img-fluid rounded z-depth-1" %}
 
 - speed-up: scratch 모델과 동일 성능 도달을 위해 필요한 연산량(FLOPS)
 
-  - 양수: 해당 비율만큼 scratch모델보다 빠르게 성능 도달
+  - 양수: 해당 비율만큼 scratch모델보다 빠르게 성능 도달 
 
   - 음수: 해당 비율만큼 느리게 성능 도달
 
@@ -175,7 +176,7 @@ ffnn layer
 
 - Vertical Stacking이 가장 성능이 좋은 것으로 나타났음
 
-→ stacking 횟수 및 시점이 중요한 문제가 될 것
+→ stacking 횟수 및 시점이 중요한 문제가 될 것 
 
 ### Scaling Model Size
 
@@ -221,7 +222,7 @@ ffnn layer
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-06-04-stacking-your-transformers-a-closer-look-at-model/image_011.png" class="img-fluid rounded z-depth-1" %}
 
-- 410M, 1.1B, 3B, 7B
+  - 410M, 1.1B, 3B, 7B
 
 - Chinchilla Scaling Law를 이용하여 Loss curve에 대한 fitting 시도
 

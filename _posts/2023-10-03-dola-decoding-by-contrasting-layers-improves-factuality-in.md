@@ -1,31 +1,32 @@
 ---
 categories:
-  - paper-reviews
-date: "2023-10-03 00:00:00"
+- paper-reviews
+date: '2023-10-03 00:00:00'
 description: 논문 리뷰 - Factual Consistency, LLM, Calibrating 관련 연구
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-  - attention
-  - calibrating
-  - factual consistency
-  - language-model
-  - llm
-  - paper-review
-  - transformer
+- attention
+- calibrating
+- factual consistency
+- language-model
+- llm
+- paper-review
+- transformer
 thumbnail: assets/img/posts/2023-10-03-dola-decoding-by-contrasting-layers-improves-factuality-in/thumbnail.jpg
-title: "DoLa: Decoding by Contrasting Layers Improves Factuality in Large Language
-  Models"
+title: 'DoLa: Decoding by Contrasting Layers Improves Factuality in Large Language
+  Models'
 ---
 
 **논문 정보**
-
 - **Date**: 2023-10-03
 - **Reviewer**: 김재희
 - **Property**: Factual Consistency, LLM, Calibrating
 
+
 ---
+
 
 ---
 
@@ -49,23 +50,23 @@ title: "DoLa: Decoding by Contrasting Layers Improves Factuality in Large Langua
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2023-10-03-dola-decoding-by-contrasting-layers-improves-factuality-in/image_000.png" class="img-fluid rounded z-depth-1" %}
 
-- Input → Output으로 가는 직진 경로(Residual Connection)
+  - Input → Output으로 가는 직진 경로(Residual Connection)
 
-- 각 레이어에선 Self Attention과 FFNN을 통해 추가적인 정보를 전달
+  - 각 레이어에선 Self Attention과 FFNN을 통해 추가적인 정보를 전달
 
-  - 이전 레이어의 정보를 이용하여 수정된 정보를 Residual Connection에 담음
+    - 이전 레이어의 정보를 이용하여 수정된 정보를 Residual Connection에 담음
 
-- 모델의 Knowledge는 FFNN 레이어에 직접적으로 저장되어 있으며 수정가능
+  - 모델의 Knowledge는 FFNN 레이어에 직접적으로 저장되어 있으며 수정가능
 
 ## 2. Method
 
-- 해당 논문의 기본 아이디어 :
+- 해당 논문의 기본 아이디어 : 
 
-> 각 레이어 별 분포를 출력 vocab dist와 비교하면, 생성되는 토큰의 Factuality를 판단할 수 있다.
+> 각 레이어 별 분포를 출력 vocab dist와 비교하면, 생성되는 토큰의 Factuality를 판단할 수 있다. 
 
 - 분포를 비교하는 것은 아래와 같은 수식을 통해 전개됨
 
-  - t번째 토큰의 생성 토큰 distribution :
+  - t번째 토큰의 생성 토큰 distribution : 
 
     - \phi는 model_dim → vocab_dim의 FFNN 레이어
 
@@ -79,13 +80,13 @@ title: "DoLa: Decoding by Contrasting Layers Improves Factuality in Large Langua
 
     - F : 상이하게 다른 두 vocab distribution을 이용하여 최종 생성 분포를 생성하는 함수
 
-  - 이때 F는 아래와 같이 정의
+  - 이때 F는 아래와 같이 정의 
 
-    - 후보 Token 집합 \mathcal{V}\_{\text {head }} : 실제로 Contrastive Decoding을 수행할 때 생성 후보로 고려된 토큰 집합
+    - 후보 Token 집합 \mathcal{V}_{\text {head }} : 실제로 Contrastive Decoding을 수행할 때 생성 후보로 고려된 토큰 집합
 
       - 최종 생성 확률이 가장 큰 토큰 : 80%
 
-      - V_head : 생성확률이 80\*alpha 이상인 토큰
+      - V_head : 생성확률이 80*alpha 이상인 토큰
 
     - Contrastive Decoding
 
@@ -95,9 +96,9 @@ title: "DoLa: Decoding by Contrasting Layers Improves Factuality in Large Langua
 
   - 위와 같은 Contrastive Decoding 과정은 매 토큰마다 이루어지게 됨
 
-    - 매 토큰마다 매 레이어와 마지막 레이어의 확률 분포를 이용하게 됨
+    - 매 토큰마다 매 레이어와 마지막 레이어의 확률 분포를 이용하게 됨 
 
-    - 실제로 모든 레이어에 적용하면 연산량이 많아지므로, 모델 크기에 따라 사용 레이어의 범위(초반 20개 레이어, 중간 20개 레이어) 제한 및 짝수번째 레이어만 이용
+    - 실제로 모든 레이어에 적용하면 연산량이 많아지므로, 모델 크기에 따라 사용 레이어의 범위(초반 20개 레이어, 중간 20개 레이어)  제한 및 짝수번째 레이어만 이용
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2023-10-03-dola-decoding-by-contrasting-layers-improves-factuality-in/image_001.png" class="img-fluid rounded z-depth-1" %}
 
@@ -121,11 +122,11 @@ title: "DoLa: Decoding by Contrasting Layers Improves Factuality in Large Langua
 
 ⇒ Factuality에 중요한 토큰을 생성할 때, 모델은 레이어를 지나면서 지속적으로 정보를 변경
 
-- Factuality에 중요한 토큰은 다양한 정보를 수집하여 토큰을 예측해야 함
+  - Factuality에 중요한 토큰은 다양한 정보를 수집하여 토큰을 예측해야 함
 
-  - 모델은 상위 레이어까지 지속적으로 다양한 정보를 수집하면서 예측을 수행
+    - 모델은 상위 레이어까지 지속적으로 다양한 정보를 수집하면서 예측을 수행
 
-  - 매 레이어마다 수집되는 정보가 바뀌면서 생성하고자 하는 토큰이 변화하는 것으로 해석
+    - 매 레이어마다 수집되는 정보가 바뀌면서 생성하고자 하는 토큰이 변화하는 것으로 해석
 
 - Pattern #2 : Factuality에 중요하지 않은 조사 등은 중간 레이어부터 매우 작은 변화를 보임
 
@@ -161,7 +162,7 @@ title: "DoLa: Decoding by Contrasting Layers Improves Factuality in Large Langua
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2023-10-03-dola-decoding-by-contrasting-layers-improves-factuality-in/image_006.png" class="img-fluid rounded z-depth-1" %}
 
-- DoLA 적용 여부에 다른 속도
+- DoLA 적용 여부에 다른 속도 
 
   - DoLA를 통해 필요한 추가 연산은 다음과 같음
 

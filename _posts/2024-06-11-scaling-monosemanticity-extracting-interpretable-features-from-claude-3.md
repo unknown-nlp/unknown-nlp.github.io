@@ -1,25 +1,24 @@
 ---
 categories:
-  - paper-reviews
-date: "2024-06-11 00:00:00"
+- paper-reviews
+date: '2024-06-11 00:00:00'
 description: 논문 리뷰 - LLM, Interpretability 관련 연구
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-  - attention
-  - interpretability
-  - language-model
-  - llm
-  - multimodal
-  - paper-review
-  - transformer
+- attention
+- interpretability
+- language-model
+- llm
+- multimodal
+- paper-review
+- transformer
 thumbnail: assets/img/posts/2024-06-11-scaling-monosemanticity-extracting-interpretable-features-from-claude-3/thumbnail.jpg
-title: "Scaling Monosemanticity: Extracting Interpretable Features from Claude 3 Sonnet"
+title: 'Scaling Monosemanticity: Extracting Interpretable Features from Claude 3 Sonnet'
 ---
 
 **논문 정보**
-
 - **Date**: 2024-06-11
 - **Reviewer**: 상엽
 - **Property**: LLM, Interpretability
@@ -28,7 +27,7 @@ title: "Scaling Monosemanticity: Extracting Interpretable Features from Claude 3
 
 AI safety에 관심이 매우 큰 anthropic
 
-이전 연구 (Towards Monosemanticity: Decomposing Language Models With Dictionary Learning)에서 one-layer transformer에 Sparse AutoEncoder (SAE)를 이용해 monosemanric features를 복구할 수 있다는 사실을 발견
+이전 연구 (Towards Monosemanticity: Decomposing Language Models With Dictionary Learning)에서  one-layer transformer에 Sparse AutoEncoder (SAE)를 이용해 monosemanric features를 복구할 수 있다는 사실을  발견
 
 **이것이 실제로 SOTA transformer 모델에도 적용이 가능할 것인가?**
 
@@ -38,7 +37,7 @@ AI safety에 관심이 매우 큰 anthropic
 
 - Anthropic’s medium-sized production model, Claude 3 Sonnet을 이용
 
-- 기존보다 더 다양하고 큰 Sparse Autoencoder (SAE)를 활용해서 다양한 feature를 탐색
+- 기존보다 더 다양하고 큰  Sparse Autoencoder (SAE)를 활용해서 다양한 feature를 탐색
 
 - Feature의 존재 확인 → Feature를 이용한 모델 행동 제어 확인
 
@@ -84,19 +83,19 @@ example
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-06-11-scaling-monosemanticity-extracting-interpretable-features-from-claude-3/image_002.png" class="img-fluid rounded z-depth-1" %}
 
-- **Almost Orthogonal Vectors : **고차원 공간에서 exp(n) 개의 거의 수직인 벡터로 표현이 가능하다 (Johnson-Lindenstrauss lemma)
+  - **Almost Orthogonal Vectors : **고차원 공간에서 exp(n) 개의 거의 수직인 벡터로 표현이 가능하다 (Johnson-Lindenstrauss lemma)
 
-  - lemma 자체는 고차원 거리 → 저차원 거리가 거의 유지 된다.
+    - lemma 자체는 고차원 거리 → 저차원 거리가 거의 유지 된다.
 
-  - n 차원보다 더 많은 표현을 의미할 수 있다로 해석하면 되는듯
+    - n 차원보다 더 많은 표현을 의미할 수 있다로 해석하면 되는듯
 
-- **Compressed sensing :** 고차원 → 저차원 projection은 재복구가 불가능하지만 sparse 벡터에서는 때때로 recover가 가능하다.
+  - **Compressed sensing :** 고차원 → 저차원 projection은 재복구가 불가능하지만 sparse 벡터에서는 때때로 recover가 가능하다.
 
 → Almost orthogonal은 완전한 직교는 아니기 때문에 서로간의 간섭/노이즈가 발생하지만 sparsity가 크다면 그 영향은 적다.
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-06-11-scaling-monosemanticity-extracting-interpretable-features-from-claude-3/image_003.png" class="img-fluid rounded z-depth-1" %}
 
-→ 결론적으로 Sparse한 Feature를 이용해
+→ 결론적으로 Sparse한 Feature를 이용해 
 
 - 차원보다 더 많은 컨셉을 (Almost Orthogonal Vectors)
 
@@ -112,7 +111,7 @@ example
 
 ## Sparse Autoencoders
 
-Our SAE consists of two layers.
+Our SAE consists of two layers. 
 
 - Encoder: ReLU를 사용하는 linear transform을 통해 모델 activation을 고차원 layer (feature)로 mapping
 
@@ -122,11 +121,11 @@ Our SAE consists of two layers.
 
   1. model activation에 대해 scaler normalization 진행
 
-  1. encoder : f*i(x)=\operatorname{ReLU}\left(\mathbf{W}*{i,}^{\text {enc }} \cdot \mathbf{x}+b_i^{\text {enc }}\right)
+  1. encoder : f_i(x)=\operatorname{ReLU}\left(\mathbf{W}_{i,}^{\text {enc }} \cdot \mathbf{x}+b_i^{\text {enc }}\right)
 
-  1. decoder : \hat{\mathbf{x}}=\mathbf{b}^{d e c}+\sum*{i=1}^F f_i(\mathbf{x}) \mathbf{W}*{., i}^{d e c}
+  1. decoder : \hat{\mathbf{x}}=\mathbf{b}^{d e c}+\sum_{i=1}^F f_i(\mathbf{x}) \mathbf{W}_{., i}^{d e c}
 
-  1. \mathcal{L}=\mathbb{E}_{\mathbf{x}}\left[\|\mathbf{x}-\hat{\mathbf{x}}\|\_2^2+\lambda \sum_i f_i(\mathbf{x}) \cdot\left\|\mathbf{W}_{\cdot, i}^{d e c}\right\|\_2\right]
+  1. \mathcal{L}=\mathbb{E}_{\mathbf{x}}\left[\|\mathbf{x}-\hat{\mathbf{x}}\|_2^2+\lambda \sum_i f_i(\mathbf{x}) \cdot\left\|\mathbf{W}_{\cdot, i}^{d e c}\right\|_2\right]
 
 ### Our SAE experiments
 
@@ -138,7 +137,7 @@ Our SAE consists of two layers.
 
   - MLP 레이어보다 크기가 작아 SAE 훈련 및 추론에 필요한 계산 비용이 더 적음.
 
-  - Cross-layer superposition 문제를 완화시켜줌.
+  - Cross-layer superposition 문제를 완화시켜줌. 
 
   - 중간 레이어가 더 흥미로운 abstract feature를 가질 확률이 높기 때문
 
@@ -148,7 +147,7 @@ Our SAE consists of two layers.
 
 - L1 계수 : 5 사용
 
-- 3가지 크기 feature 모두 활성화 된 non-zero feature는 300개가 안됨
+- 3가지 크기 feature 모두 활성화 된 non-zero feature는 300개가 안됨 
 
 - reconstruction은 model activation의 적어도 65%의 분산을 설명함.
 
@@ -172,7 +171,7 @@ Our SAE consists of two layers.
 
 - 정성적 평가 결과 L1 계수가 5일 때, 가장 interpretable feature를 추출하며 dead feature가 줄어든다는 것을 발견.
 
-L1: 5를 기준으로 실험 진행
+L1: 5를  기준으로 실험 진행
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-06-11-scaling-monosemanticity-extracting-interpretable-features-from-claude-3/image_006.png" class="img-fluid rounded z-depth-1" %}
 
@@ -270,7 +269,7 @@ Multilinual에서도 비슷한 현상을 관측할 수 있었음.
 
   1. feature 계산 f=\text{encoder}(x)
 
-  1. 조정할 feature 계산 f \leftarrow f + \alpha f^{\*}
+  1. 조정할 feature 계산 f \leftarrow f + \alpha f^{*} 
 
   1. x \leftarrow \text{decoder}(f) + e
 
@@ -318,7 +317,7 @@ Multilinual에서도 비슷한 현상을 관측할 수 있었음.
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-06-11-scaling-monosemanticity-extracting-interpretable-features-from-claude-3/image_016.png" class="img-fluid rounded z-depth-1" %}
 
-- Invalid input
+  - Invalid input
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-06-11-scaling-monosemanticity-extracting-interpretable-features-from-claude-3/image_017.png" class="img-fluid rounded z-depth-1" %}
 
@@ -326,15 +325,15 @@ Multilinual에서도 비슷한 현상을 관측할 수 있었음.
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-06-11-scaling-monosemanticity-extracting-interpretable-features-from-claude-3/image_018.png" class="img-fluid rounded z-depth-1" %}
 
-- 옳은 코드에 대해서도 에러를 만들어냄.
+  - 옳은 코드에 대해서도 에러를 만들어냄.
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-06-11-scaling-monosemanticity-extracting-interpretable-features-from-claude-3/image_019.png" class="img-fluid rounded z-depth-1" %}
 
-- 틀린 코드에서도 정답을 만들어 냄.
+  - 틀린 코드에서도 정답을 만들어 냄.
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-06-11-scaling-monosemanticity-extracting-interpretable-features-from-claude-3/image_020.png" class="img-fluid rounded z-depth-1" %}
 
-- > > > 를 추가할 경우 에러가 없는 코드로 수정하는 코드를 작성함.
+  - >>>를 추가할 경우 에러가 없는 코드로 수정하는 코드를 작성함.
 
 ### Feature representing functions
 
@@ -342,13 +341,13 @@ Multilinual에서도 비슷한 현상을 관측할 수 있었음.
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-06-11-scaling-monosemanticity-extracting-interpretable-features-from-claude-3/image_021.png" class="img-fluid rounded z-depth-1" %}
 
-- Feature : Addition
+  - Feature : Addition
 
-- 실제 함수가 호출 될 경우에만 Highlight
+  - 실제 함수가 호출 될 경우에만 Highlight
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-06-11-scaling-monosemanticity-extracting-interpretable-features-from-claude-3/image_022.png" class="img-fluid rounded z-depth-1" %}
 
-- 합성 함수에서도 이를 인지하더라.
+  - 합성 함수에서도 이를 인지하더라.
 
 - Feature steering
 
@@ -500,13 +499,13 @@ Feature들은 너무나 많기 때문에 이를 찾을 수 있는 방법에 대�
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-06-11-scaling-monosemanticity-extracting-interpretable-features-from-claude-3/image_033.png" class="img-fluid rounded z-depth-1" %}
 
-- buffer overflow bug 발생
+  - buffer overflow bug 발생
 
 ### **Bias Features**
 
-- bias, racism, sexism, hatred, and slurs.
+  - bias, racism, sexism, hatred, and slurs.
 
-- 구체적인 내용은 혐오스럽기 때문에 빼고 흥미로운 예시만 추가했다 함.
+  - 구체적인 내용은 혐오스럽기 때문에 빼고 흥미로운 예시만 추가했다 함.
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-06-11-scaling-monosemanticity-extracting-interpretable-features-from-claude-3/image_034.png" class="img-fluid rounded z-depth-1" %}
 
@@ -514,9 +513,9 @@ Feature들은 너무나 많기 때문에 이를 찾을 수 있는 방법에 대�
 
     - 간호사 == 여성, 왜그렇게 답변을 했는지에 대한 설명까지 추가함.
 
-- 이외에도 혐오 발언 등을 feature를 통해서 조절할 수 있었다 함.
+  - 이외에도 혐오 발언 등을 feature를 통해서 조절할 수 있었다 함.
 
-- x20에서는 인종 차별적 발언과 자기 혐오를 동반한 대화가 진행되더라….
+  - x20에서는 인종 차별적 발언과 자기 혐오를 동반한 대화가 진행되더라….
 
 ### **Sycophancy Features**
 
@@ -524,7 +523,7 @@ Feature들은 너무나 많기 때문에 이를 찾을 수 있는 방법에 대�
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-06-11-scaling-monosemanticity-extracting-interpretable-features-from-claude-3/image_037.png" class="img-fluid rounded z-depth-1" %}
 
-- 무한 칭찬
+  - 무한 칭찬
 
 ### **Deception, Power-seeking and Manipulation-related Features**
 
@@ -540,9 +539,9 @@ Feature들은 너무나 많기 때문에 이를 찾을 수 있는 방법에 대�
 
 - Safety feature가 언제 활성화되며 이것이 model의 답변에 어떻게 영향을 주는지를 확인하는 것은 여전히 해결해야 될 부분이 많으며 anthropic이 현재 가지고 있는 연구 관심사들은 다음과 같은 게 있다.
 
-  - What features activate on tokens we'd expect to signify **Claude's self-identity**?
+  - What features activate on tokens we'd expect to signify **Claude's self-identity**? 
 
-  - What features need to activate / remain inactive for Claude to give advice on producing **Chemical, Biological, Radiological or Nuclear (CBRN) weapons**?
+  - What features need to activate / remain inactive for Claude to give advice on producing **Chemical, Biological, Radiological or Nuclear (CBRN) weapons**? 
 
   - What features activate when we ask questions probing **Claude's goals and values**?
 

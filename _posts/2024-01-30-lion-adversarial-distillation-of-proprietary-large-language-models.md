@@ -1,27 +1,26 @@
 ---
 categories:
-  - paper-reviews
-date: "2024-01-30 00:00:00"
+- paper-reviews
+date: '2024-01-30 00:00:00'
 description: 논문 리뷰 - Knowledge Distillation 관련 연구
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-  - alignment
-  - classification
-  - fine-tuning
-  - gpt
-  - knowledge distillation
-  - language-model
-  - llm
-  - paper-review
-  - reasoning
+- alignment
+- classification
+- fine-tuning
+- gpt
+- knowledge distillation
+- language-model
+- llm
+- paper-review
+- reasoning
 thumbnail: assets/img/posts/2024-01-30-lion-adversarial-distillation-of-proprietary-large-language-models/thumbnail.jpg
-title: "Lion: Adversarial Distillation of Proprietary Large Language Models"
+title: 'Lion: Adversarial Distillation of Proprietary Large Language Models'
 ---
 
 **논문 정보**
-
 - **Date**: 2024-01-30
 - **Reviewer**: 전민진
 - **Property**: Knowledge Distillation
@@ -72,11 +71,11 @@ title: "Lion: Adversarial Distillation of Proprietary Large Language Models"
 
 - 해당 프레임워크는 다음과 같은 단계로 구성
 
-1. imitation stage : to align the student’s response with the teacher’s repponse
+1) imitation stage : to align the student’s response with the teacher’s repponse
 
-2. discrimination stage : to identify hard instructions
+2) discrimination stage : to identify hard instructions
 
-3. Generation stage : to produce new hard insturctions for escalating the challenges presented to the student model
+3) Generation stage : to produce new hard insturctions for escalating the challenges presented to the student model
 
 - Alpaca’s training data(175개의 사람이 작성한 seed instruction으로 생성된 데이터셋)으로 기반으로 해당 프레임워크를 3번 반복, 총 70K data로 student model을 학습(iteration한번에 6K data얻음)
 
@@ -112,9 +111,9 @@ title: "Lion: Adversarial Distillation of Proprietary Large Language Models"
 
       - 학습 데이터의 공통된 특징을 재사용해서 다른 data를 생성(비전논문)
 
-\*\* 이러한 방법론들은 teacher model의 gradient나 weight가 필요
+** 이러한 방법론들은 teacher model의 gradient나 weight가 필요
 
-- 한편으로는, data-free model extraction(or stealing)이라 불리는 연구가 제안
+  - 한편으로는, data-free model extraction(or stealing)이라 불리는 연구가 제안
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-01-30-lion-adversarial-distillation-of-proprietary-large-language-models/image_000.png" class="img-fluid rounded z-depth-1" %}
 
@@ -158,25 +157,25 @@ title: "Lion: Adversarial Distillation of Proprietary Large Language Models"
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-01-30-lion-adversarial-distillation-of-proprietary-large-language-models/image_002.png" class="img-fluid rounded z-depth-1" %}
 
-- 4가지 역할과 2가지 data pool이 존재
+  - 4가지 역할과 2가지 data pool이 존재
 
-  - Teacher, Student, Referee, Generator
+    - Teacher, Student, Referee, Generator
 
-    - Student로는 LLaMA와 같은 foundation LLM으로 초기화
+      - Student로는 LLaMA와 같은 foundation LLM으로 초기화
 
-    - Teacher, Referee, Generator는 proprietary LLM을 사용
+      - Teacher, Referee, Generator는 proprietary LLM을 사용
 
-      - 각각의 역할은 다른 prompt template을 통해 수행 가능
+        - 각각의 역할은 다른 prompt template을 통해 수행 가능
 
-  - Train pool, Cache Pool
+    - Train pool, Cache Pool
 
-    - Train Pool X^A = \{x*i^A\}*{i\in[1,N^A]}, 여기서 x는 i번째 instruction, N은 train data 수
+      - Train Pool X^A = \{x_i^A\}_{i\in[1,N^A]}, 여기서 x는 i번째 instruction, N은 train data 수
 
-    - Cache pool X^A = \{x*i^B\}*{i\in[1,N^B]}
+      - Cache pool X^A = \{x_i^B\}_{i\in[1,N^B]}
 
-      - student와 teacher의 성능을 평가하기 위한 instruction으로 구성됨
+        - student와 teacher의 성능을 평가하기 위한 instruction으로 구성됨
 
-      - 처음엔 train pool과 같지만, 반복할수록 cache pool은 데이터 누적, train pool은 반복마다 다른 데이터셋으로 교체됨
+        - 처음엔 train pool과 같지만, 반복할수록 cache pool은 데이터 누적, train pool은 반복마다 다른 데이터셋으로 교체됨
 
 - **Imitation Stage**
 
@@ -202,7 +201,7 @@ title: "Lion: Adversarial Distillation of Proprietary Large Language Models"
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-01-30-lion-adversarial-distillation-of-proprietary-large-language-models/image_003.png" class="img-fluid rounded z-depth-1" %}
 
-      - helpfulness, relevance, accuracy, level of detail을 고려하여 모델 output의 점수를 각각 측정, 둘의 차이가 d_i
+      - helpfulness, relevance, accuracy, level of detail을 고려하여 모델 output의 점수를 각각 측정, 둘의 차이가 d_i 
 
         - 단 positional bias를 고려하여 순서 바꿔서 2번 실행, 평균값을 최종 점수로 씀
 
@@ -230,13 +229,13 @@ title: "Lion: Adversarial Distillation of Proprietary Large Language Models"
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-01-30-lion-adversarial-distillation-of-proprietary-large-language-models/image_006.png" class="img-fluid rounded z-depth-1" %}
 
-- 각 iteration마다, N개의 새로운 instruction을 생성하고, generated hard instruction과 generated easy instruction의 비율 r을 유지하도록 함
+  - 각 iteration마다, N개의 새로운 instruction을 생성하고, generated hard instruction과 generated easy instruction의 비율 r을 유지하도록 함
 
-  - 여기서 r이 1이면 generated hard instruction만 있는 경우
+    - 여기서 r이 1이면 generated hard instruction만 있는 경우
 
-  - 또한, 다양성을 높이기 위해, new instruction이 기존 cache pool에 있는 instruction과 ROUGE-L기준 0.7보다 낮도록 함
+    - 또한, 다양성을 높이기 위해, new instruction이 기존 cache pool에 있는 instruction과 ROUGE-L기준 0.7보다 낮도록 함
 
-- 마지막으로, generation stage에서 생성한 데이터로 train pool을 교체하고, cache pool에는 생성한 데이터를 누적해서 추가함
+  - 마지막으로, generation stage에서 생성한 데이터로 train pool을 교체하고, cache pool에는 생성한 데이터를 누적해서 추가함
 
 - Min-Max Game Interpretation
 
@@ -342,11 +341,11 @@ title: "Lion: Adversarial Distillation of Proprietary Large Language Models"
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-01-30-lion-adversarial-distillation-of-proprietary-large-language-models/image_007.png" class="img-fluid rounded z-depth-1" %}
 
-- ChatGPT를 teacher model로, GPT-4를 referee/rater로 사용
+  - ChatGPT를 teacher model로, GPT-4를 referee/rater로 사용
 
-- baseline에 비해 Lion의 성능이 압도적
+  - baseline에 비해 Lion의 성능이 압도적
 
-- generic, knowledge, common-sense, counterfactual에 대해선 ChatGPT보다 높은 성능을 보였지만, fermi, coding, math과 같은 task에서는 비교적 낮은 성능을 보임
+  - generic, knowledge, common-sense, counterfactual에 대해선 ChatGPT보다 높은 성능을 보였지만, fermi, coding, math과 같은 task에서는 비교적 낮은 성능을 보임
 
 - Results for Reasoning
 
@@ -358,13 +357,13 @@ title: "Lion: Adversarial Distillation of Proprietary Large Language Models"
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-01-30-lion-adversarial-distillation-of-proprietary-large-language-models/image_008.png" class="img-fluid rounded z-depth-1" %}
 
-- BIG-Bench Hard Results
+  - BIG-Bench Hard Results
 
-  - standard zero-shot prompting상황에서의 성능이 나와있음
+    - standard zero-shot prompting상황에서의 성능이 나와있음
 
-  - Vicuna는 정교한 reasoning task에서는 낮은 성능을 보이지만, Lion은 상대적으로 높은 성능을 보임
+    - Vicuna는 정교한 reasoning task에서는 낮은 성능을 보이지만, Lion은 상대적으로 높은 성능을 보임
 
-  - 특히 Movie Recommendation, Snarks(두가지 거의 동일한 문장에서 비꼬는 문장 식별), Tracking Shuffled Objects에서는 Lion-13B가 ChatGPT를 능가함
+    - 특히 Movie Recommendation, Snarks(두가지 거의 동일한 문장에서 비꼬는 문장 식별), Tracking Shuffled Objects에서는 Lion-13B가 ChatGPT를 능가함
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-01-30-lion-adversarial-distillation-of-proprietary-large-language-models/image_009.png" class="img-fluid rounded z-depth-1" %}
 
@@ -380,11 +379,11 @@ title: "Lion: Adversarial Distillation of Proprietary Large Language Models"
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-01-30-lion-adversarial-distillation-of-proprietary-large-language-models/image_010.png" class="img-fluid rounded z-depth-1" %}
 
-- generated hard와 easy instruction의 비율 r
+  - generated hard와 easy instruction의 비율 r
 
-  - r이 1이면(1:0) all hard, 0이면(0:1) all easy
+    - r이 1이면(1:0) all hard, 0이면(0:1) all easy
 
-  - 1:1일때가 성능이 가장 높았음
+    - 1:1일때가 성능이 가장 높았음
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-01-30-lion-adversarial-distillation-of-proprietary-large-language-models/image_011.png" class="img-fluid rounded z-depth-1" %}
 

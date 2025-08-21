@@ -1,31 +1,32 @@
 ---
 categories:
-  - paper-reviews
-date: "2024-01-23 00:00:00"
+- paper-reviews
+date: '2024-01-23 00:00:00'
 description: 논문 리뷰 - ICL, LLM, In Context Learning 관련 연구
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-  - classification
-  - embedding
-  - icl
-  - in context learning
-  - language-model
-  - llm
-  - paper-review
-  - reasoning
+- classification
+- embedding
+- icl
+- in context learning
+- language-model
+- llm
+- paper-review
+- reasoning
 thumbnail: assets/img/posts/2024-01-23-in-context-pretraining-language-modeling-beyond-document-boundaries/thumbnail.jpg
-title: "IN-CONTEXT PRETRAINING: LANGUAGE MODELING BEYOND DOCUMENT BOUNDARIES"
+title: 'IN-CONTEXT PRETRAINING: LANGUAGE MODELING BEYOND DOCUMENT BOUNDARIES'
 ---
 
 **논문 정보**
-
 - **Date**: 2024-01-23
 - **Reviewer**: 김재희
 - **Property**: ICL, LLM, In Context Learning
 
+
 ---
+
 
 ---
 
@@ -45,7 +46,7 @@ title: "IN-CONTEXT PRETRAINING: LANGUAGE MODELING BEYOND DOCUMENT BOUNDARIES"
 
 ⇒ 다른 샘플을 concat하여 maximum length 채움
 
-- [A, B]
+  - [A, B]
 
 - 이러한 전략은 랜덤한 Demonstration을 추가하여 Pretrain을 진행하는 방식
 
@@ -83,15 +84,15 @@ title: "IN-CONTEXT PRETRAINING: LANGUAGE MODELING BEYOND DOCUMENT BOUNDARIES"
 
 1. Finding Related Documents at Scale
 
-1. 핵심 : 서로 연관된 문서를 탐색하는 빠른 방법
+  1. 핵심 : 서로 연관된 문서를 탐색하는 빠른 방법
 
 → 빠르지 않다면 Pretrain 때 추가 코스트(탐색)가 크게 발생
 
-1. 방법론
+  1. 방법론
 
-1. Pretrain Corpus를 Chunk 단위(50M 건)로 분리
+    1. Pretrain Corpus를 Chunk 단위(50M 건)로 분리
 
-1. 사전에 Pretrain Corpus에 대해 Retriever(Contriever)를 이용하여 Embedding 산출 + FAISS Indexing
+    1. 사전에 Pretrain Corpus에 대해 Retriever(Contriever)를 이용하여 Embedding 산출 + FAISS Indexing
 
 → Contriever : Self Supervised Learning 기반 IR 모델(DPR과 구조는 거의 동일)
 
@@ -107,9 +108,9 @@ title: "IN-CONTEXT PRETRAINING: LANGUAGE MODELING BEYOND DOCUMENT BOUNDARIES"
 
 1. Creating Input Contexts
 
-1. 1에서 산출된 유사도를 바탕으로 실제 Input을 구성하는 방법론
+  1. 1에서 산출된 유사도를 바탕으로 실제 Input을 구성하는 방법론
 
-1. 가장 나이브한 접근 방법론(kNN) : 각 데이터 별 top-k 유사도 샘플을 Demonstration으로 사용하는 것
+  1. 가장 나이브한 접근 방법론(kNN) : 각 데이터 별 top-k 유사도 샘플을 Demonstration으로 사용하는 것
 
 → 특정 데이터들(다른 문서의 일부 내용을 포함하는 데이터)을 유사한 데이터가 매우 많아서 학습에 중복하여 사용될 가능성이 있음
 
@@ -117,9 +118,9 @@ title: "IN-CONTEXT PRETRAINING: LANGUAGE MODELING BEYOND DOCUMENT BOUNDARIES"
 
     1. 제한된 자원 하에서 학습에 사용되는 데이터의 Diversity 감소
 
-1. 실제 방법론
+  1. 실제 방법론
 
-1. 각 데이터 별 top-k 유사도 데이터 산출 (Neighbor)
+    1. 각 데이터 별 top-k 유사도 데이터 산출 (Neighbor)
 
 → 일종의 그래프 형태의 데이터 구조 산출됨
 
@@ -143,9 +144,9 @@ title: "IN-CONTEXT PRETRAINING: LANGUAGE MODELING BEYOND DOCUMENT BOUNDARIES"
 
 1. 제안 방법론대로 Input을 구성할 경우 최대한 유사한 내용을 담은 문서들이 하나의 Input으로 구성될 수 있음
 
-1. Doc3의 Token 예측 시 Doc1의 정보가 유용하게 활용될 수 있음
+  1. Doc3의 Token 예측 시 Doc1의 정보가 유용하게 활용될 수 있음
 
-1. ICL을 모사한 Pretrain 가능
+  1. ICL을 모사한 Pretrain 가능
 
 ## 3. Experiments
 
@@ -169,7 +170,7 @@ title: "IN-CONTEXT PRETRAINING: LANGUAGE MODELING BEYOND DOCUMENT BOUNDARIES"
 
   - ICLM : 제안 방법론
 
-- Search
+- Search 
 
   - 32 GPU를 이용하여 매 Batch마다 진행
 
@@ -179,7 +180,7 @@ title: "IN-CONTEXT PRETRAINING: LANGUAGE MODELING BEYOND DOCUMENT BOUNDARIES"
 
 ### Results
 
-1. Language Modeling : LM의 기본적인 성능 평가 (PPL)
+1) Language Modeling : LM의 기본적인 성능 평가 (PPL)
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-01-23-in-context-pretraining-language-modeling-beyond-document-boundaries/image_001.png" class="img-fluid rounded z-depth-1" %}
 
@@ -195,7 +196,7 @@ title: "IN-CONTEXT PRETRAINING: LANGUAGE MODELING BEYOND DOCUMENT BOUNDARIES"
 
   - ICLM이 ICL 능력 뿐 아니라 Language Modeling에 있어서도 도움이 되는 것(당연한듯?)
 
-2. In Context Learning
+2) In Context Learning
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-01-23-in-context-pretraining-language-modeling-beyond-document-boundaries/image_002.png" class="img-fluid rounded z-depth-1" %}
 
@@ -217,17 +218,17 @@ title: "IN-CONTEXT PRETRAINING: LANGUAGE MODELING BEYOND DOCUMENT BOUNDARIES"
 
 → ICL 및 Document 이해 능력이 매우 중요함
 
-- (재희)
+  - (재희) 
 
-  - ICLM이 Standard에 비해 성능이 좋은 건 뚜렷하게 나타나는 특징
+    - ICLM이 Standard에 비해 성능이 좋은 건 뚜렷하게 나타나는 특징
 
-  - 태스크가 어려울수록 성능 개선 폭이 커지는 모습을 관찰 할 수 있음(Classification < Reading Comprehension)
+    - 태스크가 어려울수록 성능 개선 폭이 커지는 모습을 관찰 할 수 있음(Classification < Reading Comprehension)
 
-  - ICLM이 In-Context Learning 능력과 더불어 NLU 능력도 향상시키는 것 아닐까?
+    - ICLM이 In-Context Learning 능력과 더불어 NLU 능력도 향상시키는 것 아닐까?
 
-    - (or) ICL에서 중요한게 NLU 능력은 아닐까
+      - (or) ICL에서 중요한게 NLU 능력은 아닐까
 
-3. Retrieval-Augmentation
+3) Retrieval-Augmentation
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-01-23-in-context-pretraining-language-modeling-beyond-document-boundaries/image_003.png" class="img-fluid rounded z-depth-1" %}
 
@@ -249,7 +250,7 @@ title: "IN-CONTEXT PRETRAINING: LANGUAGE MODELING BEYOND DOCUMENT BOUNDARIES"
 
   - 동일한 Document를 사용하고 있음에도 성능 개선이 뚜렷하게 관찰됨
 
-4. Factuality
+4) Factuality
 
 - 상황 정의 : 모델이 학습한 지식과 다른 내용이 프롬프트에 삽입되게 됨
 
@@ -287,9 +288,9 @@ title: "IN-CONTEXT PRETRAINING: LANGUAGE MODELING BEYOND DOCUMENT BOUNDARIES"
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-01-23-in-context-pretraining-language-modeling-beyond-document-boundaries/image_005.png" class="img-fluid rounded z-depth-1" %}
 
-- Ablation Study :
+- Ablation Study : 
 
-  - Document Relevance :
+  - Document Relevance : 
 
     - 전체 코퍼스를 11k개의 클러스터로 분할
 
@@ -321,7 +322,7 @@ title: "IN-CONTEXT PRETRAINING: LANGUAGE MODELING BEYOND DOCUMENT BOUNDARIES"
 
 - Pretrain 시 비용이 (상대적으로) 매우 적은 Input 구성 방법론 제안
 
-- ICLM의 In-Context Learning/RAG/Document 필요 태스크(QA) 등에서 높은 성능
+- ICLM의 In-Context Learning/RAG/Document 필요 태스크(QA) 등에서 높은 성능 
 
 - 모델 크기 및 태스크와 관계없이 꾸준히 높은 성능 리포팅
 

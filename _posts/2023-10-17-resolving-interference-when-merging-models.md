@@ -1,26 +1,26 @@
 ---
 categories:
-  - paper-reviews
-date: "2023-10-17 00:00:00"
+- paper-reviews
+date: '2023-10-17 00:00:00'
 description: 논문 리뷰 - Task Vectors 관련 연구
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-  - paper-review
-  - task vectors
-  - vision
+- paper-review
+- task vectors
+- vision
 thumbnail: assets/img/posts/2023-10-17-resolving-interference-when-merging-models/thumbnail.jpg
 title: Resolving Interference When Merging Models
 ---
 
 **논문 정보**
-
 - **Date**: 2023-10-17
 - **Reviewer**: hyowon Cho
 - **Property**: Task Vectors
 
 # Introduction
+
 
 각 태스크에 맞춰서 모델을 finetuning하는 것은 좋은 성능을 보장하나, 다음의 문제를 가진다.
 
@@ -38,7 +38,7 @@ title: Resolving Interference When Merging Models
 
 - summing the individual model weights with different weighting schemes, either via a simple average
 
-- more sophisticated means that incorporate parameter importance
+- more sophisticated means that incorporate parameter importance 
 
 - by task vectors
 
@@ -50,11 +50,11 @@ In this paper, we first demonstrate that interference can stem from two major ca
 
 1. INTERFERENCE FROM REDUNDANT PARAMETERS:
 
-- model pruning과 관련된 기존 연구에서는 finetuning 과정에서 여러 모델 파라미터가 변경되지만 성능에는 미미한 영향을 끼칠 수 있다는 사실이 발견되었다. 하지만 한 모델에게 영향력을 미치는 파라미터가 다른 모델에게는 필요없어 불필요한 파라미터로 취급을 받을 시, 영향력있는 값이 가려져 전체 모델의 성능이 감소할 수 있다.
+  - model pruning과 관련된 기존 연구에서는 finetuning 과정에서 여러 모델 파라미터가 변경되지만 성능에는 미미한 영향을 끼칠 수 있다는 사실이 발견되었다. 하지만 한 모델에게 영향력을 미치는 파라미터가 다른 모델에게는 필요없어 불필요한 파라미터로 취급을 받을 시, 영향력있는 값이 가려져 전체 모델의 성능이 감소할 수 있다.
 
 1. INTERFERENCE FROM SIGN DISAGREEMENT
 
-- 특정 파라미터는 어떤 모델에서는 양의 값을 가질 수 있고 다른 모델에서는 음의 값을 가질 수 있다. 따라서 간단한 평균을 취하는 것은 두 작업 모두에서 성능을 저해할 수 있다. 단순 평균은 Merged model에서 파라미터 값을 축소시키는 interference가 발생할 수 있기 때문이다. 영향력 있는 파라미터 간의 이러한 간섭이, 모델 merging과 멀티태스크 훈련 모델 간의 성능 차이가 모델 수가 증가함에 따라 증가하는 이유일 수 있다.
+  - 특정 파라미터는 어떤 모델에서는 양의 값을 가질 수 있고 다른 모델에서는 음의 값을 가질 수 있다. 따라서 간단한 평균을 취하는 것은 두 작업 모두에서 성능을 저해할 수 있다. 단순 평균은 Merged model에서 파라미터 값을 축소시키는 interference가 발생할 수 있기 때문이다. 영향력 있는 파라미터 간의 이러한 간섭이, 모델 merging과 멀티태스크 훈련 모델 간의 성능 차이가 모델 수가 증가함에 따라 증가하는 이유일 수 있다.
 
 이러한 문제들을 해결하기 위해 저자들은 다음의 방법론을 제안한다: TIES-MERGING (TRIM, ELECT SIGN & MERGE). 이는 세 가지 스텝을 통해 만들어진 task vector를 이용하여 모델을 merging하는 방법론이다. 적혀 있듯이, 각 task vector에서 어떤 값을 trim할 지 정함으로써 redundant parameter 문제를 해결하고, 부호를 elect하여 sign conflict 문제를 해결하고, 마지막으로 merging을 시도한다.
 
@@ -63,7 +63,7 @@ In this paper, we first demonstrate that interference can stem from two major ca
 1. different modalities, including language and vision benchmarks
 
 1. distinct model sizes and families,
-   such as T5-base and T5-large as well as ViT-B/32 and ViT-L/14
+such as T5-base and T5-large as well as ViT-B/32 and ViT-L/14
 
 1. in-domain and out-of domain tasks,
 
@@ -74,7 +74,7 @@ In this paper, we first demonstrate that interference can stem from two major ca
 # Background and Motivation
 
 학습 방법: full finetuning or peft(IA3)
-Task vector = \theta*{ft} - \theta*{init}
+Task vector = \theta_{ft} - \theta_{init}
 
 ## Redundancies in Model Parameters
 
@@ -85,6 +85,7 @@ Task vector = \theta*{ft} - \theta*{init}
 {% include figure.liquid loading="eager" path="assets/img/posts/2023-10-17-resolving-interference-when-merging-models/image_001.png" class="img-fluid rounded z-depth-1" %}
 
 그림을 통해서 알 수 있듯, 전체 task vector의 20%만 남기는 것만으로도 전체 파라미터를 유지하는 것과 유사한 성능을 가지는 것을 확인할 수 있다. 즉, 이는 finetuning 과정에서 일어나는 대부분의 parameter change가 사실 상 redundant하다는 것을 의미한다.
+
 
 따라서, 이러한 값들을 merging 시 무시하는 것은 task의 성능 저하에 크게 영향이 가지 않을 것이다.
 
@@ -104,7 +105,7 @@ Task vector = \theta*{ft} - \theta*{init}
 
   - \tau = task vector, == \gamma \odot \mu
 
-  - \gamma = sign vector
+  - \gamma  = sign vector
 
   - \mu = magnitude vector
 
@@ -118,7 +119,7 @@ Task vector = \theta*{ft} - \theta*{init}
 
 1. Disjoint Merge: 남겨진 param들의 mean을 취한다.
 
-최종적인 모델은 \theta*{init} + \lambda \* \tau*{m}이 되며 \lambda는 scaling hyperparamter.
+최종적인 모델은 \theta_{init} + \lambda * \tau_{m}이 되며 \lambda는 scaling hyperparamter.
 
 # Experimental Setup
 

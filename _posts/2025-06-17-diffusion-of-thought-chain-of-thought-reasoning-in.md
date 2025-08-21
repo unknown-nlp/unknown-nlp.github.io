@@ -1,30 +1,29 @@
 ---
 categories:
-  - paper-reviews
-date: "2025-06-17 00:00:00"
+- paper-reviews
+date: '2025-06-17 00:00:00'
 description: 논문 리뷰 - Text Generation, DiffusionLM 관련 연구
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-  - diffusion
-  - diffusionlm
-  - fine-tuning
-  - gpt
-  - language-model
-  - llm
-  - paper-review
-  - pre-training
-  - reasoning
-  - text generation
-  - transformer
-  - vision
+- diffusion
+- diffusionlm
+- fine-tuning
+- gpt
+- language-model
+- llm
+- paper-review
+- pre-training
+- reasoning
+- text generation
+- transformer
+- vision
 thumbnail: assets/img/posts/2025-06-17-diffusion-of-thought-chain-of-thought-reasoning-in/thumbnail.jpg
-title: "Diffusion of Thought: Chain-of-Thought Reasoning in Diffusion Language Models"
+title: 'Diffusion of Thought: Chain-of-Thought Reasoning in Diffusion Language Models'
 ---
 
 **논문 정보**
-
 - **Date**: 2025-06-17
 - **Reviewer**: 상엽
 - **Property**: Text Generation, DiffusionLM
@@ -68,7 +67,7 @@ https://huggingface.co/blog/ProCreations/diffusion-language-model?utm_source=cha
 **RQ**
 
 > **Can diffusion language models also leverage the CoT-style technique to gain
-> enhanced complex reasoning abilities?**
+enhanced complex reasoning abilities?**
 
 **Diffusion of Thoughts (DoT) 제안**
 
@@ -76,7 +75,7 @@ https://huggingface.co/blog/ProCreations/diffusion-language-model?utm_source=cha
 
 - **Diffusion model에 특화된 inherent chain-of-thought 방법 제안**
 
-  - 일련의 latent variables를 스텝별로 업데이트 → 각 추론 단계들이 시간에 따라 병렬적으로 diffuse
+  - 일련의 latent variables를  스텝별로 업데이트 → 각 추론 단계들이 시간에 따라 병렬적으로 diffuse
 
 - 핵심 특징
 
@@ -98,27 +97,27 @@ https://huggingface.co/blog/ProCreations/diffusion-language-model?utm_source=cha
 
 - Reverse process
 
-  - z\_{t}를 denoising하여 z_0를 복구하는 것이 목표
+  - z_{t}를 denoising하여 z_0를 복구하는 것이 목표
 
-  - z*t: p*{\theta}(\mathbf{z}_{0:T}) := p(\mathbf{z}\_T)\prod_{t=1}^T p*{\theta}(\mathbf{z}*{t-1}|\mathbf{z}\_t) 로 원본 데이터 복원
+  - z_t: p_{\theta}(\mathbf{z}_{0:T}) := p(\mathbf{z}_T)\prod_{t=1}^T p_{\theta}(\mathbf{z}_{t-1}|\mathbf{z}_t) 로 원본 데이터 복원
 
 - Text generation을 위한 diffusion 모델의 종류
 
   1. Continuous diffusion models
 
-  - mapping function을 활용 (실수 → 토큰화)
+    - mapping function을 활용 (실수 → 토큰화)
 
-  - discrete text w → continuous space using \text{EMB}(w) → **rounding** (inverse operation)
+    - discrete text w → continuous space using \text{EMB}(w)  → **rounding** (inverse operation)
 
-  - forward perturbations: q(\mathbf{z}_{t} \vert \mathbf{z}_{t-1}) = \mathcal{N}(\mathbf{z}_{t};\sqrt{1-\beta_t}\mathbf{z}_{t-1}, {\beta}\_t \mathbf{I}), where \beta_t \in (0, 1)
+    - forward perturbations: q(\mathbf{z}_{t} \vert \mathbf{z}_{t-1}) = \mathcal{N}(\mathbf{z}_{t};\sqrt{1-\beta_t}\mathbf{z}_{t-1}, {\beta}_t \mathbf{I}), where \beta_t \in (0, 1)
 
   1. Discrete diffusion models
 
-  - 문제 자체를 integer program으로 풀기
+    - 문제 자체를 integer program으로 풀기
 
-  - z_t를 ont-hot vectors in \{0, 1\}^K로 표현. K는 vocab size
+    - z_t를 ont-hot vectors in \{0, 1\}^K로 표현. K는 vocab size
 
-  - q(\mathbf{z}_t|\mathbf{z}_{t-1})을 transition matrix로 표현 → uniform 분포나 [mask]로 전부 변경하는 단계
+    - q(\mathbf{z}_t|\mathbf{z}_{t-1})을 transition matrix로 표현 → uniform 분포나 [mask]로 전부 변경하는 단계
 
 **Seq2Seq Generation (e.g. DiffuSeq)**
 
@@ -130,15 +129,15 @@ https://huggingface.co/blog/ProCreations/diffusion-language-model?utm_source=cha
 
 ## Diffusion-of-Thoughts
 
-- Notation: s (problem statement), a (answer), p\_{\theta}^{LM} (language model)
+- Notation: s (problem statement), a (answer), p_{\theta}^{LM} (language model)
 
-- Answer-only generation model: \mathbf{a}\sim p\_\theta^{\textit{LM}}(\mathbf{a}|\mathbf{s})
+- Answer-only generation model: \mathbf{a}\sim p_\theta^{\textit{LM}}(\mathbf{a}|\mathbf{s})
 
-- CoT: \mathbf{a}\sim p*\theta^{\textit{LM}}(\mathbf{a}|\mathbf{s}, \mathbf{r}*{1\dots n})
+- CoT: \mathbf{a}\sim p_\theta^{\textit{LM}}(\mathbf{a}|\mathbf{s}, \mathbf{r}_{1\dots n})
 
-- implicit CoT: \mathbf{a}\sim p*\theta^{\textit{iCoT}}(\mathbf{a}|\mathbf{s}, \mathbf{z}*{1\dots n})
+- implicit CoT: \mathbf{a}\sim p_\theta^{\textit{iCoT}}(\mathbf{a}|\mathbf{s}, \mathbf{z}_{1\dots n})
 
-- DoT: \mathbf{a}\sim p\_\theta^{\textit{DoT}}(\mathbf{a}|\mathbf{s}, \mathbf{z}\_t)
+- DoT: \mathbf{a}\sim p_\theta^{\textit{DoT}}(\mathbf{a}|\mathbf{s}, \mathbf{z}_t)
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2025-06-17-diffusion-of-thought-chain-of-thought-reasoning-in/image_001.png" class="img-fluid rounded z-depth-1" %}
 
@@ -154,7 +153,7 @@ https://huggingface.co/blog/ProCreations/diffusion-language-model?utm_source=cha
 
 - 모든 rationale들이 backward diffusion process에서 병렬적으로 생성
 
-- 모든 conditional token, 여기서는 s는 고정, r\_{1...n}에만 noise 추가
+- 모든 conditional token, 여기서는 s는 고정, r_{1...n}에만 noise 추가
 
 → continuous 방식의 DiffuSeq-style이 가진 장점이 무엇인가?
 
@@ -168,11 +167,11 @@ https://huggingface.co/blog/ProCreations/diffusion-language-model?utm_source=cha
 
 - **Process**:
 
-  1. \mathbf{r}_1\sim p_{\theta}^{\textit{DoT}}(\mathbf{r}\_1|\mathbf{s}, \mathbf{z}^{r_1}\_t)
+  1. \mathbf{r}_1\sim p_{\theta}^{\textit{DoT}}(\mathbf{r}_1|\mathbf{s}, \mathbf{z}^{r_1}_t)
 
-  1. \mathbf{r}_2\sim p_{\theta}^{\textit{DoT}}(\mathbf{r}\_2|[\mathbf{s};\mathbf{r}_1], \mathbf{z}^{r_2}\_t)
+  1. \mathbf{r}_2\sim p_{\theta}^{\textit{DoT}}(\mathbf{r}_2|[\mathbf{s};\mathbf{r}_1], \mathbf{z}^{r_2}_t)
 
-  1. \mathbf{a}\sim p\_{\theta}^{\textit{DoT}}(\mathbf{a}|[\mathbf{s};\mathbf{r}_1;...;\mathbf{r}_n], \mathbf{z}^{r_n}\_t)
+  1. \mathbf{a}\sim p_{\theta}^{\textit{DoT}}(\mathbf{a}|[\mathbf{s};\mathbf{r}_1;...;\mathbf{r}_n], \mathbf{z}^{r_n}_t)
 
 - 이후 rationale이 이전 rationale들을 더 강한 condition signal로 이용할 수 있음.
 
@@ -186,15 +185,15 @@ https://huggingface.co/blog/ProCreations/diffusion-language-model?utm_source=cha
 
 - Any timesteps: s, t, u that satisfy 1 < s < t < u < T
 
-  - Training stage: \mathbf{z}\_t \sim q(\mathbf{z}\_t|\mathbf{z}\_0) (oracle data에서 diffuse)
+  - Training stage: \mathbf{z}_t \sim q(\mathbf{z}_t|\mathbf{z}_0) (oracle data에서 diffuse)
 
-  - Inference stage: q(z*t|z*{\theta}(z_u;u))
+  - Inference stage: q(z_t|z_{\theta}(z_u;u))
 
 - **해결책**: 추론 단계를 모방하기 위해 \epsilon_i 확률로 다음과 같이 forward step에서 만들어진 z를 활용
 
-  - u \in \{t+1, ..., T\}, \hat{z*0} = z*{\theta}(z_u;u) → q(z_t|\hat{z_0})
+  - u \in \{t+1, ..., T\}, \hat{z_0} = z_{\theta}(z_u;u) → q(z_t|\hat{z_0})
 
-  - \epsilon*i는 1에서 \epsilon*{min}로 선형 감소
+  - \epsilon_i는 1에서 \epsilon_{min}로 선형 감소
 
 **Coupled Sampling**
 
@@ -202,7 +201,7 @@ https://huggingface.co/blog/ProCreations/diffusion-language-model?utm_source=cha
 
 - **Training 시 현재 thought뿐만 아니라 이전 thought들에도 확률적으로 noise 추가**
 
-  - \mathbf{z}_0=\text{EMB}([\mathbf{s};\mathbf{r}_{1};\mathbf{r}\_{2}]) 과정에서 일반적으로 r_1에만 noise 적용
+  - \mathbf{z}_0=\text{EMB}([\mathbf{s};\mathbf{r}_{1};\mathbf{r}_{2}]) 과정에서 일반적으로 r_1에만 noise 적용
 
   - 일정 확률로 [r_1;r_2] 모두에 noise 적용
 
@@ -220,7 +219,7 @@ DoT 모델에 대해 두 가지 학습 방법을 사용
 
 - **Prior loss**
 
-  - p\_{\theta}(z_T): 최종 noise에서 모델의 분포
+  - p_{\theta}(z_T): 최종 noise에서 모델의 분포
 
   - q(z_T|w^z): 노이즈를 추가하는 과정에서 만들어진 최종 z의 분포
 
@@ -230,13 +229,13 @@ DoT 모델에 대해 두 가지 학습 방법을 사용
 
 - **Diffusion loss**: 각 단계에서 얼마나 noise를 잘 제거하는가에 대한 탐색
 
-  - 우리가 궁금한 것: **p를 통한 denoising이 잘 된 것이 맞을까? == \*\***p*{\theta}(z*{t-1}|z_t)\***\* 분포를 잘 구했는가?**
+  - 우리가 궁금한 것: **p를 통한 denoising이 잘 된 것이 맞을까? ==  ****p_{\theta}(z_{t-1}|z_t)**** 분포를 잘 구했는가?**
 
   - 우리가 아는 것, z_t (현재 주어진 정보), z_0 (원본)
 
-  - Posterior를 활용, 다음의 분포를 이용해 p\_{\theta}를 검정
+  - Posterior를 활용, 다음의 분포를 이용해 p_{\theta}를 검정
 
-  - 더 직관적으로 z\_{t-1}의 분포가 얼마나 noise, denoise 과정에서 동일한가
+  - 더 직관적으로 z_{t-1}의 분포가 얼마나 noise, denoise 과정에서 동일한가
 
 - **Rounding loss**: 복원력 z_0 → \text{w}^z
 
@@ -254,7 +253,7 @@ DoT 모델에 대해 두 가지 학습 방법을 사용
 
 - Multiple sampling을 통한 다양한 reasoning pathway 생성
 
-- 동일 문제 s에 대해 다양한 (r\_{i;1...n}, a_i)를 구함. (Diffusion 모델의 강점: noise seed만 다르게 해도 됨!)
+- 동일 문제 s에 대해 다양한 (r_{i;1...n}, a_i)를 구함. (Diffusion 모델의 강점: noise seed만 다르게 해도 됨!)
 
 - Majority vote:
 
@@ -298,17 +297,17 @@ DoT 모델에 대해 두 가지 학습 방법을 사용
 
 - MP-DoT: 마지막 thought 뒤에 `<EOS>` 토큰 추가 (모델이 rationale 수 결정)
 
-- 8 \* V100-32G
+- 8 * V100-32G
 
 - Training:
 
-  - scheduled sampling: \epsilon\_{min}=0.95
+  - scheduled sampling: \epsilon_{min}=0.95
 
   - coupled sampling: \gamma (0.01, noise 추가할 확률), k (1, 이전 step)
 
   - self-consistency: m (20)
 
-- Inference:
+- Inference: 
 
   - temperature 0.5, default timestep T: 64
 
@@ -320,7 +319,7 @@ DoT 모델에 대해 두 가지 학습 방법을 사용
 
 - DoT: 100% 정확도 달성, 이는 CoT를 활용하면 달성할 수 있는 수준
 
-- 속도에서 GPT-2 CoT 대비 최대 27배 빠름.
+- 속도에서 GPT-2 CoT 대비 최대 27배 빠름. 
 
 - **Optimal sampling timestep: 1 for multiplication, 2 for boolean logic **(very EZ)
 
@@ -431,6 +430,7 @@ DoT 모델에 대해 두 가지 학습 방법을 사용
 - Scheduled sampling, coupled sampling, conditional ODE solver 등 고유 기법 개발
 
 - Mathematical reasoning task에서 comprehensive evaluation 수행
+
 
 ---
 

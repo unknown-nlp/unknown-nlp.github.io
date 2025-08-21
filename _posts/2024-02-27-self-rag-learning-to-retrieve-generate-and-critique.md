@@ -1,27 +1,26 @@
 ---
 categories:
-  - paper-reviews
-date: "2024-02-27 00:00:00"
+- paper-reviews
+date: '2024-02-27 00:00:00'
 description: 논문 리뷰 - Retrieval, Natural Language Generation 관련 연구
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-  - attention
-  - gpt
-  - language-model
-  - llm
-  - natural language generation
-  - paper-review
-  - reasoning
-  - retrieval
-  - rlhf
+- attention
+- gpt
+- language-model
+- llm
+- natural language generation
+- paper-review
+- reasoning
+- retrieval
+- rlhf
 thumbnail: assets/img/posts/2024-02-27-self-rag-learning-to-retrieve-generate-and-critique/thumbnail.jpg
-title: "SELF-RAG: LEARNING TO RETRIEVE, GENERATE, AND CRITIQUE THROUGH SELF-REFLECTION"
+title: 'SELF-RAG: LEARNING TO RETRIEVE, GENERATE, AND CRITIQUE THROUGH SELF-REFLECTION'
 ---
 
 **논문 정보**
-
 - **Date**: 2024-02-27
 - **Reviewer**: 상엽
 - **Property**: Retrieval, Natural Language Generation
@@ -40,11 +39,11 @@ title: "SELF-RAG: LEARNING TO RETRIEVE, GENERATE, AND CRITIQUE THROUGH SELF-REFL
 
   - RAG는 factual grounding 여부를 판단할 수 없어 off-topic passage를 제공할 수 있음.
 
-  - 결과값과 passage의 내용이 일치한다는 보장 역시 없음.
+  -  결과값과 passage의 내용이 일치한다는 보장 역시 없음. 
 
 → Self-Reflective Retrieval-augmented Generation (SELF-RAG)
 
-- via on-demand retrieval and self-reflection.
+- via on-demand retrieval and self-reflection. 
 
   - gnereation quality 증가 시키겠다.
 
@@ -76,7 +75,7 @@ title: "SELF-RAG: LEARNING TO RETRIEVE, GENERATE, AND CRITIQUE THROUGH SELF-REFL
 
 - 항상 고정된 개수의 document를 추출하는 RAG와는 달리 **retrieval을 조절할 수 있음**.
 
-- SELF-RAG는 support에 대한 **self assesment를 진행**하기 때문에 citation을 제공할 수 있음. → fact verification을 쉽게 함.
+- SELF-RAG는 support에 대한 **self assesment를 진행**하기 때문에 citation을 제공할 수  있음. → fact verification을 쉽게 함.
 
 # Related work
 
@@ -110,7 +109,7 @@ title: "SELF-RAG: LEARNING TO RETRIEVE, GENERATE, AND CRITIQUE THROUGH SELF-REFL
 
 # SELF-RAG: LEARNING TO RETRIEVE, GENERATE AND CRITIQUE
 
-**Reflection tokens**
+**Reflection tokens** 
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-02-27-self-rag-learning-to-retrieve-generate-and-critique/image_002.png" class="img-fluid rounded z-depth-1" %}
 
@@ -128,25 +127,25 @@ y : textual outputs consisting of multiple segments [y_1, ..., y_T] (original to
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-02-27-self-rag-learning-to-retrieve-generate-and-critique/image_003.png" class="img-fluid rounded z-depth-1" %}
 
-x가 주어졌을 때 모든 generation 과정 y\_{<t}에 대해서 모델은 retrieval 여부를 판단
+x가 주어졌을 때 모든 generation 과정 y_{<t}에 대해서 모델은 retrieval 여부를 판단
 
 - retrieval이 필요없을 경우 : standard LM과 똑같이 next output segment prediction 진행
 
 - retrieval이 필요할 경우
 
-  - retrieval 진행 → critique token을 이용해 retrieved passage의 relevance 평가 (IsRel) → next segment 생성 → retrieved passage에 의해 support 되는지 확인 (IsSup) → next segment에 대해 전반적인 utility 평가 (IsUse)
+  - retrieval 진행 → critique token을 이용해 retrieved passage의 relevance 평가 (IsRel) → next segment 생성 → retrieved passage에 의해 support 되는지 확인 (IsSup) → next segment에 대해 전반적인 utility 평가 (IsUse) 
 
   - 위의 작업을 병렬적으로 진행 후 critique token에 의해 평가된 점수의 가중합으로 최종 output 선정.
 
-  - e.g.) Figure 1 예시, prompt 1 선택
+  - e.g.) Figure 1 예시,  prompt 1 선택
 
 **Training overview**
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-02-27-self-rag-learning-to-retrieve-generate-and-critique/image_004.png" class="img-fluid rounded z-depth-1" %}
 
-- Data collections (\mathcal{D\_{critic}}) : GPT-4를 이용해 reflection token을 포함한 데이터 수집
+- Data collections (\mathcal{D_{critic}}) : GPT-4를 이용해 reflection token을 포함한 데이터 수집
 
-- Learning critic model \mathcal{C} : \mathcal{D\_{critic}} 데이터를 이용해 reflection token 생성 학습 (일종의 reward 모델)
+- Learning critic model  \mathcal{C} : \mathcal{D_{critic}} 데이터를 이용해 reflection token 생성 학습 (일종의 reward 모델)
 
 - Training generator \mathcal{M} : critic model을 이용해 input에 reflection token 생성 (offline으로 사전에 진행)한 데이터를 이용해 일반적인 generation task 학습
 
@@ -154,7 +153,7 @@ x가 주어졌을 때 모든 generation 과정 y\_{<t}에 대해서 모델은 re
 
 **TRAINING THE CRITIC MODEL**
 
-- Data collection for critic model : \mathcal{D\_{critic}}
+- Data collection for critic model : \mathcal{D_{critic}}
 
   - human annotation은 너무 비싸기 때문에 GPT-4를 이용
 
@@ -162,17 +161,17 @@ x가 주어졌을 때 모든 generation 과정 y\_{<t}에 대해서 모델은 re
 
 → GPT-4를 이용해 supervised dataset을 일부 만들고 이를 이용해 critic model을 학습하자.
 
-1. 각 reflection token에 대해 데이터 랜덤 샘플링, \{X*{sample}, Y*{sample}\} \sim \{X, Y\}
+  1. 각 reflection token에 대해 데이터 랜덤 샘플링, \{X_{sample}, Y_{sample}\} \sim \{X, Y\}
 
-1. 각 token의 정의에 맞는 prompt 구성 후, few-shot example 제공해서 학습 데이터 생성
+  1. 각 token의 정의에 맞는 prompt 구성 후, few-shot example 제공해서 학습 데이터 생성
 
-1. critic model을 이용해 P(r|I, x, y) 학습
+  1. critic model을 이용해 P(r|I, x, y) 학습
 
-- 4k ~ 20k supervised training data 수집
+  - 4k ~ 20k supervised training data 수집
 
-- 실제 휴먼 annotation과 상당히 높은 일치율을 보였음.
+  - 실제 휴먼 annotation과 상당히 높은 일치율을 보였음.
 
-- 학습 데이터 예시
+  - 학습 데이터 예시
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-02-27-self-rag-learning-to-retrieve-generate-and-critique/image_005.png" class="img-fluid rounded z-depth-1" %}
 
@@ -180,19 +179,19 @@ x가 주어졌을 때 모든 generation 과정 y\_{<t}에 대해서 모델은 re
 
   - generator와 동일한 모델 사용
 
-  - critic 모델은 GPT-4와 상당히 높은 일치율을 보임.
+  - critic 모델은  GPT-4와 상당히 높은 일치율을 보임.
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-02-27-self-rag-learning-to-retrieve-generate-and-critique/image_006.png" class="img-fluid rounded z-depth-1" %}
 
 **TRAINING THE GENERATOR MODEL**
 
-- **Data collection for generator : \*\***\mathcal{D\_{gen}}\*\*
+- **Data collection for generator : ****\mathcal{D_{gen}}**
 
   - critic 모델을 이용해 output y에 대해 reflection token을 추가한 데이터를 생성
 
     - retrieval이 필요한가 아닌가? → Yes
 
-    - Retrieve=Yes special token 추가 → top-k passage retrieval
+    - Retrieve=Yes special token 추가 →  top-k passage retrieval
 
     - 각각의 passage segment에 대해 critic model을 이용해 IsRel, IsSUP 평가, 마지막 segment 이후 IsUse 평가
 
@@ -202,13 +201,13 @@ x가 주어졌을 때 모든 generation 과정 y\_{<t}에 대해서 모델은 re
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-02-27-self-rag-learning-to-retrieve-generate-and-critique/image_007.png" class="img-fluid rounded z-depth-1" %}
 
-- training 동안 <p>, </p>로 쌓인 retrieved text chunk는 masking해서 진행
+  - training 동안 <p>, </p>로 쌓인 retrieved text chunk는 masking해서 진행
 
 ### SELF-RAG INFERENCE
 
 - reflection token을 이용한 SELF-RAG는 controllable함.
 
-- task의 특징에 맞춰 retireval의 빈도를 조절할 수 있음.
+- task의 특징에 맞춰 retireval의 빈도를 조절할 수 있음. 
 
   - factuality가 중요하다면 검색 빈도를 증가시키고 open-ended task에서는 검색 빈도를 줄인다. (뒤에서도 언급.)
 
@@ -216,7 +215,7 @@ x가 주어졌을 때 모든 generation 과정 y\_{<t}에 대해서 모델은 re
 
 - retrieval 여부에 대한 threshold를 설정
 
-  - 모든 output 토큰에 대해서 normalized 된 Retrieve score를 계산, 값을 넘을 경우 retrieval 적용
+  -  모든 output 토큰에 대해서 normalized 된 Retrieve score를 계산, 값을 넘을 경우 retrieval 적용
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-02-27-self-rag-learning-to-retrieve-generate-and-critique/image_008.png" class="img-fluid rounded z-depth-1" %}
 
@@ -230,11 +229,11 @@ x가 주어졌을 때 모든 generation 과정 y\_{<t}에 대해서 모델은 re
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-02-27-self-rag-learning-to-retrieve-generate-and-critique/image_009.png" class="img-fluid rounded z-depth-1" %}
 
-- linear weighted sum of the normalized probability of each
+  - linear weighted sum of the normalized probability of each
 
 w^G : weight hyperparameter
 
-s*t^G=\frac{p_t(\hat{r})}{\sum*{i=1}^{N^G} p_t\left(r_i\right)}
+s_t^G=\frac{p_t(\hat{r})}{\sum_{i=1}^{N^G} p_t\left(r_i\right)}
 
 G : critique token type
 
@@ -242,19 +241,19 @@ G : critique token type
 
 N^G : different possible values for G
 
-- w^G를 조절함으로써 재학습없이 inference 단계에서 모델 조절 가능
+  - w^G를 조절함으로써 재학습없이 inference 단계에서 모델 조절 가능 
 
 # Experiments
 
 ### Task and Datasets
 
-다양한 모델과 downstream task 비교 overall correctness, factuality, and fluency.
+다양한 모델과 downstream task 비교  overall correctness, factuality, and fluency. 
 
-zero-shot evaluations 진행
+zero-shot evaluations 진행 
 
 - **experiment details**
 
-training: 4 Nvidia A100 with 80GB memory
+training: 4 Nvidia A100 with 80GB memory 
 
 epochs: 3
 
@@ -264,9 +263,9 @@ learning rate: 2e-5 (3% warmup steps, and linear decay afterward)
 
 max token: 2,048 for the 7B model, and 1,524 for the 13B model
 
-**Deepspeed stage 3 **(Rajbhandari et al., 2020) to conduct multi-GPU distributed training, with training precision Bfloat16 enabled.
+**Deepspeed stage 3 **(Rajbhandari et al., 2020) to conduct multi-GPU distributed training, with training precision Bfloat16 enabled. 
 
-**FlashAttention** (Dao et al., 2022) is used to make the long-context training more efficient.
+**FlashAttention** (Dao et al., 2022) is used to make the long-context training more efficient. 
 
 inference: 1-2 Quadro RTX 6000 GPUs with 24GB memory.
 
@@ -274,9 +273,9 @@ inference: 1-2 Quadro RTX 6000 GPUs with 24GB memory.
 
 - **fact verification dataset **about public health (**PubHealth**; Zhang et al. 2023)
 
-- **multiple-choice reasoning dataset **created from scientific exams (**ARC-Challenge**; Clark et al. 2018).
+- **multiple-choice reasoning dataset **created from scientific exams (**ARC-Challenge**; Clark et al. 2018). 
 
-→ test set 정확도로 평가
+→ test set 정확도로 평가 
 
 **Short-form generations tasks**
 
@@ -294,7 +293,7 @@ two open-domain question answering (QA) datasets (factual knowledge에 대한 �
 
 **Long-form generation tasks**
 
-biography generation task
+biography generation task 
 
 - FactScore (Min et al., 2023)로 평가
 
@@ -303,6 +302,7 @@ long-form QA task
 - ALCE-ASQA dataset
 
 - correctness (str-em), fluency based on MAUVE, citation precision and recall
+
 
 ### BASELINES
 
@@ -320,11 +320,12 @@ long-form QA task
 
   - Ret-ChatGPT and Ret-Llama2-chat, perplexity.ai (private data로 train)
 
-- concurrent methods
+- concurrent methods 
 
   - retrieved passage와 함께 학습
 
   - SAIL, Toolformer (pre-trained an LM with API calls (e.g., Wikipedia APIs))
+
 
 ### EXPERIMENTAL SETTINGS
 
@@ -424,7 +425,7 @@ Training data and settings.
 
 - IsSup의 가중치를 증가시킴에 따라 모델 precision은 향상 ← 모델 generation 시 evidence에 의해 support 되는지를 더 중점적으로 보기 때문
 
-- 반대로, Mauve 결과는 하락 ← generation이 길어지고 더 유창해줄수록 완전히 support 되지 않은 citation 확률이 증가함.
+- 반대로, Mauve 결과는 하락 ← generation이 길어지고 더 유창해줄수록 완전히 support 되지 않은 citation 확률이 증가함. 
 
 → 상황과 목적에 따라 training 없이도 weight 조절을 이용해 효과적으로 쓸 수 있다.
 
@@ -442,7 +443,7 @@ Training data and settings.
 
 - 데이터셋의 크기가 모델의 성능에 미치는 영향을 평가
 
-- SELF-RAG 7B 모델 이용, randomly sampleed 5k, 10k, 20k, and 50k개의 데이터셋 이용
+- SELF-RAG 7B  모델 이용, randomly sampleed 5k, 10k, 20k, and 50k개의 데이터셋 이용
 
 - PopQA, PubHealth, and ASQA (citation precision) 데이터에 대해 평가
 
@@ -452,13 +453,14 @@ Training data and settings.
 
 → 데이터셋 더 확보하면 더 큰 성능 향상을 보일 것.
 
+
 **Reflection token prediction performance**
 
 - reflection token 예측 확률 평가, (its agreement against GPT-4 predictions)
 
 - 높은 정확도를 보임.
 
-- IsUse의 경우 two highest cases (5 and 4)에서 사람 역시 구별을 어려워 함.
+- IsUse의 경우  two highest cases (5 and 4)에서 사람 역시 구별을 어려워 함.
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-02-27-self-rag-learning-to-retrieve-generate-and-critique/image_015.png" class="img-fluid rounded z-depth-1" %}
 

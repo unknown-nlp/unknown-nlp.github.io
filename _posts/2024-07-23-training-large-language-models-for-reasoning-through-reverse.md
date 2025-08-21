@@ -1,27 +1,26 @@
 ---
 categories:
-  - paper-reviews
-date: "2024-07-23 00:00:00"
+- paper-reviews
+date: '2024-07-23 00:00:00'
 description: 논문 리뷰 - Reasoning, Reinforcement Learning 관련 연구
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-  - language-model
-  - llm
-  - paper-review
-  - reasoning
-  - reinforcement learning
-  - reinforcement-learning
-  - rlhf
-  - vision
+- language-model
+- llm
+- paper-review
+- reasoning
+- reinforcement learning
+- reinforcement-learning
+- rlhf
+- vision
 thumbnail: assets/img/posts/2024-07-23-training-large-language-models-for-reasoning-through-reverse/thumbnail.jpg
 title: Training Large Language Models for Reasoning through Reverse Curriculum Reinforcement
   Learning
 ---
 
 **논문 정보**
-
 - **Date**: 2024-07-23
 - **Reviewer**: 전민진
 - **Property**: Reasoning, Reinforcement Learning
@@ -42,7 +41,7 @@ A. 20+1-2=12+3+x ⇒ x는 4
 
 - 반대로, step마다 reward를 부여하는 process supervision 방식의 경우 annotation비용이 너무 커진다는 단점 존재
 
-> > 본 논문에서는 정답 rationale을 reverse curriculum방식으로 학습하여 이와 같은 문제를 해결하고자 함
+>> 본 논문에서는 정답 rationale을 reverse curriculum방식으로 학습하여 이와 같은 문제를 해결하고자 함
 
 - 정답 rationale이 {step1, step2, …, step N}으로 구성되어 있을 때, 특정 시점의 step을 시작점으로 사용하는 방식
 
@@ -72,19 +71,19 @@ A. 20+1-2=12+3+x ⇒ x는 4
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-07-23-training-large-language-models-for-reasoning-through-reverse/image_000.png" class="img-fluid rounded z-depth-1" %}
 
-- 이러한 방식으로, exploration difficulty를 점점 증가시키는 curriculum이 만들어지고, 이를 활용해 step-by-step supervisory signal을 근사적으로 이용할 수 있음
+  - 이러한 방식으로, exploration difficulty를 점점 증가시키는 curriculum이 만들어지고, 이를 활용해 step-by-step supervisory signal을 근사적으로 이용할 수 있음
 
-  - 정답 풀이 과정 : A → B → C → D
+    - 정답 풀이 과정 : A → B → C → D
 
-  - C가 주어지고 D를 예측하는걸 먼저 학습, B가 주어졌을 때 C, D를 예측하는 것을 학습하는 방식
+    - C가 주어지고 D를 예측하는걸 먼저 학습, B가 주어졌을 때 C, D를 예측하는 것을 학습하는 방식
 
-  - 이 경우 C → D를 예측하면 reward 1, B → C → D를 예측하면 reward 1 이라서 일종의 step-by-step signal이라고 주장하는거 같음
+    - 이 경우 C → D를 예측하면 reward 1, B → C → D를 예측하면 reward 1 이라서 일종의 step-by-step signal이라고 주장하는거 같음
 
-    - 글쎄..
+      - 글쎄..
 
-- 또한, 원래는 N reasoning step이 있을 때 복잡도가 exponential하지만 해당 방법은 DP의 포맷으로 N에 linear한 시간에 학습 가능
+  - 또한, 원래는 N reasoning step이 있을 때 복잡도가 exponential하지만 해당 방법은 DP의 포맷으로 N에 linear한 시간에 학습 가능
 
-- 학습 안정성을 위해 start state를 mix해서 사용
+  - 학습 안정성을 위해 start state를 mix해서 사용
 
 - 실험 결과, mathematical reasoning, logical reasoning, NLI 등에서 기존 SFT, RL보다 높은 성능 보임
 
@@ -94,15 +93,15 @@ A. 20+1-2=12+3+x ⇒ x는 4
 
   - tau는 policy에서 sampling된 trajectory라는 걸 의미
 
-  - 각 시간 스텝 t에서 policy는 LM
+  - 각 시간 스텝  t에서 policy는 LM
 
   - state t는 prompt와 그 시점까지 생성된 text
 
   - action a_t는 t시점의 action으로 s_t를 바탕으로 다음에 올 토큰을 생성하는 것
 
-    - 이 확률은 \pi*{\theta}(a*{t+1}|s_t)로 표기
+    - 이 확률은 \pi_{\theta}(a_{t+1}|s_t)로 표기
 
-  - 여기서 R을 기존 정의와 동일, 각 state에서 얻은 reward를 discounted sum한 것
+  - 여기서 R을 기존 정의와 동일, 각 state에서 얻은 reward를  discounted sum한 것
 
   - policy gradient
 
@@ -124,7 +123,7 @@ A. 20+1-2=12+3+x ⇒ x는 4
 
   - 중간 지점마다 reward부여하는 방식
 
-    - 중간 지점은 부여하기 나름.
+    - 중간 지점은 부여하기 나름. 
 
   - reward model rm_p는 각 중간 reasoning step에 대한 reward를 부여하도록 학습됨
 
@@ -150,17 +149,17 @@ A. 20+1-2=12+3+x ⇒ x는 4
 
   - 본 논문에서는 한 개 이상의 demonstration에 접근할 수 있다 가정
 
-  - 모델이 초기 start state s_0에서 exploration을 시작하면 positive reawrd를 얻기 어려움
+  - 모델이  초기 start state s_0에서 exploration을 시작하면 positive reawrd를 얻기 어려움
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-07-23-training-large-language-models-for-reasoning-through-reverse/image_006.png" class="img-fluid rounded z-depth-1" %}
 
-- 그래서 reasoning의 중간부터 exploration을 시작할 수 있게 함
+  - 그래서 reasoning의 중간부터 exploration을 시작할 수 있게 함
 
-  - \pi*{\theta}(a*{k+1:T}|s_k)
+    - \pi_{\theta}(a_{k+1:T}|s_k)
 
-  - 특정 중간 시점부터 끝까지 생성, 결과에 따라 reward 받음
+    - 특정 중간 시점부터 끝까지 생성, 결과에 따라 reward 받음
 
-  - 시작 시점 전의 trajectory는 가이드 역할을 함(s_k에 시작 시점 전의 trajectory가 포함되어 있음)
+    - 시작 시점 전의 trajectory는 가이드 역할을 함(s_k에 시작 시점 전의 trajectory가 포함되어 있음)
 
 - Reverse curriculum learning for step-level supervision
 
@@ -176,33 +175,33 @@ A. 20+1-2=12+3+x ⇒ x는 4
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-07-23-training-large-language-models-for-reasoning-through-reverse/image_007.png" class="img-fluid rounded z-depth-1" %}
 
-- 본 논문에선, demonstration에서 M개의 intermediate state를 샘플링, start state으로 사용
+  - 본 논문에선,  demonstration에서 M개의 intermediate state를 샘플링, start state으로 사용
 
-  - intermediate state는 line breaks 혹은 uniformly하게 추출
+    - intermediate state는 line breaks 혹은 uniformly하게 추출
 
-  - M은 5 혹은 6을 사용
+    - M은 5 혹은 6을 사용
 
-- 이 방식을 **vanilla staged RL**이라 지칭
+  - 이 방식을 **vanilla staged RL**이라 지칭
 
 - Mixing start states for generalization
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-07-23-training-large-language-models-for-reasoning-through-reverse/image_008.png" class="img-fluid rounded z-depth-1" %}
 
-- 위의 그림을 보면 staged RL은 여러 문제가 있다는 것을 알 수 있음
+  - 위의 그림을 보면 staged RL은 여러 문제가 있다는 것을 알 수 있음
 
-  - 모델이 초반의 쉬운 pattern에 오버피팅돼서, 후반에 일반화가 안될 수 있음
+    - 모델이 초반의 쉬운 pattern에 오버피팅돼서, 후반에 일반화가 안될 수 있음
 
-  - 여기서 점선은 vanilla staged RL의 stage transition 시점을 의미
+    - 여기서 점선은 vanilla staged RL의 stage transition 시점을 의미
 
-    - 다시보니 괜찮은거 같기도..
+      - 다시보니 괜찮은거 같기도..
 
-- 또한 staged RL은 complex interaction, dependencies inherent를 포착하고 모델링하기 어려울 수 있음
+  - 또한 staged RL은 complex interaction, dependencies inherent를 포착하고 모델링하기 어려울 수 있음
 
-  - 걍 갖다 붙인 말인듯
+    - 걍 갖다 붙인 말인듯
 
-- 그래서 본 논문에서는 multi-task learning방식으로 이러한 문제를 해결하고자 함
+  - 그래서 본 논문에서는 multi-task learning방식으로 이러한 문제를 해결하고자 함
 
-> > mixed strategy
+>> mixed strategy
 
 - Reward Design and Policy Optimization
 
@@ -216,9 +215,9 @@ A. 20+1-2=12+3+x ⇒ x는 4
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-07-23-training-large-language-models-for-reasoning-through-reverse/image_009.png" class="img-fluid rounded z-depth-1" %}
 
-- exploration difficulty에 기반으로 reward function을 설정
+  - exploration difficulty에 기반으로 reward function을 설정
 
-- generalized advantage estimate(GAE)로 advantages를 계
+  - generalized advantage estimate(GAE)로 advantages를 계
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-07-23-training-large-language-models-for-reasoning-through-reverse/image_010.png" class="img-fluid rounded z-depth-1" %}
 
@@ -274,9 +273,9 @@ A. 20+1-2=12+3+x ⇒ x는 4
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-07-23-training-large-language-models-for-reasoning-through-reverse/image_012.png" class="img-fluid rounded z-depth-1" %}
 
-- R^3이 타 방법론에 비해 월등한 성능을 보임
+  - R^3이 타 방법론에 비해 월등한 성능을 보임
 
-- Staged RL도 높은 성능을 보이는 것으로 보아 어려운 단계별로 학습하는거 자체가 중요한거 같음(민진피셜)
+  - Staged RL도 높은 성능을 보이는 것으로 보아 어려운 단계별로 학습하는거 자체가 중요한거 같음(민진피셜)
 
 - Results on P-CoT reasoning
 
@@ -290,17 +289,17 @@ A. 20+1-2=12+3+x ⇒ x는 4
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-07-23-training-large-language-models-for-reasoning-through-reverse/image_014.png" class="img-fluid rounded z-depth-1" %}
 
-- Number of intermediate states selected M
+  - Number of intermediate states selected M
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-07-23-training-large-language-models-for-reasoning-through-reverse/image_015.png" class="img-fluid rounded z-depth-1" %}
 
-- R^3 Delivers stable reinforcement learning
+  - R^3 Delivers stable reinforcement learning
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-07-23-training-large-language-models-for-reasoning-through-reverse/image_016.png" class="img-fluid rounded z-depth-1" %}
 
-- Analysis of training data construction
+  - Analysis of training data construction
 
-  - 데이터에서 가장 중요한 건 어려운 데이터(처음부터 reasoning step 생성하는 것)
+    - 데이터에서 가장 중요한 건 어려운 데이터(처음부터 reasoning step 생성하는 것)
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-07-23-training-large-language-models-for-reasoning-through-reverse/image_017.png" class="img-fluid rounded z-depth-1" %}
 
@@ -312,6 +311,6 @@ A. 20+1-2=12+3+x ⇒ x는 4
 
 (다시 보니 괜찮은거 같기두..)
 
-- online인듯.. offline인듯한 이 방법론..
+  - online인듯.. offline인듯한 이 방법론..
 
-- 진짜 궁금한 지점(mixed strategy에서 어떤 방식으로 학습 데이터셋을 구성하는지)에 대한 설명과 실험이 부족
+  - 진짜 궁금한 지점(mixed strategy에서 어떤 방식으로 학습 데이터셋을 구성하는지)에 대한 설명과 실험이 부족

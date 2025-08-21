@@ -1,26 +1,25 @@
 ---
 categories:
-  - paper-reviews
-date: "2023-10-10 00:00:00"
+- paper-reviews
+date: '2023-10-10 00:00:00'
 description: 논문 리뷰 - LLM, Efficient Training 관련 연구
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-  - attention
-  - efficient training
-  - embedding
-  - fine-tuning
-  - language-model
-  - llm
-  - paper-review
-  - transformer
+- attention
+- efficient training
+- embedding
+- fine-tuning
+- language-model
+- llm
+- paper-review
+- transformer
 thumbnail: assets/img/posts/2023-10-10-longlora-efficient-fine-tuning-of-long-context-large/thumbnail.jpg
-title: "LongLoRA: Efficient Fine-Tuning of Long-Context Large Language Models"
+title: 'LongLoRA: Efficient Fine-Tuning of Long-Context Large Language Models'
 ---
 
 **논문 정보**
-
 - **Date**: 2023-10-10
 - **Reviewer**: 건우 김
 - **Property**: LLM, Efficient Training
@@ -33,17 +32,17 @@ LLM의 context extension을 두 가지 aspects를 고려함
 
 1. PEFT 방법 적용 → 단순히 LoRA를 적용한 LongLoRA 제안
 
-8장 A100으로 LongLoRA를 적용한 LLaMA2 7B는 최대 100k, 70B는 32k token까지 처리 가능
+8장 A100으로 LongLoRA를 적용한 LLaMA2 7B는 최대 100k, 70B는 32k token까지 처리 가능 
 
 ## Introduction
 
-길이가 긴 text를 처리하고자 하는 LLM에 대한 수요가 많음. 하지만 단순히 long text를 finetuning하는 것은 compuationally 매우 비싸기 때문에 이에 대한 연구들이 많이 이어져 왔음.
+길이가 긴 text를 처리하고자 하는 LLM에 대한 수요가 많음. 하지만 단순히 long text를 finetuning하는 것은 compuationally 매우 비싸기 때문에 이에 대한 연구들이 많이 이어져 왔음. 
 
-최근에 연구된 Positional Interpolation (Chen et al., 2023)은 RoPE을 기반으로 LLM의 context window size를 32k까지 늘리는 방법을 제안했지만, 실제로 8k 이상의 길이를 처리하게끔 학습을 시킬 때 128대의 A100이 필요하다는 resource가 여전히 많이 필요하다는 문제점이 있음.
+최근에 연구된 Positional Interpolation (Chen et al., 2023)은 RoPE을 기반으로 LLM의 context window size를 32k까지 늘리는 방법을 제안했지만, 실제로 8k 이상의 길이를 처리하게끔 학습을 시킬 때 128대의 A100이 필요하다는 resource가 여전히 많이 필요하다는 문제점이 있음. 
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2023-10-10-longlora-efficient-fine-tuning-of-long-context-large/image_000.png" class="img-fluid rounded z-depth-1" %}
 
-또한, Focused Transformer (Tworkowski et al., 2023)은 contrastive learning에 영감을 받은 학습 방식을 사용해서 256k 길이의 prompt까지 처리할 수 있긴 하지만, 이 역시도 128대의 TPU가 필요하다는 문제점이 있다.
+또한, Focused Transformer (Tworkowski et al., 2023)은 contrastive learning에 영감을 받은 학습 방식을 사용해서 256k 길이의 prompt까지 처리할 수 있긴 하지만, 이 역시도 128대의 TPU가 필요하다는 문제점이 있다. 
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2023-10-10-longlora-efficient-fine-tuning-of-long-context-large/image_001.png" class="img-fluid rounded z-depth-1" %}
 
@@ -53,7 +52,7 @@ LLM의 context extension을 두 가지 aspects를 고려함
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2023-10-10-longlora-efficient-fine-tuning-of-long-context-large/image_002.png" class="img-fluid rounded z-depth-1" %}
 
-본 연구에서 위에 문제점들을 개선한 LongLoRA를 소개함.
+본 연구에서 위에 문제점들을 개선한 LongLoRA를 소개함. 
 
 Contributions은 다음과 같음
 
@@ -87,13 +86,13 @@ Contributions은 다음과 같음
 
   - Position Interpolation(2023), FOT(2023)
 
-→ 많은 resource를 필요로 한다는 단점이 존재함
+ → 많은 resource를 필요로 한다는 단점이 존재함
 
 - Postion embedding에 변화를 주는 연구
 
   - Position Interpolation(2023), positional Skipping(2023) etc.
 
-→ 이런 방식들은 inference를 수행할 때 original architecture을 건들어야 하지만, LongLoRA는 그렇지 않기 때문에 original architecture 그대로 사용 가능
+ → 이런 방식들은 inference를 수행할 때 original architecture을 건들어야 하지만, LongLoRA는 그렇지 않기 때문에 original architecture 그대로 사용 가능
 
 ### Efficient Fine-tuning
 
@@ -117,13 +116,13 @@ Contributions은 다음과 같음
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2023-10-10-longlora-efficient-fine-tuning-of-long-context-large/image_004.png" class="img-fluid rounded z-depth-1" %}
 
-당연하게 finetuning을 하지 않으면, context 길이가 늘어남에 따라 perplexity가 매우 높아짐.
+당연하게 finetuning을 하지 않으면, context 길이가 늘어남에 따라 perplexity가 매우 높아짐. 
 
 앞으로 standard baseline을 full attention으로 full finetuning시킨 model로 설정
 
 1. **Pattern 1 (Short attention)**
 
-1. Input token을 group 단위로 나누어 각 group마다 self-attention 연산을 진행
+  1. Input token을 group 단위로 나누어 각 group마다 self-attention 연산을 진행
 
 ex) input token이 8192 tokens이면, group를 4로 설정할 때, 각 group마다 2048 크기에 대한 연산 진행 (첫 번째 group: 1st~2048th)
 
@@ -131,7 +130,7 @@ ex) input token이 8192 tokens이면, group를 4로 설정할 때, 각 group마�
 
 1. **Pattern 2 (Shifted pattern)**
 
-1. 각 group 간의 communication을 만들어주기 위해 설계한 pattern. Group간의 parrtition을 group 크기의 절반만큼 shift를 진행시킴.
+  1. 각 group 간의 communication을 만들어주기 위해 설계한 pattern. Group간의 parrtition을 group 크기의 절반만큼 shift를 진행시킴.
 
 ex) 위와 동일한 상황에서, group parition은 1024 길이만큼 움직이기에, 첫 번째 group은 (1025th~3072th). 이렇게 하면 앞에 1024개와 뒤에 1024개의 tokens이 남는데, 남는 것들은 동일 group에 귀속시킴.
 
@@ -139,13 +138,13 @@ ex) 위와 동일한 상황에서, group parition은 1024 길이만큼 움직이
 
 (Recap)
 
-1. Head dimension 기준으로 절반 나눔 → 2개의 chunks 생성
+  1. Head dimension 기준으로 절반 나눔 → 2개의 chunks 생성
 
-1. 둘 중 하나의 chunk는 Shift Token 적용 (group size의 절반만큼 이동)
+  1. 둘 중 하나의 chunk는 Shift Token 적용 (group size의 절반만큼 이동)
 
-1. Tokens들을 각 group으로 나누며 self-attention 연산 진행
+  1. Tokens들을 각 group으로 나누며 self-attention 연산 진행
 
-1. attention 연산은 각 group별로 진행시킴
+    1. attention 연산은 각 group별로 진행시킴
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2023-10-10-longlora-efficient-fine-tuning-of-long-context-large/image_005.png" class="img-fluid rounded z-depth-1" %}
 
@@ -163,13 +162,13 @@ ex) 위와 동일한 상황에서, group parition은 1024 길이만큼 움직이
 
 → S^2-Attn은 test시에 Full-attention을 적용할 수 있을 뿐만 아니라, pre-trained LLMs에 바로 long-context finetuning 적용할 수 있는 이점이 존재함. 아래 Table에서 있는 baselines은 finetuning이 가능한 dialted/stride sparse methods를 선별해서 실험 진행
 
-- **_cro.heads: _**S2-Attn을 진행할 때, head를 나눠서 attention 연산을 진행하고 합치는 원래 방식
+- ***cro.heads: ***S2-Attn을 진행할 때, head를 나눠서 attention 연산을 진행하고 합치는 원래 방식
 
-- **_cro.layers: _**S2-Attn을 진행할 때, …음..자세히 안나와 있어 뭔진 모르겠지만, 어쨋든 성능이 별로니 중요하지 않아 보
+- ***cro.layers: ***S2-Attn을 진행할 때, …음..자세히 안나와 있어 뭔진 모르겠지만, 어쨋든 성능이 별로니 중요하지 않아 보 
 
-- **_only P1: _**all no shift (pattern 1)
+- ***only P1: ***all no shift (pattern 1)
 
-- **_only P2_**: all shift (pattern 2)
+- ***only P2***: all shift (pattern 2)
 
 → 저자가 언급하길 Shifting은 특정 attention pattern에 과적합 되는 것을 방지 시킨다고 하지만, 근거가..좀..?
 
@@ -247,7 +246,7 @@ RedPajama도 그렇게 나쁘진 않음
 
 - **Efficiency Profile**
 
-  - S^2-Attn이 얼마나 효과적인지 파악하기 위해, FLOPs 단위로 분석을 실시.
+  - S^2-Attn이 얼마나 효과적인지 파악하기 위해, FLOPs 단위로 분석을 실시. 
 
   - 각 수치는 연산 비중을 나타냄
 
@@ -261,7 +260,7 @@ RedPajama도 그렇게 나쁘진 않음
 
 ## Conclusion
 
-LLM이 Long-context를 다루는데 효과적인 매우 간단한 방법론인 LongLoRA를 제안함. LLaMA가 2048 tokens, LLaMA2가 4096 tokens까지 처리하는 것을 생각하면, 본 실험에서 진행한 **32k**~**100k**는 매우 크다는 것을 알 수 있음.
+LLM이 Long-context를 다루는데 효과적인 매우 간단한 방법론인 LongLoRA를 제안함. LLaMA가 2048 tokens, LLaMA2가 4096 tokens까지 처리하는 것을 생각하면, 본 실험에서 진행한 **32k**~**100k**는 매우 크다는 것을 알 수 있음. 
 
 또한, A100 8장으로 모든 실험을 진행했기에 정말 효율적으로 학습을 진행시킬 수 있고, Full-FT와 비교해도 비슷한 수준을 선 보임.
 Downstream task로는 topic retrieval을 진행하고, 해당 분야에서 SOTA인 LongChat-13B와 비교했을 때, 실제로 비슷하거나 더 나은 성능을 보여줌. 다만, downstream task가 하나 밖에 없어서 아쉬움 (물론 극단적인 길이의 long-context를 처리하는 task의 부재도 있음)

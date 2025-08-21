@@ -1,27 +1,26 @@
 ---
 categories:
-  - paper-reviews
-date: "2025-07-15 00:00:00"
+- paper-reviews
+date: '2025-07-15 00:00:00'
 description: 논문 리뷰 - Reinforcement Learning 관련 연구
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-  - fine-tuning
-  - language-model
-  - llm
-  - paper-review
-  - pre-training
-  - reasoning
-  - reinforcement learning
-  - reinforcement-learning
+- fine-tuning
+- language-model
+- llm
+- paper-review
+- pre-training
+- reasoning
+- reinforcement learning
+- reinforcement-learning
 thumbnail: assets/img/posts/2025-07-15-search-r1-training-llms-to-reason-and-leverage/thumbnail.jpg
-title: "Search-R1: Training LLMs to Reason and Leverage Search Engines with Reinforcement
-  Learning"
+title: 'Search-R1: Training LLMs to Reason and Leverage Search Engines with Reinforcement
+  Learning'
 ---
 
 **논문 정보**
-
 - **Date**: 2025-07-15
 - **Reviewer**: 건우 김
 - **Property**: Reinforcement Learning
@@ -40,7 +39,7 @@ title: "Search-R1: Training LLMs to Reason and Leverage Search Engines with Rein
 
 # 1. Introduction
 
-LLM은 natural language understanding과 generation에서 높은 성과를 보여줬지만, 여전히 external sources가 필요한 task에서 한계점을 보여줌.
+LLM은 natural language understanding과 generation에서 높은 성과를 보여줬지만, 여전히 external sources가 필요한 task에서 한계점을 보여줌. 
 
 → 즉, 최신 information을 잘 활용할 수 있도록 search engine과 **효과적으로 상호작용하는** 능력이 필수적임
 
@@ -48,7 +47,7 @@ LLM은 natural language understanding과 generation에서 높은 성과를 보�
 
 1. Retrieval-Augmented Generation (RAG)
 
-1. search engine을 하나의 tool로 활용하는 방식
+1. search engine을 하나의 tool로 활용하는 방식 
 
 위 방법 덕분에 LLM이 external knowledge를 활용할 수 있긴 하지만, 최근 연구 (multi-turn, multi-query retrieval) 역시 본질적으로 **LLM이 search engine과 상호작용하는 방식을 최적화하지 못한 채 prompt에만 의존하는 한계점이 존재함. **
 
@@ -68,11 +67,11 @@ LLM은 natural language understanding과 generation에서 높은 성과를 보�
 
 → 3번은 자기들도 모르면서 뭔가 싶네요 ㅋㅋ
 
-→ 이러한 문제를 해결하기 위해 **_Search-R1_**을 소개함. 이것은 LLM이 자체 추론 과정과 search engine을 interleaved하게 연계하여 사용할 수 있도록 설계가 됨.
+→ 이러한 문제를 해결하기 위해 ***Search-R1***을 소개함. 이것은 LLM이 자체 추론 과정과 search engine을 interleaved하게 연계하여 사용할 수 있도록 설계가 됨.
 
 주요 특징은 다음과 같음
 
-1. Search engine을 environment의 일부로 modeling하여, **LLM의 token 생성과 검색 결과 호출이 혼합된 trajectory를 샘플링할** 수 있음.
+1. Search engine을 environment의 일부로 modeling하여, **LLM의 token 생성과 검색 결과 호출이 혼합된 trajectory를 샘플링할** 수 있음. 
 
 1. **Multi-turn retrieval과 reasoning을 지원함**. <search>와 </search> token으로 검색 호출을 트리거하고, 검색 결과는 <information>와 </information> 토큰으로, LLM의 추론 단계는 <think>와 </think> 토큰으로, 최종 답변은 <answer>와 </answer> 토큰으로 감싸 구조적이고 반복적인 의사결정이 가능함
 
@@ -104,33 +103,33 @@ Search-R1은 search engine R을 활용하는 RL의 objective function을 아래�
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2025-07-15-search-r1-training-llms-to-reason-and-leverage/image_001.png" class="img-fluid rounded z-depth-1" %}
 
-- r\_{\phi}: output quality를 평가하는 reward function
+- r_{\phi}: output quality를 평가하는 reward function
 
-- \pi\_\theta: policy LLM
+- \pi_\theta: policy LLM
 
-- \pi\_{ref}: reference LLM
+- \pi_{ref}: reference LLM
 
 - x: dataset D에서 추출된 input sample
 
 - y: search engine calling 결과와 interleaved된 generated outputs
 
-- D\_{KL}: KL-divergence
+- D_{KL}: KL-divergence
 
-기존 RL은 원래 \pi\_\theta가 생성한 sequence만 학습하지만, Search-R1은 검색 호출과 추론이 교차된 (interleaved) 형태를 학습에 explicit하게 포함함.
+기존 RL은 원래 \pi_\theta가 생성한 sequence만 학습하지만, Search-R1은 검색 호출과 추론이 교차된 (interleaved) 형태를 학습에 explicit하게 포함함.
 
-- retrieval interleaved reasoning via \pi*{\theta}(.|x;R) =\pi*{ref}(.|x)\bigotimes R
+- retrieval interleaved reasoning via \pi_{\theta}(.|x;R) =\pi_{ref}(.|x)\bigotimes R
 
   - \bigotimes denotes interleaved retrieval-and-reasoning
 
 즉, 추론 중 검색 결과를 반영하는 흐름을 통해 external information가 필요한 reasoning-intensive tasks에서도 더 효과적인 결정을 내릴 수 있게 해줌
 
-- \***\*Formulation of RL with a Search Engine\*\***
+- ****Formulation of RL with a Search Engine****
 
 LLM에서 자주 사용하는 원래 기존 RL의 objective는 아래와 같이 정의됨
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2025-07-15-search-r1-training-llms-to-reason-and-leverage/image_002.png" class="img-fluid rounded z-depth-1" %}
 
-그런데, 위 formulation은 entire output sequence y가 \pi\_{\theta}로부터 생성되었다는 가정이 있음. 이 가정은 model behavior가 internal reasoning과 external information retrieval을 모두 포함하는 상황에서 적용할 수 없음.
+그런데, 위 formulation은 entire output sequence y가 \pi_{\theta}로부터 생성되었다는 가정이 있음. 이 가정은 model behavior가 internal reasoning과 external information retrieval을 모두 포함하는 상황에서 적용할 수 없음.
 
 따라서, RL objective를 serach engine R과 통합시키기 위해 아래와 같이 수정함
 
@@ -144,7 +143,7 @@ PPO와 GRPO에서는 token-level loss를 전체 rollout sequence에 대해 계�
 
 LLM이 직접 생성한 token에 대해 손실을 최적화하는 것은 model이 search engine과 효과적으로 상호작용하고 추론하는 능력을 높이는데 도움됨. 그러나, 동일한 최적화를 검색된 token에까지 적용하면 원치 않는 학습 효과가 발생할 수 있음.
 
-따라서, Search-R1은 **검색된 token에 대한 loss masking을 적용하여**, policy gradient objective은 LLM이 생성한 token에 대해서만 계산하고, **검색된 content는 최적화 과정에서 제외됨**.
+따라서, Search-R1은 **검색된 token에 대한 loss masking을 적용하여**, policy gradient objective은 LLM이 생성한 token에 대해서만 계산하고, **검색된 content는 최적화 과정에서 제외됨**. 
 
 → 검색 기반 생성의 유연성은 유지하면서 학습 안정성을 높임
 
@@ -156,9 +155,9 @@ Search-R1에서는 검색 호출이 포함된 시나리오에 맞춰 PPO를 적�
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2025-07-15-search-r1-training-llms-to-reason-and-leverage/image_005.png" class="img-fluid rounded z-depth-1" %}
 
-- \pi\_{\theta}: current policy
+- \pi_{\theta}: current policy
 
-- \pi\_{old}: previous policy
+- \pi_{old}: previous policy
 
 - I(y_t): token loss masking 연산으로, y_t가 LLM이 생성한 token이면 1, 검색된 token이면 0으로 설정
 
@@ -172,19 +171,19 @@ GRPO 역시 PPO와 마찬가지로 Search Engine을 적용할때, 검색된 toke
 
 Search-R1이 어떻게 multi-turn search와 text 생성을 interleaved하게 수행하는지 rollout process를 수식적으로 나타내면 다음과 같음
 
-- y ~ \pi*{\theta}(.|x;R) =\pi*{ref}(.|x)\bigotimes R
+-  y ~ \pi_{\theta}(.|x;R) =\pi_{ref}(.|x)\bigotimes R
 
 → LLM은 x를 입력 받아 Search Engine R과의 interleaved 흐름을 통해 y를 생성
 
 Search-R1의 생성 과정은 iterative한 구조로 진행됨
 
-- **LLM은 text를 생성하다가 필요할 때마다 external search engine queries를 보낸 뒤 검색 결과를 다시 반영하여 다음 generation step을 수행하며 이어가는 방식**
+* **LLM은 text를 생성하다가 필요할 때마다 external search engine queries를 보낸 뒤 검색 결과를 다시 반영하여 다음 generation step을 수행하며 이어가는 방식**
 
-* system instruction은 LLM에게 external retrieval이 필요할 때 search query를 <search>와 <\search> token으로 감싸도록 함
+- system instruction은 LLM에게 external retrieval이 필요할 때 search query를 <search>와 <\search>  token으로 감싸도록 함
 
-* generated sequence에 이러한 token이 감지되면, system은 query를 추출해 search engine에 전달하고 적절한 relevant results를 가져옴
+- generated sequence에 이러한 token이 감지되면, system은 query를 추출해 search engine에 전달하고 적절한 relevant results를 가져옴
 
-* retrieved information은 <information>과 <\information> token으로 감싸져 현재 rollout 시퀀스에 추가됨. 이렇게 추가된 정보는 next generation step에 추가 context로 활용
+- retrieved information은 <information>과 <\information>  token으로 감싸져 현재 rollout 시퀀스에 추가됨. 이렇게 추가된 정보는 next generation step에 추가 context로 활용
 
 위 과정이 반복적으로 이어가다가 아래 두 가지 조건 중 하나를 만족하면 종료함
 
@@ -224,43 +223,43 @@ Search-R1은 outcome-based rule-based reward function을 사용함
 
 1. General QA
 
-1. Natural Questions (NQ)
+  1. Natural Questions (NQ)
 
-1. TriviaQA
+  1. TriviaQA
 
-1. PopQA
+  1. PopQA
 
 1. Multi-Hop QA
 
-1. HotpotQA
+  1. HotpotQA
 
-1. 2WikiMultiHopQA
+  1. 2WikiMultiHopQA
 
-1. Musique
+  1. Musique
 
-1. Bamboogle
+  1. Bamboogle
 
 ## 4.2 Baselines
 
 1. Inference w/o Retrieval
 
-1. Direct Inference
+  1. Direct Inference
 
-1. Chain-of-Thought
+  1. Chain-of-Thought
 
 1. Inference w/ Retrieval
 
-1. RAG
+  1. RAG
 
-1. IRCoT (Information Retrieval CoT)
+  1. IRCoT (Information Retrieval CoT)
 
-1. Search-o1 (using search engine tool)
+  1. Search-o1 (using search engine tool)
 
 1. fine-tuning methods
 
-1. SFT
+  1. SFT
 
-1. R1: search engine없이 RL fine-tuning (Search-R1과 fair한 비교를 위해 동일 데이터로 RL을 학습하되 검색은 사용하지 않음)
+  1. R1: search engine없이 RL fine-tuning (Search-R1과 fair한 비교를 위해 동일 데이터로 RL을 학습하되 검색은 사용하지 않음)
 
 ## 4.3 Experimental Setup
 
@@ -304,7 +303,7 @@ Search-R1은 outcome-based rule-based reward function을 사용함
 
 → **Search가 LLM 추론에 external knowledge를 추가함으로써 도움되는 것을 보임**
 
-- Base와 Instruct model 모두 일관되게 Search-R1 효과적임
+- Base와 Instruct model 모두 일관되게 Search-R1 효과적임 
 
 → DeepSeek-R1-Zero style의 단순 outcome-based reward가 순수 Reasoning 뿐만 아니라 **search를 포함한 complex reasoning scenarios에서도 효과적임을** 보여줌
 
@@ -322,17 +321,17 @@ Search-R1에서 RL 방법으로 PPO와 GRPO 두 가지를 모두 실험함
 
 1. **GRPO는 PPO보다 수렴 속도가 빠름** → Figure2 (a)
 
-1. PPO는 critic model에 의존하기 때문에 효과적인 학습이 시작되려면 여러 단계의 워밍업이 필요하지만, GRPO는 baseline을 여러 샘플 평균으로 잡아 더 빠르게 수렴함
+  1. PPO는 critic model에 의존하기 때문에 효과적인 학습이 시작되려면 여러 단계의 워밍업이 필요하지만, GRPO는 baseline을 여러 샘플 평균으로 잡아 더 빠르게 수렴함
 
 1. **PPO는 학습 안정성이 더 높음** → Figure2 (a)
 
-1. **GRPO는 일정 단계 이후 reward collapse**가 나타나지만, **PPO는 학습이 더 안정적으로 유지됨**
+  1. **GRPO는 일정 단계 이후 reward collapse**가 나타나지만, **PPO는 학습이 더 안정적으로 유지됨**
 
 1. **최종 train reward는 PPO와 GRPO 모두 유사함**
 
-1. 수렴 속도와 안정성은 다르지만 최종 성능과 train reward는 큰 차이가 없음. 그래도 GRPO는 나중에 불안정해질 수 있기에 더 안정적인 PPO가 느리지만 적합함.
+  1. 수렴 속도와 안정성은 다르지만 최종 성능과 train reward는 큰 차이가 없음. 그래도 GRPO는 나중에 불안정해질 수 있기에 더 안정적인 PPO가 느리지만 적합함.
 
-_(다른 세팅에서도 동일한 현상이 관찰됨)_
+*(다른 세팅에서도 동일한 현상이 관찰됨)*
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2025-07-15-search-r1-training-llms-to-reason-and-leverage/image_014.png" class="img-fluid rounded z-depth-1" %}
 
@@ -374,21 +373,21 @@ Qwen2.5-7B-base 모델로 response length와 검색 호출 횟수 변화를 분�
 
 ## 5.4 Study of Retrieved Tokens Loss Masking
 
-Retrieved Token Loss Masking은 unintended optimization을 방지하기 위해 도입한 것임. Retrieved token loss masking의 효과를 추가로 분석해봄 (Qwen2.5-7B-base)
+Retrieved Token Loss Masking은 unintended optimization을 방지하기 위해 도입한 것임.  Retrieved token loss masking의 효과를 추가로 분석해봄 (Qwen2.5-7B-base)
 
 - Figure 3에 따르면, **masking을 적용하면 원치 않는 최적화 효과를 줄이고 LLM 성능 향상이 더 커짐**
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2025-07-15-search-r1-training-llms-to-reason-and-leverage/image_018.png" class="img-fluid rounded z-depth-1" %}
 
-- w. mask와 w.o. mask를 비교한 결과 **masking을 적용한 경우가 항상 더 높은 성능을 기록함 **
+-  w. mask와 w.o. mask를 비교한 결과 **masking을 적용한 경우가 항상 더 높은 성능을 기록함 **
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2025-07-15-search-r1-training-llms-to-reason-and-leverage/image_019.png" class="img-fluid rounded z-depth-1" %}
 
-- \***\*Appendix\*\***
+- ****Appendix****
 
 **Number of Retrieved Passages Study in SEARCH-R1 Training**
 
-- 본 실험에서는 top-k를 3으로 설정했지만, 1,3,5 바꿔가며 이것의 effect를 분석함
+  - 본 실험에서는 top-k를 3으로 설정했지만, 1,3,5 바꿔가며 이것의 effect를 분석함
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2025-07-15-search-r1-training-llms-to-reason-and-leverage/image_020.png" class="img-fluid rounded z-depth-1" %}
 
@@ -396,7 +395,7 @@ Retrieved Token Loss Masking은 unintended optimization을 방지하기 위해 �
 
 **Group Size Study in SEARCH-R1 (GRPO) Training**
 
-- 본 실험에서는 Search-R1 (GRPO)의 group size를 5로 설정했지만, group size가 어떤 영향을 미치는지 확인하고자 1,3,5로 분석함
+  - 본 실험에서는 Search-R1 (GRPO)의 group size를 5로 설정했지만, group size가 어떤 영향을 미치는지 확인하고자 1,3,5로 분석함
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2025-07-15-search-r1-training-llms-to-reason-and-leverage/image_021.png" class="img-fluid rounded z-depth-1" %}
 

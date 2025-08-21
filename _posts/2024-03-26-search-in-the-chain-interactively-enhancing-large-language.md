@@ -1,26 +1,25 @@
 ---
 categories:
-  - paper-reviews
-date: "2024-03-26 00:00:00"
+- paper-reviews
+date: '2024-03-26 00:00:00'
 description: 논문 리뷰 - Retrieval 관련 연구
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-  - bert
-  - gpt
-  - language-model
-  - llm
-  - paper-review
-  - reasoning
-  - retrieval
+- bert
+- gpt
+- language-model
+- llm
+- paper-review
+- reasoning
+- retrieval
 thumbnail: assets/img/posts/2024-03-26-search-in-the-chain-interactively-enhancing-large-language/thumbnail.jpg
-title: "Search-in-the-Chain: Interactively Enhancing Large Language Models with Search
-  for Knowledge-intensive Tasks"
+title: 'Search-in-the-Chain: Interactively Enhancing Large Language Models with Search
+  for Knowledge-intensive Tasks'
 ---
 
 **논문 정보**
-
 - **Date**: 2024-03-26
 - **Reviewer**: 상엽
 - **Property**: Retrieval
@@ -59,13 +58,13 @@ Search-in-the-Chain (SearChain) 제안
 
 1. CoQ를 만들기 위해 In-context learning 이용 복잡한 질문을 풀기 위한 IR-oriented query 형태로 분해해서 구성
 
-- **reasoning**
+  - **reasoning**
 
-  - **노드**(node)** :** IR-oriented query
+    - **노드**(node)** :** IR-oriented query
 
-  - **정답**(answer)** :** 쿼리에 대한 LLM의 답변
+    - **정답**(answer)** :** 쿼리에 대한 LLM의 답변
 
-  - flag : LLM이 추가 지식을 필요로 하는지 아닌지
+    - flag : LLM이 추가 지식을 필요로 하는지 아닌지
 
 → 기존에는 IR을 활용할 경우 노드당 한 번의 reasoning만 가능했지만 CoQ는 우선 완전한 체인을 먼저 생성 → C-1 해결
 
@@ -73,23 +72,23 @@ Search-in-the-Chain (SearChain) 제안
 
 1. 각 노드에 대해 IR과 상호작용 진행, 구체적으로 아래 두 단계를 선택적으로 반복
 
-- **verification**
+  - **verification**
 
-  - LLM의 정답과 retrieved 정보가 일치하지 않고 IR이 **high confidence**를 가질 때 → IR 피드백을 이용해 정답을 다시 생성
+    - LLM의 정답과 retrieved 정보가 일치하지 않고 IR이 **high confidence**를 가질 때 → IR 피드백을 이용해 정답을 다시 생성
 
-- **completion**
+  - **completion**
 
-  - flag → IR knowledge를 이용해 정답을 다시 생성
+    - flag → IR knowledge를 이용해 정답을 다시 생성
 
-- 위의 IR interaction을 라운드마다 반복해 CoQ를 수정 → IR에 의한 오류를 감소시킴 → C-2 해결
+  - 위의 IR interaction을 라운드마다 반복해 CoQ를 수정 → IR에 의한 오류를 감소시킴 → C-2 해결
 
 1. **tracing** : reasoning process를 만들고 각 reasoning step을 support하는 reference 선택
 
-- 선택된 reference를 이용해 답변 생성 → traceability 향상 (RAG 방식은 공통이라고 생각.)
+  - 선택된 reference를 이용해 답변 생성 → traceability 향상 (RAG 방식은 공통이라고 생각.)
 
-- IR interaction은 reasoning path를 chain에서 **node-identify** Depth-first search로 바꿈 (Tree-of-Reasoning, ToR) (뒤에 설명)
+  - IR interaction은 reasoning path를 chain에서 **node-identify** Depth-first search로 바꿈 (Tree-of-Reasoning, ToR) (뒤에 설명)
 
-- IR을 이용해 node를 수정 → C-3 해결 (논문에서는 여기 적긴 했는데 verification에 좀 더 가까운듯)
+  - IR을 이용해 node를 수정 → C-3 해결 (논문에서는 여기 적긴 했는데 verification에 좀 더 가까운듯)
 
 **Main contribution**
 
@@ -103,7 +102,7 @@ Search-in-the-Chain (SearChain) 제안
 
 → ToR 제시
 
-- Experiment shows that SearChain **outperforms state-of-the- art baselines** on complex knowledge-intensive tasks including multi- hop Q&A, slot filling, fact checking and long-form Q&A. → SOTA
+- Experiment shows that SearChain **outperforms state-of-the- art baselines** on complex knowledge-intensive tasks including multi- hop Q&A, slot filling,  fact checking and long-form Q&A. → SOTA
 
 # Related work
 
@@ -137,21 +136,21 @@ Search-in-the-Chain (SearChain) 제안
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-03-26-search-in-the-chain-interactively-enhancing-large-language/image_002.png" class="img-fluid rounded z-depth-1" %}
 
-- _Construct a global reasoning chain_
+  - *Construct a global reasoning chain*
 
-  - main task
+    - main task
 
-  - “Global” : 완전한 reasoning chain을 만들어라.
+    - “Global” : 완전한 reasoning chain을 만들어라.
 
 > "Global" means that LLM needs to plan a complete reasoning chain for the complex question, rather than answer the question directly or only solve "local" sub-questions (comparison shown in Figure 2)
 
-- _generate a query to the search engine based on what you already know at each step of the reasoning chain_
+  - *generate a query to the search engine based on what you already know at each step of the reasoning chain*
 
-  - 각 노드에서 IR-oriented query와 LLM만의 답변을 생성
+    - 각 노드에서 IR-oriented query와 LLM만의 답변을 생성
 
-  - 만약 답을 모르겠다면 [Unsolved Query] flag 이용 (missing knowledge)
+    - 만약 답을 모르겠다면 [Unsolved Query] flag 이용 (missing knowledge)
 
-- 이후 있을 round에서도 CoQ 생성은 위의 방법을 따름.
+  - 이후 있을 round에서도 CoQ 생성은 위의 방법을 따름.
 
 ### Interaction with IR
 
@@ -175,29 +174,29 @@ Search-in-the-Chain (SearChain) 제안
 
 1. retrieved Top-1 document d_i → ODQA 데이터셋으로 학습된 reader(DPR) 이용해 answer g 추출
 
-- confidence f : predicted value that measures whether g can answer q_i
+  - confidence f : predicted value that measures whether g can answer q_i
 
-\mathbf{H} \in \mathbb{R}^{L \times E} : input text “[\mathrm{CLS}] q_i[\mathrm{SEP}] d_i”의 last hidden state sequence (L : length, E : hidden dimension)
+\mathbf{H} \in \mathbb{R}^{L \times E} :  input text “[\mathrm{CLS}] q_i[\mathrm{SEP}] d_i”의 last hidden state sequence (L : length, E : hidden dimension)
 
-\mathbf{H}\_{[\mathrm{CLS}]} : last hidden state of [\mathrm{CLS}] token
+\mathbf{H}_{[\mathrm{CLS}]} : last hidden state of [\mathrm{CLS}] token
 
 1. a_i와 g 비교
 
-- short-form generation task
+  - short-form generation task
 
-  - a_i 안에 g가 있는지 여부
+    - a_i 안에 g가 있는지 여부
 
-- long-form generation task
+  - long-form generation task
 
-  - ROUGE between a_i and d_i > threshold \alpha
+    - ROUGE between a_i and d_i > threshold \alpha
 
-1. a_i와 g의 결과가 일치하지 않음 & f > \theta (IR로 인한 성능 감소를 막기 위한 threshold)
+1. a_i와 g의 결과가 일치하지 않음  &  f > \theta (IR로 인한 성능 감소를 막기 위한 threshold)
 
-- prompt
+  - prompt
 
-> According to the Reference, the answer for q_i should be g, you can change your answer and continue constructing the reasoning chain for [Question]: Q. Reference: d_i.
+> According to the Reference, the answer for q_i should be g, you can change your answer and continue constructing the reasoning chain for [Question]: Q. Reference: d_i. 
 
-- a*i → a^{\prime}*{i} 변경 후, (q*i, a^{\prime}*{i})를 root 노드로 하여 새로운 CoQ 진행
+  - a_i → a^{\prime}_{i} 변경 후, (q_i, a^{\prime}_{i})를 root 노드로 하여 새로운 CoQ 진행
 
 **Completion**
 
@@ -209,7 +208,7 @@ Search-in-the-Chain (SearChain) 제안
 
 > According to the Reference, the answer for q^{\star}_{i} should be g^{\star}, you can give your answer and continue constructing the reasoning chain for [Question]: Q. Reference: d^{\star}_{i}.
 
-- a*i → a^{\star}*{i} 변경 후, (q*i, a^{\star}*{i})를 root 노드로 하여 새로운 CoQ 진행
+- a_i → a^{\star}_{i} 변경 후, (q_i, a^{\star}_{i})를 root 노드로 하여 새로운 CoQ 진행
 
 **Tracing**
 
@@ -217,7 +216,7 @@ Search-in-the-Chain (SearChain) 제안
 
 - prompt
 
-> You can try to generate the final answer for the [Question] by referring to the [Query]-[Answer] pairs, starting with [Final Content]. [Query1]: q_1 [Answer1]: a_1 ...[Query m]: q_m [Answer m]: a_m.
+> You can try to generate the final answer for the [Question] by referring to the [Query]-[Answer] pairs, starting with [Final Content]. [Query1]: q_1 [Answer1]: a_1 ...[Query m]: q_m  [Answer m]: a_m.
 
 **Node-identify Depth-first Search**
 
@@ -315,9 +314,9 @@ Search-in-the-Chain (SearChain) 제안
 
 - (a) Positive
 
-  - \mathbb{S}\_{I R} : IR 결과에 의해 수정, 보완된 answer들만 추출
+  - \mathbb{S}_{I R} : IR 결과에 의해 수정, 보완된 answer들만 추출
 
-  - w/o IR (\mathbb{S}\_{I R}) < w/o IR (\mathbb{S}) : 실제로 LLM이 답변을 하는데 어려움을 겪음.
+  - w/o IR (\mathbb{S}_{I R}) < w/o IR (\mathbb{S}) : 실제로 LLM이 답변을 하는데 어려움을 겪음.
 
   - w IR (\mathbb{S}_{I R}) > w/o IR (\mathbb{S}) > w/o IR (\mathbb{S}_{I R}) : IR을 통한 답변 성능 향상
 
@@ -343,15 +342,15 @@ Search-in-the-Chain (SearChain) 제안
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-03-26-search-in-the-chain-interactively-enhancing-large-language/image_008.png" class="img-fluid rounded z-depth-1" %}
 
-- local perspective (주어진 쿼리를 해결하는 것에 집중) 방식으로는 reasoning을 멈추는 경향 이 큼. (Figure 4)
+  - local perspective (주어진 쿼리를 해결하는 것에 집중) 방식으로는 reasoning을 멈추는 경향 이 큼. (Figure 4)
 
-- LLM gloobal chain reasoning을 유도함으로써 이런 현상이 줄어듦.
+  - LLM gloobal chain reasoning을 유도함으로써 이런 현상이 줄어듦.
 
-  - 상엽 생각 : global을 확인할 수 있는 부분이 prompt에서 첫 문장 뿐이고 global chain이라는 용어가 생소할텐데 이게 어떻게 되는지 이해가 잘 안됨.
+    - 상엽 생각 : global을 확인할 수 있는 부분이 prompt에서 첫 문장 뿐이고 global chain이라는 용어가 생소할텐데 이게 어떻게 되는지 이해가 잘 안됨.
 
-- table 4의 결과 역시 더 많은 reasoning이 끊기지 않음을 뒷받침하는 근거
+  - table 4의 결과 역시 더 많은 reasoning이 끊기지 않음을 뒷받침하는 근거
 
-- **more case study**
+  - **more case study**
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-03-26-search-in-the-chain-interactively-enhancing-large-language/image_009.png" class="img-fluid rounded z-depth-1" %}
 
@@ -361,7 +360,7 @@ Search-in-the-Chain (SearChain) 제안
 
 SearChain과 New bing search를 아래 두 가지 측면에서 비교
 
-- Scope of Knowledge Coverage (SKC) [0, +]:
+- Scope of Knowledge Coverage (SKC) [0, +]: 
 
   - 답변에서 document에 의해 support 된다고 mark된 아이템의 수
 

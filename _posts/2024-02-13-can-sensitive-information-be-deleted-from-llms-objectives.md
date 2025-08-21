@@ -1,25 +1,24 @@
 ---
 categories:
-  - paper-reviews
-date: "2024-02-13 00:00:00"
+- paper-reviews
+date: '2024-02-13 00:00:00'
 description: 논문 리뷰 - Editing, Evaluation Metric 관련 연구
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-  - editing
-  - evaluation metric
-  - gpt
-  - language-model
-  - llm
-  - paper-review
+- editing
+- evaluation metric
+- gpt
+- language-model
+- llm
+- paper-review
 thumbnail: assets/img/posts/2024-02-13-can-sensitive-information-be-deleted-from-llms-objectives/thumbnail.jpg
 title: CAN SENSITIVE INFORMATION BE DELETED FROM LLMS? OBJECTIVES FOR DEFENDING AGAINST
   EXTRACTION ATTACKS
 ---
 
 **논문 정보**
-
 - **Date**: 2024-02-13
 - **Reviewer**: hyowon Cho
 - **Property**: Editing, Evaluation Metric
@@ -90,23 +89,23 @@ title: CAN SENSITIVE INFORMATION BE DELETED FROM LLMS? OBJECTIVES FOR DEFENDING 
 
 ### Adversary’s Objective:
 
-민감한 정보에 대한 질문과 답을 담은 pair (Q, A)에서 답을 inference 중 낸 경우. 이때, A가 Candidate set C에 속하느냐로 unlearning 성능을 측정하며, |C| = B를 attack budget이라 칭한다.
+민감한 정보에 대한 질문과 답을 담은  pair (Q, A)에서 답을 inference 중 낸 경우. 이때, A가 Candidate set C에 속하느냐로 unlearning 성능을 측정하며, |C| = B를 attack budget이라 칭한다.
 
 1. Password Attempts:
 
-- attacker가 민감 정보에 대한 답을 알지 못함
+  - attacker가 민감 정보에 대한 답을 알지 못함
 
-- attacker가 답이 사실인지 아닌지 판별은 가능 -> 마치 비밀번호처럼!
+  - attacker가 답이 사실인지 아닌지 판별은 가능 -> 마치 비밀번호처럼!
 
 1. Parallel Pursuit
 
-- attacker가 사실 정보인지에 대한 확인이 필요없이 정보를 캐가는 경우 -> ex. 이메일 캐서 스팸 한번에 뿌리기
+  - attacker가 사실 정보인지에 대한 확인이 필요없이 정보를 캐가는 경우 -> ex. 이메일 캐서 스팸 한번에 뿌리기
 
 1. Verification by Data Owner
 
-- attacker가 실제 데이터의 owner인 경우
+  - attacker가 실제 데이터의 owner인 경우
 
-- 즉, 정보를 알고있지만 퍼지기를 원하지 않는다.
+  - 즉, 정보를 알고있지만 퍼지기를 원하지 않는다.
 
 ### Attack Success Metric.
 
@@ -126,7 +125,7 @@ $AttackSuccess@B(M)$ = prediction이 C안에 속하는 경우.
 
 1. avoiding damaging the model’s knowledge in general
 
-arg\ min \_{M^∗}AttackSuccess@B(M^∗) + λDamage(M^∗,M)
+arg\ min _{M^∗}AttackSuccess@B(M^∗) + λDamage(M^∗,M)
 
 M^∗은 edited model. M은 수정 전 모델.
 
@@ -134,11 +133,11 @@ Model Damage를 판단하기 위한 metric으로는 두 가지를 측정한다.
 
 1. Random ∆-Acc
 
-- random datapoint에 대한 성능 확인
+  - random datapoint에 대한 성능 확인
 
 1. Neighborhood ∆-Acc
 
-- 삭제된 지식과 e same relations and the same (true) answers을 가진 정보들에 대한 사실 확인. 얘네는 삭제되면 안됨
+  - 삭제된 지식과 e same relations and the same (true) answers을 가진 정보들에 대한 사실 확인. 얘네는 삭제되면 안됨
 
 추가적으로 Rewrite Score 점수도 제공한다.
 
@@ -166,7 +165,7 @@ Model Damage를 판단하기 위한 metric으로는 두 가지를 측정한다.
 
   - 이 경우, 오히려 근접한 레이어들에 대한 token Probability에 대한 차에서 top or bottom k의 단어에서 이들이 발견될 수 있음을 의미.
 
-  - C*{Probability-Delta} = \bigcup*{\ell \in L}top-k(D(\ell+1) − D(\ell)) \cup bottom-k(D(\ell+1) − D(\ell))
+  - C_{Probability-Delta} = \bigcup_{\ell \in L}top-k(D(\ell+1) − D(\ell)) \cup bottom-k(D(\ell+1) − D(\ell))
 
 ## BLACKBOX ATTACK: INPUT REPHRASING
 
@@ -176,6 +175,7 @@ Model Damage를 판단하기 위한 metric으로는 두 가지를 측정한다.
 
 5개의 paraphrases 생성.
 
+
 dipper-paraphraser-xxl (Krishna et al., 2023) model 사용.
 
 # DEFENSE METHODS
@@ -184,35 +184,35 @@ dipper-paraphraser-xxl (Krishna et al., 2023) model 사용.
 
 1. The Empty Response Defense(Ouyang et al.,2022)
 
-- 모델로 하여금 “I don’t know” 혹은 “dummy”를 뱉도록 하는 기법.
+  - 모델로 하여금 “I don’t know” 혹은 “dummy”를 뱉도록 하는 기법.
 
 1. Fact Erasure (Hase et al., 2023).
 
-- minimize p(y|x;M) for the original fact (x, y).
+  - minimize p(y|x;M) for the original fact (x, y).
 
 1. Error Injection (De Cao et al., 2021).
 
-- arg maxM p(y∗|x;M) where y∗ is the alternative
+  - arg maxM p(y∗|x;M) where y∗ is the alternative
 
-- 하지만, 이러한 방법은 현실에서는 사용하기 적합x - 잘못된 정보!
+  - 하지만, 이러한 방법은 현실에서는 사용하기 적합x - 잘못된 정보!
 
 1. Head Projection Defense (new!)
 
-- \ell번째 레이어의 logit lens distribution 즉각 보정
+  - \ell번째 레이어의 logit lens distribution 즉각 보정
 
-- \frac{1}{|L|}\sum max(0,D(\ell){answer} - D(\ell){k}+m)
+  - \frac{1}{|L|}\sum max(0,D(\ell){answer} - D(\ell){k}+m)
 
-- k = k-th top prob in D(\ell)
+  - k = k-th top prob in D(\ell)
 
-- m = margin term. optimize하는 contraint가 없어서 그냥 tune.
+  - m = margin term. optimize하는 contraint가 없어서 그냥 tune.
 
 1. Max-Entropy Defense. (new!)
 
-- maximize the entropy of the model’s logit lens distributions over the next token at each layer:
+  - maximize the entropy of the model’s logit lens distributions over the next token at each layer:
 
 1. Input Rephrasing Defense.(new!)
 
-- 새롭게 만들어진 모든 paraphrased ver에 대한 Fact Erasure 수행.
+  - 새롭게 만들어진 모든 paraphrased ver에 대한 Fact Erasure 수행.
 
 # EXPERIMENT
 

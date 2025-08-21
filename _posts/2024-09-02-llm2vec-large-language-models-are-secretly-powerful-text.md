@@ -1,32 +1,33 @@
 ---
 categories:
-  - paper-reviews
-date: "2024-09-02 00:00:00"
+- paper-reviews
+date: '2024-09-02 00:00:00'
 description: 논문 리뷰 - Embeddings, LLM 관련 연구
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-  - attention
-  - bert
-  - classification
-  - embedding
-  - embeddings
-  - gpt
-  - language-model
-  - llm
-  - paper-review
+- attention
+- bert
+- classification
+- embedding
+- embeddings
+- gpt
+- language-model
+- llm
+- paper-review
 thumbnail: assets/img/posts/2024-09-02-llm2vec-large-language-models-are-secretly-powerful-text/thumbnail.jpg
-title: "LLM2Vec: Large Language Models Are Secretly Powerful Text Encoders"
+title: 'LLM2Vec: Large Language Models Are Secretly Powerful Text Encoders'
 ---
 
 **논문 정보**
-
 - **Date**: 2024-09-02
 - **Reviewer**: 김재희
 - **Property**: Embeddings, LLM
 
+
 ---
+
 
 ---
 
@@ -74,15 +75,15 @@ MNTP + UCL을 통해 Decoder를 Encoder로 활용 가능
 
 1. BERT의 MTP(Masked Token Prediction)과 GPT의 NTP(Next Token Prediction)의 중간 수준
 
-- MTP: 문장 중간 토큰을 Masking하고 예측
+  - MTP: 문장 중간 토큰을 Masking하고 예측 
 
-  - bi-directional 모델을 이용하여 context를 반영한 Representation 생성 학습
+    - bi-directional 모델을 이용하여 context를 반영한 Representation 생성 학습
 
 → Encoder에 적합한 학습 방식
 
-- NTP: 매 토큰의 다음 토큰을 예측
+  - NTP: 매 토큰의 다음 토큰을 예측
 
-  - Scaling에 용이하고 높은 성능 달성이 가능
+    - Scaling에 용이하고 높은 성능 달성이 가능
 
 → Pretrain 시 학습한 태스크를 유지
 
@@ -92,21 +93,21 @@ MNTP + UCL을 통해 Decoder를 Encoder로 활용 가능
 
 1. SimCSE 학습 방법론 이용
 
-1. query: 임의의 문장
+  1. query: 임의의 문장
 
-1. positive: query 문장에 대해 dropout을 다르게 적용한 Representation
+  1. positive: query 문장에 대해 dropout을 다르게 적용한 Representation
 
-1. negative: in-batch negatives
+  1. negative: in-batch negatives
 
 ## 3. Experimental Setup
 
-### Masking Token: “\_”
+### Masking Token: “_”
 
 - Decoder model은 masking token이 없음
 
-- 나는 바보가 아니다. → 나는 \_ 아니다.
+- 나는 바보가 아니다. → 나는 _ 아니다. 
 
-  - 나는 <Mask> 아니다.
+  - 나는 <Mask> 아니다. 
 
 ### training step (1 A100)
 
@@ -118,7 +119,7 @@ MNTP + UCL을 통해 Decoder를 Encoder로 활용 가능
 
 ### Training Dataset
 
-Wikipedia 데이터 이용: 모든 LLM의 사전학습에 포함
+Wikipedia 데이터 이용: 모든 LLM의 사전학습에 포함 
 
 **→ 모델에게 새로운 지식 주입 X, Encoder로서의 태스크 학습**
 
@@ -170,7 +171,7 @@ MTEB 벤치마크 내 15개 태스크에 대한 평균값
 
 (재희) Mistral 사전 학습 과정에서 token level task가 적용…?
 
->
+> 
 
 1. Bi Directional Attn만으로는 Decoder 모델의 Encoder 전환 불가
 
@@ -202,7 +203,7 @@ MTEB 벤치마크 내 15개 태스크에 대한 평균값
 
   - Mistral을 제외한 모델의 경우 매우 안좋은 성능 기록
 
-- LLM2Vec(w/o SimCSE): 거의 모든 태스크에서 Uni + Mean 대비 높은 성능 도출
+- LLM2Vec(w/o SimCSE): 거의 모든 태스크에서 Uni + Mean 대비 높은 성능 도출 
 
   - Sentence Level 태스크라는 점을 고려하면 LLM2Vec이 단순하면서 강력한 방법론임을 보여줌
 
@@ -224,9 +225,9 @@ MTEB 벤치마크 내 15개 태스크에 대한 평균값
 
 - A 문장의 토큰에서 pooling하여 representation을 산출
 
-  - Bidirectional이 잘된다면: q_i, s^+\_i는 비슷한 Representation이어야 함. → 뒷문장의 정보가 A 문장으로 흘렀어야 함으로
+  - Bidirectional이 잘된다면: q_i, s^+_i는 비슷한 Representation이어야 함. → 뒷문장의 정보가 A 문장으로 흘렀어야 함으로
 
-- 모델 크기에 관계없이 MNTP 이후 pos와 Neg 간 거리가 벌어짐
+- 모델 크기에 관계없이 MNTP 이후 pos와 Neg 간 거리가 벌어짐 
 
   - MNTP: 위치에 관계없이 Token들이 서로 attn하도록 학습
 

@@ -1,25 +1,24 @@
 ---
 categories:
-  - paper-reviews
-date: "2025-03-04 00:00:00"
+- paper-reviews
+date: '2025-03-04 00:00:00'
 description: 논문 리뷰 - RL 관련 연구
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-  - gpt
-  - llm
-  - paper-review
-  - reasoning
-  - reinforcement-learning
-  - rl
+- gpt
+- llm
+- paper-review
+- reasoning
+- reinforcement-learning
+- rl
 thumbnail: assets/img/posts/2025-03-04-swe-rl-advancing-llm-reasoning-via-reinforcement-learning/thumbnail.jpg
-title: "SWE-RL: Advancing LLM Reasoning via Reinforcement Learning on Open Software
-  Evolution"
+title: 'SWE-RL: Advancing LLM Reasoning via Reinforcement Learning on Open Software
+  Evolution'
 ---
 
 **논문 정보**
-
 - **Date**: 2025-03-04
 - **Reviewer**: 전민진
 - **Property**: RL
@@ -36,7 +35,7 @@ RL위주로 간단하게만 정리
 
 ⇒ real-world software engineering에서도 될까?
 
-- real-world software engineering에 대해서 처음으로 RL-based LLM을 학습한 SWE-RL을 제안
+  - real-world software engineering에 대해서 처음으로 RL-based LLM을 학습한 SWE-RL을 제안
 
 - 간단한 rule-based reward(정답과 모델이 생성한 답변과의 유사도)을 활용해서 학습, SWE-RL은 in-domain뿐만 아니라 out-of-domain에서도 뛰어난 성능을 보임
 
@@ -88,9 +87,9 @@ RL위주로 간단하게만 정리
 
   - 마지막으로 각 합쳐진 PR를 보고 패턴 식별, 유사한 애들끼리 또 결합
 
-  - 최종적으로 24M의 PR instance를 얻음
+  - 최종적으로 24M의 PR instance를 얻음 
 
-- Relevant files prediction
+- Relevant files prediction 
 
   - 현재 모든 pull request는 수정된 파일만 포함됨
 
@@ -171,7 +170,7 @@ RL위주로 간단하게만 정리
   - 학습 방법의 차이를 분석하기 위해 Llama-3-SWE-SFT-70B도 학습
 
   - seed dataset으론 동일한 데이터셋 사용, SFT는 데이터셋 다양상과 모델 일반화 성능을 보장하기 위해 다양한 CoT, mixture data필요
-    ⇒ PR data with CoT, Llama3 coding SFT data, Llama 3general SFT data등을 섞어서 학습
+ ⇒ PR data with CoT, Llama3 coding SFT data, Llama 3general SFT data등을 섞어서 학습
 
 ### Main results
 

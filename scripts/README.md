@@ -9,6 +9,7 @@
 - ✅ **완전 자동**: 이미지, 태그, front matter 모두 자동 처리
 - ✅ **ai-folio 최적화**: Jekyll과 완벽 호환
 - 🆕 **DB 자동화**: 노션 URL만으로 완전 자동 변환
+- 🆕 **중복 방지**: 이미 처리된 페이지 자동 스킵
 
 ## 📁 파일 구조
 
@@ -41,6 +42,7 @@ python3 scripts/notion_db_auto.py \
 - ⚡ **실시간 동기화**: 노션 업데이트 시 재실행만 하면 됨
 - 🔄 **배치 처리**: 모든 논문을 한 번에 처리
 - 🖼️ **이미지 지원**: API를 통한 이미지 다운로드
+- 🔍 **스마트 처리**: 새 페이지만 자동 감지 및 처리
 
 ### 🥈 **방법 2: Export 파일 변환**
 
@@ -113,6 +115,15 @@ python3 scripts/notion_db_auto.py \
 python3 scripts/notion_db_auto.py \
   --database-url "https://notion.so/..." \
   --token "secret_ABC123..."
+
+# 🆕 새 페이지만 처리 (기본 동작)
+python3 scripts/notion_db_auto.py \
+  --database-url "https://notion.so/your-database-url"
+
+# 🆕 모든 페이지 강제 재처리
+python3 scripts/notion_db_auto.py \
+  --database-url "https://notion.so/your-database-url" \
+  --force-reprocess
 ```
 
 ### 📄 **Export 변환 예시**
@@ -130,14 +141,15 @@ python3 scripts/notion_to_blog.py \
 
 ## 📈 성능 비교
 
-| 특징              | DB 자동화        | Export 변환  |
-| ----------------- | ---------------- | ------------ |
-| **설정 복잡도**   | 보통 (토큰 필요) | 간단         |
-| **속도**          | 빠름             | 매우 빠름    |
-| **자동화**        | 완전 자동 ⭐     | 수동 export  |
-| **이미지 처리**   | API 다운로드     | 직접 복사 ⭐ |
-| **실시간 동기화** | 가능 ⭐          | 불가능       |
-| **안정성**        | 높음             | 매우 높음 ⭐ |
+| 특징               | DB 자동화        | Export 변환  |
+| ------------------ | ---------------- | ------------ |
+| **설정 복잡도**    | 보통 (토큰 필요) | 간단         |
+| **속도**           | 빠름             | 매우 빠름    |
+| **자동화**         | 완전 자동 ⭐     | 수동 export  |
+| **이미지 처리**    | API 다운로드     | 직접 복사 ⭐ |
+| **실시간 동기화**  | 가능 ⭐          | 불가능       |
+| **안정성**         | 높음             | 매우 높음 ⭐ |
+| **중복 처리 방지** | 자동 ⭐          | 수동 확인    |
 
 ## 🛠️ 고급 기능
 
@@ -149,9 +161,9 @@ python3 scripts/notion_to_blog.py \
 
 echo "🔄 주간 논문 동기화 시작..."
 
+# 🆕 자동으로 새 페이지만 처리 (중복 방지)
 python3 scripts/notion_db_auto.py \
-  --database-url "https://notion.so/your-database" \
-  --start-date "$(date -d '7 days ago' +%Y-%m-%d)"
+  --database-url "https://notion.so/your-database"
 
 # Jekyll 재시작
 pkill -f jekyll
@@ -192,6 +204,25 @@ python3 scripts/markdown_improver.py --input "기존파일.md"
 - API 제한으로 인한 지연 (정상)
 - 대량 변환 시 시간 소요 예상
 
+**Q: 🆕 이미 처리한 페이지를 다시 처리하고 싶음**
+
+```bash
+# 강제 재처리 옵션 사용
+python3 scripts/notion_db_auto.py \
+  --database-url "https://notion.so/..." \
+  --force-reprocess
+
+# 또는 처리 기록 파일 삭제
+rm scripts/.notion_processed_pages.json
+```
+
+**Q: 🆕 어떤 페이지가 처리되었는지 확인하고 싶음**
+
+```bash
+# 처리 기록 확인
+cat scripts/.notion_processed_pages.json | python -m json.tool
+```
+
 ### Export 변환 관련
 
 **Q: 이미지가 표시되지 않음**
@@ -229,8 +260,21 @@ pip install PyYAML  # 기본 라이브러리만
 
 1. **초기 설정**: DB 자동화로 전체 논문 가져오기
 2. **이미지 보완**: 중요한 논문은 Export 방식으로 재변환
-3. **정기 동기화**: 새 논문은 DB 자동화로 추가
+3. **정기 동기화**: 새 논문은 DB 자동화로 자동 추가 (중복 방지)
 4. **세부 조정**: markdown_improver로 개별 개선
+
+### 🆕 **스마트 동기화 워크플로**
+
+```bash
+# 1. 첫 실행: 모든 페이지 처리
+python3 scripts/notion_db_auto.py --database-url "..."
+
+# 2. 이후 실행: 새 페이지만 자동 처리
+python3 scripts/notion_db_auto.py --database-url "..."
+
+# 3. 필요시 강제 재처리
+python3 scripts/notion_db_auto.py --database-url "..." --force-reprocess
+```
 
 ## 📚 참고 자료
 

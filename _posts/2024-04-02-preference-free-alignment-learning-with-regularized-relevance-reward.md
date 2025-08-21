@@ -1,27 +1,26 @@
 ---
 categories:
-  - paper-reviews
-date: "2024-04-02 00:00:00"
+- paper-reviews
+date: '2024-04-02 00:00:00'
 description: 논문 리뷰 - Reinforcement Learning, Alignment 관련 연구
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-  - alignment
-  - classification
-  - gpt
-  - language-model
-  - llm
-  - nlp
-  - paper-review
-  - reinforcement learning
-  - rlhf
+- alignment
+- classification
+- gpt
+- language-model
+- llm
+- nlp
+- paper-review
+- reinforcement learning
+- rlhf
 thumbnail: assets/img/posts/2024-04-02-preference-free-alignment-learning-with-regularized-relevance-reward/thumbnail.jpg
 title: Preference-free Alignment Learning with Regularized Relevance Reward
 ---
 
 **논문 정보**
-
 - **Date**: 2024-04-02
 - **Reviewer**: 준원 장
 - **Property**: Reinforcement Learning, Alignment
@@ -30,15 +29,15 @@ title: Preference-free Alignment Learning with Regularized Relevance Reward
 
 - Preference
 
-: prompt, pair of responses가 있는 (x, y*{w}, y*{l})에 대해서 y*{w} > y*{l} 을 보이는 setting
+: prompt, pair of responses가 있는 (x, y_{w}, y_{l})에 대해서 y_{w} > y_{l} 을 보이는 setting
 
-- x : 된장찌개를 끓이는 방법을 알려줘
+  -  x : 된장찌개를 끓이는 방법을 알려줘
 
-- y\_{w} : 된장찌개를 끓이는 법은 다음과 같습니다. 1. 재료를 준비합니다. 재료는…
+  -  y_{w} : 된장찌개를 끓이는 법은 다음과 같습니다. 1. 재료를 준비합니다. 재료는… 
 
-- y\_{l} : 된장찌개를 끓이는 법은 다음과 같습니다. 1. 뚝배기를 한대..
+  -  y_{l} : 된장찌개를 끓이는 법은 다음과 같습니다. 1. 뚝배기를 한대.. 
 
-에 대해서 y*{w} > y*{l} 을 보이는 setting
+에 대해서 y_{w} > y_{l} 을 보이는 setting
 
 ### PPO (Chat-GPT Training)
 
@@ -122,7 +121,7 @@ class PolicyLoss(nn.Module):
 
 - 논문에서는 human feedback이 가지고 있는 선천적인 한계점/bias을 지적한다.
 
-  - crowd source worker (concise하고 specificity 선호)랑 expert (factuality하고 completeness선호)의 preference 다름.
+  - crowd source worker (concise하고 specificity 선호)랑 expert (factuality하고 completeness선호)의 preference 다름. 
 
 ⇒ 이에 따라 human-preference로 training된 open-source RMs들이 주어진 input들에 대해서 on-topic인지 아닌지 구분하는 능력이 떨어진다고 함 (준원생각: 일관된 Reward signal을 주지 못함) [하단]
 
@@ -130,11 +129,11 @@ class PolicyLoss(nn.Module):
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-04-02-preference-free-alignment-learning-with-regularized-relevance-reward/image_004.png" class="img-fluid rounded z-depth-1" %}
 
-- **_Relevance를 Reward Signal로 주어서 LLM의 Alignment를 human preference 없이 증가시켜볼 수 있지 않을까?_**
+- ***Relevance를 Reward Signal로 주어서 LLM의 Alignment를 human preference 없이 증가시켜볼 수 있지 않을까?***
 
 - 이를 위해 Relevance에 대한 정의부터 하고 넘어감
 
-_as the degree to which an assistant system’s responses are **appropriate and directly connected to the specific needs or requests presented by the users**._
+*as the degree to which an assistant system’s responses are **appropriate and directly connected to the specific needs or requests presented by the users**.*
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-04-02-preference-free-alignment-learning-with-regularized-relevance-reward/image_005.png" class="img-fluid rounded z-depth-1" %}
 
@@ -172,11 +171,11 @@ _as the degree to which an assistant system’s responses are **appropriate and 
 
 - Contriever를 직접적인 RM으로 사용해서 Reward Signal을 줘보자
 
-- x : query
+-  x : query
 
-- \hat{y} : rollout response in the exploration stage of PPO
+-  \hat{y} : rollout response in the exploration stage of PPO 
 
-- M(x) \cdot M(\hat{y})\rightarrow r\_{x}\in \R^{1} : M is contriever
+-  M(x) \cdot M(\hat{y})\rightarrow r_{x}\in \R^{1}  : M is contriever
 
 - Anthropic-HH dataset 사용, Vicuna Bench
 
@@ -198,11 +197,11 @@ _as the degree to which an assistant system’s responses are **appropriate and 
 
 ### Length Incentive (LI)
 
-- r\_{x} 가 response를 짧게하는 것을 방지하기 위함
+-  r_{x} 가 response를 짧게하는 것을 방지하기 위함
 
-- LI(\hat{y})= \frac{\# words \ of \ \hat{y}}{100}
+  -  LI(\hat{y})= \frac{\# words \ of  \ \hat{y}}{100}
 
-- 주어진 query와 무관하게 longer generation을 하도록
+  - 주어진 query와 무관하게 longer generation을 하도록 
 
 ### Repetition Penalty (RP)
 
@@ -210,9 +209,9 @@ _as the degree to which an assistant system’s responses are **appropriate and 
 
 - unique trigram을 보장하는 아래의 reward를 추가함
 
-- RP(\hat{y})= \frac{\# unique \ trigram \ of \ \hat{y}}{\# \ trigrams \ of \ \hat{y}}
+-  RP(\hat{y})= \frac{\# unique \ trigram \ of  \ \hat{y}}{\# \ trigrams \ of  \ \hat{y}}
 
-⇒ r\_{x} \cdot LI(\hat{y})\cdot RP(\hat{y})
+⇒  r_{x} \cdot LI(\hat{y})\cdot RP(\hat{y})
 
 - 높은 relevance
 
@@ -220,15 +219,15 @@ _as the degree to which an assistant system’s responses are **appropriate and 
 
 - less repetition
 
-### Reference Answer Relevance (r\_{y})
+### Reference Answer Relevance (r_{y})
 
-- Contrained/Factual한 Response를 요구하는 Query에서 여전히 Diverse한 답변을 생성하는 위의 Reward는 치명적일 수 있음
+- Contrained/Factual한 Response를 요구하는 Query에서 여전히 Diverse한 답변을 생성하는 위의 Reward는 치명적일 수 있음 
 
 ⇒ Closed Answer를 요구하는 Query에는 Relevance하고 간결하게만 답변하도록 Modeling해야 함.
 
 - 저자들은 Open-ended/Closed Ended Query에 대해서 다른 Reward를 적용함.
 
-- F(r*{y}) \ ,where \ M (y) · M (\hat{y}) → r*{y}: 범위 맞춰주는 interpolation function
+- F(r_{y}) \ ,where \ M (y) · M (\hat{y}) → r_{y}: 범위 맞춰주는 interpolation function
 
 ⇒ Mixture of Reward Function, Only needs SFT dataset!
 
@@ -272,11 +271,11 @@ _as the degree to which an assistant system’s responses are **appropriate and 
 
 - UlteraRM에 비해서 alignment tax가 확실하게 개선됨
 
-- Relevance에만 중점적으로 Reward를 주는 Closed query를 안 쓰는 R\_{OE}를 보면 Preference 증가 & Relevance 증가 & alignment tax 심화로 목적함수 설계가 의도대로 잘 작동함을 알 수 있음
+- Relevance에만 중점적으로 Reward를 주는 Closed query를 안 쓰는 R_{OE}를 보면 Preference 증가 & Relevance 증가 & alignment tax 심화로 목적함수 설계가 의도대로 잘 작동함을 알 수 있음
 
 - Length Incentive만 Reward로 써도 SFT에 비해서 Preference가 증가하나 alignment tax 라는 trade off는 피하지 못함 (Fact Score)
 
-- Query Classification을 Original GPT4 → Learned LLAMA2로 했을때는 성능하락폭이 크지는 않으나 (논문주장), Random으로 바꾸면 큼
+- Query Classification을 Original GPT4 → Learned LLAMA2로 했을때는 성능하락폭이 크지는 않으나 (논문주장),  Random으로 바꾸면 큼
 
 ⇒ Query type에 따라 reward signal을 다르게 주는 것의 타당성을 이야기하고 싶었던 것 같음
 
@@ -288,17 +287,17 @@ _as the degree to which an assistant system’s responses are **appropriate and 
 
 - 최상단 Row: Backbone Pre-trained LLM (e.g., Llama-2-7B, Mistral-7B)
 
-- 그 다음 상단 Row: In-house company에서 직접 SFT > RLHF Training한 LLM (e.g., Llama-2-7B-Chat)
+- 그 다음 상단 Row: In-house company에서 직접 SFT > RLHF Training한 LLM (e.g.,  Llama-2-7B-Chat)
 
 - 2번째 Row: Open src로 풀린 Backbone Pre-trained LLM 기반 SFT Model (e.g., Vicuna-7B-v.1.5)
 
 - 3번째 Row: 2번째 SFT Model 위에 ShareGPT, UltraChat (2개 데이터셋 원래 SFT를 위해 만들어진 데이터셋이나 R^3는 Triplet 필요 x) sampling해서 R^3로 PPO한 LLM
 
-- Vicuna-{7, 15}B-v1.5에서 PPO training을 한 LLM 같은 경우 AlpacaEval (Preference, Relevance)과 MT-Bench에서 대부분은 성능향상을 보임.
+-  Vicuna-{7, 15}B-v1.5에서 PPO training을 한 LLM 같은 경우 AlpacaEval (Preference, Relevance)과 MT-Bench에서 대부분은 성능향상을 보임. 
 
 [MT-Bench: MT-Bench is a challenging multi-turn benchmark that measures the ability of large language models (LLMs) to engage in coherent, informative, and engaging conversations. It is designed to assess the conversation flow and instruction-following capabilities of LLMs, making it a valuable tool for evaluating their performance in understanding and responding to user queries.]
 
-- Huggingface-Mistral SFT 대비 Preference는 향상시켰지만 DPO training한 Zephyr-beta 대비 성능이 낮은 이유를 (1) 해당 모델은 GPT-4-generated feedback를 사용 (2) Mistral-H4-SFT의 under SFT를 꼽음.
+- Huggingface-Mistral SFT 대비  Preference는 향상시켰지만 DPO training한 Zephyr-beta 대비 성능이 낮은 이유를 (1) 해당 모델은 GPT-4-generated feedback를 사용 (2) Mistral-H4-SFT의 under SFT를 꼽음.
 
 (모든 7B 모델들이 R^3 PPO training 후 preference(% Win)의 증가에 따라 relevance(% Rel)이 희생되지만, 13B 모델에서는 relevance도 향상된다고 하면서 model size 증가에 따라서 tradeoff 완화가 기대될 수 있음을 시사)
 

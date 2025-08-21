@@ -1,31 +1,30 @@
 ---
 categories:
-  - paper-reviews
-date: "2023-01-19 00:00:00"
+- paper-reviews
+date: '2023-01-19 00:00:00'
 description: 논문 리뷰 - QA, NER, Knowledge 관련 연구
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-  - bert
-  - embedding
-  - fine-tuning
-  - generative
-  - knowledge
-  - language-model
-  - llm
-  - ner
-  - paper-review
-  - pre-training
-  - qa
-  - transformer
-  - vision
+- bert
+- embedding
+- fine-tuning
+- generative
+- knowledge
+- language-model
+- llm
+- ner
+- paper-review
+- pre-training
+- qa
+- transformer
+- vision
 thumbnail: assets/img/posts/2023-01-19-kala-knowledge-augmented-language-model-adaptation/thumbnail.jpg
-title: "KALA: Knowledge-Augmented Language Model Adaptation"
+title: 'KALA: Knowledge-Augmented Language Model Adaptation'
 ---
 
 **논문 정보**
-
 - **Date**: 2023-01-19
 - **Reviewer**: yukyung lee
 - **Property**: QA, NER, Knowledge
@@ -35,10 +34,10 @@ title: "KALA: Knowledge-Augmented Language Model Adaptation"
 - Simple fine-tuning of PLMs, on the other hand, might be suboptimal for domain-specific tasks because they cannot possibly cover knowledge from all domains
 
 - Adaptive pre-training of PLM can help LM obtain domain-specific knowledge  
-  → require large training cost
-  → catastrophic forgeting of general knowledge
+→ require large training cost
+→ catastrophic forgeting of general knowledge
 
-- KALA
+- KALA 
 
 → entities and relational facts
 
@@ -70,11 +69,11 @@ title: "KALA: Knowledge-Augmented Language Model Adaptation"
 
   - marginal computational와 memory overhead만 필요함
 
-  - KG의 relation 정보를 활용하여 training 과정에서 등장하지 않았던 unseen entities를 고려할 수 있음
+  - KG의 relation 정보를 활용하여 training 과정에서 등장하지 않았던 unseen entities를 고려할 수 있음 
 
     - Test에서 처음 나오는 entity라 하더라도 known entity들을 aggregating 함으로서 explicitly represent 가능함
 
-    - neighboring entities들을 활용하는 방식을 취함
+    - neighboring entities들을 활용하는 방식을 취함 
 
 - Contributions
 
@@ -136,21 +135,21 @@ Pretraining based
 
     - \mathcal{M} = {(1,2),(4,4)}
 
-  - 학습과정에서 등장하는 모든 entity를 entity 집합으로 구성하고, test time에서 처음 등장하는 entity(unknown entities)를 다루기 위해 집함에 null entity e\_{\emptyset}을 포함시킴
+  - 학습과정에서 등장하는 모든 entity를 entity 집합으로 구성하고, test time에서 처음 등장하는 entity(unknown entities)를 다루기 위해 집함에 null entity e_{\emptyset}을 포함시킴
 
 - **Definition 2: Entity Memory**
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2023-01-19-kala-knowledge-augmented-language-model-adaptation/image_004.png" class="img-fluid rounded z-depth-1" %}
 
-- 별도의 entity embedding function을 통해 entity representation을 학습
+  - 별도의 entity embedding function을 통해 entity representation을 학습
 
-- null entity e\_{\emptyset}는 zero vector를 사용했음
+  -  null entity e_{\emptyset}는 zero vector를 사용했음
 
 - **Definition 3: Knowledge Graph**
 
   - KG를 직접 construct함
 
-  - KG는 set of factual triplet으로 구성됨 \{(h,r,t)\}
+  - KG는 set of factual triplet으로 구성됨 \{(h,r,t)\} 
 
   - h: head entity, r:relation, tail entity
 
@@ -166,13 +165,13 @@ Pretraining based
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2023-01-19-kala-knowledge-augmented-language-model-adaptation/image_006.png" class="img-fluid rounded z-depth-1" %}
 
-- **KFM Method**
+  - **KFM Method**
 
-  - feature-wise affine transformation기반의 연산임
+    - feature-wise affine transformation기반의 연산임
 
-  - Layer normalization 전에 knowledge를 나타내는 entity, mention, graph를 input으로 넣어 augment하는 과정이 진행됨
+    - Layer normalization 전에 knowledge를 나타내는 entity, mention, graph를 input으로 넣어 augment하는 과정이 진행됨
 
-  - 해당 연산을 통해 learnable parameter를 얻음
+    - 해당 연산을 통해 learnable parameter를 얻음
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2023-01-19-kala-knowledge-augmented-language-model-adaptation/image_007.png" class="img-fluid rounded z-depth-1" %}
 
@@ -197,13 +196,13 @@ Pretraining based
   - (New_York, instance of, city) and (New_York, country, USA)
 
 - GNN을 통해 3.1에서 정의한 entity memory의 entity embedding을 보강해줌
-  : 이때 neighborhood aggregation scheme을 사용함
+: 이때 neighborhood aggregation scheme을 사용함
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2023-01-19-kala-knowledge-augmented-language-model-adaptation/image_009.png" class="img-fluid rounded z-depth-1" %}
 
-- aggregation이 너무 단순하면 relative importance를 반영할 수 없음
+  - aggregation이 너무 단순하면 relative importance를 반영할 수 없음
 
-- attentive scheme을 사용하여 target entity에 각 entity의 importance를 weight로 할당해줌
+  - attentive scheme을 사용하여 target entity에 각 entity의 importance를 weight로 할당해줌
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2023-01-19-kala-knowledge-augmented-language-model-adaptation/image_010.png" class="img-fluid rounded z-depth-1" %}
 
@@ -263,7 +262,7 @@ Finetuning, TAPT, DAPT, Other knowledge models
 
 - layer norm 횟수도 함께 실험했음
 
-- 두가지를 모두 사용하는것이 가장 효과적이었음
+- 두가지를 모두 사용하는것이 가장 효과적이었음 
 
 → knowledge integration을 적절하게 해준것으로 해석할 수 있음
 
@@ -327,7 +326,7 @@ Finetuning, TAPT, DAPT, Other knowledge models
 
 - 하지만 entity논문들은 대부분 tricky할 수 밖에 없다는 아쉬움이 있음
 
-### 논문에서 기억하면 좋을 것들
+### 논문에서 기억하면 좋을 것들 
 
 (향후 논문 작성시 reference에 도움이 될 소스들)
 
@@ -335,7 +334,7 @@ Finetuning, TAPT, DAPT, Other knowledge models
 
 ### 이런 논문을 읽는 이유
 
-- Real world data는 대부분 specific하며 general knowledge로는 성능 향상에 한계가 있음 (여기서의 specific은 특정 domain data라고 정의하기보다 vocab과 text style이 general LM과 차이가 발생한다는 의미임)
+- Real world data는 대부분 specific하며 general knowledge로는 성능 향상에 한계가 있음 (여기서의  specific은 특정 domain data라고 정의하기보다 vocab과 text style이 general LM과 차이가 발생한다는 의미임)
 
 - LLM으로도 문제를 해결할 수 있겠지만 짧은 시간 효과적인 학습을 통해 충분히 좋은 성능을 보일 수 있는 연구 분야도 존재함
 

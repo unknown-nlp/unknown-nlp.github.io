@@ -1,33 +1,34 @@
 ---
 categories:
-  - paper-reviews
-date: "2024-02-20 00:00:00"
+- paper-reviews
+date: '2024-02-20 00:00:00'
 description: 논문 리뷰 - Retrieval, ICL, QA, Knowledge 관련 연구
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-  - bert
-  - gpt
-  - icl
-  - knowledge
-  - language-model
-  - llm
-  - paper-review
-  - qa
-  - retrieval
+- bert
+- gpt
+- icl
+- knowledge
+- language-model
+- llm
+- paper-review
+- qa
+- retrieval
 thumbnail: assets/img/posts/2024-02-20-wikichat-stopping-the-hallucination-of-large-language-model/thumbnail.jpg
-title: "WikiChat: Stopping the Hallucination of Large Language Model Chatbots by Few-Shot
-  Grounding on Wikipedia"
+title: 'WikiChat: Stopping the Hallucination of Large Language Model Chatbots by Few-Shot
+  Grounding on Wikipedia'
 ---
 
 **논문 정보**
-
 - **Date**: 2024-02-20
 - **Reviewer**: 김재희
 - **Property**: Retrieval, ICL, QA, Knowledge
 
+
 ---
+
 
 ---
 
@@ -43,21 +44,21 @@ title: "WikiChat: Stopping the Hallucination of Large Language Model Chatbots by
 
 ⇒ 기존 접근 방법 : Retrieval-based(RALM) / Knowledge Editing(ROME)
 
-- RALM : Query 관련 정보를 Retrieval하여 추가 정보로 입력하자.
+- RALM : Query 관련 정보를 Retrieval하여 추가 정보로 입력하자. 
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-02-20-wikichat-stopping-the-hallucination-of-large-language-model/image_000.png" class="img-fluid rounded z-depth-1" %}
 
-- Retrieve된 정보가 정확한 지식을 포함한다고 보장 X
+  - Retrieve된 정보가 정확한 지식을 포함한다고 보장 X
 
-- Retrieve된 정보를 입력으로 생성된 문장이 Retrieve된 정보를 충분히 사용하여 생성했다고 보장 X
+  - Retrieve된 정보를 입력으로 생성된 문장이 Retrieve된 정보를 충분히 사용하여 생성했다고 보장 X
 
-- Retrieve된 문장으로 인해 생성 시 사용되는 정보량(Token 수)가 매우 많아짐 —> 생성 난이도 상승/Input Length 제한 발생
+  - Retrieve된 문장으로 인해 생성 시 사용되는 정보량(Token 수)가 매우 많아짐 —> 생성 난이도 상승/Input Length 제한 발생
 
-- ROME : 모델의 내부 파라미터를 수정하여 지식을 업데이트하자.
+- ROME : 모델의 내부 파라미터를 수정하여 지식을 업데이트하자. 
 
-  - 걍 어렵다.
+  - 걍 어렵다. 
 
-  - 여전히 안된다.
+  - 여전히 안된다. 
 
   - 하지만 신기하쥬?
 
@@ -69,21 +70,22 @@ title: "WikiChat: Stopping the Hallucination of Large Language Model Chatbots by
 
 ⇒ 일반적으로 사람들이 잘 알고 있는 지식을 이용하여 데이터셋 구성 → Corpus Distribution 내 Head에 해당하는 내용으로만 평가 진행
 
-- 모델 역시 Head에 해당하는 지식은 학습이 쉬움
+  - 모델 역시 Head에 해당하는 지식은 학습이 쉬움
 
 ⇒ Pretrain Corpus에 자주 등장했기 때문
 
-- 사람도 구축하기 어려운 Tail 지식들을 이용해서 평가하는 것이 중요
+  - 사람도 구축하기 어려운 Tail 지식들을 이용해서 평가하는 것이 중요
 
 > **Contribution
-> **1. 광범위한 지식, 그 중에서도 모델 학습 이후 발생하는 지식을 이용한 효과적인 대화 모델 프레임워크 및 평가 방법론 제안 2. Knowledge Base 변경을 통해 개인정보 및 기업 내부 정보에 대해서도 활용 가능
+**1. 광범위한 지식, 그 중에서도 모델 학습 이후 발생하는 지식을 이용한 효과적인 대화 모델 프레임워크 및 평가 방법론 제안
+2. Knowledge Base 변경을 통해 개인정보 및 기업 내부 정보에 대해서도 활용 가능
 
 ## 2. Method
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-02-20-wikichat-stopping-the-hallucination-of-large-language-model/image_001.png" class="img-fluid rounded z-depth-1" %}
 
 > 7단계로 구성된 Retrieve-and-Generate Framework
-> → 기존 LLM을 이용하여 Prompting + Retrieval의 결합으로 Knowledge-Grounded Response 생성
+→ 기존 LLM을 이용하여 Prompting + Retrieval의 결합으로 Knowledge-Grounded Response 생성
 
 - LLM : GPT-3.5/GPT-4/LLaMA-1
 
@@ -101,7 +103,7 @@ title: "WikiChat: Stopping the Hallucination of Large Language Model Chatbots by
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-02-20-wikichat-stopping-the-hallucination-of-large-language-model/image_002.png" class="img-fluid rounded z-depth-1" %}
 
-- Retriever가 N\_{IR}개의 Passage 반환
+- Retriever가 N_{IR}개의 Passage 반환
 
 ### 2단계 Passage 내 필요 정보 추출
 
@@ -123,7 +125,7 @@ title: "WikiChat: Stopping the Hallucination of Large Language Model Chatbots by
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-02-20-wikichat-stopping-the-hallucination-of-large-language-model/image_004.png" class="img-fluid rounded z-depth-1" %}
 
-### 4단계 Response 분해
+### 4단계 Response 분해 
 
 - 3단계에서 생성된 Response 초안을 Claim 단위로 분해
 
@@ -139,7 +141,7 @@ title: "WikiChat: Stopping the Hallucination of Large Language Model Chatbots by
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-02-20-wikichat-stopping-the-hallucination-of-large-language-model/image_006.png" class="img-fluid rounded z-depth-1" %}
 
-- 각각의 Claim에 대해 Retriever을 이용하여 N\_{evidence}개의 Passage 탐색
+- 각각의 Claim에 대해 Retriever을 이용하여 N_{evidence}개의 Passage 탐색
 
 ### 5단계 Claim 검증
 
@@ -179,7 +181,7 @@ title: "WikiChat: Stopping the Hallucination of Large Language Model Chatbots by
 
 - 6단계에서 생성한 Response를 다시 Prompting하여 Feedback 작성 → 반영
 
-- Feedback 기준
+- Feedback 기준 
 
   - Relevance : User Query와 관련된 Response인가
 
@@ -211,9 +213,9 @@ title: "WikiChat: Stopping the Hallucination of Large Language Model Chatbots by
 
   - Wikipedia 조회수를 기준으로 선택
 
-    - 조회수가 높을수록 웹 상에 자주 언급되는 Knowledge라고 가정(자주 사용되는 proxy)
+    - 조회수가 높을수록 웹 상에 자주 언급되는 Knowledge라고 가정(자주 사용되는 proxy) 
 
-  - Head : Wikipedia 내 2020년(LLM들이 학습된 데이터 시점)까지의 데이터 중 68M ~ 16M회 조회된 페이지
+  - Head : Wikipedia 내 2020년(LLM들이 학습된 데이터 시점)까지의 데이터 중 68M  ~ 16M회 조회된 페이지
 
   - Tail : 1000회 이하로 조회된 데이터
 
@@ -225,7 +227,7 @@ title: "WikiChat: Stopping the Hallucination of Large Language Model Chatbots by
 
 ## 3. Evaluation
 
-### Factuality
+### Factuality 
 
 - 답변이 정말 사실 정보를 바탕으로 생성되었는지 평가
 
@@ -233,7 +235,7 @@ title: "WikiChat: Stopping the Hallucination of Large Language Model Chatbots by
 
   - response를 claim 단위로 분해
 
-  - 각각의 claim에 대해 evidence를 Retriever을 통해 산출
+  - 각각의 claim에 대해 evidence를 Retriever을 통해 산출 
 
   - 각각의 claim이 evidence를 기반으로 사실 정보인지 판단 ⇒ GPT-4가 잘 수행하지 못하여 Annotator 고용
 
@@ -259,23 +261,23 @@ title: "WikiChat: Stopping the Hallucination of Large Language Model Chatbots by
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-02-20-wikichat-stopping-the-hallucination-of-large-language-model/image_012.png" class="img-fluid rounded z-depth-1" %}
 
-- All
+- All 
 
   - WikiChat 모델이 기존 모델 대비 매우 높은 Factuality 달성
 
 ⇒ LLaMA의 경우 40% → 91% 상승
 
-⇒ GPT-4에 대한 Distillation + 프레임워크를 통한 사실성 확보
+⇒ GPT-4에 대한 Distillation + 프레임워크를 통한 사실성 확보 
 
-- GPT Series 역시 Factualtiy 상승
+  - GPT Series 역시 Factualtiy 상승
 
-- 대화 점수(5개) 역시 매우 높은 점수 달성
+  - 대화 점수(5개) 역시 매우 높은 점수 달성
 
-  - 기존 점수와 비슷하거나 높은 점수 달성
+    - 기존 점수와 비슷하거나 높은 점수 달성
 
-  - Factuality를 확보하면서 대화 품질 유지
+    - Factuality를 확보하면서 대화 품질 유지
 
-    - feedback→refinement를 통한 품질 향상
+      - feedback→refinement를 통한 품질 향상
 
 - Head vs Tail
 
@@ -285,11 +287,11 @@ title: "WikiChat: Stopping the Hallucination of Large Language Model Chatbots by
 
 ⇒ 기존 Factuality Benchmark 데이터셋들의 한계점이라고 지적
 
-- Tail 에서는 GPT Series 역시 매우 높은 성능 향상 관찰
+  - Tail 에서는 GPT Series 역시 매우 높은 성능 향상 관찰
 
-  - 웹 상에 잘 존재하지 않는 데이터들에 대해 Model 내부의 Knowledge를 사용하기 힘들 때 In Context Learning을 통해 사용하도록 유도한 결과
+    - 웹 상에 잘 존재하지 않는 데이터들에 대해 Model 내부의 Knowledge를 사용하기 힘들 때 In Context Learning을 통해 사용하도록 유도한 결과
 
-- Recent
+- Recent 
 
   - Recent 데이터는 LLM들이 아직 학습하지 않은 데이터
 
@@ -335,7 +337,7 @@ title: "WikiChat: Stopping the Hallucination of Large Language Model Chatbots by
 
 ## 7. Conclusion
 
-- 숫자로 보면 매우 좋은 방법론처럼 보임.
+- 숫자로 보면 매우 좋은 방법론처럼 보임. 
 
 - Prompting과 Retrieval을 극단으로 결합한 프레임워크
 

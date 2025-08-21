@@ -1,29 +1,30 @@
 ---
 categories:
-  - paper-reviews
-date: "2023-09-12 00:00:00"
+- paper-reviews
+date: '2023-09-12 00:00:00'
 description: "논문 리뷰 - LM, Retrieval, \bDomain Adaptation 관련 연구"
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-  - "\bdomain adaptation"
-  - language-model
-  - llm
-  - lm
-  - paper-review
-  - retrieval
+- "\bdomain adaptation"
+- language-model
+- llm
+- lm
+- paper-review
+- retrieval
 thumbnail: assets/img/posts/2023-09-12-silo-language-models-isolating-legal-risk-in-a/thumbnail.jpg
-title: "SILO LANGUAGE MODELS: ISOLATING LEGAL RISK IN A NONPARAMETRIC DATASTORE"
+title: 'SILO LANGUAGE MODELS: ISOLATING LEGAL RISK IN A NONPARAMETRIC DATASTORE'
 ---
 
 **논문 정보**
-
 - **Date**: 2023-09-12
 - **Reviewer**: 김재희
 - **Property**: LM, Retrieval, Domain Adaptation
 
+
 ---
+
 
 ---
 
@@ -33,7 +34,7 @@ title: "SILO LANGUAGE MODELS: ISOLATING LEGAL RISK IN A NONPARAMETRIC DATASTORE"
 
 - 학습 데이터 및 Retrieve-and-Augment 방법론에 따라 Domain 별 성능 평가 진행
 
-- 논문에서 제기하는 RQ : 저작권, 보안 이슈에서 자유로운 LLM을 학습/이용하는 상황을 가정할 때, Inference 성능 극대화할 수 있는 방법은 무엇일까?
+- 논문에서 제기하는 RQ : 저작권, 보안 이슈에서 자유로운 LLM을 학습/이용하는 상황을 가정할 때, Inference 성능 극대화할 수 있는 방법은 무엇일까? 
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2023-09-12-silo-language-models-isolating-legal-risk-in-a/image_000.png" class="img-fluid rounded z-depth-1" %}
 
@@ -45,33 +46,33 @@ title: "SILO LANGUAGE MODELS: ISOLATING LEGAL RISK IN A NONPARAMETRIC DATASTORE"
 
 ### 저작권을 고려한 Pretrain Corpus 수집이 문제가 되는 이유?
 
-- 저작권을 고려하는 순간(low legal risk) 수집할 수 있는 데이터의 크기와 도메인이 제한되게 됨
+  - 저작권을 고려하는 순간(low legal risk) 수집할 수 있는 데이터의 크기와 도메인이 제한되게 됨
 
-- 작은 크기와 제한된 도메인은 LM의 Domain Generalization 능력을 저하할 수 있음
+  - 작은 크기와 제한된 도메인은 LM의 Domain Generalization 능력을 저하할 수 있음
 
-  - Domain : 코드 생성, 뉴스 분야, 수학, 논문 등
+    - Domain : 코드 생성, 뉴스 분야, 수학, 논문 등
 
-- LLM의 수익화 시 현실적으로 발생 가능한 가장 큰 문제점 중 하나
+  - LLM의 수익화 시 현실적으로 발생 가능한 가장 큰 문제점 중 하나
 
 ### 저작권이 중요한 데이터(high legal risk) 활용 방안
 
-- 논문에는 해당 시나리오의 구체적 예시가 주어져 있지는 않음
+  - 논문에는 해당 시나리오의 구체적 예시가 주어져 있지는 않음
 
-- 단순히 high legal risk 데이터를 추론 시점에 활용가능할 경우를 가정
+  - 단순히 high legal risk 데이터를 추론 시점에 활용가능할 경우를 가정
 
-- (재희) : 모델 훈련과 사용 주체가 다를 경우 발생 가능한 시나리오
+  - (재희) : 모델 훈련과 사용 주체가 다를 경우 발생 가능한 시나리오
 
-  - 학습 주체 : 네이버
+    - 학습 주체 : 네이버
 
-    - 모델 훈련 능력 및 인프라가 갖추어져 있으나, 특정 도메인 or legal risk가 있는 데이터를 확보할 수 없는 주체
+      - 모델 훈련 능력 및 인프라가 갖추어져 있으나, 특정 도메인 or legal risk가 있는 데이터를 확보할 수 없는 주체
 
-    - 증권사 내부 리포트에 대한 데이터 확보 불가 or 저작권 문제 해소 불가 → 증권 데이터를 Pretrain Corpus에 포함할 수 없음
+      - 증권사 내부 리포트에 대한 데이터 확보 불가 or 저작권 문제 해소 불가 → 증권 데이터를 Pretrain Corpus에 포함할 수 없음
 
-  - 사용 주체 : 토스
+    - 사용 주체 : 토스
 
-    - 모델 사용하고자 하는 고객사
+      - 모델 사용하고자 하는 고객사
 
-    - 사내 데이터로서 증권 리포트 데이터 사용 가능 but 모델이 학습하기를 원치 않는 상황
+      - 사내 데이터로서 증권 리포트 데이터 사용 가능 but 모델이 학습하기를 원치 않는 상황
 
 → 외부 유출 등에 대한 우려
 
@@ -99,7 +100,7 @@ title: "SILO LANGUAGE MODELS: ISOLATING LEGAL RISK IN A NONPARAMETRIC DATASTORE"
 
   - PD(Public Domain) : 저작권에 대한 우려가 전혀 없는 완전 공개 데이터. 가장 손쉽게 활용 가능
 
-  - SW(Permissively Licensed Software) : 저작권에 대한 제한이 매우 소극적인 데이터. Apache 라이센스 등 활용에 있어 제한은 없으나 저작권 조항이 유지되어야 하는 특징이 있음.
+  - SW(Permissively Licensed Software) : 저작권에 대한 제한이 매우 소극적인 데이터. Apache 라이센스 등 활용에 있어 제한은 없으나 저작권 조항이 유지되어야 하는 특징이 있음. 
 
   - BY(Attribution License) : 활용에 제한은 없으나, 저작권은 원저작자에게 귀속되는 데이터. 모델 활용 관점에서는 BY 데이터가 학습에 사용된다면, 생성문이 원저작자에 귀속되는 문제가 발생
 
@@ -111,7 +112,7 @@ title: "SILO LANGUAGE MODELS: ISOLATING LEGAL RISK IN A NONPARAMETRIC DATASTORE"
 
     - Legal : 공문서 중심의 데이터셋으로 대부분 차지
 
-    - Books, Science : 논문 및 예전 서적 중심으로 일부 차지
+    - Books, Science : 논문 및 예전 서적 중심으로 일부 차지 
 
   - PD,SW : 일부 완화된 분포를 보이면서 Code가 매우 많은 데이터 차지
 
@@ -171,15 +172,15 @@ title: "SILO LANGUAGE MODELS: ISOLATING LEGAL RISK IN A NONPARAMETRIC DATASTORE"
 
 **⇒ 학습 데이터와 평가 데이터 간의 Domain 일치 여부가 성능에 큰 영향을 미침**
 
-{% include figure.liquid loading="eager" path="assets/img/posts/2023-09-12-silo-language-models-isolating-legal-risk-in-a/image_004.png" class="img-fluid rounded z-depth-1" %}
+![Image](https://prod-files-secure.s3.us-west-2.amazonaws.com/3acbc979-3f43-48f4-8683-229c6104ec76/86b9b5de-e2ec-4f1a-8366-814015c3dbd8/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=ASIAZI2LB466SREOF5EE%2F20250821%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20250821T020654Z&X-Amz-Expires=3600&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEJr%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJHMEUCIAJXAjKH0BCuP2hzPQdYTs1fytDGiSc5cEU95xMRbOz7AiEA5Ho6wZYegiicRiwSm1I6fIUjXtqeA2wjbn7QrqekluUqiAQI4%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FARAAGgw2Mzc0MjMxODM4MDUiDIJP80FVuKeyE%2B2sjircA6L%2FzrfW1sxZKpYUg4E78u8e04%2FKxYx0XvULfndcpe7MCta1tRZvWzly9Tv8B%2FOIzvVh2W7V2qEeP3s1mWB%2B7%2Fh6LlBaMf%2BPvxwo%2F1exMskYXnW5Pzfymg61kTPJGYsYnr8v4q0P87K3rt1eowZrB%2FeSaNkxh%2BpLS2nh2dF8RQXQbaraTXoVc6xjaVMbtFs4vtkAyZNChW0eu%2BmIDXJM3RIilM%2B%2Bl27EqOeoiRR%2FBcglD9UCuUxFtmeYNcidyCsnBfR8dGv%2FdZgC0P4p%2BoWwIJvvc373aqnn0jqHh%2BwFcG%2B71qUUoxcPkzgMeqsKvkbZbaYmWVPc3DCW3EqBCE8p%2FobEsApj2T12KcPCNlGpNrV7foio%2Ft%2BCcvkVJF9HF2cwKkl%2BWyDPPx%2BEGlp9MkXYP2lF96TztLuRQDR4Hjki8Uxd9dT7HNOqZ6w7cwhS64gqlOyo3rnw1E2%2B3zla3t4DUhqMeaxQoWEwxTVwrap6cXhEDghdGZM0CCnL%2F%2B2a9LLI4OneISReZqFiBFnyME0LSffqxWaSUuUDX0zySZOLBBDUyTrdSKjT4GTYqvHAd9NCYI2ACQ9GV1kXR5o3nUxbkpbL%2BFadeZefFES3Wjg5B84YSPTeMrPCQRr8w%2BijMLn6mcUGOqUBVcQOmhQoB1f8%2B57AsH0ONOpJLtsyBqq52tF8Ne3dBi2II9Imvu7W09eYoeXeiBnwuMOgr%2BvFqi3VGTChkEsNDiQ1WgytDkm0p0KEflYTNUoWRT78%2BwXgWr%2BgaBNYJq1dW6XR4GxzkEp%2Bza4WQSNAoo3tg7Rt9QRarKRFPkAjK%2Fr0Lu4dWaGEnsCXovCbkd73EwcIS5Z00dMM74wjg9w%2Bt%2Fqs4RJz&X-Amz-Signature=5808d4db9c61ab18624bffa8314ebe2c99dcf817929f61ae14a6e6c544b1bc94&X-Amz-SignedHeaders=host&x-amz-checksum-mode=ENABLED&x-id=GetObject)
 
 ## 4. Augmented Methods
 
-- OOD 도메인의 성능을 높이기 위해 KNN-LM과 Retrieval-In-Context LM (Augmented-LM, RIC LM) 두가지 방법론 이용
+- OOD 도메인의 성능을 높이기 위해 KNN-LM과 Retrieval-In-Context LM (Augmented-LM, RIC LM) 두가지 방법론 이용 
 
 ### KNN-LM
 
-{% include figure.liquid loading="eager" path="assets/img/posts/2023-09-12-silo-language-models-isolating-legal-risk-in-a/image_005.png" class="img-fluid rounded z-depth-1" %}
+{% include figure.liquid loading="eager" path="assets/img/posts/2023-09-12-silo-language-models-isolating-legal-risk-in-a/image_004.png" class="img-fluid rounded z-depth-1" %}
 
 - test 도메인의 훈련 데이터를 datastore로 설정하고, Retrieval과 생성을 Fusion하는 방법론
 
@@ -191,17 +192,17 @@ title: "SILO LANGUAGE MODELS: ISOLATING LEGAL RISK IN A NONPARAMETRIC DATASTORE"
 
 Retrieval의 확률 변환 과정
 
-{% include figure.liquid loading="eager" path="assets/img/posts/2023-09-12-silo-language-models-isolating-legal-risk-in-a/image_006.png" class="img-fluid rounded z-depth-1" %}
+{% include figure.liquid loading="eager" path="assets/img/posts/2023-09-12-silo-language-models-isolating-legal-risk-in-a/image_005.png" class="img-fluid rounded z-depth-1" %}
 
 최종 생성 확률
 
-{% include figure.liquid loading="eager" path="assets/img/posts/2023-09-12-silo-language-models-isolating-legal-risk-in-a/image_007.png" class="img-fluid rounded z-depth-1" %}
+{% include figure.liquid loading="eager" path="assets/img/posts/2023-09-12-silo-language-models-isolating-legal-risk-in-a/image_006.png" class="img-fluid rounded z-depth-1" %}
 
 ### RIC LM
 
 - test 도메인의 훈련 데이터를 datastore로 설정하고, Retrieve된 text를 In-Context Learning으로서 활용하는 방법론
 
-- Retriever : BM25, OOD Retrieval 시 가장 안정적인 성능을 보이는 방법론이기 때문에 선택한듯.
+- Retriever : BM25, OOD Retrieval 시 가장 안정적인 성능을 보이는 방법론이기 때문에 선택한듯. 
 
 - ICL 시 사용되는 모든 M개의 Retrieved Text는 단순 concat을 통해 활용
 
@@ -209,7 +210,7 @@ Retrieval의 확률 변환 과정
 
 ### Augmented Methods 적용 시 성능 변화
 
-{% include figure.liquid loading="eager" path="assets/img/posts/2023-09-12-silo-language-models-isolating-legal-risk-in-a/image_008.png" class="img-fluid rounded z-depth-1" %}
+{% include figure.liquid loading="eager" path="assets/img/posts/2023-09-12-silo-language-models-isolating-legal-risk-in-a/image_007.png" class="img-fluid rounded z-depth-1" %}
 
 - 기존 LLM에 Retrieval 모듈 추가 시 일관된 성능 향상 기록
 
@@ -225,7 +226,7 @@ Retrieval의 확률 변환 과정
 
 - Data Store의 크기를 변화하면서 두 방법론의 성능 변화 관찰
 
-{% include figure.liquid loading="eager" path="assets/img/posts/2023-09-12-silo-language-models-isolating-legal-risk-in-a/image_009.png" class="img-fluid rounded z-depth-1" %}
+{% include figure.liquid loading="eager" path="assets/img/posts/2023-09-12-silo-language-models-isolating-legal-risk-in-a/image_008.png" class="img-fluid rounded z-depth-1" %}
 
 - Data Store의 크기가 커질수록 성능이 향상되는 모습을 보임
 
@@ -245,7 +246,7 @@ Retrieval의 확률 변환 과정
 
 → In-Domain(Pythia)에서 그러한 모습을 보임
 
-{% include figure.liquid loading="eager" path="assets/img/posts/2023-09-12-silo-language-models-isolating-legal-risk-in-a/image_010.png" class="img-fluid rounded z-depth-1" %}
+{% include figure.liquid loading="eager" path="assets/img/posts/2023-09-12-silo-language-models-isolating-legal-risk-in-a/image_009.png" class="img-fluid rounded z-depth-1" %}
 
 - 2번 검증을 위해선 Datastore가 커질수록 KNN-LM의 성능 향상폭이 커야 함
 
@@ -253,13 +254,13 @@ Retrieval의 확률 변환 과정
 
 ⇒ 자세한 검증이 있으면 좋았겠지만, 논문의 주요 포인트가 아니어서 그런지 이 정도 실험에 그침
 
-{% include figure.liquid loading="eager" path="assets/img/posts/2023-09-12-silo-language-models-isolating-legal-risk-in-a/image_011.png" class="img-fluid rounded z-depth-1" %}
+{% include figure.liquid loading="eager" path="assets/img/posts/2023-09-12-silo-language-models-isolating-legal-risk-in-a/image_010.png" class="img-fluid rounded z-depth-1" %}
 
 ### Retrieval을 통한 성능 향상 vs Retrieval을 통한 일반화 성능 향상
 
 - 두가지 가설이 전체 성능 향상에 미치는 영향을 분석하기 위해 다음 실험 진행
 
-{% include figure.liquid loading="eager" path="assets/img/posts/2023-09-12-silo-language-models-isolating-legal-risk-in-a/image_012.png" class="img-fluid rounded z-depth-1" %}
+{% include figure.liquid loading="eager" path="assets/img/posts/2023-09-12-silo-language-models-isolating-legal-risk-in-a/image_011.png" class="img-fluid rounded z-depth-1" %}
 
 - Retrieval와 LM으로 사용하는 모델을 달리하며 실험 진행
 
@@ -269,7 +270,7 @@ Retrieval의 확률 변환 과정
 
   - (Pythia, X)와 비교를 통해 Retrieval을 통한 성능 향상 폭 확인 가능
 
-- 2번 (Pythia, Ours) : Retrieval는 OOD인 경우
+- 2번 (Pythia, Ours) : Retrieval는 OOD인 경우 
 
   - Retrieval가 OOD더라도 충분한 성능 향상 관찰, 1번과 큰 성능 차이 X
 
@@ -283,9 +284,9 @@ Retrieval의 확률 변환 과정
 
 - 4번 (Ours, Ours) : Retrieval와 LM 모두 OOD 인 경우
 
-  - LM only 보다는 성능이 좋지만, 1, 2, 3에 비해서는 성능 저하 관찰 가능
+  - LM only 보다는 성능이 좋지만, 1, 2, 3에 비해서는 성능 저하 관찰 가능 
 
-⇒ LM의 In-Domain 여부가 매우 중요한 요소
+⇒ LM의 In-Domain 여부가 매우 중요한 요소 
 
 ⇒ Retrieval 적용을 통한 성능 개선 역시 매우 뚜렷
 
@@ -295,15 +296,15 @@ Retrieval의 확률 변환 과정
 
 ## 7. Conclusion
 
-{% include figure.liquid loading="eager" path="assets/img/posts/2023-09-12-silo-language-models-isolating-legal-risk-in-a/image_013.png" class="img-fluid rounded z-depth-1" %}
+{% include figure.liquid loading="eager" path="assets/img/posts/2023-09-12-silo-language-models-isolating-legal-risk-in-a/image_012.png" class="img-fluid rounded z-depth-1" %}
 
 ### 민세원이 돌아왔구나…
 
 - 사실 당연한 문제 상황이고, 당연한 결과물임
 
-  - LM의 OOD 성능이 떨어진다.
+  - LM의 OOD 성능이 떨어진다. 
 
-  - LM에 Retrieval을 통해 성능 개선이 가능하다.
+  - LM에 Retrieval을 통해 성능 개선이 가능하다. 
 
 - 하지만 이를 저작권 문제와 결합시켜서 보다 엄밀한 문제 상황 제기
 
@@ -319,10 +320,10 @@ Retrieval의 확률 변환 과정
 
   - Retrieval가 사용되는 순간 속도 저하가 발생하고, K-nn은 정말 큰 속도 저하 발생
 
-{% include figure.liquid loading="eager" path="assets/img/posts/2023-09-12-silo-language-models-isolating-legal-risk-in-a/image_014.png" class="img-fluid rounded z-depth-1" %}
+{% include figure.liquid loading="eager" path="assets/img/posts/2023-09-12-silo-language-models-isolating-legal-risk-in-a/image_013.png" class="img-fluid rounded z-depth-1" %}
 
 - 민세원님 논문답게 분석과 워딩, 시각화가 무척 좋다…
 
-  - 논문에 써있는 내용도 좋고, 내가 직접 해석할 여지도 충분히 남겨 놓았다.
+  - 논문에 써있는 내용도 좋고, 내가 직접 해석할 여지도 충분히 남겨 놓았다. 
 
 - 결국 문제는 Retrieval을 언제 어떻게 결합하느냐…

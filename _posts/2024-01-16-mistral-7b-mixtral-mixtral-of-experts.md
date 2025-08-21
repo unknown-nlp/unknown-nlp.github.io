@@ -1,28 +1,27 @@
 ---
 categories:
-  - paper-reviews
-date: "2024-01-16 00:00:00"
+- paper-reviews
+date: '2024-01-16 00:00:00'
 description: 논문 리뷰 - LLM 관련 연구
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-  - attention
-  - classification
-  - detection
-  - gpt
-  - llm
-  - nlp
-  - paper-review
-  - pre-training
-  - reasoning
-  - transformer
+- attention
+- classification
+- detection
+- gpt
+- llm
+- nlp
+- paper-review
+- pre-training
+- reasoning
+- transformer
 thumbnail: assets/img/posts/2024-01-16-mistral-7b-mixtral-mixtral-of-experts/thumbnail.jpg
 title: Mistral 7B & Mixtral (Mixtral of Experts)
 ---
 
 **논문 정보**
-
 - **Date**: 2024-01-16
 - **Reviewer**: 준원 장
 - **Property**: LLM
@@ -41,7 +40,7 @@ title: Mistral 7B & Mixtral (Mixtral of Experts)
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-01-16-mistral-7b-mixtral-mixtral-of-experts/image_000.png" class="img-fluid rounded z-depth-1" %}
 
-- Mistral 7B는 Llama2 13B model을 측정한 모든 benchmark에서 이겼으며 mathematics와 code generation에서는 Llama1 34B보다도 좋은 성능을 보임.
+- Mistral  7B는 Llama2 13B model을 측정한 모든 benchmark에서 이겼으며 mathematics와 code generation에서는 Llama1 34B보다도 좋은 성능을 보임.
 
 - Mistral 7B는 기본적으로 Transformer Decoder Architecture를 채택하며 아래 2가지 techniques을 채택하여 efficiency를 달성
 
@@ -63,15 +62,15 @@ title: Mistral 7B & Mixtral (Mixtral of Experts)
 
 → Attention
 
-- number of operations in vanilla attention is _quadratic_ in the sequence length.
+- number of operations in vanilla attention is *quadratic* in the sequence length.
 
-- memory increases _linearly_ with the number of tokens.
+- memory increases *linearly* with the number of tokens.
 
 → Sliding Window Attention
 
-- receptive field : k(attention layer) \* w (window size)
+- receptive field : k(attention layer) * w (window size)
 
-- 이론적으로 4096\*32 \approx 132k을 attention span으로 처리할 수 있는데, w=4096으로 두고 16K sequence을 Flash attention&Xformers을 적용해서 처리하면 vanllia attention대비 2배 빠른 성능을 보인다고 함.
+- 이론적으로 4096*32 \approx 132k을 attention span으로 처리할 수 있는데, w=4096으로 두고 16K sequence을 Flash attention&Xformers을 적용해서 처리하면 vanllia attention대비 2배 빠른 성능을 보인다고 함.
 
 → Rolling Buffer Cache
 
@@ -81,7 +80,7 @@ title: Mistral 7B & Mixtral (Mixtral of Experts)
 
 - (아마 가상화한) cache 메모리를 W로 설정한 다음 timestep i의 key, value 값을 cache memory에 저장하면서 cache 메모리를 효율적으로 사용할 수 있음.
 
-- position는 ‘i mod W’로 두고 W보다 큰 token이 들어오면 cache memory를 overwritten해서 (e.g., 4097 % 4096 = 1 → 1번 position overwritten) cache 메모리가 커지는걸 방지할 수 있음.
+- position는 ‘i mod W’로 두고 W보다 큰 token이 들어오면 cache memory를 overwritten해서 (e.g., 4097 % 4096 = 1 → 1번 position overwritten) cache 메모리가 커지는걸 방지할 수  있음.
 
 - Sequence length가 길어질 때 model quality impact 영향 안미치고 처리가 가능하다고 함.
 
@@ -89,7 +88,7 @@ title: Mistral 7B & Mixtral (Mixtral of Experts)
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-01-16-mistral-7b-mixtral-mixtral-of-experts/image_004.png" class="img-fluid rounded z-depth-1" %}
 
-- generation시에 token을 one-by-one으로 generation하는데 (as each token is conditioned on the previous ones)
+- generation시에 token을 one-by-one으로 generation하는데 (as each token is conditioned on the previous ones) 
 
 - 주어진 prompt는 미리 알기 때문에 cache에 prompt의 k,v값을 pre-fill해서 inference 속도를 향상시킬 수 있음.
 
@@ -104,7 +103,7 @@ title: Mistral 7B & Mixtral (Mixtral of Experts)
 → Evaluation Pipeline을 직접 구축해서 Llama와 Mistral 7B를 아래의 benchmark에 재측정
 
 - **Commonsense Reasoning (0-shot): **Hellaswag [28], Winogrande [21], PIQA [4], SIQA [22],
-  OpenbookQA [19], ARC-Easy, ARC-Challenge [9], CommonsenseQA [24]
+OpenbookQA [19], ARC-Easy, ARC-Challenge [9], CommonsenseQA [24]
 
 - **World Knowledge (5-shot): **NaturalQuestions [16], TriviaQA [15]
 
@@ -115,7 +114,7 @@ title: Mistral 7B & Mixtral (Mixtral of Experts)
 - **Code: **Humaneval [5] (0-shot) and MBPP [2] (3-shot)
 
 - **Popular aggregated results: **MMLU [12] (5-shot), BBH [23] (3-shot), and AGI Eval [29]
-  (3-5-shot, English multiple-choice questions only)
+(3-5-shot, English multiple-choice questions only)
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-01-16-mistral-7b-mixtral-mixtral-of-experts/image_005.png" class="img-fluid rounded z-depth-1" %}
 
@@ -133,7 +132,7 @@ title: Mistral 7B & Mixtral (Mixtral of Experts)
 
 **#### Instruction Finetuning**
 
-- Hugging Face repository에 public하게 풀려있는 instruction sft dataset으로 sft를 진행.
+- Hugging Face repository에 public하게 풀려있는 instruction sft dataset으로 sft를 진행. 
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-01-16-mistral-7b-mixtral-mixtral-of-experts/image_008.png" class="img-fluid rounded z-depth-1" %}
 
@@ -143,7 +142,7 @@ title: Mistral 7B & Mixtral (Mixtral of Experts)
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-01-16-mistral-7b-mixtral-mixtral-of-experts/image_009.png" class="img-fluid rounded z-depth-1" %}
 
-- Routing이란, 컴퓨터 네트워크에서 정보나 데이터 패킷이 출발지부터 목적지까지 최적의 경로를 따라 전송되는 과정.
+- Routing이란, 컴퓨터 네트워크에서 정보나 데이터 패킷이 출발지부터 목적지까지 최적의 경로를 따라 전송되는 과정. 
 
 - 우리가 인터넷에서 웹사이트를 방문하거나 이메일을 보낼 때, 그 정보는 여러 대의 컴퓨터나 스위치(Gateway, L2Access), 라우터 등을 거쳐 수신자에게 도달함.
 
@@ -173,7 +172,7 @@ title: Mistral 7B & Mixtral (Mixtral of Experts)
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-01-16-mistral-7b-mixtral-mixtral-of-experts/image_011.png" class="img-fluid rounded z-depth-1" %}
 
-→ Mistral과 다른점은
+→ Mistral과 다른점은 
 
 - Fully dense context length of 32k tokens. (Sliding Window 적용 X)
 
@@ -191,7 +190,7 @@ title: Mistral 7B & Mixtral (Mixtral of Experts)
 
 → Total parameter count = n이 증가하더라도, K를 고정하면 individual token을 처리하는 active parameter count는 k는 증가하지 않음 (물론 network latency는 증가 당연히..)
 
-- MoE Layer를 Efficient하게 처리하는 방법
+- MoE Layer를 Efficient하게 처리하는 방법 
 
   - Megablocks
 
@@ -205,7 +204,7 @@ title: Mistral 7B & Mixtral (Mixtral of Experts)
 
 - Mixtral 8X7B는 MLP 대신 SwiGLU를 expert function E(x)로 활용함
 
-  - **SwiGLU **
+  - **SwiGLU                                                                                                                                                                                                                                           **
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-01-16-mistral-7b-mixtral-mixtral-of-experts/image_012.png" class="img-fluid rounded z-depth-1" %}
 
@@ -224,7 +223,7 @@ title: Mistral 7B & Mixtral (Mixtral of Experts)
 → Mistral 7B와 마찬가지로 Evaluation Pipeline을 직접 구축해서 Llama2와 Mistral 7B를 아래의 benchmark에 재측정
 
 - **Commonsense Reasoning (0-shot): **Hellaswag [32], Winogrande [26], PIQA [3], SIQA [27],
-  OpenbookQA [22], ARC-Easy, ARC-Challenge [8], CommonsenseQA [30]
+OpenbookQA [22], ARC-Easy, ARC-Challenge [8], CommonsenseQA [30]
 
 - **World Knowledge (5-shot): **NaturalQuestions [20], TriviaQA [19]
 
@@ -235,7 +234,7 @@ title: Mistral 7B & Mixtral (Mixtral of Experts)
 - **Code: **Humaneval [4] (0-shot) and MBPP [1] (3-shot)
 
 - **Popular aggregated results: **MMLU [16] (5-shot), BBH [29] (3-shot), and AGI Eval [34]
-  (3-5-shot, English multiple-choice questions only)
+(3-5-shot, English multiple-choice questions only)
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-01-16-mistral-7b-mixtral-mixtral-of-experts/image_015.png" class="img-fluid rounded z-depth-1" %}
 

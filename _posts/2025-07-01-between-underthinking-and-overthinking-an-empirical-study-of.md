@@ -1,22 +1,21 @@
 ---
 categories:
-  - paper-reviews
-date: "2025-07-01 00:00:00"
+- paper-reviews
+date: '2025-07-01 00:00:00'
 description: 논문 리뷰 - Reasoning 관련 연구
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-  - llm
-  - paper-review
-  - reasoning
+- llm
+- paper-review
+- reasoning
 thumbnail: assets/img/posts/2025-07-01-between-underthinking-and-overthinking-an-empirical-study-of/thumbnail.jpg
-title: "Between Underthinking and Overthinking: An Empirical Study of Reasoning Length
-  and correctness in LLMs"
+title: 'Between Underthinking and Overthinking: An Empirical Study of Reasoning Length
+  and correctness in LLMs'
 ---
 
 **논문 정보**
-
 - **Date**: 2025-07-01
 - **Reviewer**: 준원 장
 - **Property**: Reasoning
@@ -31,7 +30,7 @@ title: "Between Underthinking and Overthinking: An Empirical Study of Reasoning 
 
 - 여튼, 이러한 흐름에 따라 최근에 나온 용어
 
-  - Overthinking phenomenon; simple problems에도 verbose outputs을 생성하는 현상
+  - Overthinking phenomenon;  simple problems에도 verbose outputs을 생성하는 현상
 
 - 그래서 논문은 DeepSeek-1.5B-Distill과 DeepScaler-1.5B-Preview를 가지고 reasoning length와 accuracy를 가지고 체계적인 분석을 수행하겠다!
 
@@ -59,7 +58,7 @@ title: "Between Underthinking and Overthinking: An Empirical Study of Reasoning 
 
 - Model
 
-  - DeepSeek-1.5B-Distill (Denoted as R1-Distill)
+  - DeepSeek-1.5B-Distill (Denoted as R1-Distill) 
 
   - DeepScaler-1.5B-Preview (Denoted as R1-Preview)
 
@@ -73,7 +72,7 @@ title: "Between Underthinking and Overthinking: An Empirical Study of Reasoning 
 
   - temperature T = 1.0 (most calibrated)
 
-  - top-p = 1
+  - top-p = 1 
 
 - Notations
 
@@ -81,7 +80,7 @@ title: "Between Underthinking and Overthinking: An Empirical Study of Reasoning 
 
   - # of completions: N
 
-  - {(o(q)_i , l(q)\_i , c(q)\_i )}^{N −1}_{i=0}
+  - {(o(q)_i , l(q)_i , c(q)_i )}^{N −1}_{i=0}
 
     - o(): output
 
@@ -143,19 +142,19 @@ title: "Between Underthinking and Overthinking: An Empirical Study of Reasoning 
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2025-07-01-between-underthinking-and-overthinking-an-empirical-study-of/image_004.png" class="img-fluid rounded z-depth-1" %}
 
-- Q^{easy}_{\cap} = Q^{easy}_{i} \cap Q^{easy}\_{j}
+- Q^{easy}_{\cap} = Q^{easy}_{i} \cap Q^{easy}_{j}
 
-- Q^{easy}_{i/j} = Q^{easy}_{i} / Q^{easy}\_{j} > M_i 에서만 쉬운 문제
+- Q^{easy}_{i/j} = Q^{easy}_{i} /  Q^{easy}_{j} > M_i  에서만 쉬운 문제
 
-- Q^{easy}_{j/i} = Q^{easy}_{j} / Q^{easy}\_{i} > M_j에서만 쉬운 문제
+- Q^{easy}_{j/i} = Q^{easy}_{j} /  Q^{easy}_{i} > M_j에서만 쉬운 문제 
 
 - 보편적으로 쉬운 문제가 아니라 another model’s advantage set (다른모델에서 쉬운 문제)에서 오히려 lengthy generation을 보임
 
-- signficant로 보면 M_i → M_j-Adv Set을 풀때 보다 lengthy해짐
+- signficant로 보면 M_i  → M_j-Adv Set을 풀때 보다 lengthy해짐
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2025-07-01-between-underthinking-and-overthinking-an-empirical-study-of/image_005.png" class="img-fluid rounded z-depth-1" %}
 
-- hard question에서는 Q^{hard}\_{\cap}에서 보다 another model’s advantage set에서 lengthy해질 것을 기대했으나 그렇진 않음
+- hard question에서는 Q^{hard}_{\cap}에서 보다 another model’s advantage set에서 lengthy해질 것을 기대했으나 그렇진 않음
 
   - hard question에서 clear pattern은 없음
 
@@ -163,7 +162,7 @@ title: "Between Underthinking and Overthinking: An Empirical Study of Reasoning 
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2025-07-01-between-underthinking-and-overthinking-an-empirical-study-of/image_006.png" class="img-fluid rounded z-depth-1" %}
 
-- (어떻게 실험했는지는 모르겠는데..) token length가 짧아질수록 accuracy가 올라간다.
+- (어떻게 실험했는지는 모르겠는데..) token length가 짧아질수록 accuracy가 올라간다. 
 
 - 위에 실험을 기반으로 token legnth가 짧으니 확률적으로 당연히 accuracy가 높은 답변일수록 PPL도 낮을 것
 
@@ -191,13 +190,13 @@ title: "Between Underthinking and Overthinking: An Empirical Study of Reasoning 
 
 - SimPO가 진행됨에 따라 incorrect response의 생성이 줄어들었다.
 
-→ (준원) 해석을 해보면,
+→ (준원) 해석을 해보면, 
 
-- 어짜피 맞을 문제는 2 completion 다 짧을거였으니 그 중에서도 짧게 생성하도록 model 학습
+  - 어짜피 맞을 문제는 2 completion 다 짧을거였으니 그 중에서도 짧게 생성하도록 model 학습
 
-- 틀린 문제는 2 completion 다 길게 생성했을것이나 (그 중 하나는 조금이라도 짧게 생성했을테니) 학습이 됨에 따라 조금씩 짧게 생성하도록 했을 것
+  - 틀린 문제는 2 completion 다 길게 생성했을것이나 (그 중 하나는 조금이라도 짧게 생성했을테니) 학습이 됨에 따라 조금씩 짧게 생성하도록 했을 것
 
-## 7. Conclusion & Limitation
+## 7. Conclusion &  Limitation
 
 - generation length와 final answer correctness에 대해서 심도 있는 분석
 

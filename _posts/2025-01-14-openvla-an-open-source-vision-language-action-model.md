@@ -1,26 +1,25 @@
 ---
 categories:
-  - paper-reviews
-date: "2025-01-14 00:00:00"
+- paper-reviews
+date: '2025-01-14 00:00:00'
 description: 논문 리뷰
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-  - diffusion
-  - embedding
-  - fine-tuning
-  - language-model
-  - llm
-  - paper-review
-  - transformer
-  - vision
+- diffusion
+- embedding
+- fine-tuning
+- language-model
+- llm
+- paper-review
+- transformer
+- vision
 thumbnail: assets/img/posts/2025-01-14-openvla-an-open-source-vision-language-action-model/thumbnail.jpg
-title: "OpenVLA: An Open-Source Vision-Language-Action Model"
+title: 'OpenVLA: An Open-Source Vision-Language-Action Model'
 ---
 
 **논문 정보**
-
 - **Date**: 2025-01-14
 - **Reviewer**: 전민진
 
@@ -42,7 +41,7 @@ title: "OpenVLA: An Open-Source Vision-Language-Action Model"
 
   - 특히 FT에서 압도적인 성능을 보임
 
-    - LoRA로 fine-tuning이 가능하며, quantization을 해도 큰 hit ratio drop이 없음
+    - LoRA로 fine-tuning이 가능하며, quantization을 해도 큰 hit ratio drop이 없음 
 
 - 어떻게 모델을 구상하면 좋은지에 대한 insight가 많이 나와 있음
 
@@ -66,11 +65,11 @@ title: "OpenVLA: An Open-Source Vision-Language-Action Model"
 
 > multi-robot dataset은 일종의 multi-ligual dataset느낌으로 접근해볼 수 있지 않을까?
 
-- 논문의 저자들이 지적하는 기존 연구의 문제점
+  - 논문의 저자들이 지적하는 기존 연구의 문제점
 
-  - current model are closed
+    - current model are closed
 
-  - 새로운 로봇, 환경, 태스크에 사용하고 adapting하기에 최고의 방안을 제공하지 않음
+    - 새로운 로봇, 환경, 태스크에 사용하고 adapting하기에 최고의 방안을 제공하지 않음
 
 - 970K의 방대한 데이터셋에 대해 pretrained된 fully open source VLA model, OpenVLA를 제안
 
@@ -110,15 +109,15 @@ title: "OpenVLA: An Open-Source Vision-Language-Action Model"
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2025-01-14-openvla-an-open-source-vision-language-action-model/image_001.png" class="img-fluid rounded z-depth-1" %}
 
-- RT-2-X와 OpenVLA의 차이
+  - RT-2-X와 OpenVLA의 차이
 
-  - 작은 모델로 더 높은 성능
+    - 작은 모델로 더 높은 성능
 
-  - FT세팅에 대해 분석
+    - FT세팅에 대해 분석
 
-  - PEFT가능
+    - PEFT가능
 
-  - 공개 모델
+    - 공개 모델
 
 ## Proposed Method
 
@@ -130,21 +129,21 @@ title: "OpenVLA: An Open-Source Vision-Language-Action Model"
 
 [보통의 VLM 구조]
 
-- visual encoder : image을 patch 단위로 임베딩
+  - visual encoder : image을 patch 단위로 임베딩
 
-- projector : image embedding을 language space로 mapping
+  - projector : image embedding을 language space로 mapping
 
-- LLM : 보통 학습은 paired 또는 interleaved VL data에 대해 next token perdiction으로 진행
+  - LLM : 보통 학습은 paired 또는 interleaved VL data에 대해 next token perdiction으로 진행
 
-- 본 논문에서 사용한 backbone VLM은 Prismatic-7B VLM
+  - 본 논문에서 사용한 backbone VLM은 Prismatic-7B VLM
 
-  - Prismatic-7B : 600M visual encoder, 2-layer MLP projector, 7B llama2 LM
+    - Prismatic-7B : 600M visual encoder, 2-layer MLP projector, 7B llama2 LM
 
-    - 2파트의 visual encoder사용 : SigLIP, DINOv2
+      - 2파트의 visual encoder사용 : SigLIP, DINOv2
 
-    - LLaVA 1.5 data mixture로 FT됨
+      - LLaVA 1.5 data mixture로 FT됨
 
-      - 1M image-text and text-only data samples from open sources
+        - 1M image-text and text-only data samples from open sources
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2025-01-14-openvla-an-open-source-vision-language-action-model/image_002.png" class="img-fluid rounded z-depth-1" %}
 
@@ -180,41 +179,41 @@ title: "OpenVLA: An Open-Source Vision-Language-Action Model"
 
 : BridgeDataV2로 미리 디자인 관련 실험을 함
 
-- VLM Backbone
+  - VLM Backbone
 
-  - IDEFICS-1과 LLaVA, Prismatic으로 실험
+    - IDEFICS-1과 LLaVA, Prismatic으로 실험
 
-    - prismatic : visually conditioned LM(LLaVA보다 높은 성능, visual encoder는 freeze, projector와 LM만 학습)
+      - prismatic : visually conditioned LM(LLaVA보다 높은 성능, visual encoder는 freeze, projector와 LM만 학습)
 
-    - IDEFICS < LLaVA < Prismatic 순의 성능을 보임
+      - IDEFICS < LLaVA < Prismatic 순의 성능을 보임
 
-      - IDEFICS와 LLaVA는 장면에 하나의 object가 있을 때는 잘됨
+        - IDEFICS와 LLaVA는 장면에 하나의 object가 있을 때는 잘됨
 
-      - LLaVA가 I에 비해서 좀 더 language grounding이 잘 되긴 함
+        - LLaVA가 I에 비해서 좀 더 language grounding이 잘 되긴 함
 
-      - Prismatic이 성능이 잘 나온 이유는 SigLIP-DINOv2 backbone때문인걸로 추정
+        - Prismatic이 성능이 잘 나온 이유는 SigLIP-DINOv2 backbone때문인걸로 추정
 
-- Image resolution
+  - Image resolution
 
-  - 저화질(224*224)이나 고화질(384*384)이나 큰 성능 차이는 없으나 고화질이 학습시간 3배 더 소요
+    - 저화질(224*224)이나 고화질(384*384)이나 큰 성능 차이는 없으나 고화질이 학습시간 3배 더 소요
 
-- Fine-tuning vision encoder
+  - Fine-tuning vision encoder
 
-  - VLM학습할 때는 visual encoder를 학습하지 않음
+    - VLM학습할 때는 visual encoder를 학습하지 않음
 
-  - 하지만 VLA에서는 visual encoder를 FT하는게 매우 중요
+    - 하지만 VLA에서는 visual encoder를 FT하는게 매우 중요
 
 ⇒ 기존 비전 태스크에서 중요한 포인트와 다르기 때문.. 이라 추정
 
-- Training epochs
+  - Training epochs
 
-  - 많이 돌릴수록 real robot performance가 지속적으로 향상
+    - 많이 돌릴수록 real robot performance가 지속적으로 향상
 
-  - 27번 돌림
+    - 27번 돌림
 
-- Learning rate
+  - Learning rate
 
-  - 2e-5(VLM사전 학습할 때와 같은 learning rate)
+    - 2e-5(VLM사전 학습할 때와 같은 learning rate)
 
 - Intrastructure for trainign and inference
 
@@ -258,7 +257,7 @@ title: "OpenVLA: An Open-Source Vision-Language-Action Model"
 
     - Octo(93M)
 
-  - OpenVLA의 압도적인 성능
+  - OpenVLA의 압도적인 성능 
 
     - 더 큰 robot action dataset + dataset cleaning, SigLIP과 DINOv2를 같이 썼기 때문인걸로 추정
 

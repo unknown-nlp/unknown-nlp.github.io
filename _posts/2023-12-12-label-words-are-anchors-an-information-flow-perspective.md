@@ -1,31 +1,32 @@
 ---
 categories:
-  - paper-reviews
-date: "2023-12-12 00:00:00"
+- paper-reviews
+date: '2023-12-12 00:00:00'
 description: 논문 리뷰 - ICL, In Context Learning, LLM 관련 연구
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-  - attention
-  - classification
-  - gpt
-  - icl
-  - in context learning
-  - llm
-  - paper-review
+- attention
+- classification
+- gpt
+- icl
+- in context learning
+- llm
+- paper-review
 thumbnail: assets/img/posts/2023-12-12-label-words-are-anchors-an-information-flow-perspective/thumbnail.jpg
-title: "Label Words are Anchors: An Information Flow Perspective for Understanding
-  In-Context Learning"
+title: 'Label Words are Anchors: An Information Flow Perspective for Understanding
+  In-Context Learning'
 ---
 
 **논문 정보**
-
 - **Date**: 2023-12-12
 - **Reviewer**: 김재희
 - **Property**: ICL, In Context Learning, LLM
 
+
 ---
+
 
 ---
 
@@ -73,7 +74,7 @@ title: "Label Words are Anchors: An Information Flow Perspective for Understandi
 
   - q : 예측할 Input의 예측할 text(or “:”)
 
-- 위 3가지 입력에 따라 Saliency Score를 계산하게 됨
+- 위 3가지 입력에 따라 Saliency Score를 계산하게 됨 
 
 - Input Text(w) → Label Words(p)
 
@@ -97,13 +98,13 @@ title: "Label Words are Anchors: An Information Flow Perspective for Understandi
 
 - 4개의 Text Classification Task 사용
 
-  - 평가 데이터 : 1,000개
+  - 평가 데이터 : 1,000개 
 
   - Demonstration : Class 당 1개 사용
 
-  - SST-2, TREC, AGNews, EmoC,
+  - SST-2, TREC, AGNews, EmoC, 
 
-- Model :
+- Model : 
 
   - GPT2-XL(1.5B) : 저자들의 언급으로는 ICL이 충분히 가능하면서 실험 가능한 사이즈
 
@@ -113,23 +114,23 @@ title: "Label Words are Anchors: An Information Flow Perspective for Understandi
 
 1. Layer 깊이에 따른 Information Flow
 
-- 실험 결과 intro의 findings를 정량적으로 확인 가능
+  - 실험 결과 intro의 findings를 정량적으로 확인 가능
 
-- 초기 레이어 :
+  - 초기 레이어 : 
 
-  - 많은 정보(attn)이 label word로 집중되고 있음
+    - 많은 정보(attn)이 label word로 집중되고 있음
 
-  - 예측 할 토큰으로 흐르는 정보가 많지 않은 모습
+    - 예측 할 토큰으로 흐르는 정보가 많지 않은 모습
 
 ⇒ 초기 레이어는 각 Label Word로 정보를 모음
 
-- 후기 레이어 :
+  - 후기 레이어 : 
 
-  - 대부분의 정보가 예측할 단어(”:”)로 흘러가고 있음(from label words)
+    - 대부분의 정보가 예측할 단어(”:”)로 흘러가고 있음(from label words)
 
-  - 다른 토큰으로 정보가 거의 취합되지 않는 모습
+    - 다른 토큰으로 정보가 거의 취합되지 않는 모습
 
-  - 중반 이후 레이어에서 매우 꾸준한 경향
+    - 중반 이후 레이어에서 매우 꾸준한 경향
 
 ⇒ 후기 레이어는 각 label word로부터 실제 예측에 사용될 정보를 취합하는데 집중
 
@@ -139,7 +140,7 @@ title: "Label Words are Anchors: An Information Flow Perspective for Understandi
 
 - Isolation(Label Words) : Attention Map을 임의로 조정하여 Input Text → Label Word의 Attention을 막는 환경
 
-- First/Last : 초기/후기 5개 레이어에 대해 Isolation을 수행
+- First/Last : 초기/후기 5개 레이어에 대해 Isolation을 수행 
 
 - Random : Attention Map 내 임의의 attention을 조정
 
@@ -147,9 +148,9 @@ title: "Label Words are Anchors: An Information Flow Perspective for Understandi
 
 → Isolation에 따른 예측값 변화량 측정
 
-- Label Loyalty : Isolation에 따른 Label 예측 변화량
+  - Label Loyalty : Isolation에 따른 Label 예측 변화량 
 
-- Word Loyalty : Isolation에 따라 예측된 top-5 token과 original 예측의 Jaccard 유사도
+  - Word Loyalty : Isolation에 따라 예측된 top-5 token과 original 예측의 Jaccard 유사도
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2023-12-12-label-words-are-anchors-an-information-flow-perspective/image_007.png" class="img-fluid rounded z-depth-1" %}
 
@@ -161,7 +162,7 @@ title: "Label Words are Anchors: An Information Flow Perspective for Understandi
 
 → Label Words에 대한 영향력은 초기 레이어에서 매우 큼
 
-1. 빨간색/보라색 : 초기/후기 레이어에서 Random한 Isolation 수행 시 성능 저하 거의 발생 X
+  1. 빨간색/보라색 : 초기/후기 레이어에서 Random한 Isolation 수행 시 성능 저하 거의 발생 X
 
 → 임의의 단어가 영향력을 가지지 않음
 
@@ -189,13 +190,13 @@ title: "Label Words are Anchors: An Information Flow Perspective for Understandi
 
   - 클래스 당 예측 확률 : 각 Label Word에 대한 attn값
 
-  - R*l=\frac{\sum*{i=1}^l\left(\mathrm{AUCROC}_i-0.5\right)}{\sum_{i=1}^N\left(\mathrm{AUCROC}\_i-0.5\right)} : l번째 레이어의 Attention이 실제 예측에 영향을 준 정도에 대한 정량화
+  - R_l=\frac{\sum_{i=1}^l\left(\mathrm{AUCROC}_i-0.5\right)}{\sum_{i=1}^N\left(\mathrm{AUCROC}_i-0.5\right)}  : l번째 레이어의 Attention이 실제 예측에 영향을 준 정도에 대한 정량화
 
 - 레이어가 깊어질 수록 AUROC 값이 커지는 경향성 확인
 
 → 모델의 실제 예측 class와 해당 Label Word에 대한 Attn Score가 깊은 레이어에서 높은 Correlation을 가짐
 
-- 레이어가 깊어질수록 R_l값이 점차 커지는 모습 확인
+- 레이어가 깊어질수록 R_l값이 점차 커지는 모습 확인 
 
 → 레이어가 깊어질수록 점차 Label Word가 최종 예측에 미치는 영향력이 커지는 모습
 
@@ -203,7 +204,7 @@ title: "Label Words are Anchors: An Information Flow Perspective for Understandi
 
 ### 2.6 결론
 
-- Label Word가 해당 Demonstration의 정보를 종합하고, 이를 예측에 전달하는 역할을 하는 모습 확인
+- Label Word가 해당 Demonstration의 정보를 종합하고, 이를 예측에 전달하는 역할을 하는 모습 확인 
 
 ⇒ Label Word가 정보 흐름의 관점에서 anchor 역할로서 동작
 
@@ -223,7 +224,7 @@ title: "Label Words are Anchors: An Information Flow Perspective for Understandi
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2023-12-12-label-words-are-anchors-an-information-flow-perspective/image_010.png" class="img-fluid rounded z-depth-1" %}
 
-- 두가지 식을 치환하여, log prob으로 표현 가능(\textbf{q}_q / \sqrt{d} = \hat{\textbf{x}}, \textbf{k}_{p*i} - \textbf{k}*{p_C} = \beta_i )
+- 두가지 식을 치환하여, log prob으로 표현 가능(\textbf{q}_q / \sqrt{d} = \hat{\textbf{x}}, \textbf{k}_{p_i} - \textbf{k}_{p_C} = \beta_i )
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2023-12-12-label-words-are-anchors-an-information-flow-perspective/image_011.png" class="img-fluid rounded z-depth-1" %}
 
@@ -249,15 +250,15 @@ title: "Label Words are Anchors: An Information Flow Perspective for Understandi
 
 ### 3.2 Anchor-Only Context Compression
 
-- 앞선 내용을 요약하면 **_모델이 예측 수행 시 Demonstration 중 Label Word에서만 정보를 취합하고 있음_**
+- 앞선 내용을 요약하면 ***모델이 예측 수행 시 Demonstration 중 Label Word에서만 정보를 취합하고 있음***
 
 ⇒ ICL 시 각 Demonstration의 Label Word의 Hidden Representation만 이용하면 안되나?
 
-1. 각 Demonstration에 대해서 별도의 Inference 수행
+  1. 각 Demonstration에 대해서 별도의 Inference 수행
 
-1. Label Word의 모든 Layer에 대한 Hidden Reprensetation Caching
+  1. Label Word의 모든 Layer에 대한 Hidden Reprensetation Caching
 
-1. Inference 시 Caching한 Representation을 입력의 앞에 concat하여 attention 수행
+  1. Inference 시 Caching한 Representation을 입력의 앞에 concat하여 attention 수행
 
 → Inference 시 Demonstration이 입력되지 않으므로 속도/메모리 개선 가능
 
@@ -269,7 +270,7 @@ title: "Label Words are Anchors: An Information Flow Perspective for Understandi
 
 - Re-weighting을 위해 사용할 학습 데이터 : Class 당 4개씩 샘플링
 
-  - Re-Weighting을 위한 \beta를 해당 데이터를 이용하여 학습
+  - Re-Weighting을 위한 \beta를 해당 데이터를 이용하여 학습 
 
   - 향후 실제 ICL 수행 시 각 class 별 \beta를 적용하여 최종 예측 수행
 
@@ -289,7 +290,7 @@ title: "Label Words are Anchors: An Information Flow Perspective for Understandi
 
   1. 모델이 예측해야 할 데이터에 대해 직접 확률 분포 생성 X
 
-  1. 모델이 예측해야 할 데이터에 대한 각 Demonstration의 Label Word에 대한 attention weight을 이용한 연산 수행
+  1. 모델이 예측해야 할 데이터에 대한 각 Demonstration의 Label Word에 대한 attention weight을 이용한 연산 수행 
 
   - Demonstration 구축을 위한 데이터셋을 효과적으로 활용하는 방안 제시
 
@@ -311,9 +312,9 @@ title: "Label Words are Anchors: An Information Flow Perspective for Understandi
 
 → Demonstration을 그대로 활용한 것보다는 떨어지는 성능
 
-- Demonstartion의 정보 중 상당수가 Label Word에 포함되어 있음
+  - Demonstartion의 정보 중 상당수가 Label Word에 포함되어 있음
 
-- Demonstration의 정보 중 일부가 Label Word외 다른 토큰에 포함되어 있음. 해당 정보를 이용하는 것이 최종적이 성능 개선에 도움이 됨
+  - Demonstration의 정보 중 일부가 Label Word외 다른 토큰에 포함되어 있음. 해당 정보를 이용하는 것이 최종적이 성능 개선에 도움이 됨
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2023-12-12-label-words-are-anchors-an-information-flow-perspective/image_016.png" class="img-fluid rounded z-depth-1" %}
 
@@ -343,7 +344,7 @@ title: "Label Words are Anchors: An Information Flow Perspective for Understandi
 
 - 교묘하게 피해가는 Contribution
 
-  - 속도 개선과 성능 개선이 동시에 달성되지 못함.
+  - 속도 개선과 성능 개선이 동시에 달성되지 못함. 
 
 → 이 부분을 그래서 강하게 주장하지 못함
 

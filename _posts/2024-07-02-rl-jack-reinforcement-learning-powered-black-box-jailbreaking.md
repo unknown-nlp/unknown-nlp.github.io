@@ -1,30 +1,29 @@
 ---
 categories:
-  - paper-reviews
-date: "2024-07-02 00:00:00"
+- paper-reviews
+date: '2024-07-02 00:00:00'
 description: 논문 리뷰 - RL, Safety 관련 연구
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-  - alignment
-  - embedding
-  - fine-tuning
-  - gpt
-  - llm
-  - neural
-  - paper-review
-  - reinforcement-learning
-  - rl
-  - safety
+- alignment
+- embedding
+- fine-tuning
+- gpt
+- llm
+- neural
+- paper-review
+- reinforcement-learning
+- rl
+- safety
 thumbnail: assets/img/posts/2024-07-02-rl-jack-reinforcement-learning-powered-black-box-jailbreaking/thumbnail.jpg
-title: "RL-JACK: Reinforcement Learning-powered Black-box
+title: 'RL-JACK: Reinforcement Learning-powered Black-box
 
-  Jailbreaking Attack against LLMs"
+  Jailbreaking Attack against LLMs'
 ---
 
 **논문 정보**
-
 - **Date**: 2024-07-02
 - **Reviewer**: 상엽
 - **Property**: RL, Safety
@@ -47,7 +46,7 @@ Jailbreaking prompt
 
   - genetic 모델을 활용해 prompt를 진화 시키는 방법도 등장했으나 확률적인 특성 때문에 제한적임.
 
-→ Deep RL을 활용한 RL-JACK 제안
+→ Deep RL을  활용한 RL-JACK 제안
 
 **RL-JACK**
 
@@ -61,7 +60,7 @@ Jailbreaking prompt
 
 **Contributions**
 
-- jailbreaking을 검색 문제로 정의함으로써 RL을 활용한 novel black-box jailbreaking 방법 제안
+- jailbreaking을 검색 문제로 정의함으로써 RL을 활용한 novel black-box jailbreaking 방법 제안 
 
 - 기존 SOTA 모델들과 비교했을 때 매우 큰 성능 향상을 보임.
 
@@ -97,15 +96,15 @@ Jailbreaking prompt
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-07-02-rl-jack-reinforcement-learning-powered-black-box-jailbreaking/image_000.png" class="img-fluid rounded z-depth-1" %}
 
-- Stochastic search
+  - Stochastic search
 
-  - 초기 값을 랜덤하게 설정, 현재 region에서 random exploration을 통해 근처 region으로 이동
+    - 초기 값을 랜덤하게 설정, 현재 region에서 random exploration을 통해 근처 region으로 이동
 
-  - genetic algorithm이 여기에 해당: 현재 seed를 mutation한 후 다음 seed로 이동
+    - genetic algorithm이 여기에 해당: 현재 seed를 mutation한 후 다음 seed로 이동
 
-- Deterministic search
+  - Deterministic search
 
-  - 구체적인 규칙에 의해서 다음 region으로 이동 e.g) gradient-based method
+    - 구체적인 규칙에 의해서 다음 region으로 이동 e.g) gradient-based method
 
 - 하지만 LLM 내부에 접근이 불가능하기 때문에 Deterministic 방법을 적용할 수가 없음. → Black-box setup에서 효과적인 deterministic search 방법으로 RL을 활용
 
@@ -137,7 +136,7 @@ DRL이 아무리 효과적이라 해도 시스템 디자인에 너무 의존적�
 
 **Rationale for action design: large search space를 피하기**
 
-- Helper LLM을 이용한 prompt generation 방법 제안
+- Helper LLM을 이용한 prompt generation 방법 제안 
 
   - agent의 역할은 helper 모델이 jailbreaking prompt를 생성하기 위한 strategy를 선택하는 것
 
@@ -147,7 +146,7 @@ DRL이 아무리 효과적이라 해도 시스템 디자인에 너무 의존적�
 
   - 추가 context를 생성하고 harmful 질문을 여기에 추가하는 유형 (7개, a_1,...,a_7)
 
-  - context 추가없이 현재 질문을 변형하는 것 (3개, a*8, a_9, a*{10})
+  - context 추가없이 현재 질문을 변형하는 것 (3개, a_8, a_9, a_{10})
 
 **Rationale for reward design: meaningful dense rewards 방법**
 
@@ -169,7 +168,7 @@ DRL이 아무리 효과적이라 해도 시스템 디자인에 너무 의존적�
 
 - p^{(0)}: Helper LLM을 통한 prompt 수정 (+ query)
 
-- R(u^{(0)}, \hat{u}) : reward 계산
+- R(u^{(0)}, \hat{u}) : reward 계산 
 
 ### Attack Design Details
 
@@ -279,7 +278,7 @@ Results
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-07-02-rl-jack-reinforcement-learning-powered-black-box-jailbreaking/image_004.png" class="img-fluid rounded z-depth-1" %}
 
-- In-context learning을 활용해 prompt를 수정하는 PAIR & Cipher는 성능 안좋음.
+- In-context learning을 활용해 prompt를 수정하는  PAIR & Cipher는 성능 안좋음. 
 
 - Gradient를 이용하더라도 토큰 단위 추가만 하는 GCG (white-box model) 성능 낮음.
 

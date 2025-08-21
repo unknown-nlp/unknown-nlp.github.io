@@ -1,24 +1,23 @@
 ---
 categories:
-  - paper-reviews
-date: "2024-02-20 00:00:00"
+- paper-reviews
+date: '2024-02-20 00:00:00'
 description: 논문 리뷰
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-  - detection
-  - gpt
-  - language-model
-  - llm
-  - paper-review
+- detection
+- gpt
+- language-model
+- llm
+- paper-review
 thumbnail: assets/img/posts/2024-02-20-knowledge-card-filling-llms-knowledge-gaps-with-plug/thumbnail.jpg
-title: "KNOWLEDGE CARD: FILLING LLMS’ KNOWLEDGE GAPS WITH PLUG-IN SPECIALIZED LANGUAGE
-  MODELS"
+title: 'KNOWLEDGE CARD: FILLING LLMS’ KNOWLEDGE GAPS WITH PLUG-IN SPECIALIZED LANGUAGE
+  MODELS'
 ---
 
 **논문 정보**
-
 - **Date**: 2024-02-20
 - **Reviewer**: 전민진
 
@@ -40,7 +39,7 @@ title: "KNOWLEDGE CARD: FILLING LLMS’ KNOWLEDGE GAPS WITH PLUG-IN SPECIALIZED 
 
     - bottom-up, top-down
 
-- 실험 결과, 6가지 데이터셋에서 SOTA 달성
+- 실험 결과, 6가지 데이터셋에서 SOTA 달성 
 
 # Introduction
 
@@ -52,7 +51,7 @@ title: "KNOWLEDGE CARD: FILLING LLMS’ KNOWLEDGE GAPS WITH PLUG-IN SPECIALIZED 
 
   - retrieval augmentation의 경우 retrieval system을 활용해 fixed retrieval corpus에서 관련 문서를 끌어와 이를 기반으로 답변을 생성하도록 하는 방법론
 
-    - (민진피셜) 하지만 이 방법론 역시 기존의 정보를 업데이트하긴 어려움.
+    - (민진피셜) 하지만 이 방법론 역시 기존의 정보를 업데이트하긴 어려움. 
 
       - 전체 corpus를 다시 구축해야함. 예를 들어, 현재 대통령에 관련한 문서가 있다면, 기존의 문제를 삭제해야 정보의 일관성이 유지됨. ⇒ 단순히 document를 추가하는 것으로 업데이트할 수 없음.
 
@@ -62,11 +61,11 @@ title: "KNOWLEDGE CARD: FILLING LLMS’ KNOWLEDGE GAPS WITH PLUG-IN SPECIALIZED 
 
   - generated knowledge prompting은 prompt를 통해 필요한 정보를 LLM으로 생성, 이를 기반으로 답변을 생성하도록 하는 방법론
 
-    - (민진피셜)새로운 정보를 업데이트하기 어려움.
+    - (민진피셜)새로운 정보를 업데이트하기 어려움. 
 
     - 또한, private information을 LLM 학습에 사용할 수 없으므로, custom하기도 어려움.
 
-    - 일부분의 domain만 업데이트하고 싶어도, 전체 파라미터를 건드려야하기 때문에 catastrophic forgetting문제 발생할 수 있음
+    - 일부분의  domain만 업데이트하고 싶어도, 전체 파라미터를 건드려야하기 때문에 catastrophic forgetting문제 발생할 수 있음
 
 - 하지만 이러한 방법론들은 knowledge의 2가지 특성을 반영하기 어려움
 
@@ -172,13 +171,13 @@ title: "KNOWLEDGE CARD: FILLING LLMS’ KNOWLEDGE GAPS WITH PLUG-IN SPECIALIZED 
 
       - knowledge document d가 주어질 때, retrieval corpus( e.g., wiki)에서 k개의 document를 retriever, fact-checking model을 scoring function으로 활용
 
-      - s*d^{fact}=max*{1 \leq i \leq k}fact-check(d|t_i) \in [0,1]
+      - s_d^{fact}=max_{1 \leq i \leq k}fact-check(d|t_i) \in [0,1]
 
     - 이후 2가지 factuality점수를 평균냄
 
     - factuality score를 기준으로 top-k factulity sampling을 사용
 
-      - top-k개로 구성된 knowledge document set에서 l개를 샘플링(k>l)
+      - top-k개로 구성된 knowledge document set에서  l개를 샘플링(k>l)
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-02-20-knowledge-card-filling-llms-knowledge-gaps-with-plug/image_001.png" class="img-fluid rounded z-depth-1" %}
 
@@ -188,11 +187,11 @@ title: "KNOWLEDGE CARD: FILLING LLMS’ KNOWLEDGE GAPS WITH PLUG-IN SPECIALIZED 
 
     - 모든 knowledge card에서 documents를 생성, 3가지 selector를 거쳐 최종적으로 생성에 활용될 document를 추림
 
-    - n개의 knowledge card C=\{c*1, ..., c_n\}, query q가 있을 때, 각각의 knowledge card로부터 n_1개의 document를 생성, \{d_1,...,d*{n \times n_1}\}를 얻음
+    - n개의 knowledge card C=\{c_1, ..., c_n\}, query q가 있을 때, 각각의 knowledge card로부터 n_1개의 document를 생성, \{d_1,...,d_{n \times n_1}\}를 얻음
 
-    - relevance selector를 사용해 n*2개의 relevant document를 선택, pruning selector로 pruning 실행, \{\tilde d_1, ..., \tilde d*{n\_{2}} \}를 얻음
+    - relevance selector를 사용해 n_2개의 relevant document를 선택, pruning selector로 pruning 실행, \{\tilde d_1, ..., \tilde d_{n_{2}} \}를 얻음
 
-    - factuality selector로 high-quality knowledge document \{\tilde d*1, ...,\tilde d*{n\_{3}}\}을 최종 선택
+    - factuality selector로 high-quality knowledge document \{\tilde d_1, ...,\tilde d_{n_{3}}\}을 최종 선택
 
     - 마지막으로, “[”Knowledge:” ||\tilde d_1|| …||\tilde d_{n_{3}}|| q]”를 prompt로 LLM에 넣어줌
 
@@ -244,7 +243,7 @@ title: "KNOWLEDGE CARD: FILLING LLMS’ KNOWLEDGE GAPS WITH PLUG-IN SPECIALIZED 
 
   - factuality selector의 retrieval system : WikiSearch API
 
-  - summarization and fact-checking factuality scoring fucntion : FactKB와 VitaminC
+  -  summarization and fact-checking factuality scoring fucntion : FactKB와 VitaminC
 
   - black-box LLM으로는 Codex(CODE-DAVINCI-002)를 사용
 
@@ -272,7 +271,7 @@ title: "KNOWLEDGE CARD: FILLING LLMS’ KNOWLEDGE GAPS WITH PLUG-IN SPECIALIZED 
 
     - 5-shot in-context learning setting
 
-\*\* 다른 temporal QA datset는 특정 사건이나 knowledge domain에 초점을 둔게 아니므로 평가 데이터셋으로 사용하지 않음
+** 다른 temporal QA datset는 특정 사건이나 knowledge domain에 초점을 둔게 아니므로 평가 데이터셋으로 사용하지 않음
 
 - Baselines
 
@@ -310,7 +309,7 @@ title: "KNOWLEDGE CARD: FILLING LLMS’ KNOWLEDGE GAPS WITH PLUG-IN SPECIALIZED 
 
   - 특히 같은 midterm election news를 retrieval corpora로 사용하는 SI et al(codex+contriver)보다 성능이 우세
 
-  - generated knowledgte prompting approches는 vailla Codex보다 성능이 대체로 낮음
+  - generated knowledgte prompting approches는  vailla Codex보다 성능이 대체로 낮음
 
     - 내부 LLM knowledge가 outdated되거나 틀렸을 경우, LLM에서 prompting해서 knowledge를 생성하는 것이 비효율적임
 
@@ -342,7 +341,7 @@ title: "KNOWLEDGE CARD: FILLING LLMS’ KNOWLEDGE GAPS WITH PLUG-IN SPECIALIZED 
 
 - Knowledge Stream Analysis
 
-  - n1 : 각각의 specialized LM에서 생성하는 document개수
+  - n1 : 각각의 specialized LM에서 생성하는  document개수
 
   - n2 : 3가지 selector이후 남은 document 개수
 

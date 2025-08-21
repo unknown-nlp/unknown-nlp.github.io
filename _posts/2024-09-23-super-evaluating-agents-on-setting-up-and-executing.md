@@ -1,29 +1,28 @@
 ---
 categories:
-  - paper-reviews
-date: "2024-09-23 00:00:00"
+- paper-reviews
+date: '2024-09-23 00:00:00'
 description: 논문 리뷰 - Autonomous-Agents, Code Generation 관련 연구
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-  - autonomous-agents
-  - bert
-  - code generation
-  - fine-tuning
-  - gpt
-  - llm
-  - paper-review
-  - reasoning
-  - transformer
+- autonomous-agents
+- bert
+- code generation
+- fine-tuning
+- gpt
+- llm
+- paper-review
+- reasoning
+- transformer
 thumbnail: assets/img/posts/2024-09-23-super-evaluating-agents-on-setting-up-and-executing/thumbnail.jpg
-title: "SUPER: Evaluating Agents on Setting Up and Executing Tasks
+title: 'SUPER: Evaluating Agents on Setting Up and Executing Tasks
 
-  from Research Repositories"
+  from Research Repositories'
 ---
 
 **논문 정보**
-
 - **Date**: 2024-09-23
 - **Reviewer**: yukyung lee
 - **Property**: Autonomous-Agents, Code Generation
@@ -68,11 +67,11 @@ title: "SUPER: Evaluating Agents on Setting Up and Executing Tasks
 
 - SUPER benchmark (3 setting)
 
-  - Expert set - contains manuallywritten problems, solved by experts.
+  - Expert set - contains manuallywritten problems, solved by experts. 
 
   - Masked set - contains sub-problems extracted from the Expert set using the gold solution, which pro-vide easier and more focused sub-problems.
 
-  - Auto set - contains automatically generated problemswhich can be used for development and improve-ment of agents
+  - Auto set -  contains automatically generated problemswhich can be used for development and improve-ment of agents
 
 - Environment setup : Jupyter notebook as engine
 
@@ -83,6 +82,7 @@ title: "SUPER: Evaluating Agents on Setting Up and Executing Tasks
   - https://modal.com
 
     - 2-3 cents per problem in Modal (**not including** API costs)
+
 
 ---
 
@@ -104,7 +104,7 @@ title: "SUPER: Evaluating Agents on Setting Up and Executing Tasks
 
   - In prompt history as [pre-executed by the user]
 
-**Auto**:\*\* \*\*604 auto-generated examples
+**Auto**:** **604 auto-generated examples
 
 - state-of-the-art approaches struggle to solve these problems with the best model (GPT-4o) solving only **16.3% of the end-to-end** set, and **46.1% ofthe scenarios**.
 
@@ -116,7 +116,7 @@ title: "SUPER: Evaluating Agents on Setting Up and Executing Tasks
 
 - Partial credit through “**landmarks**” (points in code signalling sub-completion, e.g. training stage done)
 
-  - E.g., the explicit output string “**_training completed _**” or the string “Loading data... 100%”
+  - E.g., the explicit output string “***training completed ***” or the string “Loading data... 100%”
 
 - Auto-generated: check no exceptions when running script (for a minimum duration)
 
@@ -152,7 +152,7 @@ Llama 3.1 70B
 
 1. ReAct-SUPER
 
-- **Result**
+  - **Result**
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-09-23-super-evaluating-agents-on-setting-up-and-executing/image_006.png" class="img-fluid rounded z-depth-1" %}
 
@@ -176,27 +176,28 @@ Llama 3.1 70B
 
 1. SWE-Agent
 
-- Can read and scroll through file content
+  - Can read and scroll through file content
 
 1. Reflection
 
-- _k tries to solve problem_
+  - *k tries to solve problem*
 
-- Only provides minor improvements
+  - Only provides minor improvements
 
 (1) reproducing numbers from research papers by running specific experiments
 
 (2) running **modified** experiments with different datasets, models, or configurations
 
-- PapersWithCode repos with “Text” modality research papers (with repos from 2021 or after)
+  - PapersWithCode repos with “Text” modality research papers (with repos from 2021 or after)
 
-- Tasks that involve running experiment in readme/script in repo
+  - Tasks that involve running experiment in readme/script in repo
 
-- “Whenever possible, we make the task more challenging by requiring the experiment to be run on a new dataset or model, other than the one described in the available documentation
+  - “Whenever possible, we make the task more challenging by requiring the experiment to be run on a new dataset or model, other than the one described in the available documentation
 
-  - Either from HF datasets, or Google Drive link
+    - Either from HF datasets, or Google Drive link
 
-  - “The challenge of running on a specific dataset varies in difficulty: it could involve only a single configuration line change if the dataset is already supported, or creating a new dataset reader, adjusting column names, etc.
+    - “The challenge of running on a specific dataset varies in difficulty: it could involve only a single configuration line change if the dataset is already supported, or creating a new dataset reader, adjusting column names, etc.
+
 
 ---
 

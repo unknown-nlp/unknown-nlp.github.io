@@ -1,36 +1,35 @@
 ---
 categories:
-  - paper-reviews
-date: "2024-10-03 00:00:00"
+- paper-reviews
+date: '2024-10-03 00:00:00'
 description: 논문 리뷰 - Knowledge Distillation 관련 연구
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-  - gpt
-  - knowledge distillation
-  - llm
-  - paper-review
-  - reasoning
-  - vision
+- gpt
+- knowledge distillation
+- llm
+- paper-review
+- reasoning
+- vision
 thumbnail: assets/img/posts/2024-10-03-qcrd-quality-guided-contrastive-rationale-distillation-for-large/thumbnail.jpg
-title: "QCRD: Quality-guided Contrastive Rationale Distillation for Large Lanauge
-  Models"
+title: 'QCRD: Quality-guided Contrastive Rationale Distillation for Large Lanauge
+  Models'
 ---
 
 **논문 정보**
-
 - **Date**: 2024-10-03
 - **Reviewer**: 전민진
 - **Property**: Knowledge Distillation
 
 ## Abstract
 
-- LLM은 좋은 성능을 갖고 있으나 resource 제한, inference 효율성 등으로 다양한 application에서 사용되기엔 한계가 존재
+- LLM은 좋은 성능을 갖고 있으나 resource 제한, inference 효율성 등으로 다양한  application에서 사용되기엔 한계가 존재
 
 - 최근 LLM을 기반으로 한 knowledge distillatinon으로 smaller, task-specific한 모델을 학습하는 여러 방법론이 제안 됨
 
-- 하지만 기존 연구들은 knowledge의 disversity와 quality에 크게 집중하지 않음.
+- 하지만 기존 연구들은 knowledge의 disversity와 quality에 크게 집중하지 않음. 
 
   - 특히, negative knowledge을 distillation에 사용하지 않음
 
@@ -52,7 +51,7 @@ title: "QCRD: Quality-guided Contrastive Rationale Distillation for Large Lanaug
 
   - LLM이 생성한 rationale을 생성하도록 small LM을 학습하는 방법(distill step-by-step )
 
-    - L = L*{prediction}+\lambda L*{generation}
+    - L = L_{prediction}+\lambda L_{generation}
 
     - 이 방법의 경우 postivie knowledge만 사용, knowledge가 한정적이고 noisy가 있을 수 있음
 
@@ -82,7 +81,7 @@ title: "QCRD: Quality-guided Contrastive Rationale Distillation for Large Lanaug
 
   - rationale을 학습에 활용하는 것이 효과가 있다는 것이 밝혀져 있음
 
-  - 이전에는 multi-task learning framework방식으로, prefix를 기반으로 모델이 label을 예측하면서 동시에 rationale도 생성할 수 있도록 학습, 내재적으로 rationale에 있는 knowledge를 학습하도록 함
+  - 이전에는 multi-task learning framework방식으로,  prefix를 기반으로 모델이 label을 예측하면서 동시에 rationale도 생성할 수 있도록 학습, 내재적으로 rationale에 있는 knowledge를 학습하도록 함
 
   - 하지만 smalle model의 rationale과 LLM의 rationale이 align 되도록 하나의 loss form에만 집중
 
@@ -120,7 +119,7 @@ title: "QCRD: Quality-guided Contrastive Rationale Distillation for Large Lanaug
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-10-03-qcrd-quality-guided-contrastive-rationale-distillation-for-large/image_002.png" class="img-fluid rounded z-depth-1" %}
 
-- 각 data마다 K개의 rationale을 생성, self-consisteny를 만족하는 rationale을 positive로 사용
+  - 각 data마다 K개의 rationale을 생성, self-consisteny를 만족하는 rationale을 positive로 사용
 
 - Negative sample
 
@@ -130,11 +129,11 @@ title: "QCRD: Quality-guided Contrastive Rationale Distillation for Large Lanaug
 
     - LLM이 생성한 negative는 student가 봤을 땐, positive처럼 보일 수 있음 → 학습 효과가 떨어짐
 
-  - 이전 iteration의 student model에 high temperature를 사용해서 rationale을 sampling
+  - 이전 iteration의 student model에 high temperature를 사용해서 rationale을 sampling 
 
 → low quality rationale이라 판단, negative로 사용
 
-- \mathbf{x} = [x_1, x_2,..,x_n], S*{pos}=\{r_1^{pos},...,r_m^{pos}\}, S*{neg} = \{r_1^{neg},..,r_k^{neg}\}
+  - \mathbf{x} = [x_1, x_2,..,x_n],  S_{pos}=\{r_1^{pos},...,r_m^{pos}\}, S_{neg} = \{r_1^{neg},..,r_k^{neg}\}
 
 **Constrastive knowledge distillation**
 
@@ -158,7 +157,7 @@ title: "QCRD: Quality-guided Contrastive Rationale Distillation for Large Lanaug
 
       - online-updated during training
 
-- LLM으로 생성한 positive, negative로 D를 pretrain, 학습 동안에는 D를 regular epoch interval로 업데이트
+  - LLM으로 생성한 positive, negative로 D를 pretrain, 학습 동안에는 D를 regular epoch interval로 업데이트
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-10-03-qcrd-quality-guided-contrastive-rationale-distillation-for-large/image_004.png" class="img-fluid rounded z-depth-1" %}
 
@@ -166,7 +165,7 @@ title: "QCRD: Quality-guided Contrastive Rationale Distillation for Large Lanaug
 
   - 위의 단계로 여러 positive, negative sample을 수집
 
-→ many-to-one contrastive distillation loss를 사용
+ → many-to-one contrastive distillation loss를 사용
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-10-03-qcrd-quality-guided-contrastive-rationale-distillation-for-large/image_005.png" class="img-fluid rounded z-depth-1" %}
 
@@ -182,7 +181,7 @@ title: "QCRD: Quality-guided Contrastive Rationale Distillation for Large Lanaug
 
       - 너무 단순한 neg는 거르기 위해 margin사용
 
-- 또한, student model이 생성했다고 해서 무조건 negative로 볼 경우, 학습이 진행되면서 local optima에 빠질 수 있기 때문에 discriminator를 사용하는 quality-guided distillation을 사용
+  - 또한, student model이 생성했다고 해서 무조건 negative로 볼 경우, 학습이 진행되면서 local optima에 빠질 수 있기 때문에 discriminator를 사용하는 quality-guided distillation을  사용
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-10-03-qcrd-quality-guided-contrastive-rationale-distillation-for-large/image_006.png" class="img-fluid rounded z-depth-1" %}
 
@@ -192,7 +191,7 @@ title: "QCRD: Quality-guided Contrastive Rationale Distillation for Large Lanaug
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-10-03-qcrd-quality-guided-contrastive-rationale-distillation-for-large/image_007.png" class="img-fluid rounded z-depth-1" %}
 
-- 이 total loss를 보면 최종적으론 student model의 encoder를 똑 떼서 discriminator로 학습한다는 느낌같은데.. 확실히 맞는지 모르겠음
+  - 이 total loss를 보면 최종적으론 student model의 encoder를 똑 떼서 discriminator로 학습한다는 느낌같은데.. 확실히 맞는지 모르겠음
 
 ## Experiments
 
@@ -218,7 +217,7 @@ title: "QCRD: Quality-guided Contrastive Rationale Distillation for Large Lanaug
 
 **Baselines**
 
-- Fintuning
+- Fintuning 
 
 - Single-supervision : teacher model이 예측한 label을 맞추도록 학습
 
@@ -234,7 +233,7 @@ title: "QCRD: Quality-guided Contrastive Rationale Distillation for Large Lanaug
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-10-03-qcrd-quality-guided-contrastive-rationale-distillation-for-large/image_009.png" class="img-fluid rounded z-depth-1" %}
 
-- 다른 유사한 CoT distillation 방법론과 비교해도 높은 성능을 보임
+  - 다른 유사한 CoT distillation 방법론과 비교해도 높은 성능을 보임
 
 - Distillation with LLM labels
 

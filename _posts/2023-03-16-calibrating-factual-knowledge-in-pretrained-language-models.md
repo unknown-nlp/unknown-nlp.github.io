@@ -1,31 +1,32 @@
 ---
 categories:
-  - paper-reviews
-date: "2023-03-16 00:00:00"
+- paper-reviews
+date: '2023-03-16 00:00:00'
 description: 논문 리뷰 - Knowledge, Calibrating 관련 연구
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-  - attention
-  - calibrating
-  - gpt
-  - knowledge
-  - language-model
-  - nlp
-  - paper-review
-  - transformer
+- attention
+- calibrating
+- gpt
+- knowledge
+- language-model
+- nlp
+- paper-review
+- transformer
 thumbnail: assets/img/posts/2023-03-16-calibrating-factual-knowledge-in-pretrained-language-models/thumbnail.jpg
 title: Calibrating Factual Knowledge in Pretrained Language Models
 ---
 
 **논문 정보**
-
 - **Date**: 2023-03-16
 - **Reviewer**: 김재희
 - **Property**: Knowledge, Calibrating
 
+
 ---
+
 
 ---
 
@@ -33,7 +34,7 @@ title: Calibrating Factual Knowledge in Pretrained Language Models
 
 기존 LM의 내부에 사전학습을 통해 Factual Knowledge가 저장되어 있다고 간주하는 연구들이 있음
 
-### LAMA(Language Models as Knowledge Bases?, Wu et al., EMNLP 2019)
+###  LAMA(Language Models as Knowledge Bases?, Wu et al., EMNLP 2019)
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2023-03-16-calibrating-factual-knowledge-in-pretrained-language-models/image_000.png" class="img-fluid rounded z-depth-1" %}
 
@@ -47,7 +48,7 @@ title: Calibrating Factual Knowledge in Pretrained Language Models
 
 - 최근 연구에선 GPT3의 많은 파라미터 중 FFNN 레이어에 Factual Knowledge가 주로 저장된다고 주장
 
-- 트랜스포머의 FFNN은 model_dim → 4\*model_dim → model_dim으로 2 레이어로 구성
+- 트랜스포머의 FFNN은 model_dim → 4*model_dim → model_dim으로 2 레이어로 구성
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2023-03-16-calibrating-factual-knowledge-in-pretrained-language-models/image_001.png" class="img-fluid rounded z-depth-1" %}
 
@@ -55,9 +56,9 @@ title: Calibrating Factual Knowledge in Pretrained Language Models
 
   1. x : Model의 Input이 입력
 
-  1. \text{key} = W\_{fc}(x) : 첫번째 FC layer를 통과한 값이 Factual Knowledge를 가져오기 위한 Key로 작용
+  1. \text{key} = W_{fc}(x) : 첫번째 FC layer를 통과한 값이 Factual Knowledge를 가져오기 위한 Key로 작용
 
-  1. \text{value} = W\_{proj}(\sigma(key)) : key와 가장 유사한 정보를 W_proj에서 가져옴→ Factual Knowledge로 간주
+  1. \text{value} = W_{proj}(\sigma(key)) : key와 가장 유사한 정보를 W_proj에서 가져옴→ Factual Knowledge로 간주
 
   - 이러한 아이디어를 반영하여 앞으로 FFNN 레이어는 다음과 같이 표현
 
@@ -65,25 +66,26 @@ title: Calibrating Factual Knowledge in Pretrained Language Models
 
 - 이를 통해 Key 혹은 Value를 산출하는 W matrix를 수정하여 모델이 가지고 있는 Factual Knowledge에 직접 접근/수정할 수 있다고 주장
 
+
 ---
 
 ### Contribution
 
-- 본 논문은 이러한 아이디어를 차용하여, 모델이 잘못 저장하고 있는 Factual Knowledge를 효율적으로 수정할 수 있는 방법론 제안
+- 본 논문은 이러한 아이디어를 차용하여, 모델이 잘못 저장하고 있는 Factual Knowledge를 효율적으로 수정할 수 있는 방법론 제안 
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2023-03-16-calibrating-factual-knowledge-in-pretrained-language-models/image_003.png" class="img-fluid rounded z-depth-1" %}
 
-- Retrieval Augmented LM, Knowlege Graph과 달리 오직 모델의 input-output으로 Knowlege를 수정하는 방법론 제안
+- Retrieval Augmented LM, Knowlege Graph과 달리 오직 모델의 input-output으로 Knowlege를 수정하는 방법론 제안 
 
 - 이와 더불어 모델이 잘못 알고 있는 Factual Knowledge를 효과적으로 탐색할 수 있는 scoring 방법론 제안
 
 ## 2. Contrastive Knowledge Assessment(CKA)
 
-- 본 논문의 주제는 결국 **모델이 잘못 알고 있는 사실을 수정하자** 임.
+- 본 논문의 주제는 결국 **모델이 잘못 알고 있는 사실을 수정하자** 임. 
 
-- 해당 문제의 출발점은 **모델이 잘못 알고 있는 사실이 무엇인가?**
+- 해당 문제의 출발점은 **모델이 잘못 알고 있는 사실이 무엇인가?** 
 
-- LM 태스크를 통해 subject와 relation이 입력되었을 때, object가 생성될 확률을 이용하여 모델이 옳바른 Factual Knowlege를 가지고 있는지 평가
+- LM 태스크를 통해 subject와 relation이 입력되었을 때, object가 생성될 확률을 이용하여 모델이 옳바른 Factual Knowlege를 가지고 있는지 평가 
 
 - 이러한 평가 시 두가지 고려사항 존재
 
@@ -101,7 +103,7 @@ title: Calibrating Factual Knowledge in Pretrained Language Models
 
 - 수식
 
-  - \mathrm{CKA}_{\mathrm{M}}(s, r, o)=\frac{P_M(o \mid s, r)+\alpha}{\mathbb{E}_{r^{\prime}}\left[P_M\left(o \mid s, r^{\prime}\right)\right]+\alpha}
+  - \mathrm{CKA}_{\mathrm{M}}(s, r, o)=\frac{P_M(o \mid s, r)+\alpha}{\mathbb{E}_{r^{\prime}}\left[P_M\left(o \mid s, r^{\prime}\right)\right]+\alpha} 
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2023-03-16-calibrating-factual-knowledge-in-pretrained-language-models/image_004.png" class="img-fluid rounded z-depth-1" %}
 
@@ -113,11 +115,11 @@ title: Calibrating Factual Knowledge in Pretrained Language Models
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2023-03-16-calibrating-factual-knowledge-in-pretrained-language-models/image_005.png" class="img-fluid rounded z-depth-1" %}
 
-- 단순히 Top-3 Prediction을 통해 모델의 Factual Knowledge를 평가하는 것보다 정확한 평가 가능
+  - 단순히 Top-3 Prediction을 통해 모델의 Factual Knowledge를 평가하는 것보다 정확한 평가 가능
 
-  - 복수의 정답들과 무관하게 정답을 잘 도출할 수 있는지 평가 가능
+    - 복수의 정답들과 무관하게 정답을 잘 도출할 수 있는지 평가 가능
 
-  - 학습 시 자주 같이 등장한 Object, Subject 를 무시하고 실제 정답 subject에 대한 평가 가능
+    - 학습 시 자주 같이 등장한 Object, Subject 를 무시하고 실제 정답 subject에 대한 평가 가능
 
 ## 3. CaliNet
 
@@ -139,6 +141,7 @@ title: Calibrating Factual Knowledge in Pretrained Language Models
 
 - Catastrophic Forgetting 가능 : Factual Knowledge는 잘 생성하지만, 다른 문장들에 대한 분포가 망가짐
 
+
 ---
 
 ### Main Idea :
@@ -147,17 +150,17 @@ title: Calibrating Factual Knowledge in Pretrained Language Models
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2023-03-16-calibrating-factual-knowledge-in-pretrained-language-models/image_006.png" class="img-fluid rounded z-depth-1" %}
 
-- 기존 FFNN
+- 기존 FFNN 
 
 K, V \in \mathbb{R}^{d_m \times 4d_m}
 
-- Calibration Slots
+- Calibration Slots 
 
 \tilde{K},\tilde{V} \in \mathbb{R}^{d_m \times d_c}, (d_c << 4d_m)
 
 → LoRA와 다른점
 
-- LoRA : Attention Input을 위한 Project Matrix W_q, W_v에 적용
+- LoRA : Attention Input을 위한 Project Matrix W_q, W_v에 적용 
 
 - CaliNET : FFNN와 동일 구조를 가지되 적은 차원의 Matrix로 구성
 
@@ -167,7 +170,7 @@ K, V \in \mathbb{R}^{d_m \times 4d_m}
 
 - CaliNet은 Decoder의 마지막 레이어에만 적용 (향후 실험 있어요!)
 
-## 4. 실험 및 결과
+## 4. 실험 및 결과 
 
 ### Dataset
 
@@ -177,7 +180,7 @@ K, V \in \mathbb{R}^{d_m \times 4d_m}
 
 → 에스토니아의 수도는 Tallinn임
 
-- # of dataset : 100 or 1000
+-  # of dataset : 100 or 1000
 
 ### Incorrect Factual Knowledge Dataset
 
@@ -189,6 +192,7 @@ K, V \in \mathbb{R}^{d_m \times 4d_m}
 
   - 기존의 relation과 의미적으로 반대가 되면서 subject와 object 간의 연결이 가능한 relation
 
+
 ---
 
 ### Main Experiment
@@ -199,14 +203,14 @@ K, V \in \mathbb{R}^{d_m \times 4d_m}
 
 - Ori : 실제 Factual Knowledge triplet의 Object에 대한 Perplexity
 
-- Adv : Errorneous relation을 이용한 triplet의 Object에 대한 Perplexity
+- Adv : Errorneous relation을 이용한 triplet의 Object에 대한 Perplexity 
 
 - EM, F1 : object에 대한 실제 생성 정확도
 
 - LM : 전체 토큰에 대한 Perplexity
 
-> Ori : (Obama, born_in, Hawaii) → Obama was born in [MASK] → Hawaii
-> Adv : (Obama, died_in, Hawaii) → Obama was died in [MASK] → Hawaii
+> Ori : (Obama, born_in, Hawaii) → Obama was born in [MASK] → Hawaii 
+Adv : (Obama, died_in, Hawaii) → Obama was died in [MASK] → Hawaii
 
 - CP(Continual Pretraining) 에 비해 CALINET이 적은 파라미터 이용
 
@@ -217,6 +221,7 @@ K, V \in \mathbb{R}^{d_m \times 4d_m}
   - CP는 기존 파라미터를 업데이트하기 때문에 general ability가 훼손되는 모습
 
   - CALINET은 기존 파라미터를 유지하기 때문에 Factual Knowledge를 수정하면서도 general ability를 유지
+
 
 ---
 
@@ -234,6 +239,7 @@ K, V \in \mathbb{R}^{d_m \times 4d_m}
 
 ⇒ 기존 방법론들이 최대 125개의 Knowledge를 수정하면서도 70%의 정확도만 달성한 것에 비하면 큰 개선
 
+
 ---
 
 ### Concatenating CaliNet in Different Layers
@@ -250,6 +256,7 @@ K, V \in \mathbb{R}^{d_m \times 4d_m}
 
   - 모델의 Factual Knowledge를 수정하기 위해선 마지막 레이어를 수정해야 함
 
+
 ---
 
 ### Interpretability of CaliNet
@@ -260,7 +267,7 @@ K, V \in \mathbb{R}^{d_m \times 4d_m}
 
 - E : 모델의 출력 임베딩 레이어
 
-- \text{v}^l : 기존 모델의 l번째 레이어의 hidden representation
+- \text{v}^l :  기존 모델의 l번째 레이어의 hidden representation
 
 - \text{v}^c : CaliNet의 hidden representation
 
@@ -278,6 +285,7 @@ K, V \in \mathbb{R}^{d_m \times 4d_m}
 
   - Cali는 상당량의 토큰이 entity에 해당하여 효과적으로 hidden representation을 조정하여 Factual Knowledge를 잘 calibration 하고 있음
 
+
 ---
 
 ### Evolution of Token Distribution
@@ -290,9 +298,9 @@ K, V \in \mathbb{R}^{d_m \times 4d_m}
 
 - Calibration을 통해 실제 정답 Object 뿐만 아니라 의미적으로 유사한 토큰들도 높은 liklihood가 생성됨
 
-→ CaliNet이 단순히 특정 문장의 생성을 유도하는 것이 아니라 Factual Knowledge를 주입하여 해당 Knowledge에 대한 General Concept을 학습시킨다.
+→ CaliNet이 단순히 특정 문장의 생성을 유도하는 것이 아니라 Factual Knowledge를 주입하여 해당 Knowledge에 대한 General Concept을 학습시킨다. 
 
-## 4. 결론
+## 4. 결론                      
 
 - Fact Checking 논문은 아니었다…
 
@@ -304,4 +312,4 @@ K, V \in \mathbb{R}^{d_m \times 4d_m}
 
 - Factual Knowledge를 모델의 generalization 성능을 떨어트리지 않으면서 입력하는 것이 매우 어려운 태스크임을 확인
 
-→ 1000개의 Knowledge를 삽입하는 것도 매우 어렵다.
+→ 1000개의 Knowledge를 삽입하는 것도 매우 어렵다. 

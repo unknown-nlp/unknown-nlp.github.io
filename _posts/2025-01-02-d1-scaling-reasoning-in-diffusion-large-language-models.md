@@ -1,34 +1,35 @@
 ---
 categories:
-  - paper-reviews
-date: "2025-01-02 00:00:00"
+- paper-reviews
+date: '2025-01-02 00:00:00'
 description: 논문 리뷰 - DiffusionLM, SFT, Reinforcement Learning, Reasoning 관련 연구
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-  - attention
-  - diffusion
-  - diffusionlm
-  - language-model
-  - llm
-  - paper-review
-  - reasoning
-  - reinforcement learning
-  - reinforcement-learning
-  - sft
+- attention
+- diffusion
+- diffusionlm
+- language-model
+- llm
+- paper-review
+- reasoning
+- reinforcement learning
+- reinforcement-learning
+- sft
 thumbnail: assets/img/posts/2025-01-02-d1-scaling-reasoning-in-diffusion-large-language-models/thumbnail.jpg
-title: "d1: Scaling Reasoning in Diffusion Large Language Models via Reinforcement
-  Learning"
+title: 'd1: Scaling Reasoning in Diffusion Large Language Models via Reinforcement
+  Learning'
 ---
 
 **논문 정보**
-
 - **Date**: 2025-01-02
 - **Reviewer**: 김재희
 - **Property**: DiffusionLM, SFT, Reinforcement Learning, Reasoning
 
+
 ---
+
 
 ---
 
@@ -38,7 +39,7 @@ title: "d1: Scaling Reasoning in Diffusion Large Language Models via Reinforceme
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2025-01-02-d1-scaling-reasoning-in-diffusion-large-language-models/image_000.png" class="img-fluid rounded z-depth-1" %}
 
-> LLaMA3보다 높은 성능을 내는 Diffuion LM 강화학습 방법론.
+> LLaMA3보다 높은 성능을 내는 Diffuion LM 강화학습 방법론. 
 
 ### 1.2 RL(GRPO)
 
@@ -50,19 +51,19 @@ title: "d1: Scaling Reasoning in Diffusion Large Language Models via Reinforceme
 
 1. 토큰 레벨(advantage 항) 및 문장 레벨(KL 항)의 loglikelihood 필요
 
-1. inner/outer loop 존재: 강화학습의 맥락에서 나온 개념인듯
+1. inner/outer loop 존재: 강화학습의 맥락에서 나온 개념인듯 
 
-1. inner loop: 이미 추출된 샘플, advantage 항, old policy를 이용하여 k회 반복해서 policy 모델을 업데이트 하는 것
+  1. inner loop: 이미 추출된 샘플, advantage 항, old policy를 이용하여 k회 반복해서 policy 모델을 업데이트 하는 것
 
-1. 장점: 샘플링이 추가적으로 진행되지 않으므로 빠른 수렴에 도움
+    1. 장점: 샘플링이 추가적으로 진행되지 않으므로 빠른 수렴에 도움
 
-1. 단점: 특정 데이터에 대해 과적합되거나 학습 불안정 발생 가능
+    1. 단점: 특정 데이터에 대해 과적합되거나 학습 불안정 발생 가능
 
-1. outer loop: 쿼리에 대해 n개의 샘플을 추출하고 advantage를 계산하는 과정
+  1. outer loop: 쿼리에 대해 n개의 샘플을 추출하고 advantage를 계산하는 과정
 
-1. 장점: 다양한 데이터에 대한 일반화 성능 확보
+    1. 장점: 다양한 데이터에 대한 일반화 성능 확보
 
-1. 단점: 매 쿼리마다 많은 수의 샘플링을 동반하여 학습 속도가 느려짐
+    1. 단점: 매 쿼리마다 많은 수의 샘플링을 동반하여 학습 속도가 느려짐
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2025-01-02-d1-scaling-reasoning-in-diffusion-large-language-models/image_002.png" class="img-fluid rounded z-depth-1" %}
 
@@ -74,15 +75,15 @@ title: "d1: Scaling Reasoning in Diffusion Large Language Models via Reinforceme
 
 ⇒ 이미 샘플링된 문장에 대해 문장 길이만큼 forwarding 필요
 
-- 문장 레벨 loglikelihood 계산이 불가능함
+  - 문장 레벨 loglikelihood 계산이 불가능함
 
-  - AR 모델의 문장 레벨 계산: \log \pi*\textbf{AR} (o | q) = \sum*{k=1}^{|o|} \log \pi\_\textbf{AR} ( o^l |q, o^{<k})
+    - AR 모델의 문장 레벨 계산: \log \pi_\textbf{AR} (o | q) = \sum_{k=1}^{|o|} \log \pi_\textbf{AR} ( o^l |q, o^{<k})
 
-    - 단순하게 모든 토큰의 loglikelihood를 더하면 됨
+      - 단순하게 모든 토큰의 loglikelihood를 더하면 됨
 
-  - DDLM의 forwarding 방식: \log \pi*{\textbf{DDLM}}(o | q, MASK*{|o|})
+    - DDLM의 forwarding 방식: \log \pi_{\textbf{DDLM}}(o | q, MASK_{|o|})
 
-    - 모든 토큰이 동시에 생성되어 문장 단위 loglikelihood로 구성 불가
+      - 모든 토큰이 동시에 생성되어 문장 단위 loglikelihood로 구성 불가
 
 ### ⇒ 단순히 AR의 GRPO를 적용할 수 없음.
 
@@ -96,7 +97,7 @@ title: "d1: Scaling Reasoning in Diffusion Large Language Models via Reinforceme
 
   - k개의 output이 존재하는 시스템에서 원래는 각 k개의 output이 다른 output에 영향을 받는데, 독립이라 가정하고 확률을 계산
 
-- AR: 각 토큰의 생성이 이전 토큰에 종속적
+- AR: 각 토큰의 생성이 이전 토큰에 종속적 
 
   - causal attention을 통해 자연스럽게 만족
 
@@ -114,7 +115,7 @@ title: "d1: Scaling Reasoning in Diffusion Large Language Models via Reinforceme
 
 - AR: 각 토큰의 loglikelihod로 분해 가능
 
-- DDLM: 모든 토큰이 동시에 생성되어 적용 불가
+- DDLM: 모든 토큰이 동시에 생성되어 적용 불가 
 
   - 각 토큰이 다른 토큰 생성에 종속적
 
@@ -122,7 +123,7 @@ title: "d1: Scaling Reasoning in Diffusion Large Language Models via Reinforceme
 
 → AR처럼 sequence-level loglikelihood = 각 token loglikelihood의 합
 
-\log \pi*{\textbf{DDLM}}(o|q) = \sum^{|o|}*{k=1} \log \pi\_{\textbf{DDLM}} (o^k||q)
+\log \pi_{\textbf{DDLM}}(o|q) = \sum^{|o|}_{k=1} \log \pi_{\textbf{DDLM}} (o^k||q)
 
 ### 2.2 One-step Per-token loglikelihood estimation
 
@@ -148,15 +149,15 @@ title: "d1: Scaling Reasoning in Diffusion Large Language Models via Reinforceme
 
     - policy update의 regularization 혹은 augmented data로서 동작 가능
 
-- 해당 장점은 사실 학습 속도에 매우 큰 영향을 미침
+  - 해당 장점은 사실 학습 속도에 매우 큰 영향을 미침
 
-  - 전체 학습에서 샘플링 수의 감소
+    - 전체 학습에서 샘플링 수의 감소
 
-    1. inner loop을 많이 돌수록 모델은 더 빨리 수렴하게 됨
+      1. inner loop을 많이 돌수록 모델은 더 빨리 수렴하게 됨
 
-    1. 이로 인해 outer loop(sampling) 과정이 덜 실행되도 높은 성능 도달 가능
+      1. 이로 인해 outer loop(sampling) 과정이 덜 실행되도 높은 성능 도달 가능
 
-    1. dLLM 특성 상 생성에 많은 비용이 들어가므로 매우 중요한 이점
+      1. dLLM 특성 상 생성에 많은 비용이 들어가므로 매우 중요한 이점
 
 ### 2.4 SFT
 
@@ -172,7 +173,7 @@ title: "d1: Scaling Reasoning in Diffusion Large Language Models via Reinforceme
 
 - 학습 데이터: s1K 데이터 사용
 
-  - reasoning ability 발현(instill)을 위해 수집 및 정제한 1,000개의 데이터셋
+  - reasoning ability 발현(instill)을 위해 수집 및 정제한 1,000개의 데이터셋 
 
     - 분야, reasoning 길이 등을 최대한 잘 조절하여 구축
 
@@ -184,15 +185,15 @@ title: "d1: Scaling Reasoning in Diffusion Large Language Models via Reinforceme
 
 - reward: correctness, formatting
 
-- max len:
+- max len: 
 
   - SFT: 4,096 → LLaDA의 Max len
 
   - diffu-GRPO: 256 → A5000 \times 4 로 진행해서 이 이상은 무리였던듯
 
-### 3.1 Main
+### 3.1 Main 
 
-- 각 데이터 별 별도 학습 진행
+- 각 데이터 별 별도 학습 진행 
 
 - SFT와 diffu-GRPO의 효과 검증
 

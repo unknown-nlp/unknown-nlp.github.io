@@ -1,30 +1,29 @@
 ---
 categories:
-  - paper-reviews
-date: "2023-09-12 00:00:00"
+- paper-reviews
+date: '2023-09-12 00:00:00'
 description: 논문 리뷰 - Knowledge Distillation 관련 연구
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-  - alignment
-  - attention
-  - bert
-  - fine-tuning
-  - gpt
-  - knowledge distillation
-  - language-model
-  - llm
-  - paper-review
-  - reasoning
+- alignment
+- attention
+- bert
+- fine-tuning
+- gpt
+- knowledge distillation
+- language-model
+- llm
+- paper-review
+- reasoning
 thumbnail: assets/img/posts/2023-09-12-a-systematic-study-of-knowledge-distillation-for-natural/thumbnail.jpg
-title: "A Systematic Study of Knowledge Distillation for Natural Language
+title: 'A Systematic Study of Knowledge Distillation for Natural Language
 
-  Generation with Pseudo-Target Training"
+  Generation with Pseudo-Target Training'
 ---
 
 **논문 정보**
-
 - **Date**: 2023-09-12
 - **Reviewer**: 전민진
 - **Property**: Knowledge Distillation
@@ -93,7 +92,7 @@ title: "A Systematic Study of Knowledge Distillation for Natural Language
 
 - Exposure Bias
 
-  - LM은 distribution P(y|s,y\_{<i})를 학습하는데, 이 방식을 teacher forcing이라 함
+  - LM은 distribution P(y|s,y_{<i})를 학습하는데, 이 방식을 teacher forcing이라 함
 
   - teacher forcing때문에, training과 inference 사이에 discrepancy가 발생하게 되는데, 이를 exposure bias라 함
 
@@ -123,23 +122,23 @@ title: "A Systematic Study of Knowledge Distillation for Natural Language
 
       - Word-level KD : logits KD로도 알려져 있으며, steduent와 teacher의 next token prediction에 사용되는 distribution의 차를 줄이도록 설계
 
-        - L*{log}(x,y) = -\sum*{i=1}^{|y|}KL(P*S(y_i|x,y*{<i})||P*T(Y_i|x,y*{<i}))
+        - L_{log}(x,y) = -\sum_{i=1}^{|y|}KL(P_S(y_i|x,y_{<i})||P_T(Y_i|x,y_{<i}))
 
         - variation으로 Noisy KD가 있음
 
           - KD동안에 teacher에 dropout를 적용
 
-          - L*{NoisyKD}=\sum*{t=1}^{T}KL(\hat p*T^\alpha(y_t|y*{1}^{t-1},x),P_S(y_t|y_1^{t-1},\tilde x))
+          - L_{NoisyKD}=\sum_{t=1}^{T}KL(\hat p_T^\alpha(y_t|y_{1}^{t-1},x),P_S(y_t|y_1^{t-1},\tilde x))
 
       - Inner-level KD : 추가적으로 teacher의 inner feature를 따라하는 것
 
         - Attention-relation KD는 self-attention states의 relation matrix(scaled dot-product)를 따라하도록 설계됨
 
-          - L*{AR} = \frac{1}{A*{h} |x|} \sum*{a=1}^{A_h}\sum*{t=1}^{|x|}D*{KL}(A^T*{L,a,t}||A^S\_{L,a,t}) (self attention distribution)
+          - L_{AR} = \frac{1}{A_{h} |x|} \sum_{a=1}^{A_h}\sum_{t=1}^{|x|}D_{KL}(A^T_{L,a,t}||A^S_{L,a,t}) (self attention distribution)
 
-          - L*{VR} = \frac{1}{A*{h} |x|} \sum*{a=1}^{A_h}\sum*{t=1}^{|x|}D*{KL}(VR^T*{L,a,t}||VR^S\_{L,a,t})
+          - L_{VR} = \frac{1}{A_{h} |x|} \sum_{a=1}^{A_h}\sum_{t=1}^{|x|}D_{KL}(VR^T_{L,a,t}||VR^S_{L,a,t}) 
 
-          - VR^T*{L,a} = softmax(\frac{V^T*{L,a}{V^T\_{L,a}}^T}{\sqrt{d_k}})(value-relation attention)
+          - VR^T_{L,a} = softmax(\frac{V^T_{L,a}{V^T_{L,a}}^T}{\sqrt{d_k}})(value-relation attention)
 
       - Sequence-level KD
 
@@ -147,7 +146,7 @@ title: "A Systematic Study of Knowledge Distillation for Natural Language
 
         - 이 때, teacher는 single PT를 beam search를 사용해 생성, 이를 P_T(y|x)의 mode approximation이라 함
 
-        - 실험에서는 생성된 PT를 \hat y^T라 할 때, L*{NLL}(x,\hat y^T)+L*{NLL}(x,y)를 사용
+        - 실험에서는 생성된 PT를 \hat y^T라 할 때, L_{NLL}(x,\hat y^T)+L_{NLL}(x,y)를 사용
 
 ## 3. Proposed Method
 
@@ -155,11 +154,11 @@ title: "A Systematic Study of Knowledge Distillation for Natural Language
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2023-09-12-a-systematic-study-of-knowledge-distillation-for-natural/image_000.png" class="img-fluid rounded z-depth-1" %}
 
-- stage1-2에서는 architectural design로 시작, stage 3-4에서는 다양한 KD strategy들을 비교, stage 5-8에서는 KD를 위한 augemntation strategy로 PT 사용에 대한 실험 진행
+  - stage1-2에서는 architectural design로 시작, stage 3-4에서는 다양한 KD strategy들을 비교, stage 5-8에서는 KD를 위한 augemntation strategy로 PT 사용에 대한 실험 진행
 
-- 각 단계에서 성능이 제일 좋은 setting을 다음 stage에서 계속 사용
+  - 각 단계에서 성능이 제일 좋은 setting을 다음 stage에서 계속 사용
 
-  - 검은선으로 굵게 표기된 박스가 채택된 setting을 뜻함
+    - 검은선으로 굵게 표기된 박스가 채택된 setting을 뜻함
 
 - Architectuures and Pruning - stage 1,2
 
@@ -171,13 +170,13 @@ title: "A Systematic Study of Knowledge Distillation for Natural Language
 
   - Conditional Language Modeling(fine-tuning)
 
-    - L*{NLL}(x,y) = -logP(y|x) = -\sum*{i=1}^{|y|}logP(y*i|x,y*{<i})
+    - L_{NLL}(x,y) = -logP(y|x) = -\sum_{i=1}^{|y|}logP(y_i|x,y_{<i})
 
   - Logits KD(a.k.a Word-Lebel KD)
 
     - stage 3에서 사용
 
-    - L*{log}(x,y) = -\sum*{i=1}^{|y|}KL(P*S(y_i|x,y*{<i})||P*T(Y_i|x,y*{<i}))
+    - L_{log}(x,y) = -\sum_{i=1}^{|y|}KL(P_S(y_i|x,y_{<i})||P_T(Y_i|x,y_{<i}))
 
   - Noisy KD, Attention Relation KD
 
@@ -201,13 +200,13 @@ title: "A Systematic Study of Knowledge Distillation for Natural Language
 
   - Fine-tune + PTs(a.k.a sequence-level KD)
 
-    - L*{NLL}(x,\hat y^T)+L*{NLL}(x,y)를 사용해 실험
+    - L_{NLL}(x,\hat y^T)+L_{NLL}(x,y)를 사용해 실험
 
   - Logits KD + PTs
 
-    - Fine-tune + PTs와 같지만, L*{NLL}이 아니라 L*{log}를 minimize
+    - Fine-tune + PTs와 같지만, L_{NLL}이 아니라 L_{log}를 minimize
 
-    - L*{log}(x,\hat y^T) + L*{log}(x,y)
+    - L_{log}(x,\hat y^T) + L_{log}(x,y)
 
 - Unlabeled data - stage 5
 
@@ -239,7 +238,7 @@ title: "A Systematic Study of Knowledge Distillation for Natural Language
 
     - Logits KD + sampling Multiple PTs와 동일하지만, PT를 sampling할 때, high temperature value사용(\tau = 1.5)
 
-      - 이렇게 하면 next token distribution이 flat하게 되어 더 diverse, suprising PT를 생성할 수 있음
+      - 이렇게 하면 next token distribution이 flat하게 되어 더 diverse, suprising PT를 생성할 수 있음 
 
 - Joint Teacheing - stage 8
 
@@ -261,15 +260,15 @@ title: "A Systematic Study of Knowledge Distillation for Natural Language
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2023-09-12-a-systematic-study-of-knowledge-distillation-for-natural/image_001.png" class="img-fluid rounded z-depth-1" %}
 
-- Logit KD + Student PTs
+  - Logit KD + Student PTs
 
-  - L\_{log}(x,\hat y^S)
+    - L_{log}(x,\hat y^S)
 
-- 결론적으로, teacher와 student에서 생성된 PT에 대해서 word-level KD를 적용, 실험에서는 student의 PT를 학습 과정의 50%에서 사용
+  - 결론적으로, teacher와 student에서 생성된 PT에 대해서 word-level KD를 적용, 실험에서는 student의 PT를 학습 과정의 50%에서 사용
 
-  - Joint-Teaching
+    - Joint-Teaching
 
-    - \alpha L*{log}(x,\hat y^T)+(1-\alpha)L*{log}(x,\hat y^S)
+      - \alpha L_{log}(x,\hat y^T)+(1-\alpha)L_{log}(x,\hat y^S)
 
 ## 4. 실험 및 결과
 
@@ -279,15 +278,15 @@ title: "A Systematic Study of Knowledge Distillation for Natural Language
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2023-09-12-a-systematic-study-of-knowledge-distillation-for-natural/image_002.png" class="img-fluid rounded z-depth-1" %}
 
-- English-to-English core NLG task를 선택
+  - English-to-English core NLG task를 선택
 
-- labeled to unlabeled data의 비율을 1:4로 설정
+  - labeled to unlabeled data의 비율을 1:4로 설정
 
-- Summarization(XSUM40), Question Generation(SQuAD17), Abductive Reasoning(ART10), Style Transfer and Simplification(Shake7),
+  - Summarization(XSUM40), Question Generation(SQuAD17), Abductive Reasoning(ART10), Style Transfer and Simplification(Shake7), 
 
-  - abductive reasoning의 경우 2개의 observation이 주어질 때, plausible explanation을 생성하는 태스크
+    - abductive reasoning의 경우 2개의 observation이 주어질 때, plausible explanation을 생성하는 태스크
 
-  - Style Transfer and Simplification의 경우 shakespeare’s text를 modern english로 번역하는 태스크
+    - Style Transfer and Simplification의 경우 shakespeare’s text를 modern english로 번역하는 태스크
 
 ### Models and Pruning
 
@@ -405,9 +404,9 @@ title: "A Systematic Study of Knowledge Distillation for Natural Language
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2023-09-12-a-systematic-study-of-knowledge-distillation-for-natural/image_005.png" class="img-fluid rounded z-depth-1" %}
 
-- 위의 장표를 보면, multiple PT가 single PT보다 뛰어나고, logitsKD의 경우 SQuAD17에서만 도움이 됨
+  - 위의 장표를 보면, multiple PT가 single PT보다 뛰어나고, logitsKD의 경우 SQuAD17에서만 도움이 됨
 
-- tokenizer가 다른 문제 때문에 다음과 같은 방법론 사용
+  - tokenizer가 다른 문제 때문에 다음과 같은 방법론 사용
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2023-09-12-a-systematic-study-of-knowledge-distillation-for-natural/image_006.png" class="img-fluid rounded z-depth-1" %}
 
@@ -435,7 +434,7 @@ title: "A Systematic Study of Knowledge Distillation for Natural Language
 
 ### Conclusion
 
-- decoder가 pruning된 ED모델을 student로, Logit KD와 sampling한 PT를 활용한 Joint-Teaching방법이 성능이 어느 정도 방어되면서 가장 좋은 compression rate를 보여줌
+- decoder가 pruning된 ED모델을 student로, Logit KD와 sampling한 PT를 활용한 Joint-Teaching방법이 성능이 어느 정도 방어되면서 가장 좋은 compression rate를 보여줌 
 
 ### Limitation
 
@@ -473,7 +472,7 @@ title: "A Systematic Study of Knowledge Distillation for Natural Language
 
   - Joint-teaching은 LLM 환경에서 실험하지 않음
 
-    - teacher의 prediction distribution을 계속 query하기엔 비용이 너무 큼
+    -  teacher의 prediction distribution을 계속 query하기엔 비용이 너무 큼
 
   - Logit을 뽑아낼 수 있는 LLM이 별로 없음
 

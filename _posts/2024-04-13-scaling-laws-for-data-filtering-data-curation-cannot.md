@@ -1,34 +1,33 @@
 ---
 categories:
-  - paper-reviews
-date: "2024-04-13 00:00:00"
+- paper-reviews
+date: '2024-04-13 00:00:00'
 description: 논문 리뷰 - LM, LLM, Efficient Training, Pre-training 관련 연구
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-  - classification
-  - efficient training
-  - language-model
-  - llm
-  - lm
-  - neural
-  - paper-review
-  - pre-training
-  - vision
+- classification
+- efficient training
+- language-model
+- llm
+- lm
+- neural
+- paper-review
+- pre-training
+- vision
 thumbnail: assets/img/posts/2024-04-13-scaling-laws-for-data-filtering-data-curation-cannot/thumbnail.jpg
-title: "Scaling Laws for Data Filtering—
+title: 'Scaling Laws for Data Filtering—
 
-  Data Curation cannot be Compute Agnostic"
+  Data Curation cannot be Compute Agnostic'
 ---
 
 **논문 정보**
-
 - **Date**: 2024-04-13
 - **Reviewer**: yukyung lee
 - **Property**: LM, LLM, Efficient Training, Pre-training
 
-https://arxiv.org/abs/2404.07177
+ https://arxiv.org/abs/2404.07177
 
 # tl;dr
 
@@ -38,20 +37,20 @@ https://arxiv.org/abs/2404.07177
 
 - y-axis: web data는 non-homogenous하며 다양한 quality의 subset으로 구성됨
 
-- x-axis: bucket E와 같은 high-quality 데이터는 pre-training에서 quantity가 한정되어 있으며, epoch을 반복할수록 repetition으로 인해 utility가 떨어짐
+- x-axis: bucket E와 같은 high-quality 데이터는 pre-training에서 quantity가 한정되어 있으며, epoch을 반복할수록 repetition으로 인해 utility가 떨어짐  
 
 - 이러한 현상을 quality-quantity tradeoff (QQT)로 명명함
 
-- Research Question:
+- Research Question: 
 
-  - Should we train on the best pool (E) for 6 epoch ?
-    (가장 좋은 데이터 풀을 활용하여 학습을 해야하는지)
+  - Should we train on the best pool (E) for 6 epoch ? 
+(가장 좋은 데이터 풀을 활용하여 학습을 해야하는지)
 
-  - Should we train on the 3 best pools (E, D, C) for 2 epochs each
-    (가장 좋은 데이터와 그 다음으로 좋은 데이터를 섞어서 학습하는것이 좋을지
-    == E+D / E+C를 각각 2epoch씩 학습하는게 좋을지)
+  - Should we train on the 3 best pools (E, D, C) for 2 epochs each 
+(가장 좋은 데이터와 그 다음으로 좋은 데이터를 섞어서 학습하는것이 좋을지
+==  E+D / E+C를 각각 2epoch씩 학습하는게 좋을지)
 
-  - How does the answer vary with the total compute budget ?
+  - How does the answer vary with the total compute budget ? 
 
 **(b) Scaling laws for data filtering**
 
@@ -63,7 +62,7 @@ https://arxiv.org/abs/2404.07177
 
 - 이 method는 학습을 직접 해보지 않고도 scaling law를 추정할 수 있음
 
-_“our methodology does not involve training on combinations of data pools even for estimating their scaling laws”_
+*“our methodology does not involve training on combinations of data pools even for estimating their scaling laws”*
 
 ## 0. Abstract
 
@@ -81,9 +80,9 @@ _“our methodology does not involve training on combinations of data pools even
 
 - 제안하는 scaling law는
 
-  - (i) web data의 다양한 quality subset의 'utility'를 characterize하고,
+  - (i) web data의 다양한 quality subset의 'utility'를 characterize하고, 
 
-  - (ii) data point가 'n번째' 반복될 때 utility가 어떻게 감소하는지를 고려하며,
+  - (ii) data point가 'n번째' 반복될 때 utility가 어떻게 감소하는지를 고려하며, 
 
   - (iii) 다양한 data pool이 결합될 때의 mutual interaction을 공식화하여, 결합된 여러 data pool에 대한 모델 성능을 추정할 수 있게 함
 
@@ -103,7 +102,7 @@ _“our methodology does not involve training on combinations of data pools even
 
 - Web data는 방대하지만 high quality data는 한정되어 있음
 
-- 해당 논문에서는 limited high quality data와 대량으로 활용할 수 있는 low quality data의 trade off를 고려하여 scaling law를 결정 — **_quality-quantity tradeoff (QQT)_**
+- 해당 논문에서는 limited high quality data와 대량으로 활용할 수 있는 low quality data의 trade off를 고려하여 scaling law를 결정 — ***quality-quantity tradeoff (QQT)***
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-04-13-scaling-laws-for-data-filtering-data-curation-cannot/image_001.png" class="img-fluid rounded z-depth-1" %}
 
@@ -179,11 +178,11 @@ _“our methodology does not involve training on combinations of data pools even
 
   - y는 validation set에서의 loss와 같은 metric
 
-  - 직관적으로, b는 더 많은 데이터를 볼수록 성능 향상 폭이 줄어드는 것을 나타내며, 동시에 데이터 풀 자체의 utility를 모델링함 - b 값이 낮을수록 utility가 높다는 것을 의미함
+  - 직관적으로, b는 더 많은 데이터를 볼수록 성능 향상 폭이 줄어드는 것을 나타내며, 동시에 데이터 풀 자체의 utility를 모델링함 - b 값이 낮을수록 utility가 높다는 것을 의미함 
 
   - a는 정규화 상수이며 d는 무한 학습 후의 최소 오차를 추정함
 
-    - n개 샘플로 학습 후의 손실을 추정하는 대신, 학습 중 어떤 시점에서의 샘플의 순간 utility를 고려할 수 있음
+    -  n개 샘플로 학습 후의 손실을 추정하는 대신, 학습 중 어떤 시점에서의 샘플의 순간 utility를 고려할 수 있음
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-04-13-scaling-laws-for-data-filtering-data-curation-cannot/image_003.png" class="img-fluid rounded z-depth-1" %}
 
@@ -197,13 +196,13 @@ _“our methodology does not involve training on combinations of data pools even
 
   - tau값이 클수록 utility가 느리게 감소
 
-  - delta는 utility 함수를 간략하게 나타내기 위해 사용됨
+  - delta는 utility 함수를 간략하게 나타내기 위해 사용됨 
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-04-13-scaling-laws-for-data-filtering-data-curation-cannot/image_004.png" class="img-fluid rounded z-depth-1" %}
 
-- k번씩 n개 샘플을 본 후의 모델 손실에 대한 closed form은 아래와 같음
+-  k번씩 n개 샘플을 본 후의 모델 손실에 대한 closed form은 아래와 같음
 
-- n_j는 j번째 epoch 학습 후 본 샘플 수
+  - n_j는 j번째 epoch 학습 후 본 샘플 수
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-04-13-scaling-laws-for-data-filtering-data-curation-cannot/image_005.png" class="img-fluid rounded z-depth-1" %}
 
@@ -227,15 +226,15 @@ _“our methodology does not involve training on combinations of data pools even
 
 - 대규모 학습은 여러개의 data bucket의 조합에 대해 수행됨
 
-- 어떻게 효과적으로 데이터 믹스의 손실을 추정할 수 있을까?
+- 어떻게 효과적으로 데이터 믹스의 손실을 추정할 수 있을까? 
 
   - 이를 추정하기 위해 여러가지 data mix에 대한 평균 오차를 활용함
 
-Theorem 1.
+Theorem 1. 
 
 - p개의 데이터 pool S_1^n . . . S_p^n이 무작위로 균일하게 샘플링되었을 때, 각각의 utility 및 반복 파라미터가 (b_1, τ_1) . . . (b_p, τ_p)로 주어진다면, 각 bucket의 새로운 repetition half-life 는 τ̂ = p · τ
 
-- 추가로 k번째 반복에서 조합된 pool의 utility 값 b\_(eff)^((k))는 개별 utility 값의 가중 평균
+- 추가로 k번째 반복에서 조합된 pool의 utility 값 b_(eff)^((k))는 개별 utility 값의 가중 평균
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-04-13-scaling-laws-for-data-filtering-data-curation-cannot/image_006.png" class="img-fluid rounded z-depth-1" %}
 
@@ -243,7 +242,7 @@ Theorem 1.
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-04-13-scaling-laws-for-data-filtering-data-curation-cannot/image_007.png" class="img-fluid rounded z-depth-1" %}
 
-- Figure 4: T-MARS 점수를 데이터 utility 메트릭으로 사용하여 다양한 데이터 utility 풀에 대해 fitting된 scaling curve / (right) 다양한 데이터 풀의 epoch에 따른 utility 감소
+- Figure 4: T-MARS 점수를 데이터 utility 메트릭으로 사용하여 다양한 데이터 utility 풀에 대해 fitting된 scaling curve  /  (right) 다양한 데이터 풀의 epoch에 따른 utility 감소
 
   - Web data is heterogeneous and cannot be modeled by a single set of scaling parameters
 
@@ -265,14 +264,13 @@ Experiment setting
 
   - 상위 10%(가장 높은 점수를 가진 데이터 포인트 10%)
 
-  - 상위 10%-20%
+  - 상위 10%-20% 
 
-  - 상위 20%-30%
+  - 상위 20%-30% 
 
   - 상위 30%-40% 하위 집합
 
 ## 6. Results: Estimating the Scaling Laws for
-
 Data Combinations under QQT
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-04-13-scaling-laws-for-data-filtering-data-curation-cannot/image_008.png" class="img-fluid rounded z-depth-1" %}
@@ -313,9 +311,9 @@ Data Combinations under QQT
 
 - 따라서 논문의 저자들은 이전 연구의 모델들에 본 논문의 scaling law를 적용하여 성능을 예측하였음
 
-- Figure 6:
+- Figure 6: 
 
-  - 제안된 척도 법칙이 작은 사이즈의 문제뿐만 아니라 매우 큰 사이즈의 문제에도 잘 적용될 수 있음
+  - 제안된 척도 법칙이  작은 사이즈의 문제뿐만 아니라 매우 큰 사이즈의 문제에도 잘 적용될 수 있음
 
   - 데이터 반복에 따른 utility 감소를 고려하는 것이 정확한 성능 예측을 위해 중요함
 

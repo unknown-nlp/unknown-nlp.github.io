@@ -1,23 +1,22 @@
 ---
 categories:
-  - paper-reviews
-date: "2024-01-03 00:00:00"
+- paper-reviews
+date: '2024-01-03 00:00:00'
 description: 논문 리뷰 - LLM, Library 관련 연구
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-  - attention
-  - library
-  - llm
-  - paper-review
-  - transformer
+- attention
+- library
+- llm
+- paper-review
+- transformer
 thumbnail: assets/img/posts/2024-01-03-vllm-easy-fast-and-cheap-llm-serving-with/thumbnail.jpg
-title: "vLLM: Easy, Fast, and Cheap LLM Serving with PagedAttention"
+title: 'vLLM: Easy, Fast, and Cheap LLM Serving with PagedAttention'
 ---
 
 **논문 정보**
-
 - **Date**: 2024-01-03
 - **Reviewer**: hyowon Cho
 - **Property**: LLM, Library
@@ -47,10 +46,10 @@ Transformers는 분당 1자리수 정도의 요청만 처리할 수 있지만, v
 autoregressive decoding 과정에서 LLM의 모든 입력 토큰은 어텐션 key와 value 텐서를 생성하며, 이러한 텐서는 다음 토큰을 생성하기 위해 GPU 메모리에 유지된다. 이 캐시된 key와 value 텐서는 일반적으로 KV 캐시라고 불린다. KV 캐시는 다음과 같은 특징을 가지고 있다.
 
 - 크기가 매우 크다:
-  LLaMA-13B의 단일 시퀀스에 대해 최대 1.7GB의 공간을 차지한다.
+LLaMA-13B의 단일 시퀀스에 대해 최대 1.7GB의 공간을 차지한다.
 
 - 동적이다:
-  KV캐시의 사이즈는 문장의 길이에 의지한다. 하지만, 대규모 언어 모델이 얼마나 문장을 출력할지 예측할 수 없기 때문에, 메모리의 효율적인 관리가 어렵다. 기존 시스템에서는 fragmentation과 over-reservation으로 인해 메모리의 60%에서 80%가 낭비된다.
+KV캐시의 사이즈는 문장의 길이에 의지한다. 하지만, 대규모 언어 모델이 얼마나 문장을 출력할지 예측할 수 없기 때문에, 메모리의 효율적인 관리가 어렵다. 기존 시스템에서는 fragmentation과 over-reservation으로 인해 메모리의 60%에서 80%가 낭비된다.
 
 이 문제를 해결하기 위해 연구진은 OS의 가상 메모리와 페이징 구조를 참고하여 어텐션 계산시 효율적으로 메모리를 취급할 수 있는 구조인 **PagedAttention**을 개발한다.
 
@@ -80,19 +79,21 @@ block은 메모리에서 연속적이지 않아도 되기 때문에, 우리는 O
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-01-03-vllm-easy-fast-and-cheap-llm-serving-with/image_008.png" class="img-fluid rounded z-depth-1" %}
 
-{% include figure.liquid loading="eager" path="assets/img/posts/2024-01-03-vllm-easy-fast-and-cheap-llm-serving-with/image_009.png" class="img-fluid rounded z-depth-1" %}
+![Image](https://i.imgur.com/G0nL2mc.png)
 
 필요에 따라 새로운 메모리 블록이 할당되는 과정. PagedAttention에서는 메모리 낭비가 시퀀스의 마지막 블록에서만 발생. 이렇게 함으로써 점유 후 낭비되는 메모리의 양을 1블록 이내에 담을 수 있다. 실제로 이는 거의 최적의 메모리 사용률을 보장하여 약 4% 미만의 낭비만 발생한다.
 
 메모리 효율이 향상되어 동시에 많은 요청을 일괄 처리할 수 있어, GPU의 사용 효율이 향상되고 처리 속도의 개선으로 이어진 것이다.
 
-{% include figure.liquid loading="eager" path="assets/img/posts/2024-01-03-vllm-easy-fast-and-cheap-llm-serving-with/image_010.gif" class="img-fluid rounded z-depth-1" %}
+{% include figure.liquid loading="eager" path="assets/img/posts/2024-01-03-vllm-easy-fast-and-cheap-llm-serving-with/image_009.gif" class="img-fluid rounded z-depth-1" %}
 
 PagedAttention의 또 다른 주요한 이점은 **효율적인 메모리 공유**이다. 예를 들어, 병렬 샘플링에서는 동일한 프롬프트로부터 여러 개의 출력 시퀀스가 생성되는데, 이 경우, 프롬프트에 대한 연산과 메모리는 출력 시퀀스들 사이에서 공유될 수 있다. 즉, PagedAttention을 사용하면 여러 출력을 동시에 처리할 때 메모리 효율성을 높일 수 있다.
 
 구체적으로는, 프로세스가 physical page를 공유하는 것과 유사하게, PagedAttention에서는 메모리 블록 단위로 공통되는 부분의 참조를 같은 physical block으로 하는 것으로, 같은 내용을 중복해서 여러 번 메모리에 보존해 버리는 문제를 해소하고 있다. 또, 생성 시에는 피참조의 수를 확인해, 복수의 참조가 있는 경우에는 새로운 블록에 내용을 카피해 기입을 실시하는 것으로 트러블을 막을 수 있도록 한다.
 
 - Copy-on-Write
+
+{% include figure.liquid loading="eager" path="assets/img/posts/2024-01-03-vllm-easy-fast-and-cheap-llm-serving-with/image_010.png" class="img-fluid rounded z-depth-1" %}
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-01-03-vllm-easy-fast-and-cheap-llm-serving-with/image_011.png" class="img-fluid rounded z-depth-1" %}
 
@@ -110,8 +111,6 @@ PagedAttention의 또 다른 주요한 이점은 **효율적인 메모리 공유
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-01-03-vllm-easy-fast-and-cheap-llm-serving-with/image_018.png" class="img-fluid rounded z-depth-1" %}
 
-{% include figure.liquid loading="eager" path="assets/img/posts/2024-01-03-vllm-easy-fast-and-cheap-llm-serving-with/image_019.png" class="img-fluid rounded z-depth-1" %}
-
 PagedAttention의 메모리 공유는 병렬 샘플링과 빔 서치와 같은 복잡한 샘플링 알고리즘의 메모리 오버헤드를 크게 줄인다. 이로 인해 메모리 사용량이 최대 55%까지 감소할 수 있으며, 이는 최대 2.2배의 처리량 향상으로 이어질 수 있다.
 
 ## The Silent Hero Behind LMSYS Vicuna and Chatbot Arena
@@ -122,7 +121,7 @@ vLLM을 이용함으로써 GPU의 필요를 50% 삭감한 것 외에도 매일 3
 
 ## Currently Supported Models
 
-{% include figure.liquid loading="eager" path="assets/img/posts/2024-01-03-vllm-easy-fast-and-cheap-llm-serving-with/image_020.png" class="img-fluid rounded z-depth-1" %}
+{% include figure.liquid loading="eager" path="assets/img/posts/2024-01-03-vllm-easy-fast-and-cheap-llm-serving-with/image_019.png" class="img-fluid rounded z-depth-1" %}
 
 ## Get started with vLLM
 

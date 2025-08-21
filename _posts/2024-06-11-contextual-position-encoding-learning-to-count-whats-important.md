@@ -1,46 +1,47 @@
 ---
 categories:
-  - paper-reviews
-date: "2024-06-11 00:00:00"
+- paper-reviews
+date: '2024-06-11 00:00:00'
 description: 논문 리뷰 - Natural Language Generation 관련 연구
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-  - attention
-  - embedding
-  - gpt
-  - language-model
-  - llm
-  - natural language generation
-  - paper-review
+- attention
+- embedding
+- gpt
+- language-model
+- llm
+- natural language generation
+- paper-review
 thumbnail: assets/img/posts/2024-06-11-contextual-position-encoding-learning-to-count-whats-important/thumbnail.jpg
-title: "Contextual Position Encoding: Learning to Count What’s Important"
+title: 'Contextual Position Encoding: Learning to Count What’s Important'
 ---
 
 **논문 정보**
-
 - **Date**: 2024-06-11
 - **Reviewer**: 김재희
 - **Property**: Natural Language Generation
 
+
 ---
+
 
 ---
 
 ## 1. Intro
 
-- Positional Encoding: Self Attn 시 처리되는 각 토큰들에 대해 위치 정보를 삽입하는 것
+- Positional Encoding: Self Attn 시 처리되는 각 토큰들에 대해 위치 정보를 삽입하는 것 
 
 - 왜 필요하쥬?
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-06-11-contextual-position-encoding-learning-to-count-whats-important/image_000.png" class="img-fluid rounded z-depth-1" %}
 
-- 단순 Attention Mechanism: 토큰 간의 유사도만 비교하여 사용
+  - 단순 Attention Mechanism: 토큰 간의 유사도만 비교하여 사용
 
 → query or key 토큰의 위치와 관계없이 항상 동일한 값이 생성되게 됨
 
-ex) aaaa**b**aaa**b\*\***b : **더 가까운 **b** 토큰에 높은 attn이 부여되어야 하지만, PE가 없다면, 더 먼 **b\*\*와 동일한 attn이 부여되게 됨.
+ex) aaaa**b**aaa**b****b : **더 가까운 **b** 토큰에 높은 attn이 부여되어야 하지만, PE가 없다면, 더 먼 **b**와 동일한 attn이 부여되게 됨. 
 
 - Absolute PE: Attention is All You Need 방식
 
@@ -50,11 +51,11 @@ ex) aaaa**b**aaa**b\*\***b : **더 가까운 **b** 토큰에 높은 attn이 부�
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-06-11-contextual-position-encoding-learning-to-count-whats-important/image_001.png" class="img-fluid rounded z-depth-1" %}
 
-- 두 토큰의 representation에 위치 정보를 삽입 X
+  - 두 토큰의 representation에 위치 정보를 삽입 X
 
-- Attn 시 Query와 Key 토큰의 **거리 차**만큼 거리 정보를 삽입
+  - Attn 시 Query와 Key 토큰의 **거리 차**만큼 거리 정보를 삽입
 
-- 위치 정보: 두 토큰의 실제 정보와 관계없이 생성됨, Embedding Vector
+  - 위치 정보: 두 토큰의 실제 정보와 관계없이 생성됨, Embedding Vector
 
 - Rotary PE: 더 최근에 많이 사용되는 방식
 
@@ -68,7 +69,7 @@ ex) aaaa**b**aaa**b\*\***b : **더 가까운 **b** 토큰에 높은 attn이 부�
 
 sequence: yyyy**x**yy**y** → x
 
-- 마지막 시점에서 query에 대해 두 토큰 **x**와 **y**에 대한 token의 attention 관계
+- 마지막 시점에서 query에 대해 두 토큰 **x**와 **y**에 대한 token의 attention 관계 
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-06-11-contextual-position-encoding-learning-to-count-whats-important/image_002.png" class="img-fluid rounded z-depth-1" %}
 
@@ -76,7 +77,7 @@ sequence: yyyy**x**yy**y** → x
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-06-11-contextual-position-encoding-learning-to-count-whats-important/image_003.png" class="img-fluid rounded z-depth-1" %}
 
-- query에 대해서 **x**와 **y**가 가지는 attention의 비
+- query에 대해서 **x**와 **y**가 가지는 attention의 비 
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-06-11-contextual-position-encoding-learning-to-count-whats-important/image_004.png" class="img-fluid rounded z-depth-1" %}
 
@@ -88,11 +89,11 @@ sequence: yyyy**x**yy**y** → x
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-06-11-contextual-position-encoding-learning-to-count-whats-important/image_006.png" class="img-fluid rounded z-depth-1" %}
 
-→ i > \Delta / \delta 일때, 여전히 마지막 시점의 토큰(y)에 대해 높은 값을 가지게 됨을 알 수 있음.
+→ i > \Delta / \delta 일때, 여전히 마지막 시점의 토큰(y)에 대해 높은 값을 가지게 됨을 알 수 있음. 
 
 ⇒ position과 token 정보를 각기 생성하여 합치는 과정에서 문제 발생
 
-⇒ attn에 있어 위치 정보가 토큰 정보보다 많은 영향을 미치게 되면, 실제 생성해야 하는 토큰의 정보가 아니라, 단순히 가까운 토큰의 정보를 더 많이 attn하게 됨.
+⇒ attn에 있어 위치 정보가 토큰 정보보다 많은 영향을 미치게 되면, 실제 생성해야 하는 토큰의 정보가 아니라, 단순히 가까운 토큰의 정보를 더 많이 attn하게 됨. 
 
 ### Toy Experiments on Current LLM
 
@@ -140,11 +141,11 @@ sequence: yyyy**x**yy**y** → x
 
 → 실제 query key를 이용한 attn 계산 시 이미 계산된 값, 추가연산 X
 
-- gate computation: gate로서 sigmoid를 이용하여 연산량 발생
+  - gate computation: gate로서 sigmoid를 이용하여 연산량 발생
 
 → softmax를 적용하면 simply reduce한다고 하는데 뭔 말인지 모르겠음…
 
-- Positional Embedding을 Lookup 하는 과정(e[p]): p_max 값을 줄여서 연산량 감소 가능
+  - Positional Embedding을 Lookup 하는 과정(e[p]): p_max 값을 줄여서 연산량 감소 가능
 
 → p_max: 기존 PE 방법론과 달리 CoPE는 토큰 길이 ≠ position의 갯수
 
@@ -198,7 +199,7 @@ sequence: yyyy**x**yy**y** → x
 
 - 입력 문장에 대해 이해하고 추론하는 능력 요구
 
-  - 생성 시 B 토큰에 대해 건너뛰고, 다음 토큰에 대해 attention을 부여해야 하기 때문.
+  - 생성 시 B 토큰에 대해 건너뛰고, 다음 토큰에 대해 attention을 부여해야 하기 때문. 
 
 - example: D**BB**CF**B**F**B**E → DCFFE
 
@@ -210,7 +211,7 @@ sequence: yyyy**x**yy**y** → x
 
 ### 실험결과
 
-- Absolute PE: OOD에 대해 제대로 추론하지 못하는 모습
+- Absolute PE: OOD에 대해 제대로 추론하지 못하는 모습 
 
 - RoPE: OOD에 대해 제대로 추론하지 못하는 모습
 
@@ -230,7 +231,7 @@ sequence: yyyy**x**yy**y** → x
 
   - CoPE의 maximum position encoding: 64
 
-→ 여러 토큰에 대해 동일한 position 부여가 가능하기 때문.
+→ 여러 토큰에 대해 동일한 position 부여가 가능하기 때문. 
 
 - Wikitext와 Code 모두에 대해 높은 성능 달성 확인
 
@@ -296,10 +297,10 @@ sequence: yyyy**x**yy**y** → x
 
 ### Limitations (재희)
 
-- RoPE 및 Relative Positional Embedding 대비 성능 개선 폭이 크지 않음.
+- RoPE 및 Relative Positional Embedding 대비 성능 개선 폭이 크지 않음. 
 
-- Long Context에 robust함을 보이기에는 최근 연구들 대비 실험한 text context length가 너무 짧음
+- Long Context에 robust함을 보이기에는 최근 연구들 대비 실험한 text context length가 너무 짧음 
 
   - 요새 1M도 실험하던데…
 
-- 실제 동작 여부는 아마 향후 llm 적용 등을 통해 확인할 수 있을듯.
+- 실제 동작 여부는 아마 향후 llm 적용 등을 통해 확인할 수 있을듯. 

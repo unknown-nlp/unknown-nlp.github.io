@@ -1,26 +1,25 @@
 ---
 categories:
-  - paper-reviews
-date: "2024-06-11 00:00:00"
+- paper-reviews
+date: '2024-06-11 00:00:00'
 description: 논문 리뷰 - LLM, Knowledge 관련 연구
 giscus_comments: true
 layout: post
 related_posts: false
 tags:
-  - alignment
-  - fine-tuning
-  - knowledge
-  - language-model
-  - llm
-  - paper-review
-  - pre-training
-  - rlhf
+- alignment
+- fine-tuning
+- knowledge
+- language-model
+- llm
+- paper-review
+- pre-training
+- rlhf
 thumbnail: assets/img/posts/2024-06-11-does-fine-tuning-llms-on-new-knowledge-encourage/thumbnail.jpg
 title: Does Fine-Tuning LLMs on New Knowledge Encourage Hallucinations?
 ---
 
 **논문 정보**
-
 - **Date**: 2024-06-11
 - **Reviewer**: 준원 장
 - **Property**: LLM, Knowledge
@@ -37,7 +36,7 @@ title: Does Fine-Tuning LLMs on New Knowledge Encourage Hallucinations?
 
 - SFT stage에서 human annotator에 의해서 model이 alignment를 배우기도 하는데, pre-training때 학습하지 않는 지식을 대답하도록 annotating이 될 수 있다.
 
-- 여기서 해당 논문의 RQ가 등장.
+- 여기서 해당 논문의 RQ가 등장. 
 
 ⇒ (1) 과연 모델이 이미 존재하지 않은 지식을 (2) (supervised) fine-tuning으로 학습할 경우 기존 모델이 가지고 있는 지식체계에 어떤 변화가 생길까?를 굉장히 체계적으로 분석한 논문.
 
@@ -73,7 +72,7 @@ title: Does Fine-Tuning LLMs on New Knowledge Encourage Hallucinations?
 
 - Training Pipeline
 
-  - M \rightarrow D=\{(q*{i},a*{i})\}_{i=1}^{N} \rightarrow M_{D}
+  - M \rightarrow D=\{(q_{i},a_{i})\}_{i=1}^{N} \rightarrow M_{D}
 
 - Model
 
@@ -85,7 +84,7 @@ title: Does Fine-Tuning LLMs on New Knowledge Encourage Hallucinations?
 
 ## 3. Quantifying Knowledge in LLMs
 
-- D=\{(q*{i},a*{i})\}\_{i=1}^{N}에 있는 데이터가 M이 알고 있는지 아닌지 판단하는 과정
+- D=\{(q_{i},a_{i})\}_{i=1}^{N}에 있는 데이터가 M이 알고 있는지 아닌지 판단하는 과정
 
 ### SLICK
 
@@ -95,25 +94,25 @@ title: Does Fine-Tuning LLMs on New Knowledge Encourage Hallucinations?
 
 1. temperature T 설정.
 
-1. 모델이 a를 제대로 맞출 확률 P\_{correct}(q,a;M;T) estimate
+1. 모델이 a를 제대로 맞출 확률 P_{correct}(q,a;M;T) estimate
 
-1. 각 example에 대해서 N\_{ex}=10번씩 estimate.
+  1. 각 example에 대해서 N_{ex}=10번씩 estimate.
 
-1. P\_{correct}(q,a;M;T=0)
+  1.  P_{correct}(q,a;M;T=0) 
 
-1. greedy answer
+    1. greedy answer
 
-1. P\_{correct}(q,a;M;T=0.5)
+  1.  P_{correct}(q,a;M;T=0.5) 
 
-1. highly logit에 더 높은 확률 주게 resampling
+    1. highly logit에 더 높은 확률 주게 resampling
 
-1. Top 40에서 N\_{sample}=16개를 sampling
+    1. Top 40에서 N_{sample}=16개를 sampling
 
-1. M \rightarrow D=\{(q*{i},a*{i})\}_{i=1}^{N} \rightarrow M_{D}
+    1. M \rightarrow D=\{(q_{i},a_{i})\}_{i=1}^{N} \rightarrow M_{D}
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-06-11-does-fine-tuning-llms-on-new-knowledge-encourage/image_000.png" class="img-fluid rounded z-depth-1" %}
 
-⇒ P\_{correct}(q,a;M;T) 로 knowledge 카테고리 분류
+⇒  P_{correct}(q,a;M;T) 로 knowledge 카테고리 분류
 
 - LM이 한번이라도 맞추면 Known, 아니면 Unknown으로 분류.
 
@@ -155,7 +154,7 @@ title: Does Fine-Tuning LLMs on New Knowledge Encourage Hallucinations?
 
 - 위의 실험에서는 (1) Unknown example이 정말 LM의 parametric knowledge와 discrepancy가 커서 performance degradation이 일어나는지 (2) Known example 수가 줄어듦에 따라 Neutral한 효과를 주는것인지 불분명
 
-- |D|에서 Unknown Example만 따로 빼서 D\_{known} 구축 후 fine-tuning, 실험결과 추가로 plotting
+- |D|에서 Unknown Example만 따로 빼서 D_{known} 구축 후 fine-tuning, 실험결과 추가로 plotting
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-06-11-does-fine-tuning-llms-on-new-knowledge-encourage/image_004.png" class="img-fluid rounded z-depth-1" %}
 
@@ -163,7 +162,7 @@ title: Does Fine-Tuning LLMs on New Knowledge Encourage Hallucinations?
 
 - Convergence할 경우 Unknown Example은 harmful한 효과를 가져옴
 
-- Early Stop ↔ Convergence의 gap이 D\_{known}보다 D에서 더 큰데, 이를 통해 Unknown sample이 overfitting에 취약함을 알 수 있다.
+- Early Stop ↔ Convergence의 gap이 D_{known}보다 D에서 더 큰데, 이를 통해 Unknown sample이 overfitting에 취약함을 알 수 있다.
 
 **#### Unknown Examples are Fitted Slower than Known Examples**
 
@@ -205,17 +204,17 @@ title: Does Fine-Tuning LLMs on New Knowledge Encourage Hallucinations?
 
 1. 각 training sample의 knowledge 카테고리가 test performance에 어떻게 영향을 미치는가?
 
-1. 2.에서 구축한 카테고리 별로 나눠서 gap이 D\_{CAT}
+  1. 2.에서 구축한 카테고리 별로 나눠서 gap이 D_{CAT}
 
-1. ENTITYQUESTION의 natural distribution 따르는 D\_{natural}
+  1. ENTITYQUESTION의 natural distribution 따르는 D_{natural}
 
 1. 각 test examples 카테고리별로 다를까?
 
-1. test example도 2.처럼 분류함
+  1. test example도 2.처럼 분류함
 
 {% include figure.liquid loading="eager" path="assets/img/posts/2024-06-11-does-fine-tuning-llms-on-new-knowledge-encourage/image_011.png" class="img-fluid rounded z-depth-1" %}
 
-- Highlyknown으로만 학습하는게 가장 좋을것 같지만, Highlyknown한 disjoint test에서만 가장 성능이 좋다.
+- Highlyknown으로만 학습하는게 가장 좋을것 같지만, Highlyknown한 disjoint test에서만 가장 성능이 좋다. 
 
 - 의외로 Maybeknown이라고 판정받은 training dataset으로 학습하는게 (Highly, Maybe) 전반적으로 가장 성능이 좋다.
 
@@ -223,10 +222,10 @@ title: Does Fine-Tuning LLMs on New Knowledge Encourage Hallucinations?
 
 (Unknown으로 학습후도 disjoint test set의 Unknown이 낮아야 disjoint test에 대한 실험 타당성을 이야기할 수 있는데 장표를 보면 낮음(3.2%)
 
-- 같은 이야기지만 D*{natural}이 D*{maybeknown}에 비해서 EarlyStop 이후에 수직낙하하는 것을 D*{natural}에 Weakly Known과 Unknown되어 있기 때문이라고 설명하며, D*{maybeknown}이 overfitting 방지와 top performance에 좋다고 이야기함.
+- 같은 이야기지만 D_{natural}이 D_{maybeknown}에 비해서 EarlyStop 이후에 수직낙하하는 것을 D_{natural}에 Weakly Known과 Unknown되어 있기 때문이라고 설명하며, D_{maybeknown}이 overfitting 방지와 top performance에 좋다고 이야기함.
 
 ## 6. Conclusion
 
-- superficial hypothesis에 따르면 LLM이 지식을 pre-training때 학습하고 SFT는 단순 alignment를 학습한다고 주장 (LIMA).
+- superficial hypothesis에 따르면 LLM이 지식을 pre-training때 학습하고 SFT는 단순 alignment를 학습한다고 주장 (LIMA). 
 
 - 여기에 더해 LM이 UNK Example에 대해서 학습하기 어렵다는 것, Highlyknown을 추가적으로 학습하는게 suboptimal utilization으로 어이진다는 밝혀냄으로, superficial hypothesis에 힘을 실어 SFT 데이터를 구축할때 LM의 pre-existing KG를 고려할 것을 강조.
