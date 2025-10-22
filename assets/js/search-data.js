@@ -44,7 +44,18 @@ ninja.data = [{
               handler: () => {
                 window.location.href = "/blog/";
               },
-            },{id: "post-spurious-rewards-rethinking-training-signals-in-rlvr",
+            },{id: "post-simpo-simple-preference-optimization-with-a-reference-free-reward",
+        
+          title: "SimPO: Simple Preference Optimization with a Reference-Free Reward",
+        
+        description: "논문 리뷰",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2025/simpo-simple-preference-optimization-with-a-reference-free/";
+          
+        },
+      },{id: "post-spurious-rewards-rethinking-training-signals-in-rlvr",
         
           title: "Spurious Rewards: Rethinking Training Signals in RLVR",
         
